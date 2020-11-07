@@ -1,10 +1,9 @@
 package Messenger.Foundation;
 
 import Messenger.Foundation.Contracts.ApplicationContract;
-import Messenger.Foundation.Console.Console;
-import Messenger.GUI.GraphicThread;
+import Messenger.Foundation.System.Console.Console;
 import Messenger.GUI.Screens.Screen;
-
+import Messenger.GUI.GraphicThread;
 import javax.swing.*;
 
 /**

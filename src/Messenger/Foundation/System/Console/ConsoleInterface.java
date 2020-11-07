@@ -1,4 +1,4 @@
-package Messenger.Foundation.Console;
+package Messenger.Foundation.System.Console;
 
 /**
  * @author Damien MOLINA
