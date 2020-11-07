@@ -1,9 +1,8 @@
 package Messenger;
 
-import Messenger.application.Application;
-import Messenger.application.ApplicationMode;
-import Messenger.gui.screens.Screen;
-import Messenger.gui.screens.Window;
+import Messenger.Foundation.Application;
+import Messenger.GUI.Screens.Screen;
+import Messenger.GUI.Screens.Window;
 
 /**
  * @author Damien MOLINA
@@ -21,7 +20,7 @@ public class Messenger extends Application {
     private static final String NAME = "Java Messenger" ;
 
     /**
-     * Current application mode.
+     * Environment application mode.
      */
     private static final ApplicationMode mode = ApplicationMode.DEBUG ;
 
