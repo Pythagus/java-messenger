@@ -1,4 +1,4 @@
-package Messenger.Foundation.System.Sound;
+package Messenger.Foundation.System.Assets.Sounds;
 
 /**
  * @author Damien MOLINA
@@ -8,7 +8,7 @@ public interface SoundContract {
     /**
      * File root to access sounds.
      */
-    String FILE_ROOT = "/Messenger/Resources/Sounds/" ;
+    String FILE_ROOT = "/Messenger/Assets/Sounds/";
 
     /**
      * Start the sound.

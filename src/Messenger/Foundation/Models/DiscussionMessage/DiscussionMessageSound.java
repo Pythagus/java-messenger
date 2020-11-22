@@ -1,6 +1,6 @@
-package Messenger.Foundation.Objects.DiscussionMessage;
+package Messenger.Foundation.Models.DiscussionMessage;
 
-import Messenger.Foundation.System.Sound.SoundThread;
+import Messenger.Foundation.System.Assets.Sounds.SoundThread;
 
 /**
  * @author Damien MOLINA

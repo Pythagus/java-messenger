@@ -1,6 +1,6 @@
 package Messenger.GUI;
 
-import Messenger.GUI.Factories.GraphicImageFactory;
+import Messenger.Foundation.System.Assets.Images.Image;
 import Messenger.Foundation.Environment;
 import Messenger.GUI.Layout.TitleBar;
 import Messenger.GUI.Screens.Screen;
@@ -44,7 +44,7 @@ public class Frame extends JFrame {
         this.setTitle(Environment.getApplication().getName()) ;
         this.setLocationByPlatform(true) ;
         this.setUndecorated(true) ;
-        this.setIconImage(new ImageIcon(GraphicImageFactory.logo()).getImage()) ;
+        this.setIconImage(Image.logoAsImageIcon().getImage()) ;
     }
 
     /**

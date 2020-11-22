@@ -1,6 +1,6 @@
 package Messenger.GUI.Layout.Items;
 
-import Messenger.GUI.Factories.GraphicImageFactory;
+import Messenger.Foundation.System.Assets.Images.Image;
 import javax.swing.*;
 import java.awt.*;
 
@@ -56,7 +56,7 @@ public class uiDiscussionHeader extends JPanel {
         JLabel logo = new JLabel() ;
         logo.setHorizontalAlignment(SwingConstants.CENTER) ;
         logo.setIcon(
-                GraphicImageFactory.asImageIcon("TODELETE/francois_hollande.png")
+            Image.asImageIcon("TODELETE/francois_hollande.png")
         ) ;
         logo.setHorizontalTextPosition(SwingConstants.CENTER) ;
 

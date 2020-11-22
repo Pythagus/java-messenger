@@ -1,4 +1,4 @@
-package Messenger.Foundation.System.Sound;
+package Messenger.Foundation.System.Assets.Sounds;
 
 /**
  * @author Damien MOLINA

@@ -1,6 +1,6 @@
 package Messenger.GUI.Layout;
 
-import Messenger.GUI.Factories.GraphicImageFactory;
+import Messenger.Foundation.System.Assets.Images.Image;
 import Messenger.GUI.Factories.ButtonFactory;
 import java.util.function.Consumer;
 import java.awt.event.ActionEvent;
@@ -14,7 +14,7 @@ import java.awt.*;
  * @author Damien MOLINA
  */
 public class SideBar extends JPanel {
-    
+
     // Main sidebar color.
     public static final Color backgroundColor = new Color(255, 255, 255) ;
 
@@ -63,7 +63,7 @@ public class SideBar extends JPanel {
 
         // Add the icon.
         logo.add(
-                this.graphicImagedButton("logo.jpg", this::onMessageButtonClick), BorderLayout.CENTER
+            this.graphicImagedButton("logo.jpg", this::onMessageButtonClick), BorderLayout.CENTER
         ) ;
 
         return logo ;
@@ -82,7 +82,7 @@ public class SideBar extends JPanel {
 
         // Add the icon.
         settings.add(
-                this.graphicImagedButton("sidebar/button_settings.png", this::onSettingsButtonClick), BorderLayout.CENTER
+            this.graphicImagedButton("sidebar/button_settings.png", this::onSettingsButtonClick), BorderLayout.CENTER
         ) ;
 
         return settings ;
@@ -118,7 +118,7 @@ public class SideBar extends JPanel {
     private JButton graphicImagedButton(String file, Consumer<ActionEvent> callable) {
         JButton button = ButtonFactory.withoutBorder(SideBar.backgroundColor) ;
 
-        button.setIcon(GraphicImageFactory.asImageIcon(file)) ;
+        button.setIcon(Image.asImageIcon(file)) ;
         button.setMaximumSize(new Dimension(80, 80)) ;
         button.setMinimumSize(new Dimension(80, 28)) ;
         button.setPreferredSize(new Dimension(50, 50)) ;

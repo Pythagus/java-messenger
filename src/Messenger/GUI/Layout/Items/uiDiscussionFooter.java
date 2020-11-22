@@ -1,7 +1,7 @@
 package Messenger.GUI.Layout.Items;
 
+import Messenger.Foundation.System.Assets.Images.Image;
 import Messenger.GUI.Factories.ButtonFactory;
-import Messenger.GUI.Factories.GraphicImageFactory;
 import javax.swing.*;
 import java.awt.*;
 
@@ -63,7 +63,7 @@ public class uiDiscussionFooter extends JPanel {
     private JButton graphicFileButton() {
         JButton btn = ButtonFactory.withoutBorder(uiDiscussion.backgroundColor) ;
         btn.setIcon(
-                GraphicImageFactory.asImageIcon("discussion/file_button.png")
+            Image.asImageIcon("discussion/file_button.png")
         ) ;
 
         return btn ;
@@ -77,7 +77,7 @@ public class uiDiscussionFooter extends JPanel {
     private JButton graphicSendingButton() {
         JButton btn = ButtonFactory.withoutBorder(uiDiscussion.backgroundColor) ;
         btn.setIcon(
-                GraphicImageFactory.asImageIcon("discussion/send_button.png")
+            Image.asImageIcon("discussion/send_button.png")
         ) ;
         btn.addActionListener(Unused -> this.input.sendInputContent()) ;
 

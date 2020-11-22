@@ -1,7 +1,7 @@
 package Messenger.GUI.Layout.Items;
 
+import Messenger.Foundation.System.Assets.Images.Image;
 import Messenger.GUI.Factories.ButtonFactory;
-import Messenger.GUI.Factories.GraphicImageFactory;
 import javax.swing.*;
 import java.awt.*;
 
@@ -144,7 +144,7 @@ public class uiDiscussionMessage extends JPanel {
     private JPanel graphicMessageContainer() {
         JPanel container = new JPanel() ;
         container.setBorder(
-                BorderFactory.createMatteBorder(10, 10, 10, 10, this.getBackgroundColor())
+            BorderFactory.createMatteBorder(10, 10, 10, 10, this.getBackgroundColor())
         ) ;
         container.setBackground(this.getBackgroundColor()) ;
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS)) ;
@@ -185,10 +185,10 @@ public class uiDiscussionMessage extends JPanel {
 
         JLabel label = new JLabel() ;
         label.setBorder(
-                BorderFactory.createEmptyBorder(10,0,0,0)
+            BorderFactory.createEmptyBorder(10,0,0,0)
         );
         label.setFont(
-                new Font(null, Font.PLAIN, 9)
+            new Font(null, Font.PLAIN, 9)
         ) ;
         label.setText("8 min. ago") ;
         label.setVerticalTextPosition(SwingConstants.TOP) ;
@@ -210,12 +210,12 @@ public class uiDiscussionMessage extends JPanel {
         container.setPreferredSize(new Dimension(50, 50)) ;
         container.setLayout(new BorderLayout()) ;
         container.setBorder(
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)
         ) ;
 
         JLabel avatar = new JLabel() ;
         ImageIcon imageIcon = new ImageIcon(
-                GraphicImageFactory.asImageIcon("TODELETE/francois_hollande.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)
+            Image.asImageIcon("TODELETE/francois_hollande.png").getImage().getScaledInstance(30, 30, 1)
         ) ;
         avatar.setIcon(imageIcon) ;
         avatar.setVerticalAlignment(SwingConstants.BOTTOM) ;

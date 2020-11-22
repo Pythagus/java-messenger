@@ -1,6 +1,6 @@
 package Messenger.GUI.Layout.Items;
 
-import Messenger.GUI.Factories.GraphicImageFactory;
+import Messenger.Foundation.System.Assets.Images.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
@@ -84,7 +84,7 @@ public class uiDiscussionItem extends JPanel {
         JLabel label = new JLabel() ;
         label.setHorizontalAlignment(SwingConstants.CENTER) ;
         label.setIcon(
-                GraphicImageFactory.asImageIcon("TODELETE/" + this.picture)
+            Image.asImageIcon("TODELETE/" + this.picture)
         ) ;
         label.setHorizontalTextPosition(SwingConstants.CENTER) ;
         label.setMinimumSize(new Dimension(80, 44)) ;

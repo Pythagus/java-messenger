@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.util.function.Consumer;
 import java.awt.event.MouseMotionAdapter;
-import Messenger.GUI.Factories.GraphicImageFactory;
+import Messenger.Foundation.System.Assets.Images.Image;
 
 /**
  * Main navigation bar with minimize, maximize,
@@ -156,7 +156,7 @@ public class TitleBar extends JPanel {
         JLabel button = new JLabel();
 
         button.setIcon(
-                GraphicImageFactory.asImageIcon("titlebar/" + file)
+            Image.asImageIcon("titlebar/" + file)
         ) ;
         button.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
@@ -192,7 +192,7 @@ public class TitleBar extends JPanel {
         }
 
         this.frame.setLocation(
-                evt.getXOnScreen() - this.position.x, evt.getYOnScreen() - this.position.y
+            evt.getXOnScreen() - this.position.x, evt.getYOnScreen() - this.position.y
         ) ;
     }
 
