@@ -1,8 +1,8 @@
 package Messenger;
 
-import Messenger.Foundation.Application;
 import Messenger.GUI.Screens.Screen;
-import Messenger.GUI.Screens.Window;
+import Messenger.GUI.Screens.uiWindow;
+import Messenger.Foundation.Application;
 
 /**
  * @author Damien MOLINA
@@ -57,9 +57,8 @@ public class Messenger extends Application {
      * @return a Screen instance.
      */
     protected Screen getStartingScreen() {
-        //TODO : check in cookies if a previous session is still available.
         //TODO : return login screen.
-        return new Window() ;
+        return new uiWindow() ;
     }
 
 }

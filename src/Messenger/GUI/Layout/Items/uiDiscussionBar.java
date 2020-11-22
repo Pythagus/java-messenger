@@ -1,7 +1,8 @@
 package Messenger.GUI.Layout.Items;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import java.util.Arrays;
 
 /**
  * @author Damien MOLINA
@@ -11,10 +12,15 @@ public class uiDiscussionBar extends JPanel {
     // Bar main color.
     public static final Color backgroundColor = new Color(245, 246, 245) ;
 
+    // List of the discussions.
+    private final JPanel list ;
+
     /**
      * Make a new instance of the conversation bar.
      */
     public uiDiscussionBar() {
+        this.list = this.graphicList() ;
+
         this.initializeComponentGraphics() ;
     }
 
@@ -29,6 +35,19 @@ public class uiDiscussionBar extends JPanel {
 
         // Add the list.
         this.add(this.graphicScrollPane(), BorderLayout.CENTER) ;
+    }
+
+    /**
+     * Add the given item to the discussion items list.
+     *
+     * @param item : uiDiscussionItem instance.
+     */
+    public void addDiscussionItem(uiDiscussionItem item) {
+        System.out.println("here");
+        this.list.add(item) ;
+
+        this.list.revalidate() ;
+        this.list.repaint() ;
     }
 
     /**
@@ -82,7 +101,7 @@ public class uiDiscussionBar extends JPanel {
         pane.setBackground(uiDiscussionBar.backgroundColor) ;
 
         // Add the panel.
-        pane.setViewportView(this.graphicList()) ;
+        pane.setViewportView(this.list) ;
 
         return pane ;
     }
@@ -98,13 +117,6 @@ public class uiDiscussionBar extends JPanel {
         list.setPreferredSize(new Dimension(42, 705)) ;
         list.setBorder(null) ;
         list.setBackground(uiDiscussionBar.backgroundColor) ;
-        
-        uiDiscussionItem conv = new uiDiscussionItem(42, "francois_hollande.png", "Damien Molina",
-                "Hey, comment tu vas ? Je vais bien, merci. Je veux juste savoir si l'overflow se passe bien") ;
-        uiDiscussionItem conv2 = new uiDiscussionItem(43, "francois_hollande.png", "Damien Molina", "Hey, comment tu vas ?") ;
-
-        list.add(conv) ;
-        list.add(conv2) ;
 
         return list ;
     }

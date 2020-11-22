@@ -1,9 +1,10 @@
 package Messenger.GUI.Layout;
 
 import Messenger.GUI.Layout.Items.uiDiscussion;
-
+import Messenger.GUI.Subscreens.uiSettings;
+import Messenger.GUI.Subscreens.SubScreen;
+import java.util.HashMap;
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * @author Damien MOLINA
@@ -11,10 +12,29 @@ import java.awt.*;
 public class RightSide extends JPanel {
 
     /**
+     * Current subScreen.
+     */
+    private SubScreen subScreen ;
+
+    /**
+     * List of added subScreen.
+     */
+    private final HashMap<SubScreenType, SubScreen> subScreenList ;
+
+    /**
+     * Available subScreen types.
+     */
+    public enum SubScreenType {
+        Discussion, Settings
+    }
+
+    /**
      * Make a new instance of the
      * right side panel.
      */
     public RightSide() {
+        this.subScreenList = new HashMap<>() ;
+
         this.initializeComponentGraphics() ;
     }
 
@@ -24,29 +44,58 @@ public class RightSide extends JPanel {
     private void initializeComponentGraphics() {
         this.setLayout(new OverlayLayout(this)) ;
 
-        this.add(new uiDiscussion()) ;
-        this.add(this.settings()) ; //TODO : to remove
+        this.addSubScreen(SubScreenType.Discussion, new uiDiscussion()) ;
+        this.addSubScreen(SubScreenType.Settings, new uiSettings()) ;
+
+        //TODO
+        this.activeSubScreen(SubScreenType.Discussion) ;
     }
 
+    /**
+     * Active the given subScreen.
+     *
+     * @param type : subScreen type.
+     */
+    public void activeSubScreen(SubScreenType type) {
+        if(this.subScreen != null) {
+            this.subScreen.setVisible(false) ;
+        }
 
-    //TODO : to remove
-    private JPanel settings() {
-        JPanel settings = new JPanel() ;
-        settings.setBackground(new Color(178, 103, 49));
-        settings.setEnabled(false);
+        this.subScreen = this.getSubScreen(type) ;
+        this.subScreen.setVisible(true) ;
+    }
 
-        GroupLayout settingsLayout = new GroupLayout(settings);
-        settings.setLayout(settingsLayout);
-        settingsLayout.setHorizontalGroup(
-                settingsLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 678, Short.MAX_VALUE)
-        );
-        settingsLayout.setVerticalGroup(
-                settingsLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 787, Short.MAX_VALUE)
-        );
+    /**
+     * Add the given subScreen.
+     *
+     * @param type : subScreen type.
+     * @param subScreen : subScreen to add.
+     */
+    public void addSubScreen(SubScreenType type, SubScreen subScreen) {
+        subScreen.setVisible(false) ;
 
-        return settings ;
+        this.subScreenList.put(type, subScreen) ;
+        this.add(subScreen) ;
+    }
+
+    /**
+     * Get the SubScreen identified by the
+     * given type.
+     *
+     * @param type : subScreen type.
+     * @return a SubScreen instance.
+     */
+    public SubScreen getSubScreen(SubScreenType type) {
+        return this.subScreenList.get(type) ;
+    }
+
+    /**
+     * Get the current subScreen.
+     *
+     * @return the SubScreen instance.
+     */
+    public SubScreen getSubScreen() {
+        return this.subScreen ;
     }
 
 }

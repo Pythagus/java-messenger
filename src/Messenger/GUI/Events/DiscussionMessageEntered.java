@@ -10,15 +10,15 @@ public class DiscussionMessageEntered extends Event {
     /**
      * uiDiscussion input.
      */
-    private final String message ;
+    private final String data ;
 
     /**
      * Make a new event instance.
      *
-     * @param message : discussion input.
+     * @param data : discussion input.
      */
-    public DiscussionMessageEntered(String message) {
-        this.message = message ;
+    public DiscussionMessageEntered(String data) {
+        this.data = data ;
     }
 
     /**
@@ -27,7 +27,7 @@ public class DiscussionMessageEntered extends Event {
      * @return the string.
      */
     public String getData() {
-        return this.message ;
+        return this.data ;
     }
 
 }

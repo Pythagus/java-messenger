@@ -1,7 +1,7 @@
 package Messenger.GUI.Layout;
 
-import Messenger.GUI.Factories.ButtonFactory;
 import Messenger.GUI.Factories.GraphicImageFactory;
+import Messenger.GUI.Factories.ButtonFactory;
 import java.util.function.Consumer;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
@@ -18,10 +18,17 @@ public class SideBar extends JPanel {
     // Main sidebar color.
     public static final Color backgroundColor = new Color(255, 255, 255) ;
 
+    // Window right side instance.
+    private final RightSide rightSide ;
+
     /**
      * Make a new instance of the side bar.
+     *
+     * @param rightSide : RightSide instance.
      */
-    public SideBar() {
+    public SideBar(RightSide rightSide) {
+        this.rightSide = rightSide ;
+
         this.initializeComponentGraphics() ;
     }
 
@@ -145,16 +152,16 @@ public class SideBar extends JPanel {
      * @param e : click event.
      */
     private void onMessageButtonClick(ActionEvent e) {
-        System.out.println("Message") ;
+        this.rightSide.activeSubScreen(RightSide.SubScreenType.Discussion) ;
     }
 
     /**
-     * Executed when the Settings button is clicked.
+     * Executed when the uiSettings button is clicked.
      *
      * @param e : click event.
      */
     private void onSettingsButtonClick(ActionEvent e) {
-        System.out.println("Settings") ;
+        this.rightSide.activeSubScreen(RightSide.SubScreenType.Settings) ;
     }
 
 }

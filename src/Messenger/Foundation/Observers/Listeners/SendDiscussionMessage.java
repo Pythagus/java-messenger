@@ -1,6 +1,8 @@
 package Messenger.Foundation.Observers.Listeners;
 
+import Messenger.Foundation.Observers.Events.DiscussionMessageSent;
 import Messenger.GUI.Events.DiscussionMessageEntered;
+import Messenger.Foundation.Managers.EventManager;
 import Messenger.Foundation.Observers.Listener;
 import Messenger.Foundation.Observers.Event;
 
@@ -15,9 +17,12 @@ public class SendDiscussionMessage extends Listener {
      * @param event : event to handle.
      */
     public void handle(DiscussionMessageEntered event) {
-        System.out.println("Send the message : " + event.getData()) ;
+        String data = event.getData() ;
+        System.out.println("Send the message : " + data) ;
 
-        //TODO
+        //TODO : send the message.
+
+        EventManager.fire(new DiscussionMessageSent(data)) ;
     }
 
     /**

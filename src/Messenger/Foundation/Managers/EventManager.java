@@ -22,9 +22,11 @@ public class EventManager {
      * @param event : event to fire.
      */
     public static void fire(Event event) {
-        EventManager
-                .getListeners(event.getName())
-                .forEach(listener -> listener.handle(event)) ;
+        ArrayList<Listener> list = EventManager.getListeners(event.getName()) ;
+
+        if(list != null) {
+            list.forEach(listener -> listener.handle(event)) ;
+        }
     }
 
     /**

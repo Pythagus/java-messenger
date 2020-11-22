@@ -1,7 +1,5 @@
 package Messenger.Foundation;
 
-import Messenger.Foundation.Contracts.ApplicationContract;
-
 /**
  * @author Damien MOLINA
  */
@@ -10,14 +8,14 @@ public class Environment {
     /**
      * Application instance.
      */
-    private static ApplicationContract application ;
+    private static Application application ;
 
     /**
      * Get the current application instance.
      *
      * @return the application instance.
      */
-    public static ApplicationContract getApplication() {
+    public static Application getApplication() {
         return Environment.application ;
     }
 
@@ -26,7 +24,7 @@ public class Environment {
      *
      * @param app : the application instance.
      */
-    public static void setApplication(ApplicationContract app) {
+    public static void setApplication(Application app) {
         Environment.application = app ;
     }
 

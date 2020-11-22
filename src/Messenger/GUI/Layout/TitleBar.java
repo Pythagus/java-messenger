@@ -26,7 +26,7 @@ public class TitleBar extends JPanel {
     private final JFrame frame ;
 
     /**
-     * Window position.
+     * uiWindow position.
      */
     private final Point position ;
 

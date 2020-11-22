@@ -4,6 +4,7 @@ import Messenger.Foundation.Contracts.ApplicationContract;
 import Messenger.Foundation.System.Console.Console;
 import Messenger.GUI.Screens.Screen;
 import Messenger.GUI.GraphicThread;
+import Messenger.GUI.Frame;
 import javax.swing.*;
 
 /**
@@ -40,7 +41,7 @@ abstract public class Application implements ApplicationContract {
      * Make a new instance of the application.
      */
     public Application(ApplicationMode mode) {
-        this.mode = mode;
+        this.mode = mode ;
 
         if(this.isDebugMode()) {
             this.printConsoleIntro() ;
@@ -90,6 +91,10 @@ abstract public class Application implements ApplicationContract {
             ) ;
             Application.this.graphicThread.start() ;
         }) ;
+    }
+
+    public Frame getGraphicFrame() {
+        return this.graphicThread.getFrame() ;
     }
 
 }

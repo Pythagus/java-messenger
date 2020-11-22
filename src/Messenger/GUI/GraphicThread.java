@@ -1,7 +1,6 @@
 package Messenger.GUI;
 
 import Messenger.GUI.Screens.Screen;
-import java.awt.*;
 
 /**
  * @author Damien MOLINA
@@ -11,31 +10,30 @@ public class GraphicThread extends Thread {
     /**
      * Main graphic frame.
      */
-    private Messenger.GUI.Frame frame ;
+    private Frame frame ;
 
     /**
      * Set the frame screen regarding the
      * current frame instance.
      *
-     * @param content : new screen.
+     * @param screen : new screen.
      */
-    public void setFrameScreen(Screen content) {
+    public void setFrameScreen(Screen screen) {
         if(this.frame == null) {
-            this.frame = new Frame(content) ;
+            this.frame = new Frame(screen) ;
             this.frame.setVisible(true) ;
         } else {
-            Component[] list = this.frame.getContentPane().getComponents() ;
-
-            for(Component c : list) {
-                if(c instanceof Screen) {
-                    this.frame.remove(c) ;
-                }
-            }
-
-            this.frame.add(content) ;
-            this.frame.revalidate() ;
-            this.frame.repaint() ;
+            this.frame.replaceScreen(screen) ;
         }
+    }
+
+    /**
+     * get the graphic frame.
+     *
+     * @return the Frame instance.
+     */
+    public Frame getFrame() {
+        return this.frame ;
     }
 
 }

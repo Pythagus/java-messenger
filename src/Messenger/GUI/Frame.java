@@ -1,9 +1,9 @@
 package Messenger.GUI;
 
 import Messenger.GUI.Factories.GraphicImageFactory;
-import Messenger.GUI.Layout.TitleBar;
 import Messenger.Foundation.Environment;
-
+import Messenger.GUI.Layout.TitleBar;
+import Messenger.GUI.Screens.Screen;
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,17 +18,22 @@ public class Frame extends JFrame {
     private final JPanel titleBar ;
 
     /**
+     * Current screen.
+     */
+    private Screen screen ;
+
+    /**
      * Create a graphical instance
      * for the Messenger.
      *
-     * @param content : frame content.
+     * @param screen : frame content.
      */
-    public Frame(JComponent content) {
+    public Frame(Screen screen) {
         this.initializeComponentGraphics() ;
 
         this.titleBar = new TitleBar(this) ;
 
-        this.graphicContent(content) ;
+        this.graphicContent(screen) ;
     }
 
     /**
@@ -45,12 +50,52 @@ public class Frame extends JFrame {
     /**
      * Add the content to the frame.
      *
-     * @param content : JComponent to add.
+     * @param screen : JComponent to add.
      */
-    private void graphicContent(JComponent content) {
+    private void graphicContent(Screen screen) {
         this.getContentPane().add(this.titleBar, BorderLayout.PAGE_START) ;
-        this.add(content, BorderLayout.LINE_START) ;
+        this.addScreen(screen) ;
         this.pack() ;
+    }
+
+    /**
+     * Replace the current screen by the
+     * given one.
+     *
+     * @param screen : new screen to display.
+     */
+    public void replaceScreen(Screen screen) {
+        Component[] list = this.getContentPane().getComponents() ;
+
+        for(Component c : list) {
+            if(c instanceof Screen) {
+                this.remove(c) ;
+            }
+        }
+
+        this.addScreen(screen) ;
+        this.revalidate() ;
+        this.repaint() ;
+    }
+
+    /**
+     * Add the given screen.
+     *
+     * @param screen : screen to add.
+     */
+    private void addScreen(Screen screen) {
+        this.screen = screen ;
+
+        this.add(screen, BorderLayout.LINE_START) ;
+    }
+
+    /**
+     * Get the current screen.
+     *
+     * @return the current screen.
+     */
+    public Screen getScreen() {
+        return this.screen ;
     }
 
 }

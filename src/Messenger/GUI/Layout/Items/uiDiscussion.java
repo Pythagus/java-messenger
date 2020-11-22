@@ -1,13 +1,15 @@
 package Messenger.GUI.Layout.Items;
 
 import Messenger.GUI.Layout.SideBar;
+import Messenger.GUI.Subscreens.SubScreen;
+
 import javax.swing.*;
 import java.awt.*;
 
 /**
  * @author Damien MOLINA
  */
-public class uiDiscussion extends JPanel {
+public class uiDiscussion extends SubScreen {
 
     // Main discussion color.
     public static final Color backgroundColor = SideBar.backgroundColor ;
