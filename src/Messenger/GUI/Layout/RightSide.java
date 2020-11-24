@@ -47,8 +47,11 @@ public class RightSide extends JPanel {
         this.addSubScreen(SubScreenType.Discussion, new uiDiscussion()) ;
         this.addSubScreen(SubScreenType.Settings, new uiSettings()) ;
 
-        //TODO
-        this.activeSubScreen(SubScreenType.Discussion) ;
+        /*
+         * By default, the active screen is the
+         * discussion one.
+         */
+        this.activeSubScreen(SubScreenType.Settings) ;
     }
 
     /**

@@ -25,7 +25,7 @@ public class uiSettings extends SubScreen {
         this.setBackground(new Color(178, 103, 49));
         this.setEnabled(false);
 
-        GroupLayout settingsLayout = new GroupLayout(this) ;
+        /*GroupLayout settingsLayout = new GroupLayout(this) ;
         this.setLayout(settingsLayout);
         settingsLayout.setHorizontalGroup(
             settingsLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -34,7 +34,7 @@ public class uiSettings extends SubScreen {
         settingsLayout.setVerticalGroup(
             settingsLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGap(0, 787, Short.MAX_VALUE)
-        );
+        );*/
     }
 
 }

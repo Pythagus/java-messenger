@@ -1,8 +1,7 @@
 package Messenger.GUI.Layout.Items;
 
-import Messenger.GUI.Layout.SideBar;
 import Messenger.GUI.Subscreens.SubScreen;
-
+import Messenger.GUI.Layout.SideBar;
 import javax.swing.*;
 import java.awt.*;
 
@@ -80,7 +79,7 @@ public class uiDiscussion extends SubScreen {
 
 
 
-
+    // TODO : rechercher les messages dans l'historique
     private uiDiscussionMessage[] getDiscussionMessages() {
         //TODO : à refaire
         int nbr = 10 ;

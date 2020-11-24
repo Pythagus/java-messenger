@@ -93,6 +93,11 @@ abstract public class Application implements ApplicationContract {
         }) ;
     }
 
+    /**
+     * Get the graphic frame instance.
+     *
+     * @return Frame instance.
+     */
     public Frame getGraphicFrame() {
         return this.graphicThread.getFrame() ;
     }
