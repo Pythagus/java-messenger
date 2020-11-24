@@ -47,7 +47,7 @@ public class Frame extends JFrame {
         this.setIconImage(Image.logoAsImageIcon().getImage()) ;
 
         // Set full screen.
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH) ;
+        // this.setExtendedState(JFrame.MAXIMIZED_BOTH) ;
     }
 
     /**
