@@ -2,6 +2,8 @@ package Messenger.GUI.Layout.Items;
 
 import Messenger.Foundation.System.Assets.Images.Image;
 import Messenger.GUI.Factories.ButtonFactory;
+import Messenger.Foundation.Observers.Listeners.Message.SendMessageListener;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -20,6 +22,7 @@ public class uiDiscussionFooter extends JPanel {
      */
     public uiDiscussionFooter() {
         this.input = new uiDiscussionInput() ;
+        this.input.addListener(new SendMessageListener()) ;
 
         this.initializeComponentGraphics() ;
     }

@@ -5,13 +5,15 @@ import javax.swing.event.DocumentListener;
 import Messenger.GUI.Layout.Items.uiDiscussionInput;
 
 /**
- * Listener for the input value changing.
+ * Listen for the input value changing.
  *
  * @author Damien MOLINA
  */
 public class DiscussionInputListener implements DocumentListener {
 
-    // Environment listened input instance.
+    /**
+     * Environment listened input instance.
+     */
     private final uiDiscussionInput input ;
 
     /**

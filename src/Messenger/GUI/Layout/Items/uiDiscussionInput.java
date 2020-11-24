@@ -1,27 +1,27 @@
 package Messenger.GUI.Layout.Items;
 
-import Messenger.Foundation.Observers.Listeners.ManageDiscussionMessageSent;
-import Messenger.Foundation.Observers.Listeners.SendDiscussionMessage;
-import Messenger.Foundation.Observers.Events.DiscussionMessageSent;
-import Messenger.GUI.Listeners.DiscussionInputListener;
-import Messenger.GUI.Events.DiscussionMessageEntered;
-import Messenger.Foundation.Managers.EventManager;
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import Messenger.Foundation.Providers.ObserverProvider;
+import Messenger.GUI.Listeners.DiscussionInputListener;
+import Messenger.Foundation.Observers.Contracts.Listener;
+import Messenger.Foundation.Observers.Contracts.Observable;
 
 /**
  * @author Damien MOLINA
  */
-public class uiDiscussionInput extends JTextField {
+public class uiDiscussionInput extends JTextField implements Observable {
+
+    /**
+     * Observers provider.
+     */
+    private final ObserverProvider observer = new ObserverProvider() ;
 
     /**
      * Make a new instance of uiDiscussionInput.
      */
     uiDiscussionInput() {
         this.initializeComponentGraphics() ;
-
-        EventManager.bind(DiscussionMessageEntered.class, new SendDiscussionMessage()) ;
-        EventManager.bind(DiscussionMessageSent.class, new ManageDiscussionMessageSent()) ;
     }
 
     /**
@@ -42,8 +42,7 @@ public class uiDiscussionInput extends JTextField {
         String message = this.getText() ;
 
         if(message.length() > 0) {
-            EventManager.fire(new DiscussionMessageEntered(message)) ;
-
+            this.observer.notifyAllListeners(message) ;
             this.setText(null) ;
         }
     }
@@ -66,6 +65,26 @@ public class uiDiscussionInput extends JTextField {
             g.setColor(this.getDisabledTextColor()) ;
             g.drawString("Write a message...", getInsets().left, 3 * g.getFontMetrics().getMaxAscent() + getInsets().top/2) ;
         }
+    }
+
+    /**
+     * Add a listener to the listener provider.
+     *
+     * @param listener : listener instance.
+     */
+    @Override
+    public void addListener(Listener listener) {
+        this.observer.addListener(listener) ;
+    }
+
+    /**
+     * Remove the listener from the listener provider.
+     *
+     * @param listener : listener instance.
+     */
+    @Override
+    public void removeListener(Listener listener) {
+        this.observer.removeListener(listener) ;
     }
 
 }
