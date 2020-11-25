@@ -2,6 +2,10 @@ package Messenger.GUI.Layout.Items.Login;
 
 import java.awt.*;
 import javax.swing.*;
+
+import Messenger.Foundation.Application;
+import Messenger.Foundation.Environment;
+import Messenger.GUI.Screens.uiWindow;
 import Messenger.GUI.Utils.Placeholder;
 import Messenger.GUI.Listeners.DiscussionInputListener;
 import Messenger.Foundation.Exceptions.Pseudo.PseudoException;
@@ -73,10 +77,15 @@ public class uiLoginInput extends JTextField {
             System.out.println("Pseudo envoyé : " + pseudo) ;
 
             try {
-                throw new AlreadyUsedPseudoException() ;
-                // TODO : Maud -> vérifier si le pseudo n'est pas déjà pris
+                // TODO : Maud -> vérifier si le pseudo n'est pas déjà pris. S'il l'est, générer l'exception AlreadyUsedPseudoException
 
-                // TODO : changer le screen pour afficher celui des discussions
+                if(!pseudo.equals("André")) {
+                    throw new AlreadyUsedPseudoException() ;
+                }
+
+                Environment.getApplication().getGraphicFrame().replaceScreen(
+                    new uiWindow()
+                ) ;
             } catch(PseudoException exception) {
                 // The selected pseudo is already used in the system.
                 this.errorLabel.updateText(exception.getMessage()) ;

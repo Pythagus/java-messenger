@@ -8,7 +8,7 @@ public interface SoundContract {
     /**
      * File root to access sounds.
      */
-    String FILE_ROOT = "/Messenger/Assets/Sounds/";
+    String ASSET_FOLDER = "Sounds/" ;
 
     /**
      * Start the sound.

@@ -8,25 +8,30 @@ import Messenger.Foundation.System.Assets.Sounds.SoundThread;
 public class DiscussionMessageSound {
 
     /**
-     * SoundAsset instance.
+     * Sound instance.
      */
-    private static SoundThread sound ;
-
-    static {
-        try {
-            DiscussionMessageSound.sound = new SoundThread("new-message-sound.wav");
-        } catch (Exception e) {
-            e.printStackTrace() ;
-        }
-    }
+    private static SoundThread thread ;
 
     /**
      * Play the sound only whether It is not
      * currently running.
      */
     public static void play() {
-        if(! DiscussionMessageSound.sound.isRunning()) {
-            DiscussionMessageSound.sound.start() ;
+        if(DiscussionMessageSound.thread == null) {
+            DiscussionMessageSound.initializeSound() ;
+            DiscussionMessageSound.thread.start() ;
+        }
+    }
+
+    /**
+     * Initialize the static::thread object.
+     */
+    private static void initializeSound() {
+        try {
+            DiscussionMessageSound.thread = new SoundThread("new-message-sound.wav") ;
+            DiscussionMessageSound.thread.onFinish(() -> DiscussionMessageSound.thread = null) ;
+        } catch (Exception e) {
+            e.printStackTrace() ;
         }
     }
 

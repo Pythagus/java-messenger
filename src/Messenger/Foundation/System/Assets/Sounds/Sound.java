@@ -1,12 +1,12 @@
-package Messenger.Foundation.System.Assets;
+package Messenger.Foundation.System.Assets.Sounds;
 
 import javax.sound.sampled.*;
-import Messenger.Foundation.System.Assets.Sounds.SoundContract;
+import Messenger.Foundation.System.Assets.Asset;
 
 /**
  * @author Damien MOLINA
  */
-public class SoundAsset implements SoundContract {
+public class Sound implements SoundContract {
 
     /**
      * Clip sound instance.
@@ -14,13 +14,13 @@ public class SoundAsset implements SoundContract {
     private final Clip clip ;
 
     /**
-     * Make a new instance of SoundAsset.
+     * Make a new instance of Sound.
      * Supported formats : WAV, AIFF and AU.
      *
      * @param file : file to play.
      * @throws Exception : file stream errors.
      */
-    public SoundAsset(String file) throws Exception {
+    public Sound(String file) throws Exception {
         this.clip = AudioSystem.getClip() ;
 
         this.openStream(file) ;
@@ -34,7 +34,7 @@ public class SoundAsset implements SoundContract {
      */
     private void openStream(String file) throws Exception {
         AudioInputStream stream = AudioSystem.getAudioInputStream(
-            Asset.resourceAsStream("Sounds/" + file)
+            Asset.resourceAsStream(ASSET_FOLDER + file)
         ) ;
 
         this.clip.open(stream) ;
