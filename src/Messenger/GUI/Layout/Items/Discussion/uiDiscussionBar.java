@@ -42,9 +42,7 @@ public class uiDiscussionBar extends JPanel {
      * @param item : uiDiscussionItem instance.
      */
     public void addDiscussionItem(uiDiscussionItem item) {
-        System.out.println("here");
         this.list.add(item) ;
-
         this.list.revalidate() ;
         this.list.repaint() ;
     }

@@ -3,10 +3,9 @@ package Messenger.GUI.Layout.Items.Login;
 import java.awt.*;
 import javax.swing.*;
 
-import Messenger.Foundation.Application;
-import Messenger.Foundation.Environment;
 import Messenger.GUI.Screens.uiWindow;
 import Messenger.GUI.Utils.Placeholder;
+import Messenger.Foundation.Environment;
 import Messenger.GUI.Listeners.DiscussionInputListener;
 import Messenger.Foundation.Exceptions.Pseudo.PseudoException;
 import Messenger.Foundation.Exceptions.Pseudo.AlreadyUsedPseudoException;
@@ -25,7 +24,7 @@ public class uiLoginInput extends JTextField {
      * Screen component.
      */
     private final uiLoginError errorLabel ;
-    
+
     public uiLoginInput(uiLoginError errorLabel) {
         this.errorLabel = errorLabel ;
 
@@ -90,6 +89,8 @@ public class uiLoginInput extends JTextField {
                 // The selected pseudo is already used in the system.
                 this.errorLabel.updateText(exception.getMessage()) ;
             }
+        } else {
+            this.errorLabel.updateText("Vous devez spécifier un pseudo !") ;
         }
     }
 
