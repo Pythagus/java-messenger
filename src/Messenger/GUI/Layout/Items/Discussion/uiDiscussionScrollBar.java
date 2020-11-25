@@ -1,6 +1,7 @@
-package Messenger.GUI.Layout.Items;
+package Messenger.GUI.Layout.Items.Discussion;
 
 import Messenger.GUI.Layout.TitleBar;
+import Messenger.GUI.Subscreens.uiDiscussion;
 
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.image.BufferedImage;
@@ -25,7 +26,7 @@ public class uiDiscussionScrollBar extends BasicScrollBarUI {
     /**
      * Create a custom scroll bar instance.
      */
-    uiDiscussionScrollBar() {
+    public uiDiscussionScrollBar() {
         this.imageThumb = uiDiscussionScrollBar.createImage(TitleBar.backgroundColor) ;
         this.imageTrack = uiDiscussionScrollBar.createImage(uiDiscussion.backgroundColor) ;
 
@@ -58,7 +59,7 @@ public class uiDiscussionScrollBar extends BasicScrollBarUI {
      * used to paint the button.
      *
      * @param c : button color.
-     * @return the Image instance.
+     * @return the ImageAsset instance.
      */
     private static Image createImage(Color c) {
         BufferedImage bi = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB) ;

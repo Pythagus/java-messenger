@@ -1,6 +1,6 @@
 package Messenger.GUI;
 
-import Messenger.Foundation.System.Assets.Images.Image;
+import Messenger.Foundation.System.Assets.ImageAsset;
 import Messenger.Foundation.Environment;
 import Messenger.GUI.Layout.TitleBar;
 import Messenger.GUI.Screens.Screen;
@@ -44,10 +44,12 @@ public class Frame extends JFrame {
         this.setTitle(Environment.getApplication().getName()) ;
         this.setLocationByPlatform(true) ;
         this.setUndecorated(true) ;
-        this.setIconImage(Image.logoAsImageIcon().getImage()) ;
+        this.setIconImage(ImageAsset.logoAsImageIcon().getImage()) ;
+
+        this.setLayout(new BorderLayout());
 
         // Set full screen.
-        // this.setExtendedState(JFrame.MAXIMIZED_BOTH) ;
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH) ;
     }
 
     /**
@@ -89,7 +91,7 @@ public class Frame extends JFrame {
     private void addScreen(Screen screen) {
         this.screen = screen ;
 
-        this.add(screen, BorderLayout.LINE_START) ;
+        this.add(screen, BorderLayout.CENTER) ;
     }
 
     /**

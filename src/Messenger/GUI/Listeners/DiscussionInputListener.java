@@ -1,8 +1,8 @@
 package Messenger.GUI.Listeners;
 
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import Messenger.GUI.Layout.Items.uiDiscussionInput;
 
 /**
  * Listen for the input value changing.
@@ -14,15 +14,31 @@ public class DiscussionInputListener implements DocumentListener {
     /**
      * Environment listened input instance.
      */
-    private final uiDiscussionInput input ;
+    private final JTextField input ;
+
+    /**
+     * Runnable to run on input changing.
+     */
+    private Runnable runnable = null ;
 
     /**
      * Make a new listener instance.
      *
      * @param input : input we are listen to.
      */
-    public DiscussionInputListener(uiDiscussionInput input) {
+    public DiscussionInputListener(JTextField input) {
         this.input = input ;
+    }
+
+    /**
+     * Make a new listener instance.
+     *
+     * @param input : input we are listen to.
+     */
+    public DiscussionInputListener(JTextField input, Runnable runnable) {
+        this(input) ;
+
+        this.runnable = runnable ;
     }
 
     public void changedUpdate(DocumentEvent e) {
@@ -45,6 +61,10 @@ public class DiscussionInputListener implements DocumentListener {
          */
         if(this.input.getText().length() <= 1) {
             this.input.repaint() ;
+        }
+
+        if(this.runnable != null) {
+            this.runnable.run() ;
         }
     }
 

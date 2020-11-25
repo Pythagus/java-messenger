@@ -1,7 +1,9 @@
-package Messenger.GUI.Layout.Items;
+package Messenger.GUI.Layout.Items.Discussion;
 
 import java.awt.*;
 import javax.swing.*;
+import Messenger.GUI.Utils.Placeholder;
+import Messenger.GUI.Subscreens.uiDiscussion;
 import Messenger.Foundation.Providers.ObserverProvider;
 import Messenger.GUI.Listeners.DiscussionInputListener;
 import Messenger.Foundation.Observers.Contracts.Listener;
@@ -18,9 +20,17 @@ public class uiDiscussionInput extends JTextField implements Observable {
     private final ObserverProvider observer = new ObserverProvider() ;
 
     /**
+     * Placeholder instance.
+     */
+    private final Placeholder placeholder ;
+
+    /**
      * Make a new instance of uiDiscussionInput.
      */
     uiDiscussionInput() {
+        this.placeholder = new Placeholder(this) ;
+        this.placeholder.setAlpha(3, 2, 1) ;
+
         this.initializeComponentGraphics() ;
     }
 
@@ -59,11 +69,9 @@ public class uiDiscussionInput extends JTextField implements Observable {
          * Add a placeholder helper only whether
          * the input has no characters.
          */
-        if(this.getText().length() <= 0) {
-            final Graphics2D g = (Graphics2D) graphics ;
-            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON) ;
-            g.setColor(this.getDisabledTextColor()) ;
-            g.drawString("Write a message...", getInsets().left, 3 * g.getFontMetrics().getMaxAscent() + getInsets().top/2) ;
+        if(this.placeholder.shouldDraw()) {
+            this.placeholder.setGraphic(graphics) ;
+            this.placeholder.draw("Écrivez un message...") ;
         }
     }
 

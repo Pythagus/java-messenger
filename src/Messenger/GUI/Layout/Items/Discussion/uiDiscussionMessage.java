@@ -1,7 +1,9 @@
-package Messenger.GUI.Layout.Items;
+package Messenger.GUI.Layout.Items.Discussion;
 
-import Messenger.Foundation.System.Assets.Images.Image;
+import Messenger.Foundation.System.Assets.ImageAsset;
 import Messenger.GUI.Factories.ButtonFactory;
+import Messenger.GUI.Subscreens.uiDiscussion;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -215,7 +217,7 @@ public class uiDiscussionMessage extends JPanel {
 
         JLabel avatar = new JLabel() ;
         ImageIcon imageIcon = new ImageIcon(
-            Image.asImageIcon("TODELETE/francois_hollande.png").getImage().getScaledInstance(30, 30, 1)
+            ImageAsset.asImageIcon("TODELETE/francois_hollande.png").getImage().getScaledInstance(30, 30, 1)
         ) ;
         avatar.setIcon(imageIcon) ;
         avatar.setVerticalAlignment(SwingConstants.BOTTOM) ;

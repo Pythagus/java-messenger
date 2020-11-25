@@ -1,6 +1,6 @@
 package Messenger.GUI.Layout;
 
-import Messenger.GUI.Layout.Items.uiDiscussion;
+import Messenger.GUI.Subscreens.uiDiscussion;
 import Messenger.GUI.Subscreens.uiSettings;
 import Messenger.GUI.Subscreens.SubScreen;
 import java.util.HashMap;

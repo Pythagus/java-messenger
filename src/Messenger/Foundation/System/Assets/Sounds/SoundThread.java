@@ -1,5 +1,7 @@
 package Messenger.Foundation.System.Assets.Sounds;
 
+import Messenger.Foundation.System.Assets.SoundAsset;
+
 /**
  * @author Damien MOLINA
  */
@@ -18,7 +20,7 @@ public class SoundThread implements SoundContract {
      * @throws Exception : sound generation error.
      */
     public SoundThread(String file) throws Exception {
-        this.thread = new MySoundThread(new Sound(file)) ;
+        this.thread = new MySoundThread(new SoundAsset(file)) ;
     }
 
     /**
@@ -60,9 +62,9 @@ public class SoundThread implements SoundContract {
     static class MySoundThread extends Thread {
 
         /**
-         * Sound instance.
+         * SoundAsset instance.
          */
-        private final Sound sound ;
+        private final SoundAsset sound ;
 
         /**
          * Thread state.
@@ -74,7 +76,7 @@ public class SoundThread implements SoundContract {
          *
          * @param sound : sound instance.
          */
-        MySoundThread(Sound sound) {
+        MySoundThread(SoundAsset sound) {
             this.sound   = sound ;
             this.running = false ;
 
@@ -102,7 +104,7 @@ public class SoundThread implements SoundContract {
          *
          * @return the sound instance.
          */
-        public Sound getSound() {
+        public SoundAsset getSound() {
             return this.sound ;
         }
 

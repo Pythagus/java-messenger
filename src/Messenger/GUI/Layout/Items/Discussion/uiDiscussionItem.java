@@ -1,7 +1,7 @@
-package Messenger.GUI.Layout.Items;
+package Messenger.GUI.Layout.Items.Discussion;
 
 import Messenger.Foundation.Environment;
-import Messenger.Foundation.System.Assets.Images.Image;
+import Messenger.Foundation.System.Assets.ImageAsset;
 import Messenger.GUI.Layout.RightSide;
 import Messenger.GUI.Screens.uiWindow;
 
@@ -92,7 +92,7 @@ public class uiDiscussionItem extends JPanel {
         JLabel label = new JLabel() ;
         label.setHorizontalAlignment(SwingConstants.CENTER) ;
         label.setIcon(
-            Image.asImageIcon("TODELETE/" + this.picture)
+            ImageAsset.asImageIcon("TODELETE/" + this.picture)
         ) ;
         label.setHorizontalTextPosition(SwingConstants.CENTER) ;
         label.setMinimumSize(new Dimension(80, 44)) ;

@@ -1,8 +1,7 @@
-package Messenger.GUI.Layout.Items;
+package Messenger.GUI.Layout.Items.Discussion;
 
 import java.awt.*;
 import javax.swing.*;
-import java.util.Arrays;
 
 /**
  * @author Damien MOLINA

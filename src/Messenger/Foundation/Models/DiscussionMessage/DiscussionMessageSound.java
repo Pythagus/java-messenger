@@ -8,7 +8,7 @@ import Messenger.Foundation.System.Assets.Sounds.SoundThread;
 public class DiscussionMessageSound {
 
     /**
-     * Sound instance.
+     * SoundAsset instance.
      */
     private static SoundThread sound ;
 

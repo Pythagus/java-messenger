@@ -1,13 +1,12 @@
-package Messenger.Foundation.System.Assets.Images;
+package Messenger.Foundation.System.Assets;
 
-import Messenger.Foundation.System.Assets.Asset;
 import javax.swing.*;
 import java.net.URL;
 
 /**
  * @author Damien MOLINA
  */
-public class Image {
+public class ImageAsset {
 
     /**
      * Get the logo URL.
@@ -15,7 +14,7 @@ public class Image {
      * @return the logo URL.
      */
     public static URL logo() {
-        return Image.resource("logo.jpg") ;
+        return ImageAsset.resource("logo.jpg") ;
     }
 
     /**
@@ -34,7 +33,7 @@ public class Image {
      * @return the ImageIcon instance.
      */
     public static ImageIcon logoAsImageIcon() {
-        return Image.asImageIcon(Image.logo());
+        return ImageAsset.asImageIcon(ImageAsset.logo());
     }
 
     /**
@@ -44,7 +43,7 @@ public class Image {
      * @return an ImageIcon instance.
      */
     public static ImageIcon asImageIcon(String file) {
-        return new ImageIcon(Image.resource(file)) ;
+        return new ImageIcon(ImageAsset.resource(file)) ;
     }
 
     /**
