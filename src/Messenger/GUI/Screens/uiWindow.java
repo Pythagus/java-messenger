@@ -3,8 +3,8 @@ package Messenger.GUI.Screens;
 import java.awt.*;
 import javax.swing.*;
 import Messenger.GUI.Layout.*;
-import Messenger.GUI.Layout.Items.uiDiscussionBar;
-import Messenger.GUI.Layout.Items.uiDiscussionItem;
+import Messenger.GUI.Layout.Items.Discussion.uiDiscussionBar;
+import Messenger.GUI.Layout.Items.Discussion.uiDiscussionItem;
 
 /**
  * @author Damien MOLINA

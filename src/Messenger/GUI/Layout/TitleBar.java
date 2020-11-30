@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.util.function.Consumer;
 import java.awt.event.MouseMotionAdapter;
-import Messenger.Foundation.System.Assets.Images.Image;
+import Messenger.Foundation.System.Assets.ImageAsset;
 
 /**
  * Main navigation bar with minimize, maximize,
@@ -156,7 +156,7 @@ public class TitleBar extends JPanel {
         JLabel button = new JLabel();
 
         button.setIcon(
-            Image.asImageIcon("titlebar/" + file)
+            ImageAsset.asImageIcon("titlebar/" + file)
         ) ;
         button.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {

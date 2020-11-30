@@ -1,6 +1,10 @@
-package Messenger.GUI.Layout.Items;
+package Messenger.GUI.Layout.Items.Discussion;
 
-import Messenger.Foundation.System.Assets.Images.Image;
+import Messenger.Foundation.Environment;
+import Messenger.Foundation.System.Assets.ImageAsset;
+import Messenger.GUI.Layout.RightSide;
+import Messenger.GUI.Screens.uiWindow;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
@@ -57,7 +61,11 @@ public class uiDiscussionItem extends JPanel {
         this.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
         this.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                System.out.println(uiDiscussionItem.this.discussion_id);
+                //TODO : afficher la conversation
+                System.out.println(uiDiscussionItem.this.discussion_id) ;
+
+                uiWindow uiWindow = (uiWindow) Environment.getApplication().getGraphicFrame().getScreen() ;
+                uiWindow.getRightSide().activeSubScreen(RightSide.SubScreenType.Discussion) ;
             }
         }) ;
 
@@ -84,7 +92,7 @@ public class uiDiscussionItem extends JPanel {
         JLabel label = new JLabel() ;
         label.setHorizontalAlignment(SwingConstants.CENTER) ;
         label.setIcon(
-            Image.asImageIcon("TODELETE/" + this.picture)
+            ImageAsset.asImageIcon("TODELETE/" + this.picture)
         ) ;
         label.setHorizontalTextPosition(SwingConstants.CENTER) ;
         label.setMinimumSize(new Dimension(80, 44)) ;

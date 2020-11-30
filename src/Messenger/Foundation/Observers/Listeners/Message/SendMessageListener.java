@@ -1,5 +1,6 @@
 package Messenger.Foundation.Observers.Listeners.Message;
 
+import Messenger.Foundation.Models.DiscussionMessage.DiscussionMessageSound;
 import Messenger.GUI.Screens.uiWindow;
 import Messenger.Foundation.Environment;
 import Messenger.Foundation.Observers.BaseListener;
@@ -22,6 +23,7 @@ public class SendMessageListener extends BaseListener {
         System.out.println("Message à envoyer : " + data) ;
 
         this.updateGraphics(data) ;
+        DiscussionMessageSound.play() ;
     }
 
     /**

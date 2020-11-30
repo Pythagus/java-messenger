@@ -1,6 +1,7 @@
-package Messenger.Foundation.Contracts;
+package Messenger.Foundation.Exceptions;
 
 import Messenger.Foundation.Environment;
+import Messenger.Foundation.Exceptions.Contracts.UserException;
 
 /**
  * @author Damien MOLINA
@@ -8,11 +9,25 @@ import Messenger.Foundation.Environment;
 public class AppException extends Exception {
 
     /**
+     * Make a new App exception with
+     * the given message.
+     *
+     * @param msg : exception message.
+     */
+    public AppException(String msg) {
+        super(msg) ;
+    }
+
+    /**
      * Get the exception message.
      *
      * @return the message.
      */
     public String getMessage() {
+        if(this instanceof UserException) {
+            return super.getMessage() ;
+        }
+
         String appName = this.getAppName() ;
 
         if(appName.length() <= 0) {

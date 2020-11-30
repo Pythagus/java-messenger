@@ -1,6 +1,6 @@
 package Messenger.GUI.Layout;
 
-import Messenger.GUI.Layout.Items.uiDiscussion;
+import Messenger.GUI.Subscreens.uiDiscussion;
 import Messenger.GUI.Subscreens.uiSettings;
 import Messenger.GUI.Subscreens.SubScreen;
 import java.util.HashMap;
@@ -51,7 +51,7 @@ public class RightSide extends JPanel {
          * By default, the active screen is the
          * discussion one.
          */
-        this.activeSubScreen(SubScreenType.Settings) ;
+        this.activeSubScreen(SubScreenType.Discussion) ;
     }
 
     /**

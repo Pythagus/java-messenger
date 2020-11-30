@@ -1,11 +1,11 @@
 package Messenger.GUI;
 
-import Messenger.Foundation.System.Assets.Images.Image;
-import Messenger.Foundation.Environment;
-import Messenger.GUI.Layout.TitleBar;
-import Messenger.GUI.Screens.Screen;
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import Messenger.GUI.Screens.Screen;
+import Messenger.GUI.Layout.TitleBar;
+import Messenger.Foundation.Environment;
+import Messenger.Foundation.System.Assets.ImageAsset;
 
 /**
  * @author Damien MOLINA
@@ -44,7 +44,8 @@ public class Frame extends JFrame {
         this.setTitle(Environment.getApplication().getName()) ;
         this.setLocationByPlatform(true) ;
         this.setUndecorated(true) ;
-        this.setIconImage(Image.logoAsImageIcon().getImage()) ;
+        this.setIconImage(ImageAsset.logoAsImageIcon().getImage()) ;
+        this.setLayout(new BorderLayout()) ;
 
         // Set full screen.
         this.setExtendedState(JFrame.MAXIMIZED_BOTH) ;
@@ -77,6 +78,13 @@ public class Frame extends JFrame {
         }
 
         this.addScreen(screen) ;
+        this.fullyRepaint() ;
+    }
+
+    /**
+     * Repaint the entire frame.
+     */
+    public void fullyRepaint() {
         this.revalidate() ;
         this.repaint() ;
     }
@@ -89,7 +97,7 @@ public class Frame extends JFrame {
     private void addScreen(Screen screen) {
         this.screen = screen ;
 
-        this.add(screen, BorderLayout.LINE_START) ;
+        this.add(screen, BorderLayout.CENTER) ;
     }
 
     /**

@@ -1,6 +1,9 @@
-package Messenger.GUI.Layout.Items;
+package Messenger.GUI.Subscreens;
 
-import Messenger.GUI.Subscreens.SubScreen;
+import Messenger.GUI.Layout.Items.Discussion.uiDiscussionScrollBar;
+import Messenger.GUI.Layout.Items.Discussion.uiDiscussionFooter;
+import Messenger.GUI.Layout.Items.Discussion.uiDiscussionHeader;
+import Messenger.GUI.Layout.Items.Discussion.uiDiscussionMessage;
 import Messenger.GUI.Layout.SideBar;
 import javax.swing.*;
 import java.awt.*;

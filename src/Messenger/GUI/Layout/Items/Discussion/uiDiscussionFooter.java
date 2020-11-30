@@ -1,8 +1,9 @@
-package Messenger.GUI.Layout.Items;
+package Messenger.GUI.Layout.Items.Discussion;
 
-import Messenger.Foundation.System.Assets.Images.Image;
+import Messenger.Foundation.System.Assets.ImageAsset;
 import Messenger.GUI.Factories.ButtonFactory;
 import Messenger.Foundation.Observers.Listeners.Message.SendMessageListener;
+import Messenger.GUI.Subscreens.uiDiscussion;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,7 +67,7 @@ public class uiDiscussionFooter extends JPanel {
     private JButton graphicFileButton() {
         JButton btn = ButtonFactory.withoutBorder(uiDiscussion.backgroundColor) ;
         btn.setIcon(
-            Image.asImageIcon("discussion/file_button.png")
+            ImageAsset.asImageIcon("discussion/file_button.png")
         ) ;
 
         return btn ;
@@ -80,7 +81,7 @@ public class uiDiscussionFooter extends JPanel {
     private JButton graphicSendingButton() {
         JButton btn = ButtonFactory.withoutBorder(uiDiscussion.backgroundColor) ;
         btn.setIcon(
-            Image.asImageIcon("discussion/send_button.png")
+            ImageAsset.asImageIcon("discussion/send_button.png")
         ) ;
         btn.addActionListener(Unused -> this.input.sendInputContent()) ;
 

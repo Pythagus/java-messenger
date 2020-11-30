@@ -1,7 +1,7 @@
 package Messenger;
 
 import Messenger.GUI.Screens.Screen;
-import Messenger.GUI.Screens.uiWindow;
+import Messenger.GUI.Screens.uiLogin;
 import Messenger.Foundation.Application;
 
 /**
@@ -57,8 +57,7 @@ public class Messenger extends Application {
      * @return a Screen instance.
      */
     protected Screen getStartingScreen() {
-        //TODO : return login screen.
-        return new uiWindow() ;
+        return new uiLogin() ;
     }
 
 }

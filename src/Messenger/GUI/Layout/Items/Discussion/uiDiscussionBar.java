@@ -1,8 +1,7 @@
-package Messenger.GUI.Layout.Items;
+package Messenger.GUI.Layout.Items.Discussion;
 
 import java.awt.*;
 import javax.swing.*;
-import java.util.Arrays;
 
 /**
  * @author Damien MOLINA
@@ -43,9 +42,7 @@ public class uiDiscussionBar extends JPanel {
      * @param item : uiDiscussionItem instance.
      */
     public void addDiscussionItem(uiDiscussionItem item) {
-        System.out.println("here");
         this.list.add(item) ;
-
         this.list.revalidate() ;
         this.list.repaint() ;
     }

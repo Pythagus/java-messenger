@@ -1,7 +1,7 @@
 package Messenger.Foundation.System.Assets.Sounds;
 
-import Messenger.Foundation.System.Assets.Asset;
 import javax.sound.sampled.*;
+import Messenger.Foundation.System.Assets.Asset;
 
 /**
  * @author Damien MOLINA
@@ -23,18 +23,18 @@ public class Sound implements SoundContract {
     public Sound(String file) throws Exception {
         this.clip = AudioSystem.getClip() ;
 
-        this.openStream(FILE_ROOT + file) ;
+        this.openStream(file) ;
     }
 
     /**
      * Open the sound stream.
      *
-     * @param link : sound file link.
+     * @param file : sound file link.
      * @throws Exception : file stream errors.
      */
-    private void openStream(String link) throws Exception {
+    private void openStream(String file) throws Exception {
         AudioInputStream stream = AudioSystem.getAudioInputStream(
-            Asset.resourceAsStream("Sounds/" + link)
+            Asset.resourceAsStream(ASSET_FOLDER + file)
         ) ;
 
         this.clip.open(stream) ;
