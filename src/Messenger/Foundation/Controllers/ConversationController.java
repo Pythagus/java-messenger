@@ -1,13 +1,14 @@
-package Messenger.Foundation.Models.Conversation;
-import Messenger.Foundation.Models.User;
-import Messenger.Foundation.Models.Message;
+package Messenger.Foundation.Controllers;
 
-public class discussionManager
-{
-    /**
-     * Handle the multiple discussions created
-     * @author Maud PENNETIER
-     */
+import Messenger.Foundation.Models.User;
+import Messenger.Foundation.Models.Messages.Message;
+
+/**
+ * Handle the multiple discussions created.
+ *
+ * @author Maud PENNETIER
+ */
+public class ConversationController {
 
     /**
      * Start new discussion.
@@ -59,6 +60,8 @@ public class discussionManager
         return 0;
     }
 
-    //protected void saveMessage(Message message);
+    protected void saveMessage(Message message) {
+        // TODO
+    }
 
 }

@@ -1,11 +1,11 @@
-package Messenger.Foundation.Models.DiscussionMessage;
+package Messenger.Foundation.Models.Messages.Concerns;
 
 import Messenger.Foundation.System.Assets.Sounds.SoundThread;
 
 /**
  * @author Damien MOLINA
  */
-public class DiscussionMessageSound {
+public class MessageSound {
 
     /**
      * Sound instance.
@@ -17,9 +17,9 @@ public class DiscussionMessageSound {
      * currently running.
      */
     public static void play() {
-        if(DiscussionMessageSound.thread == null) {
-            DiscussionMessageSound.initializeSound() ;
-            DiscussionMessageSound.thread.start() ;
+        if(MessageSound.thread == null) {
+            MessageSound.initializeSound() ;
+            MessageSound.thread.start() ;
         }
     }
 
@@ -28,8 +28,8 @@ public class DiscussionMessageSound {
      */
     private static void initializeSound() {
         try {
-            DiscussionMessageSound.thread = new SoundThread("new-message-sound.wav") ;
-            DiscussionMessageSound.thread.onFinish(() -> DiscussionMessageSound.thread = null) ;
+            MessageSound.thread = new SoundThread("new-message-sound.wav") ;
+            MessageSound.thread.onFinish(() -> MessageSound.thread = null) ;
         } catch (Exception e) {
             e.printStackTrace() ;
         }

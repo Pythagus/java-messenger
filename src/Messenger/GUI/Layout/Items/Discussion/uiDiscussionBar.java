@@ -47,6 +47,10 @@ public class uiDiscussionBar extends JPanel {
         this.list.repaint() ;
     }
 
+    public void updateItem(uiDiscussionItem item) {
+
+    }
+
     /**
      * Make the conversation header.
      *

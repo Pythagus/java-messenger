@@ -36,7 +36,6 @@ public class SideBar extends JPanel {
      * Initialize graphically the component
      */
     private void initializeComponentGraphics() {
-        this.setPreferredSize(new Dimension(80, 787)) ; //TODO
         this.setLayout(new BorderLayout()) ;
 
         // Put the logo panel

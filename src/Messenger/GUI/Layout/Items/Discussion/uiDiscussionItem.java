@@ -1,10 +1,9 @@
 package Messenger.GUI.Layout.Items.Discussion;
 
-import Messenger.Foundation.Environment;
 import Messenger.Foundation.System.Assets.ImageAsset;
+import Messenger.Foundation.Environment;
 import Messenger.GUI.Layout.RightSide;
 import Messenger.GUI.Screens.uiWindow;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
