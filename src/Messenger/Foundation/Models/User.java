@@ -40,6 +40,24 @@ public class User {
     }
 
     /**
+     * Set the user pseudo.
+     *
+     * @param pseudo : the user pseudo.
+     */
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo ;
+    }
+
+    /**
+     * Set the user's MAC address.
+     *
+     * @param macAddress : the MAC address.
+     */
+    public void setMacAddress(String macAddress) {
+        this.macAddress = macAddress ;
+    }
+
+    /**
      * Override the default equals method.
      * Two users are equals only if they have
      * the same identifier.
