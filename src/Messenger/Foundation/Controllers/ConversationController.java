@@ -54,7 +54,12 @@ public class ConversationController {
         // create  a Message instance (
     }
 
-    private int isValidMessage(Message data)
+    /**
+     * Verify if the message is not too long (i.e. it fits only one socket)
+     * @param msg : a string to send to the other user
+     * @return a boolean, 1 if the message is valid, 0 otherwise
+     */
+    private int isValidMessage(Message msg)
     {
         // TODO
         return 0;
