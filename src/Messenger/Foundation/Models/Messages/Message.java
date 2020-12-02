@@ -60,4 +60,27 @@ public class Message {
         this(target, new MessageData(text, null)) ;
     }
 
+    /**
+     * @return date of the message
+     */
+    public Date getDate() {
+        return this.date ;
+    }
+
+    /**
+     * @return the sender
+     */
+    public User getSender(){return this.sender; }
+
+    /**
+     * @return the target
+     */
+    public User getTarget(){return this.target; }
+
+    /**
+     * @return the MessageData instance
+     */
+    public MessageData getData(){return this.data; }
 }
+
+
