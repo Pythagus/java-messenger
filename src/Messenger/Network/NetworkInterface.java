@@ -13,7 +13,7 @@ public class NetworkInterface extends Thread {
     /**
      * Meeting port.
      */
-    private static final int meetingPort = 60042 ;
+    public static final int meetingPort = 60040 ;
 
     /**
      * Receiving port.
@@ -61,7 +61,7 @@ public class NetworkInterface extends Thread {
         ) ;
 
         // Prepare the envoyer.
-        this.envoyer = new NetworkEnvoyer(this) ;
+        this.envoyer = new NetworkEnvoyer() ;
     }
 
     /**

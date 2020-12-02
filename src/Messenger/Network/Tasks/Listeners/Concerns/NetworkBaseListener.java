@@ -10,15 +10,15 @@ abstract public class NetworkBaseListener<T extends Closeable> extends Thread {
     /**
      * Listener socket.
      */
-    protected T socket ;
+    protected T listenerSocket;
 
     /**
      * Make a new listener instance.
      *
-     * @param socket : listening socket.
+     * @param listenerSocket : listening socket.
      */
-    public NetworkBaseListener(T socket) {
-        this.socket = socket ;
+    public NetworkBaseListener(T listenerSocket) {
+        this.listenerSocket = listenerSocket;
     }
 
     /**
@@ -26,8 +26,8 @@ abstract public class NetworkBaseListener<T extends Closeable> extends Thread {
      *
      * @return the socket instance.
      */
-    public T getSocket() {
-        return this.socket ;
+    public T getListenerSocket() {
+        return this.listenerSocket;
     }
 
     /**

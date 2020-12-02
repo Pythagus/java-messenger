@@ -31,6 +31,13 @@ public class Stream implements DatagramExchanger {
     public Stream() {}
 
     /**
+     * Make a new stream instance.
+     */
+    public Stream(Socket socket) throws Exception {
+        this.bind(socket) ;
+    }
+
+    /**
      * Bind the input with the given stream.
      *
      * @param stream : input socket stream.
@@ -88,8 +95,13 @@ public class Stream implements DatagramExchanger {
      * @throws Exception : stream error.
      */
     public void close() throws Exception {
-        this.output.close() ;
-        this.input.close() ;
+        if(this.input != null) {
+            this.input.close() ;
+        }
+
+        if(this.output != null) {
+            this.output.close() ;
+        }
     }
 
 }

@@ -93,13 +93,13 @@ abstract public class Application implements ApplicationContract {
         this.startNetwork() ;
 
         // Start the graphic components.
-        SwingUtilities.invokeLater(() -> {
+        /*SwingUtilities.invokeLater(() -> {
             Application.this.graphicThread = new GraphicThread() ;
             Application.this.graphicThread.setFrameScreen(
                     Application.this.getStartingScreen()
             ) ;
             Application.this.graphicThread.start() ;
-        }) ;
+        }) ;*/
     }
 
     /**

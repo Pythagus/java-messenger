@@ -3,11 +3,13 @@ package Messenger.Network.Tasks.Envoyers;
 import java.net.Socket;
 import java.io.IOException;
 import java.util.concurrent.Executors;
+import Messenger.Foundation.Models.User;
 import Messenger.Network.Models.Packet;
 import Messenger.Network.NetworkInterface;
 import java.util.concurrent.ExecutorService;
 import Messenger.Network.Models.MeetingPacket;
 import Messenger.Network.Models.Datagram.Stream;
+import Messenger.Network.Tasks.Listeners.MeetingResponseListener;
 
 /**
  * @author Damien MOLINA
@@ -25,51 +27,39 @@ public class NetworkEnvoyer {
     private final Stream exchanger ;
 
     /**
-     * Network interface instance.
-     */
-    private final NetworkInterface networkInterface ;
-
-    /**
      * Make a new network exchanger instance.
      */
-    public NetworkEnvoyer(NetworkInterface networkInterface) {
-        this.executor         = Executors.newFixedThreadPool(5) ;
-        this.exchanger        = new Stream() ;
-        this.networkInterface = networkInterface ;
+    public NetworkEnvoyer() {
+        this.executor  = Executors.newFixedThreadPool(5) ;
+        this.exchanger = new Stream() ;
     }
 
     /**
-     * Send the given packet.
+     * Request a new connection with the
+     * given user.
      *
-     * @param packet : packet to send.
+     * @param user : user to connect with.
+     * @throws IOException : socket error.
      */
-    public void send(Packet packet, boolean closeSocket) {
-        try {
-            this.send(
-                new Socket(
-                    packet.getDestinationAddress(), NetworkInterface.receivingPort
-                ), packet, closeSocket
-            ) ;
-        } catch (IOException exception) {
-            exception.printStackTrace() ;
-        }
-    }
+    public void sendRequestMeeting(User user, Runnable onAccepted, Runnable onDenied) throws IOException {
+        MeetingPacket packet = new MeetingPacket(
+            new User(), user
+        ) ;
+        packet.setState(MeetingPacket.State.REQUEST) ;
 
-    /**
-     * Send the given meeting packet.
-     *
-     * @param packet : packet instance.
-     */
-    public void send(MeetingPacket packet, boolean closeSocket) {
-        /*
-         * If the packet is requested, then
-         * we add it into the requested list.
-         */
-        if(packet.hasState(MeetingPacket.State.REQUEST)) {
-            this.networkInterface.getMeetingListener().addRequestedPacket(packet) ;
-        }
+        Socket socket = new Socket(
+            packet.getDestinationAddress(), NetworkInterface.meetingPort
+        ) ;
 
-        this.send((Packet) packet, closeSocket) ;
+       this.send(
+            socket, packet, false
+        ) ;
+
+        // Start the listener at the given port.
+        MeetingResponseListener listener = new MeetingResponseListener(socket) ;
+        listener.setCallbackOnAccepted(onAccepted) ;
+        listener.setCallbackOnDenied(onDenied) ;
+        listener.start() ;
     }
 
     /**
@@ -84,11 +74,11 @@ public class NetworkEnvoyer {
                 // Send the packet.
                 this.exchanger.bindOutput(socket.getOutputStream()) ;
                 this.exchanger.send(packet) ;
-                this.exchanger.close() ;
+                //this.exchanger.close() ;
 
                 // Close the socket.
                 if(closeSocket) {
-                    socket.close() ;
+                    //socket.close() ;
                 }
             } catch (Exception e) {
                 e.printStackTrace() ;

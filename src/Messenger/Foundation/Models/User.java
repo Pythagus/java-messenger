@@ -1,6 +1,7 @@
 package Messenger.Foundation.Models;
 
 import java.util.Objects;
+import java.io.Serializable;
 import java.net.InetAddress;
 import Messenger.Network.Utils.AddressUtils;
 
@@ -9,7 +10,12 @@ import Messenger.Network.Utils.AddressUtils;
  *
  * @author Maud PENNETIER
  */
-public class User {
+public class User implements Serializable {
+
+    /**
+     * Serialisation identifier.
+     */
+    private static final long serialVersionUID = 4242424242424242424L ;
 
     /**
      * User pseudo.
@@ -38,6 +44,9 @@ public class User {
         }
     }
 
+    public User(InetAddress addr) {
+        this.address = addr ;
+    }
 
     /**
      * Get the unique user identifier. This

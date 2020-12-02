@@ -9,6 +9,11 @@ import Messenger.Foundation.Models.User;
 public class MeetingPacket extends Packet {
 
     /**
+     * Serialisation identifier.
+     */
+    private static final long serialVersionUID = 4242424242424242431L ;
+
+    /**
      * Possible packet state.
      */
     public enum State {
@@ -37,12 +42,12 @@ public class MeetingPacket extends Packet {
     /**
      * The source user.
      */
-    private final User srcUser ;
+    private User srcUser ;
 
     /**
      * The destination user.
      */
-    private final User destUser ;
+    private User destUser ;
 
     /**
      * Make a new packet instance.
@@ -126,6 +131,18 @@ public class MeetingPacket extends Packet {
             && Objects.equals(this.destUser, that.getDestinationUser())
             && Objects.equals(this.srcAddress, that.getSourceAddress())
             && Objects.equals(this.destAddress, that.getDestinationAddress());
+    }
+
+    /**
+     * Reverse the packet addresses.
+     */
+    public void reverse() {
+        super.reverse() ;
+
+        User tmp = this.srcUser ;
+
+        this.srcUser  = this.destUser ;
+        this.destUser = tmp ;
     }
 
 }

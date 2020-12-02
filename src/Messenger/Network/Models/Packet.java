@@ -9,14 +9,19 @@ import java.net.InetAddress;
 abstract public class Packet implements Serializable {
 
     /**
+     * Serialisation identifier.
+     */
+    private static final long serialVersionUID = 4242424242424242430L ;
+
+    /**
      * Source address.
      */
-    protected final InetAddress srcAddress ;
+    protected InetAddress srcAddress ;
 
     /**
      * Destination address.
      */
-    protected final InetAddress destAddress ;
+    protected InetAddress destAddress ;
 
     /**
      * Packet data.
@@ -68,6 +73,16 @@ abstract public class Packet implements Serializable {
      */
     public void setData(Object data) {
         this.data = data ;
+    }
+
+    /**
+     * Reverse the packet addresses.
+     */
+    public void reverse() {
+        InetAddress tmp = this.srcAddress ;
+
+        this.srcAddress = this.destAddress ;
+        this.destAddress = tmp ;
     }
 
 }
