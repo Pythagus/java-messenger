@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.io.ObjectInputStream;
 import Messenger.Foundation.Environment;
+import Messenger.Foundation.System.Console.Console;
 import Messenger.Network.NetworkInterface;
 import Messenger.Network.Models.MeetingPacket;
 import Messenger.Foundation.Controllers.UserController;
@@ -38,10 +39,16 @@ public class MeetingListener extends NetworkBaseListener<ServerSocket> {
     public void run() {
         while(true) {
             try {
-                System.out.println("En attente");
+                if(Environment.getApplication().isDebugMode()) {
+                    Console.comment("=> MeetingListener is waiting") ;
+                }
+
                 Socket socket        = this.listenerSocket.accept() ;
-                System.out.println("Reçu !");
-                ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
+                ObjectInputStream is = new ObjectInputStream(socket.getInputStream()) ;
+
+                if(Environment.getApplication().isDebugMode()) {
+                    Console.comment("=> MeetingListener received a request from " + socket.getInetAddress()) ;
+                }
 
                 this.manageReceivedPacket(
                     socket, (MeetingPacket) is.readObject()
@@ -58,8 +65,6 @@ public class MeetingListener extends NetworkBaseListener<ServerSocket> {
      * @param packet : received packet.
      */
     protected void manageReceivedPacket(Socket socket, MeetingPacket packet) {
-        System.out.println("State à l'arrivée : " + packet.getState());
-
         if(packet.hasState(MeetingPacket.State.REQUEST)) {
             this.manageRequestedPacket(socket, packet) ;
         }
@@ -93,7 +98,6 @@ public class MeetingListener extends NetworkBaseListener<ServerSocket> {
              */
             packet.setState(MeetingPacket.State.DENIED) ;
         }
-
         /*
          * Else, the packet is valid. We can
          * accept it.
@@ -103,14 +107,14 @@ public class MeetingListener extends NetworkBaseListener<ServerSocket> {
             packet.setState(MeetingPacket.State.ACCEPTED) ;
         }
 
-        System.out.println("Paquet avec nouveau state : " + packet.getState()) ;
+        if(Environment.getApplication().isDebugMode()) {
+            Console.comment("=> New state : " + packet.getState()) ;
+        }
 
         packet.reverse() ;
 
         try {
-            this.networkInterface.getEnvoyer().send(
-                socket, packet, false
-            ) ;
+            this.networkInterface.getEnvoyer().send(socket, packet, false) ;
         } catch (Exception e) {
             e.printStackTrace() ;
         }

@@ -1,7 +1,7 @@
 package Messenger.Network.Tasks.Listeners;
 
+import Messenger.Foundation.System.Console.Console;
 import Messenger.Network.Tasks.Listeners.Concerns.NetworkBaseListener;
-import Messenger.Network.Models.Datagram.DatagramExchanger;
 import Messenger.Foundation.Controllers.UserController;
 import Messenger.Network.Models.Datagram.Stream;
 import Messenger.Network.Models.MeetingPacket;
@@ -24,7 +24,6 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
      * accepted.
      */
     private Runnable callbackOnDenied ;
-
 
     /**
      * Make a new listener instance.
@@ -69,7 +68,8 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
      */
     public void run() {
         try {
-            DatagramExchanger exchanger = new Stream(this.listenerSocket) ;
+            Stream exchanger = new Stream() ;
+            exchanger.bindInput(this.listenerSocket.getInputStream()) ;
             MeetingPacket packet = (MeetingPacket) exchanger.receive() ;
 
             this.managePacket(packet) ;
@@ -109,6 +109,10 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
      * @param packet : accepted packet instance.
      */
     private void manageAcceptedPacket(MeetingPacket packet) {
+        if(Environment.getApplication().isDebugMode()) {
+            Console.comment("=> Accepted packet from " + packet.getSourceAddress()) ;
+        }
+
         this.getUserController().addUser(packet.getSourceUser()) ;
 
         if(this.callbackOnAccepted != null) {
@@ -122,6 +126,10 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
      * @param packet : denied packet instance.
      */
     private void manageDeniedPacket(MeetingPacket packet) {
+        if(Environment.getApplication().isDebugMode()) {
+            Console.comment("=> Denied packet from " + packet.getSourceAddress()) ;
+        }
+
         if(this.callbackOnDenied != null) {
             this.callbackOnDenied.run() ;
         }

@@ -61,6 +61,7 @@ abstract public class Application implements ApplicationContract {
         Console.comment("/= Version " + this.getVersion()) ;
         Console.comment("/=") ;
         Console.comment("/= Developed by Maud Pennetier and Damien Molina") ;
+        Console.comment("") ;
     }
 
     /**

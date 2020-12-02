@@ -73,11 +73,11 @@ public class NetworkEnvoyer {
                 this.exchanger.clear() ;
                 this.exchanger.bindOutput(socket.getOutputStream()) ;
                 this.exchanger.send(packet) ;
-                this.exchanger.close() ;
 
                 // Close the socket.
                 if(closeSocket) {
-                    //socket.close() ;
+                    this.exchanger.close() ;
+                    socket.close() ;
                 }
             } catch (Exception e) {
                 e.printStackTrace() ;

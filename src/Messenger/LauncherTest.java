@@ -11,9 +11,7 @@ public class LauncherTest {
         Messenger msn = new Messenger() ;
         msn.start() ;
 
-
         InetAddress ip = InetAddress.getByName("192.168.1.1") ;
-
         Environment.getNetworkInterface().getEnvoyer().sendRequestMeeting(
             new User(ip), () -> System.out.println("Accepted"), () -> System.out.println("Denied")
         ) ;
