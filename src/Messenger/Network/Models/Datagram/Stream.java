@@ -58,6 +58,18 @@ public class Stream implements DatagramExchanger {
     }
 
     /**
+     * Clear the stream.
+     *
+     * @throws Exception : close error.
+     */
+    public void clear() throws Exception {
+        this.close() ;
+
+        this.input = null ;
+        this.output = null ;
+    }
+
+    /**
      * Bind the in and out puts with the given streams.
      *
      * @param socket : socket to bind with.

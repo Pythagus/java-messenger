@@ -51,9 +51,7 @@ public class NetworkEnvoyer {
             packet.getDestinationAddress(), NetworkInterface.meetingPort
         ) ;
 
-       this.send(
-            socket, packet, false
-        ) ;
+        this.send(socket, packet, false) ;
 
         // Start the listener at the given port.
         MeetingResponseListener listener = new MeetingResponseListener(socket) ;
@@ -72,9 +70,10 @@ public class NetworkEnvoyer {
         this.executor.submit(() -> {
             try {
                 // Send the packet.
+                this.exchanger.clear() ;
                 this.exchanger.bindOutput(socket.getOutputStream()) ;
                 this.exchanger.send(packet) ;
-                //this.exchanger.close() ;
+                this.exchanger.close() ;
 
                 // Close the socket.
                 if(closeSocket) {
