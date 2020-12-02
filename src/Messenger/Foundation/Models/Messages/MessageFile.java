@@ -16,6 +16,6 @@ public class MessageFile extends File {
         super(pathname) ;
     }
 
-
+    public long getLength(){ return this.length(); }
 
 }
