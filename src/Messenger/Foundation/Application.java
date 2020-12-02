@@ -1,11 +1,14 @@
 package Messenger.Foundation;
 
-import Messenger.Foundation.Contracts.ApplicationContract;
-import Messenger.Foundation.System.Console.Console;
-import Messenger.GUI.Screens.Screen;
-import Messenger.GUI.GraphicThread;
-import Messenger.GUI.Frame;
 import javax.swing.*;
+import Messenger.GUI.Frame;
+import java.io.IOException;
+import Messenger.GUI.GraphicThread;
+import Messenger.GUI.Screens.Screen;
+import Messenger.Network.NetworkInterface;
+import Messenger.Foundation.System.Console.Console;
+import Messenger.Foundation.Controllers.UserController;
+import Messenger.Foundation.Contracts.ApplicationContract;
 
 /**
  * @author Damien MOLINA
@@ -83,6 +86,12 @@ abstract public class Application implements ApplicationContract {
      * Start the application instance.
      */
     public void start() {
+        // Start the controllers.
+        Environment.addController(new UserController()) ;
+
+        // Start the network components.
+        this.startNetwork() ;
+
         // Start the graphic components.
         SwingUtilities.invokeLater(() -> {
             Application.this.graphicThread = new GraphicThread() ;
@@ -91,6 +100,20 @@ abstract public class Application implements ApplicationContract {
             ) ;
             Application.this.graphicThread.start() ;
         }) ;
+    }
+
+    /**
+     * Start the network interface.
+     */
+    private void startNetwork() {
+        try {
+            Environment.setNetworkInterface(
+                new NetworkInterface()
+            ) ;
+            Environment.getNetworkInterface().start() ;
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 
     /**

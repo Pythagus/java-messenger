@@ -1,9 +1,8 @@
-package Messenger.Network.datagram;
-import Messenger.Foundation.Models.Messages.Message;
+package Messenger.Network.Models.Datagram;
+
 import Messenger.Foundation.Models.Messages.MessageFile;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.FileInputStream;
 import java.net.Socket;
 
 /**

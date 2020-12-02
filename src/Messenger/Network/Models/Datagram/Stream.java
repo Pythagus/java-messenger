@@ -1,4 +1,4 @@
-package Messenger.Network.datagram;
+package Messenger.Network.Models.Datagram;
 
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
@@ -26,12 +26,17 @@ public class Stream implements DatagramExchanger {
     protected ObjectOutputStream output ;
 
     /**
+     * Make a new stream instance.
+     */
+    public Stream() {}
+
+    /**
      * Bind the input with the given stream.
      *
      * @param stream : input socket stream.
      * @throws Exception : stream error.
      */
-    protected void bindInput(InputStream stream) throws Exception {
+    public void bindInput(InputStream stream) throws Exception {
         this.input = new ObjectInputStream(stream) ;
     }
 
@@ -41,7 +46,7 @@ public class Stream implements DatagramExchanger {
      * @param stream : output socket stream.
      * @throws Exception : stream error.
      */
-    protected void bindOutput(OutputStream stream) throws Exception {
+    public void bindOutput(OutputStream stream) throws Exception {
         this.output = new ObjectOutputStream(stream) ;
     }
 

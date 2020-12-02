@@ -8,7 +8,7 @@ import Messenger.Foundation.Models.Messages.Message;
  *
  * @author Maud PENNETIER
  */
-public class ConversationController {
+public class ConversationController extends Controller {
 
     /**
      * Start new discussion.

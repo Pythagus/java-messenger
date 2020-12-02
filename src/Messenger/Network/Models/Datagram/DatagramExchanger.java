@@ -1,4 +1,4 @@
-package Messenger.Network.datagram;
+package Messenger.Network.Models.Datagram;
 
 import java.net.Socket;
 

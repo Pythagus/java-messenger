@@ -42,7 +42,6 @@ public class UserSeeder extends Seeder {
         for(int i = 0 ; i < this.howMany ; i++) {
             User user = new User() ;
             user.setPseudo(UserSeeder.pseudos[i]) ;
-            user.setMacAddress("00:00:00:00:00:00") ;
 
             users[i] = user ;
         }

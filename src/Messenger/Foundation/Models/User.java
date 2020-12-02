@@ -1,6 +1,8 @@
 package Messenger.Foundation.Models;
 
 import java.util.Objects;
+import java.net.InetAddress;
+import Messenger.Network.Utils.AddressUtils;
 
 /**
  * Main application user.
@@ -18,6 +20,24 @@ public class User {
      * User MAC address.
      */
     protected String macAddress;
+
+    /**
+     * Source address.
+     */
+    protected InetAddress address ;
+
+    /**
+     * Make a new User instance.
+     */
+    public User() {
+        try {
+            this.address    = AddressUtils.getIpAddress() ;
+            this.macAddress = AddressUtils.getMacAddress() ;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Get the unique user identifier. This
@@ -40,21 +60,21 @@ public class User {
     }
 
     /**
+     * Get the user inet address.
+     *
+     * @return the address.
+     */
+    public InetAddress getAddress() {
+        return this.address ;
+    }
+
+    /**
      * Set the user pseudo.
      *
      * @param pseudo : the user pseudo.
      */
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo ;
-    }
-
-    /**
-     * Set the user's MAC address.
-     *
-     * @param macAddress : the MAC address.
-     */
-    public void setMacAddress(String macAddress) {
-        this.macAddress = macAddress ;
     }
 
     /**
