@@ -12,8 +12,7 @@ public class LauncherTest {
         msn.start() ;
 
         InetAddress ip = InetAddress.getByName("192.168.1.1") ;
-        User target = new User(ip) ;
-        target.setPseudo("André") ;
+        User target = new User("André", "00:00:00:00:00:00", ip) ;
         Environment.getNetworkInterface().getEnvoyer().sendRequestMeeting(target) ;
     }
 

@@ -46,13 +46,13 @@ public class User implements Serializable {
 
     public User(String pseudo, String macAddress, String addr) throws Exception
     {
-        this.pseudo = pseudo ;
-        this.macAddress = macAddress;
-        this.address = InetAddress.getByName(addr) ;
+        this(pseudo, macAddress, InetAddress.getByName(addr)) ;
     }
 
-    public User(InetAddress addr) throws Exception
+    public User(String pseudo, String macAddress, InetAddress addr)
     {
+        this.pseudo = pseudo ;
+        this.macAddress = macAddress;
         this.address = addr ;
     }
 
