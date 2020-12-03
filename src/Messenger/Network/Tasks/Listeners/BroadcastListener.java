@@ -51,6 +51,10 @@ public class BroadcastListener
         }
     }
 
+    /**
+     * redirect on functions depending of the type of packet
+     * @param pdu payload of the udp packet
+     */
     protected void manageReceivedPDU(BroadcastNotification pdu) {
         switch (pdu.getType()) {
             /*
