@@ -107,8 +107,6 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
             Console.comment("=> Accepted packet from " + packet.getSourceAddress()) ;
         }
 
-        this.getUserController().addUser(packet.getSourceUser()) ;
-
         if(this.callbackOnAccepted != null) {
             this.callbackOnAccepted.accepted(packet.getSourceUser()) ;
         }

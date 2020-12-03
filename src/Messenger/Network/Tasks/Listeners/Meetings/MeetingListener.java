@@ -68,7 +68,6 @@ public class MeetingListener extends ServerListener<MeetingPacket> {
          * accept it.
          */
         else {
-            controller.addUser(packet.getSourceUser()) ;
             packet.setState(MeetingPacket.State.ACCEPTED) ;
             new AcceptedConnection().accepted(packet.getSourceUser()) ;
         }

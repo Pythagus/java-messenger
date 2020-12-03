@@ -70,8 +70,12 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
 
                 T packet = (T) is.readObject() ;
 
+                // TODO : do it in a thread
                 if(this.shouldManagePacket(packet)) {
+                    System.out.println("to manage");
                     this.manageReceivedPacket(socket, packet) ;
+                } else {
+                    System.out.println("NOT to manage");
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();

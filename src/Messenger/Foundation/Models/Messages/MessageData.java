@@ -1,11 +1,18 @@
 package Messenger.Foundation.Models.Messages;
 
+import java.io.Serializable;
+
 /**
  * Message content : string, file, etc.
  *
  * @author Damien MOLINA
  */
-public class MessageData {
+public class MessageData implements Serializable {
+
+    /**
+     * Serialisation identifier.
+     */
+    private static final long serialVersionUID = 4242424242424242410L ;
 
     /**
      * Message text.

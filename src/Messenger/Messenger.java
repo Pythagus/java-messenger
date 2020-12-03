@@ -5,6 +5,15 @@ import Messenger.GUI.Screens.uiLogin;
 import Messenger.Foundation.Application;
 
 /**
+ * This is a list of the taken serialize
+ * uid:
+ * - 4242424242424242410L : MessageData
+ * - 4242424242424242424L : User
+ * - 4242424242424242430L : Packet
+ * - 4242424242424242431L : UserPacket
+ * - 4242424242424242432L : MeetingPacket
+ * - 4242424242424242433L : MessagePacket
+ *
  * @author Damien MOLINA
  */
 public class Messenger extends Application {
