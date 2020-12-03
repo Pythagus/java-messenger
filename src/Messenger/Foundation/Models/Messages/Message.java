@@ -2,6 +2,8 @@ package Messenger.Foundation.Models.Messages;
 
 import Messenger.Foundation.Env;
 import Messenger.Foundation.Models.User;
+
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +11,12 @@ import java.util.Date;
  *
  * @author Maud PENNETIER
  */
-public class Message {
+public class Message implements Serializable {
+
+    /**
+     * Serialisation identifier.
+     */
+    private static final long serialVersionUID = 4242424242424242411L ;
 
     /**
      * Message data.
@@ -87,6 +94,5 @@ public class Message {
     public MessageData getData() {
         return this.data ;
     }
+
 }
-
-

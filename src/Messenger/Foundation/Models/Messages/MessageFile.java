@@ -8,6 +8,11 @@ import java.io.File;
 public class MessageFile extends File {
 
     /**
+     * Serialisation identifier.
+     */
+    private static final long serialVersionUID = 4242424242424242412L ;
+
+    /**
      * Default constructor.
      *
      * @param pathname : path to the file.
@@ -16,6 +21,13 @@ public class MessageFile extends File {
         super(pathname) ;
     }
 
-    public long getLength(){ return this.length(); }
+    /**
+     * Get the file length.
+     *
+     * @return the file length.
+     */
+    public long getLength() {
+        return this.length() ;
+    }
 
 }

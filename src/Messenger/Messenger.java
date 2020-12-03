@@ -8,6 +8,8 @@ import Messenger.Foundation.Application;
  * This is a list of the taken serialize
  * uid:
  * - 4242424242424242410L : MessageData
+ * - 4242424242424242411L : Message
+ * - 4242424242424242412L : MessageFile
  * - 4242424242424242424L : User
  * - 4242424242424242430L : Packet
  * - 4242424242424242431L : UserPacket
