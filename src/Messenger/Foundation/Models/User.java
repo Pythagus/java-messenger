@@ -51,6 +51,11 @@ public class User implements Serializable {
         this.address = InetAddress.getByName(addr) ;
     }
 
+    public User(InetAddress addr) throws Exception
+    {
+        this.address = addr ;
+    }
+
     /**
      * Get the unique user identifier. This
      * identifier should be unique to clearly
