@@ -2,6 +2,8 @@ package Messenger.Network.Tasks.Envoyers;
 
 import java.net.Socket;
 import java.util.concurrent.Executors;
+
+import Messenger.Foundation.Models.Messages.Message;
 import Messenger.Foundation.Models.User;
 import java.util.concurrent.ExecutorService;
 import Messenger.Network.Models.Concerns.Packet;
@@ -48,11 +50,10 @@ public class Envoyer {
     /**
      * Make a new message envoyer.
      *
-     * @param data : data to send.
-     * @param user : user to send the data to.
+     * @param message : message to send.
      */
-    public void sendMessage(MessageData data, User user) {
-        new MessageEnvoyer(this, data, user).start() ;
+    public void sendMessage(Message message) {
+        new MessageEnvoyer(this, message).start() ;
     }
 
     /**

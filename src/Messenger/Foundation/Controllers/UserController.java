@@ -25,14 +25,18 @@ public class UserController extends Controller {
      */
     public void addUser(User user) {
         this.users.add(user) ;
+        this.notifyAllListeners(user) ;
     }
-    //comment l'user est trouvé ? est ce que ça marche encore si un parametre de l'user change ?
 
     /**
      * Remove a user.
+     *
      * @param user : User instance.
      */
-    public void supprUser(User user) {this.users.remove(user) ; }
+    public void removeUser(User user) {
+        this.users.remove(user) ;
+        this.notifyAllListeners(user) ;
+    }
 
     /**
      * modify an existing pseudo
@@ -40,8 +44,9 @@ public class UserController extends Controller {
      * @param newName String that will replace the ancient pseudo
      */
     public void modifyUserName(User user, String newName){
-        int index = this.users.indexOf(user);
-        this.users.get(index).setPseudo(newName);
+        this.users.get(
+            this.users.indexOf(user)
+        ).setPseudo(newName) ;
     }
 
     /**
@@ -54,6 +59,5 @@ public class UserController extends Controller {
     public boolean hasUser(User user) {
         return this.users.contains(user) ;
     }
-
 
 }

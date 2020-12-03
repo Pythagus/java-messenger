@@ -1,5 +1,6 @@
 package Messenger.Network.Tasks.Envoyers.Concerns;
 
+import java.net.ConnectException;
 import java.net.Socket;
 import java.io.IOException;
 import java.net.NoRouteToHostException;
@@ -64,7 +65,7 @@ public class MeetingEnvoyer extends BaseEnvoyer {
          * This exception is thrown when the
          * user is not reachable in the network.
          */
-        catch (NoRouteToHostException e) {
+        catch (NoRouteToHostException | ConnectException e) {
             deniedCallback.unreachableUser(e, this.user) ;
         }
     }

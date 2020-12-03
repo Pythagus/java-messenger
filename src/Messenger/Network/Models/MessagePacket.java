@@ -1,13 +1,13 @@
 package Messenger.Network.Models;
 
 import Messenger.Foundation.Models.User;
+import Messenger.Foundation.Models.Messages.Message;
 import Messenger.Network.Models.Concerns.UserPacket;
-import Messenger.Foundation.Models.Messages.MessageData;
 
 /**
  * @author Damien MOLINA
  */
-public class MessagePacket extends UserPacket<MessageData> {
+public class MessagePacket extends UserPacket<Message> {
 
     /**
      * Serialisation identifier.

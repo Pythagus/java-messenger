@@ -3,7 +3,7 @@ package Messenger.Network.Tasks.Listeners;
 import java.net.Socket;
 import java.io.IOException;
 import Messenger.Network.Models.MessagePacket;
-import Messenger.Foundation.Models.Messages.MessageData;
+import Messenger.Foundation.Models.Messages.Message;
 import Messenger.Network.Tasks.Listeners.Concerns.ServerListener;
 
 /**
@@ -39,9 +39,11 @@ public class ReceiveListener extends ServerListener<MessagePacket> {
      * @param packet : received packet.
      */
     protected void manageReceivedPacket(Socket socket, MessagePacket packet) {
-        MessageData data = packet.getData() ;
+        Message message = packet.getData() ;
 
-        System.out.println(data.getText()) ;
+        System.out.println(
+            message.getData().getText()
+        ) ;
     }
 
 }

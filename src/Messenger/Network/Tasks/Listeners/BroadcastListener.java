@@ -93,18 +93,18 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
 
     /**
      * Erase the sender from the userConnected DTB
-     * @param notif Need the content of the notification
+     * @param notification : Need the content of the notification
      */
-    private void manageLogoutPDU(BroadcastNotification notif)
+    private void manageLogoutPDU(BroadcastNotification notification)
     {
-        ((UserController) Env.getController(UserController.class)).supprUser(notif.getUser());
+        this.getUserController().removeUser(notification.getUser());
     }
 
     /**
      * Send its information (ip, mac, pseudo, port ?)
-     * @param notif Need the content of the notification
+     * @param notification : Need the content of the notification
      */
-    private void manageHasPseudoPDU(BroadcastNotification notif)
+    private void manageHasPseudoPDU(BroadcastNotification notification)
     {
         //todo
     }
@@ -112,11 +112,23 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
     // y'a un truc qui va pas ici !!! comment trouver grace à seulement l'attribut MAC ?
     /**
      * Change the sender pseudo in the userConnected DTB
-     * @param notif Need the content of the notification
+     * @param notification Need the content of the notification
      */
-    private void manageChangedPseudoPDU(BroadcastNotification notif)
+    private void manageChangedPseudoPDU(BroadcastNotification notification)
     {
-        ((UserController) Env.getController(UserController.class)).modifyUserName(notif.getUser() ,notif.getUser().getPseudo());
+        this.getUserController().modifyUserName(
+            notification.getUser(), notification.getUser().getPseudo()
+        ) ;
+    }
+
+
+    /**
+     * Get the User Controller.
+     *
+     * @return the UserController instance.
+     */
+    private UserController getUserController() {
+        return (UserController) Env.getController(UserController.class) ;
     }
 
 }

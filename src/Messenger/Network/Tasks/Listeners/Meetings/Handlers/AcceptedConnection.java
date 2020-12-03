@@ -2,6 +2,7 @@ package Messenger.Network.Tasks.Listeners.Meetings.Handlers;
 
 import java.util.Scanner;
 import Messenger.Foundation.Env;
+import Messenger.Foundation.Models.Messages.Message;
 import Messenger.Foundation.Models.User;
 import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.Foundation.Controllers.UserController;
@@ -26,8 +27,11 @@ public class AcceptedConnection {
         while (scanner.hasNext()) {
             String text = scanner.next() ;
 
+
             Env.getNetworkInterface().getEnvoyer().sendMessage(
-                new MessageData(text, null), user
+                new Message(
+                    user, new MessageData(text, null)
+                )
             ) ;
         }
     }

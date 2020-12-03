@@ -1,6 +1,8 @@
 package Messenger.Foundation;
 
+import Messenger.Foundation.Observers.Listeners.UserListUpdated;
 import Messenger.GUI.Frame;
+import javax.swing.SwingUtilities;
 import Messenger.GUI.GraphicThread;
 import Messenger.GUI.Screens.Screen;
 import Messenger.Foundation.Models.User;
@@ -90,19 +92,21 @@ abstract public class Application implements ApplicationContract {
         Env.setUser(new User()) ;
 
         // Start the controllers.
-        Env.addController(new UserController()) ;
+        UserController userController = new UserController() ;
+        userController.addListener(new UserListUpdated()) ;
+        Env.addController(userController) ;
 
         // Start the network components.
         this.startNetwork() ;
 
         // Start the graphic components.
-        /*SwingUtilities.invokeLater(() -> {
+        SwingUtilities.invokeLater(() -> {
             Application.this.graphicThread = new GraphicThread() ;
             Application.this.graphicThread.setFrameScreen(
                     Application.this.getStartingScreen()
             ) ;
             Application.this.graphicThread.start() ;
-        }) ;*/
+        }) ;
     }
 
     /**

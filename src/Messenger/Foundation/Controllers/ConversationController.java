@@ -1,5 +1,6 @@
 package Messenger.Foundation.Controllers;
 
+import Messenger.Foundation.Env;
 import Messenger.Foundation.Models.User;
 import Messenger.Foundation.Models.Messages.Message;
 
@@ -15,9 +16,8 @@ public class ConversationController extends Controller {
      *
      * @param user : user with whom the conversation is held.
      */
-    public void start(User user)
-    {
-    // TODO
+    public void start(User user) {
+        Env.getNetworkInterface().getEnvoyer().sendRequestMeeting(user) ;
     }
 
     /**
@@ -45,13 +45,10 @@ public class ConversationController extends Controller {
     /**
      * Send message to next user, nexthop network classes.
      *
-     * @param user : user with whom the conversation is held.
      * @param message : content of the message.
      */
-    public void send(User user, Message message)
-    {
-        // TODO
-        // create  a Message instance (
+    public void send(Message message) {
+        Env.getNetworkInterface().getEnvoyer().sendMessage(message) ;
     }
 
     /**
