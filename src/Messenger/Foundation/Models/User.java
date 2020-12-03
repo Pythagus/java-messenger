@@ -44,8 +44,11 @@ public class User implements Serializable {
         }
     }
 
-    public User(InetAddress addr) {
-        this.address = addr ;
+    public User(String pseudo, String macAddress, String addr) throws Exception
+    {
+        this.pseudo = pseudo ;
+        this.macAddress = macAddress;
+        this.address = InetAddress.getByName(addr) ;
     }
 
     /**
