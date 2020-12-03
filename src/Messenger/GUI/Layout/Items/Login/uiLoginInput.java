@@ -5,7 +5,7 @@ import javax.swing.*;
 
 import Messenger.GUI.Screens.uiWindow;
 import Messenger.GUI.Utils.Placeholder;
-import Messenger.Foundation.Environment;
+import Messenger.Foundation.Env;
 import Messenger.GUI.Listeners.DiscussionInputListener;
 import Messenger.Foundation.Exceptions.Pseudo.PseudoException;
 import Messenger.Foundation.Exceptions.Pseudo.AlreadyUsedPseudoException;
@@ -82,7 +82,7 @@ public class uiLoginInput extends JTextField {
                     throw new AlreadyUsedPseudoException() ;
                 }
 
-                Environment.getApplication().getGraphicFrame().replaceScreen(
+                Env.getApplication().getGraphicFrame().replaceScreen(
                     new uiWindow()
                 ) ;
             } catch(PseudoException exception) {

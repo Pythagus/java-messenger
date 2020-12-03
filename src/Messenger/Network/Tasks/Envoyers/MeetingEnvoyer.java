@@ -6,7 +6,7 @@ import java.net.NoRouteToHostException;
 import Messenger.Foundation.Models.User;
 import Messenger.Network.NetworkInterface;
 import Messenger.Network.Models.MeetingPacket;
-import Messenger.Network.Tasks.Envoyers.Contracts.NetworkEnvoyerContract;
+import Messenger.Network.Tasks.Envoyers.Concerns.NetworkEnvoyerContract;
 import Messenger.Network.Tasks.Listeners.Meetings.MeetingResponseListener;
 import Messenger.Network.Tasks.Listeners.Meetings.Handlers.DeniedConnection;
 import Messenger.Network.Tasks.Listeners.Meetings.Handlers.AcceptedConnection;

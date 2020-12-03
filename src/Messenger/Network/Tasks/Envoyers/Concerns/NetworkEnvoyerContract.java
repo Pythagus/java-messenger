@@ -1,4 +1,4 @@
-package Messenger.Network.Tasks.Envoyers.Contracts;
+package Messenger.Network.Tasks.Envoyers.Concerns;
 
 import java.io.IOException;
 

@@ -2,7 +2,7 @@ package Messenger.Network.Tasks.Listeners.Meetings;
 
 import java.net.Socket;
 import java.io.IOException;
-import Messenger.Foundation.Environment;
+import Messenger.Foundation.Env;
 import Messenger.Network.NetworkInterface;
 import Messenger.Network.Models.MeetingPacket;
 import Messenger.Foundation.System.Console.Console;
@@ -72,7 +72,7 @@ public class MeetingListener extends ServerListener<MeetingPacket> {
             new AcceptedConnection().accepted(packet.getSourceUser()) ;
         }
 
-        if(Environment.getApplication().isDebugMode()) {
+        if(Env.getApplication().isDebugMode()) {
             Console.comment("=> New state : " + packet.getState()) ;
         }
 

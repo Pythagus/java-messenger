@@ -1,6 +1,6 @@
 package Messenger.Foundation.Models.Messages;
 
-import Messenger.Foundation.Environment;
+import Messenger.Foundation.Env;
 import Messenger.Foundation.Models.User;
 import java.util.Date;
 
@@ -40,7 +40,7 @@ public class Message {
     public Message(User target, MessageData data) {
         this.target = target ;
         this.data   = data ;
-        this.sender = Environment.getUser() ;
+        this.sender = Env.getUser() ;
 
         /*
          * When the Message instance is created,

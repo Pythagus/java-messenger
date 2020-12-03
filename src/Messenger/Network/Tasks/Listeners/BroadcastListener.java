@@ -1,43 +1,45 @@
 package Messenger.Network.Tasks.Listeners;
 
-import Messenger.Foundation.Models.User;
-import Messenger.Foundation.System.Console.Console;
-import Messenger.Network.Models.Broadcast.BroadcastNotification;
-
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-
-import Messenger.Foundation.Environment;
+import Messenger.Foundation.Env;
+import Messenger.Foundation.System.Console.Console;
 import Messenger.Foundation.Controllers.UserController;
-import Messenger.Network.Models.MeetingPacket;
+import Messenger.Network.Models.Broadcast.BroadcastNotification;
+import Messenger.Network.Tasks.Listeners.Concerns.NetworkBaseListener;
 
 /**
  * @author Maud PENNETIER
  */
-public class BroadcastListener
-{
+public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
 
-    private int portListen = 60403;
-
+    /**
+     * Make a new listener instance.
+     *
+     * @param listenerSocket : listening socket.
+     */
+    public BroadcastListener(DatagramSocket listenerSocket) {
+        super(listenerSocket) ;
+    }
 
     /**
      * Run the listener.
      */
     @SuppressWarnings("InfiniteLoopStatement")
-    public void run() throws Exception {
+    public void run() {
         while(true) {
             try {
-                DatagramSocket dataListener = new DatagramSocket(portListen); //listen on a port
-                Console.comment("=> BroadcastListener is waiting") ;
-
                 byte[] buffer = new byte[4096];
+
+                if(Env.getApplication().isDebugMode()) {
+                    Console.comment("=> BroadcastListener is waiting");
+                }
+
                 DatagramPacket datagram = new DatagramPacket(buffer, buffer.length);
 
-                dataListener.receive(datagram);   //receiving datagram
+                this.listenerSocket.receive(datagram);   //receiving datagram
 
-                if(Environment.getApplication().isDebugMode()) {
+                if(Env.getApplication().isDebugMode()) {
                     Console.comment("=> MeetingListener received a datagram from " + datagram.getAddress()) ;
                 }
 
@@ -45,7 +47,7 @@ public class BroadcastListener
 
                 this.manageReceivedPDU(receivedNotif);
 
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -95,7 +97,7 @@ public class BroadcastListener
      */
     private void manageLogoutPDU(BroadcastNotification notif)
     {
-        ((UserController)Environment.getController(UserController.class)).supprUser(notif.getUser());
+        ((UserController) Env.getController(UserController.class)).supprUser(notif.getUser());
     }
 
     /**
@@ -114,7 +116,7 @@ public class BroadcastListener
      */
     private void manageChangedPseudoPDU(BroadcastNotification notif)
     {
-        ((UserController)Environment.getController(UserController.class)).modifyUserName(notif.getUser() ,notif.getUser().getPseudo());
+        ((UserController) Env.getController(UserController.class)).modifyUserName(notif.getUser() ,notif.getUser().getPseudo());
     }
 
 }

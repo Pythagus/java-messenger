@@ -12,7 +12,7 @@ import javax.swing.event.DocumentListener;
 public class DiscussionInputListener implements DocumentListener {
 
     /**
-     * Environment listened input instance.
+     * Env listened input instance.
      */
     private final JTextField input ;
 

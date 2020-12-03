@@ -29,7 +29,7 @@ public class Messenger extends Application {
     private static final String NAME = "Java Messenger" ;
 
     /**
-     * Environment application mode.
+     * Env application mode.
      */
     private static final ApplicationMode mode = ApplicationMode.DEBUG ;
 

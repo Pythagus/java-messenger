@@ -1,7 +1,7 @@
 package Messenger.GUI.Layout.Items.Discussion;
 
 import Messenger.Foundation.System.Assets.ImageAsset;
-import Messenger.Foundation.Environment;
+import Messenger.Foundation.Env;
 import Messenger.GUI.Layout.RightSide;
 import Messenger.GUI.Screens.uiWindow;
 import java.awt.event.MouseAdapter;
@@ -63,7 +63,7 @@ public class uiDiscussionItem extends JPanel {
                 //TODO : afficher la conversation
                 System.out.println(uiDiscussionItem.this.discussion_id) ;
 
-                uiWindow uiWindow = (uiWindow) Environment.getApplication().getGraphicFrame().getScreen() ;
+                uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
                 uiWindow.getRightSide().activeSubScreen(RightSide.SubScreenType.Discussion) ;
             }
         }) ;

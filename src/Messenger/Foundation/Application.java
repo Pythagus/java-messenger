@@ -3,6 +3,7 @@ package Messenger.Foundation;
 import Messenger.GUI.Frame;
 import Messenger.GUI.GraphicThread;
 import Messenger.GUI.Screens.Screen;
+import Messenger.Foundation.Models.User;
 import Messenger.Network.NetworkInterface;
 import Messenger.Foundation.System.Console.Console;
 import Messenger.Foundation.Controllers.UserController;
@@ -21,7 +22,7 @@ abstract public class Application implements ApplicationContract {
     }
 
     /**
-     * Environment application mode.
+     * Env application mode.
      */
     protected final ApplicationMode mode ;
 
@@ -48,7 +49,7 @@ abstract public class Application implements ApplicationContract {
             this.printConsoleIntro() ;
         }
 
-        Environment.setApplication(this) ;
+        Env.setApplication(this) ;
     }
 
     /**
@@ -85,8 +86,11 @@ abstract public class Application implements ApplicationContract {
      * Start the application instance.
      */
     public void start() {
+        // Set the current user.
+        Env.setUser(new User()) ;
+
         // Start the controllers.
-        Environment.addController(new UserController()) ;
+        Env.addController(new UserController()) ;
 
         // Start the network components.
         this.startNetwork() ;
@@ -106,8 +110,8 @@ abstract public class Application implements ApplicationContract {
      */
     private void startNetwork() {
         try {
-            Environment.setNetworkInterface(new NetworkInterface()) ;
-            Environment.getNetworkInterface().start() ;
+            Env.setNetworkInterface(new NetworkInterface()) ;
+            Env.getNetworkInterface().start() ;
         } catch (Exception exception) {
             exception.printStackTrace();
         }

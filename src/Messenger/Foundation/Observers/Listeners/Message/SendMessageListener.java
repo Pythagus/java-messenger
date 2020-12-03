@@ -1,7 +1,7 @@
 package Messenger.Foundation.Observers.Listeners.Message;
 
 import Messenger.GUI.Screens.uiWindow;
-import Messenger.Foundation.Environment;
+import Messenger.Foundation.Env;
 import Messenger.Foundation.Observers.BaseListener;
 import Messenger.Foundation.Models.Messages.Concerns.MessageSound;
 
@@ -34,7 +34,7 @@ public class SendMessageListener extends BaseListener {
      */
     private void updateGraphics(String data) {
         try {
-            uiWindow uiWindow = (uiWindow) Environment.getApplication().getGraphicFrame().getScreen() ;
+            uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
             //uiWindow.getDiscussionBar().updateItem() ;
             //TODO : continue
         } catch (Exception e) {

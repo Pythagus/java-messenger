@@ -18,7 +18,7 @@ public class uiDiscussionMessage extends JPanel {
     // Main active color.
     private static final Color backgroundColorActive = new Color(1, 118, 255) ;
 
-    // Environment message side.
+    // Env message side.
     private final Side side ;
 
     /**

@@ -1,6 +1,6 @@
 package Messenger.Foundation.Exceptions;
 
-import Messenger.Foundation.Environment;
+import Messenger.Foundation.Env;
 import Messenger.Foundation.Exceptions.Contracts.UserException;
 
 /**
@@ -44,7 +44,7 @@ public class AppException extends Exception {
      */
     private String getAppName() {
         try {
-            return Environment.getApplication().getName() ;
+            return Env.getApplication().getName() ;
         } catch (Throwable throwable) {
             return "" ;
         }

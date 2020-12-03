@@ -8,10 +8,10 @@ import Messenger.Foundation.Models.User;
 /**
  * @author Damien MOLINA
  */
-public final class Environment {
+public final class Env {
 
     // Forbid object instantiation.
-    private Environment() {}
+    private Env() {}
 
     /**
      * Application instance.
@@ -41,7 +41,7 @@ public final class Environment {
      *      logged in user, NULL otherwise.
      */
     public static User getUser() {
-        return Environment.user ;
+        return Env.user ;
     }
 
     /**
@@ -50,7 +50,7 @@ public final class Environment {
      * @param user : the user instance.
      */
     public static void setUser(User user) {
-        Environment.user = user;
+        Env.user = user;
     }
 
     /**
@@ -59,7 +59,7 @@ public final class Environment {
      * @return the application instance.
      */
     public static Application getApplication() {
-        return Environment.application ;
+        return Env.application ;
     }
 
     /**
@@ -68,7 +68,7 @@ public final class Environment {
      * @param app : the application instance.
      */
     public static void setApplication(Application app) {
-        Environment.application = app ;
+        Env.application = app ;
     }
 
     /**
@@ -77,7 +77,7 @@ public final class Environment {
      * @param controller : controller to add.
      */
     public static void addController(Controller controller) {
-        Environment.controller.add(controller) ;
+        Env.controller.add(controller) ;
     }
 
     /**
@@ -88,7 +88,7 @@ public final class Environment {
      * @return the controller instance, null otherwise.
      */
     public static Controller getController(Class<? extends Controller> controller) {
-        return Environment.controller.get(controller) ;
+        return Env.controller.get(controller) ;
     }
 
     /**
@@ -97,7 +97,7 @@ public final class Environment {
      * @return the network interface instance.
      */
     public static NetworkInterface getNetworkInterface() {
-        return Environment.networkInterface ;
+        return Env.networkInterface ;
     }
 
     /**
@@ -106,7 +106,7 @@ public final class Environment {
      * @param networkInterface : the network interface instance.
      */
     public static void setNetworkInterface(NetworkInterface networkInterface) {
-        Environment.networkInterface = networkInterface ;
+        Env.networkInterface = networkInterface ;
     }
 
 }

@@ -4,7 +4,8 @@ import java.net.Socket;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.io.ObjectInputStream;
-import Messenger.Foundation.Environment;
+
+import Messenger.Foundation.Env;
 import Messenger.Network.Models.Concerns.Packet;
 import Messenger.Foundation.System.Console.Console;
 import Messenger.Foundation.Controllers.UserController;
@@ -57,14 +58,14 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
 
         while(this.run) {
             try {
-                if(Environment.getApplication().isDebugMode()) {
+                if(Env.getApplication().isDebugMode()) {
                     Console.comment("=> " + name + " is waiting") ;
                 }
 
                 Socket socket        = this.listenerSocket.accept() ;
                 ObjectInputStream is = new ObjectInputStream(socket.getInputStream()) ;
 
-                if(Environment.getApplication().isDebugMode()) {
+                if(Env.getApplication().isDebugMode()) {
                     Console.comment("=> " + name + " received a packet from " + socket.getInetAddress()) ;
                 }
 
@@ -89,7 +90,7 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
      * @return the UserController instance.
      */
     protected UserController getUserController() {
-        return (UserController) Environment.getController(UserController.class) ;
+        return (UserController) Env.getController(UserController.class) ;
     }
 
     /**

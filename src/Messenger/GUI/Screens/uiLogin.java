@@ -2,7 +2,8 @@ package Messenger.GUI.Screens;
 
 import java.awt.*;
 import javax.swing.*;
-import Messenger.Foundation.Environment;
+
+import Messenger.Foundation.Env;
 import Messenger.GUI.Layout.Items.Login.uiLoginError;
 import Messenger.GUI.Layout.Items.Login.uiLoginInput;
 import Messenger.Foundation.System.Assets.ImageAsset;
@@ -93,7 +94,7 @@ public class uiLogin extends Screen {
         String appName = "" ;
 
         try {
-            appName = Environment.getApplication().getName() ;
+            appName = Env.getApplication().getName() ;
         } catch(Throwable ignored) {}
 
         JLabel label = new JLabel() ;

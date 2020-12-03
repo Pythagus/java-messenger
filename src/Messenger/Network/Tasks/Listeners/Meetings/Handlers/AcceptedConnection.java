@@ -6,7 +6,7 @@ import Messenger.Foundation.Controllers.UserController;
 import Messenger.Network.Models.MessagePacket;
 import Messenger.Network.NetworkInterface;
 import Messenger.Foundation.Models.User;
-import Messenger.Foundation.Environment;
+import Messenger.Foundation.Env;
 import java.util.Scanner;
 import java.net.Socket;
 
@@ -59,7 +59,7 @@ public class AcceptedConnection {
      * @return the UserController instance.
      */
     private UserController getUserController() {
-        return (UserController) Environment.getController(UserController.class) ;
+        return (UserController) Env.getController(UserController.class) ;
     }
 
 }

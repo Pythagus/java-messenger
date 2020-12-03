@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import Messenger.GUI.Screens.Screen;
 import Messenger.GUI.Layout.TitleBar;
-import Messenger.Foundation.Environment;
+import Messenger.Foundation.Env;
 import Messenger.Foundation.System.Assets.ImageAsset;
 
 /**
@@ -41,7 +41,7 @@ public class Frame extends JFrame {
      */
     private void initializeComponentGraphics() {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE) ;
-        this.setTitle(Environment.getApplication().getName()) ;
+        this.setTitle(Env.getApplication().getName()) ;
         this.setLocationByPlatform(true) ;
         this.setUndecorated(true) ;
         this.setIconImage(ImageAsset.logoAsImageIcon().getImage()) ;

@@ -1,9 +1,11 @@
 package Messenger.Network;
 
+import Messenger.Network.Tasks.Listeners.BroadcastListener;
 import Messenger.Network.Tasks.Listeners.Meetings.MeetingListener;
 import Messenger.Network.Tasks.Listeners.ReceiveListener;
 import Messenger.Network.Tasks.Envoyers.NetworkEnvoyer;
 import java.io.IOException;
+import java.net.DatagramSocket;
 
 /**
  * @author Damien MOLINA
@@ -23,7 +25,12 @@ public class NetworkInterface extends Thread {
     /**
      * Sending port.
      */
-    private static final int sendingPort = 60044 ;
+    public static final int sendingPort = 60044 ;
+
+    /**
+     * Broadcast listening port.
+     */
+    public static final int broadcastListeningPort = 60045 ;
 
     /*
      * Broadcast socket.
@@ -40,10 +47,17 @@ public class NetworkInterface extends Thread {
 
     /**
      * Receive listener.
-     * This listener receive the messages sent
+     * This listener receives the messages sent
      * in the receivingPort.
      */
     private final ReceiveListener receiveListener ;
+
+    /**
+     * Broadcast listener.
+     * This listener receives messages from all
+     * the connected users.
+     */
+    private final BroadcastListener broadcastListener ;
 
     /**
      * Envoyer instance.
@@ -70,6 +84,11 @@ public class NetworkInterface extends Thread {
         // Prepare the receiving listener.
         this.receiveListener = new ReceiveListener(NetworkInterface.receivingPort) ;
 
+        // Prepare the broadcast listener.
+        this.broadcastListener = new BroadcastListener(
+            new DatagramSocket(NetworkInterface.broadcastListeningPort)
+        ) ;
+
         // Prepare the envoyer.
         this.envoyer = new NetworkEnvoyer() ;
     }
@@ -89,6 +108,7 @@ public class NetworkInterface extends Thread {
     public void run() {
         this.meetingListener.start() ;
         this.receiveListener.start() ;
+        this.broadcastListener.start() ;
     }
 
 
