@@ -1,4 +1,4 @@
-package Messenger.Network.Tasks.Envoyers;
+package Messenger.Network.Tasks.Envoyers.Concerns;
 
 import java.net.Socket;
 import java.io.IOException;
@@ -6,7 +6,8 @@ import java.net.NoRouteToHostException;
 import Messenger.Foundation.Models.User;
 import Messenger.Network.NetworkInterface;
 import Messenger.Network.Models.MeetingPacket;
-import Messenger.Network.Tasks.Envoyers.Concerns.BaseEnvoyer;
+import Messenger.Network.Tasks.Envoyers.Envoyer;
+import Messenger.Network.Tasks.Envoyers.BaseEnvoyer;
 import Messenger.Network.Tasks.Listeners.Meetings.MeetingResponseListener;
 import Messenger.Network.Tasks.Listeners.Meetings.Handlers.DeniedConnection;
 import Messenger.Network.Tasks.Listeners.Meetings.Handlers.AcceptedConnection;
@@ -27,7 +28,7 @@ public class MeetingEnvoyer extends BaseEnvoyer {
      * @param envoyer : envoyer instance.
      * @param user : user to connect with.
      */
-    public MeetingEnvoyer(NetworkEnvoyer envoyer, User user) {
+    public MeetingEnvoyer(Envoyer envoyer, User user) {
         super(envoyer, user) ;
 
         // Make the meeting packet.
@@ -38,7 +39,7 @@ public class MeetingEnvoyer extends BaseEnvoyer {
     /**
      * Make the sending.
      */
-    public void send() throws IOException {
+    protected void send() throws IOException {
         DeniedConnection deniedCallback = new DeniedConnection() ;
 
         try {

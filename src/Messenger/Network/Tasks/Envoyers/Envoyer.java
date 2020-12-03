@@ -1,19 +1,21 @@
 package Messenger.Network.Tasks.Envoyers;
 
 import java.net.Socket;
-import java.io.IOException;
 import java.util.concurrent.Executors;
-
-import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.Foundation.Models.User;
 import java.util.concurrent.ExecutorService;
 import Messenger.Network.Models.Concerns.Packet;
 import Messenger.Network.Models.Datagram.SocketStream;
+import Messenger.Foundation.Models.Messages.MessageData;
+import Messenger.Network.Models.Broadcast.BroadcastNotification;
+import Messenger.Network.Tasks.Envoyers.Concerns.MeetingEnvoyer;
+import Messenger.Network.Tasks.Envoyers.Concerns.MessageEnvoyer;
+import Messenger.Network.Tasks.Envoyers.Concerns.BroadcastEnvoyer;
 
 /**
  * @author Damien MOLINA
  */
-public class NetworkEnvoyer {
+public class Envoyer {
 
     /**
      * Executor instance.
@@ -28,7 +30,7 @@ public class NetworkEnvoyer {
     /**
      * Make a new network exchanger instance.
      */
-    public NetworkEnvoyer() {
+    public Envoyer() {
         this.executor  = Executors.newFixedThreadPool(5) ;
         this.exchanger = new SocketStream() ;
     }
@@ -38,10 +40,9 @@ public class NetworkEnvoyer {
      * given user.
      *
      * @param user : user to connect with.
-     * @throws IOException : socket error.
      */
-    public void sendRequestMeeting(User user) throws IOException {
-        new MeetingEnvoyer(this, user).send() ;
+    public void sendRequestMeeting(User user) {
+        new MeetingEnvoyer(this, user).start() ;
     }
 
     /**
@@ -51,7 +52,16 @@ public class NetworkEnvoyer {
      * @param user : user to send the data to.
      */
     public void sendMessage(MessageData data, User user) {
-        new MessageEnvoyer(this, data, user).send() ;
+        new MessageEnvoyer(this, data, user).start() ;
+    }
+
+    /**
+     * Broadcast the given notification.
+     *
+     * @param notification : notification to broadcast.
+     */
+    public void broadcast(BroadcastNotification notification) {
+        new BroadcastEnvoyer(this, notification).start() ;
     }
 
     /**

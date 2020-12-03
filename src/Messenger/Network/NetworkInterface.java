@@ -1,11 +1,11 @@
 package Messenger.Network;
 
-import Messenger.Network.Tasks.Listeners.BroadcastListener;
 import Messenger.Network.Tasks.Listeners.Meetings.MeetingListener;
+import Messenger.Network.Tasks.Listeners.BroadcastListener;
 import Messenger.Network.Tasks.Listeners.ReceiveListener;
-import Messenger.Network.Tasks.Envoyers.NetworkEnvoyer;
-import java.io.IOException;
+import Messenger.Network.Tasks.Envoyers.Envoyer;
 import java.net.DatagramSocket;
+import java.io.IOException;
 
 /**
  * @author Damien MOLINA
@@ -23,21 +23,11 @@ public class NetworkInterface extends Thread {
     public static final int receivingPort = 60043 ;
 
     /**
-     * Sending port.
-     */
-    public static final int sendingPort = 60044 ;
-
-    /**
      * Broadcast listening port.
      */
-    public static final int broadcastListeningPort = 60045 ;
+    public static final int broadcastListeningPort = 60044 ;
 
-    /*
-     * Broadcast socket.
-     */
-    //private final DatagramSocket broadcastSocket ;
-
-    /*
+    /**
      * Meeting listener.
      * This listener is used to negotiate the
      * future used port between the current user
@@ -62,7 +52,7 @@ public class NetworkInterface extends Thread {
     /**
      * Envoyer instance.
      */
-    private final NetworkEnvoyer envoyer ;
+    private final Envoyer envoyer ;
 
     /**
      * Make a new instance of the network
@@ -71,11 +61,6 @@ public class NetworkInterface extends Thread {
      * @throws IOException : broadcast error.
      */
     public NetworkInterface() throws Exception {
-        // Prepare the broadcast socket.
-        //TODO : replace with the listener.
-       /* this.broadcastSocket = new DatagramSocket() ;
-        this.broadcastSocket.setBroadcast(true) ;*/
-
         // Prepare the meeting listener.
         this.meetingListener = new MeetingListener(
             this, NetworkInterface.meetingPort
@@ -90,7 +75,7 @@ public class NetworkInterface extends Thread {
         ) ;
 
         // Prepare the envoyer.
-        this.envoyer = new NetworkEnvoyer() ;
+        this.envoyer = new Envoyer() ;
     }
 
     /**
@@ -98,7 +83,7 @@ public class NetworkInterface extends Thread {
      *
      * @return the Envoyer instance.
      */
-    public NetworkEnvoyer getEnvoyer() {
+    public Envoyer getEnvoyer() {
         return this.envoyer ;
     }
 
@@ -110,65 +95,5 @@ public class NetworkInterface extends Thread {
         this.receiveListener.start() ;
         this.broadcastListener.start() ;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-     * Broadcast the given type and data.
-     *
-     * @param type : broadcast type.
-     * @param data : data type.
-     * @throws IOException : broadcast error.
-     */
-   /* public void broadcast(BroadcastType type, Object data) throws IOException {
-        this.broadcast(new BroadcastNotification(type, data) ) ;
-    }*/
-
-    /*
-     * Broadcast the given notification.
-     *
-     * @param notification : notification instance.
-     * @throws IOException : broadcast error.
-     */
-    /*public void broadcast(BroadcastNotification notification) throws IOException {
-        this.broadcast(notification.serialize()) ;
-    }*/
-
-    /*
-     * Broadcast the given buffer.
-     *
-     * @param buffer : bytes array.
-     * @throws IOException : broadcast error.
-     */
-    /*public void broadcast(byte[] buffer) throws IOException {
-        // Prepare the datagram.
-        DatagramPacket packet = new DatagramPacket(
-            buffer, buffer.length, AddressUtils.getBroadcastAddress(), this.broadcastPort
-        ) ;
-
-        // Send the datagram.
-        this.broadcastSocket.send(packet) ;
-        this.broadcastSocket.close() ;
-    }*/
 
 }

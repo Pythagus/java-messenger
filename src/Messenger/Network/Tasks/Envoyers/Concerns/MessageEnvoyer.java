@@ -1,13 +1,14 @@
-package Messenger.Network.Tasks.Envoyers;
+package Messenger.Network.Tasks.Envoyers.Concerns;
 
 import java.net.Socket;
 import Messenger.Foundation.Env;
 import Messenger.Foundation.Models.User;
 import Messenger.Network.NetworkInterface;
 import Messenger.Network.Models.MessagePacket;
+import Messenger.Network.Tasks.Envoyers.Envoyer;
+import Messenger.Network.Tasks.Envoyers.BaseEnvoyer;
 import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.Network.Models.Datagram.OutputSocketStream;
-import Messenger.Network.Tasks.Envoyers.Concerns.BaseEnvoyer;
 
 /**
  * @author Damien MOLINA
@@ -25,7 +26,7 @@ public class MessageEnvoyer extends BaseEnvoyer {
      * @param data : data to send.
      * @param user : user to send the data to.
      */
-    public MessageEnvoyer(NetworkEnvoyer envoyer, MessageData data, User user) {
+    public MessageEnvoyer(Envoyer envoyer, MessageData data, User user) {
         super(envoyer, user) ;
 
         this.data = data ;
@@ -35,7 +36,7 @@ public class MessageEnvoyer extends BaseEnvoyer {
      * Make the sending.
      */
     @Override
-    public void send() {
+    protected void send() {
         MessagePacket packet = new MessagePacket(
             Env.getUser(), this.user
         ) ;
@@ -43,7 +44,7 @@ public class MessageEnvoyer extends BaseEnvoyer {
 
         try {
             Socket socket = new Socket(
-                this.user.getAddress(), NetworkInterface.sendingPort
+                this.user.getAddress(), NetworkInterface.receivingPort
             ) ;
 
             OutputSocketStream exchanger = new OutputSocketStream(socket) ;
