@@ -65,7 +65,7 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
                 ObjectInputStream is = new ObjectInputStream(socket.getInputStream()) ;
 
                 if(Environment.getApplication().isDebugMode()) {
-                    Console.comment("=> " + name + " received a request from " + socket.getInetAddress()) ;
+                    Console.comment("=> " + name + " received a packet from " + socket.getInetAddress()) ;
                 }
 
                 T packet = (T) is.readObject() ;

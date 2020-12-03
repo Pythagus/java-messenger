@@ -18,7 +18,7 @@ public class NetworkInterface extends Thread {
     /**
      * Receiving port.
      */
-    private static final int receivingPort = 60043 ;
+    public static final int receivingPort = 60043 ;
 
     /**
      * Sending port.
