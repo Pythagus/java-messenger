@@ -6,7 +6,7 @@ import java.net.NoRouteToHostException;
 import Messenger.Foundation.Models.User;
 import Messenger.Network.NetworkInterface;
 import Messenger.Network.Models.MeetingPacket;
-import Messenger.Network.Tasks.Envoyers.Concerns.NetworkEnvoyerContract;
+import Messenger.Network.Tasks.Envoyers.Concerns.BaseEnvoyer;
 import Messenger.Network.Tasks.Listeners.Meetings.MeetingResponseListener;
 import Messenger.Network.Tasks.Listeners.Meetings.Handlers.DeniedConnection;
 import Messenger.Network.Tasks.Listeners.Meetings.Handlers.AcceptedConnection;
@@ -14,22 +14,12 @@ import Messenger.Network.Tasks.Listeners.Meetings.Handlers.AcceptedConnection;
 /**
  * @author Damien MOLINA
  */
-public class MeetingEnvoyer implements NetworkEnvoyerContract {
-
-    /**
-     * Meeting user instance.
-     */
-    private final User user ;
+public class MeetingEnvoyer extends BaseEnvoyer {
 
     /**
      * Generated meeting packet.
      */
     private final MeetingPacket packet ;
-
-    /**
-     * Envoyer instance.
-     */
-    private final NetworkEnvoyer envoyer ;
 
     /**
      * Make a new Meeting envoyer instance.
@@ -38,8 +28,7 @@ public class MeetingEnvoyer implements NetworkEnvoyerContract {
      * @param user : user to connect with.
      */
     public MeetingEnvoyer(NetworkEnvoyer envoyer, User user) {
-        this.user    = user ;
-        this.envoyer = envoyer ;
+        super(envoyer, user) ;
 
         // Make the meeting packet.
         this.packet = new MeetingPacket(new User(), user) ;

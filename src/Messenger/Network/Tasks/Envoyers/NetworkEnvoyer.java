@@ -3,6 +3,8 @@ package Messenger.Network.Tasks.Envoyers;
 import java.net.Socket;
 import java.io.IOException;
 import java.util.concurrent.Executors;
+
+import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.Foundation.Models.User;
 import java.util.concurrent.ExecutorService;
 import Messenger.Network.Models.Concerns.Packet;
@@ -40,6 +42,16 @@ public class NetworkEnvoyer {
      */
     public void sendRequestMeeting(User user) throws IOException {
         new MeetingEnvoyer(this, user).send() ;
+    }
+
+    /**
+     * Make a new message envoyer.
+     *
+     * @param data : data to send.
+     * @param user : user to send the data to.
+     */
+    public void sendMessage(MessageData data, User user) {
+        new MessageEnvoyer(this, data, user).send() ;
     }
 
     /**
