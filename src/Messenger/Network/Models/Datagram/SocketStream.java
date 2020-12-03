@@ -13,7 +13,7 @@ import java.net.Socket;
  *
  * @author Damien MOLINA
  */
-public class Stream implements DatagramExchanger {
+public class SocketStream implements PacketExchangerContract {
 
     /**
      * The input data stream.
@@ -28,14 +28,7 @@ public class Stream implements DatagramExchanger {
     /**
      * Make a new stream instance.
      */
-    public Stream() {}
-
-    /**
-     * Make a new stream instance.
-     */
-    public Stream(Socket socket) throws Exception {
-        this.bind(socket) ;
-    }
+    public SocketStream() {}
 
     /**
      * Bind the input with the given stream.
@@ -65,7 +58,7 @@ public class Stream implements DatagramExchanger {
     public void clear() throws Exception {
         this.close() ;
 
-        this.input = null ;
+        this.input  = null ;
         this.output = null ;
     }
 

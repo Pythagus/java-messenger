@@ -1,14 +1,14 @@
 package Messenger.Network.Tasks.Listeners.Meetings.Handlers;
 
+import Messenger.Network.Models.Datagram.OutputSocketStream;
 import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.Foundation.Controllers.UserController;
-import Messenger.Network.Models.Datagram.Stream;
 import Messenger.Network.Models.MessagePacket;
 import Messenger.Network.NetworkInterface;
-import Messenger.Foundation.Environment;
 import Messenger.Foundation.Models.User;
-import java.net.Socket;
+import Messenger.Foundation.Environment;
 import java.util.Scanner;
+import java.net.Socket;
 
 /**
  * @author Damien MOLINA
@@ -42,8 +42,7 @@ public class AcceptedConnection {
                     user.getAddress(), NetworkInterface.receivingPort
                 ) ;
 
-                Stream exchanger = new Stream() ;
-                exchanger.bindOutput(socket.getOutputStream()) ;
+                OutputSocketStream exchanger = new OutputSocketStream(socket) ;
                 exchanger.send(packet) ;
 
                 exchanger.close() ;
