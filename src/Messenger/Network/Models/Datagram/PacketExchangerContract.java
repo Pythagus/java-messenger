@@ -9,7 +9,7 @@ import java.net.Socket;
  *
  * @author Damien MOLINA
  */
-public interface DatagramExchanger {
+public interface PacketExchangerContract {
 
     /**
      * Bind the input and output with the given streams.

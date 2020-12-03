@@ -3,9 +3,8 @@ package Messenger.Network.Tasks.Listeners.Meetings;
 import java.net.Socket;
 import Messenger.Foundation.Environment;
 import Messenger.Network.Models.MeetingPacket;
-import Messenger.Network.Models.Datagram.Stream;
 import Messenger.Foundation.System.Console.Console;
-import Messenger.Foundation.Controllers.UserController;
+import Messenger.Network.Models.Datagram.InputSocketStream;
 import Messenger.Network.Tasks.Listeners.Concerns.NetworkBaseListener;
 import Messenger.Network.Tasks.Listeners.Meetings.Handlers.DeniedConnection;
 import Messenger.Network.Tasks.Listeners.Meetings.Handlers.AcceptedConnection;
@@ -49,21 +48,11 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
     }
 
     /**
-     * Get the User Controller.
-     *
-     * @return the UserController instance.
-     */
-    private UserController getUserController() {
-        return (UserController) Environment.getController(UserController.class) ;
-    }
-
-    /**
      * Run the listener.
      */
     public void run() {
         try {
-            Stream exchanger = new Stream() ;
-            exchanger.bindInput(this.listenerSocket.getInputStream()) ;
+            InputSocketStream exchanger = new InputSocketStream(this.listenerSocket) ;
             MeetingPacket packet = (MeetingPacket) exchanger.receive() ;
 
             this.managePacket(packet) ;
@@ -104,7 +93,7 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
      */
     private void manageAcceptedPacket(MeetingPacket packet) {
         if(Environment.getApplication().isDebugMode()) {
-            Console.comment("=> Accepted packet from " + packet.getSourceAddress()) ;
+            Console.comment("=> Meeting response packet accepted from " + packet.getSourceAddress()) ;
         }
 
         if(this.callbackOnAccepted != null) {

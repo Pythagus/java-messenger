@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import Messenger.Foundation.Models.User;
 import java.util.concurrent.ExecutorService;
 import Messenger.Network.Models.Concerns.Packet;
-import Messenger.Network.Models.Datagram.Stream;
+import Messenger.Network.Models.Datagram.SocketStream;
 
 /**
  * @author Damien MOLINA
@@ -21,14 +21,14 @@ public class NetworkEnvoyer {
     /**
      * Exchanger instance.
      */
-    private final Stream exchanger ;
+    private final SocketStream exchanger ;
 
     /**
      * Make a new network exchanger instance.
      */
     public NetworkEnvoyer() {
         this.executor  = Executors.newFixedThreadPool(5) ;
-        this.exchanger = new Stream() ;
+        this.exchanger = new SocketStream() ;
     }
 
     /**
