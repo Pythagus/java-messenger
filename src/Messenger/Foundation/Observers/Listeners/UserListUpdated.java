@@ -14,7 +14,9 @@ public class UserListUpdated extends BaseListener {
      */
     @Override
     public void handle(Object... args) {
-        System.out.println() ;
+        System.out.println("List updated") ;
+
+        // TODO : TO DO !
     }
 
 }

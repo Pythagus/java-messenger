@@ -1,6 +1,5 @@
 package Messenger.Foundation;
 
-import Messenger.Foundation.Observers.Listeners.UserListUpdated;
 import Messenger.GUI.Frame;
 import javax.swing.SwingUtilities;
 import Messenger.GUI.GraphicThread;
@@ -10,6 +9,9 @@ import Messenger.Network.NetworkInterface;
 import Messenger.Foundation.System.Console.Console;
 import Messenger.Foundation.Controllers.UserController;
 import Messenger.Foundation.Contracts.ApplicationContract;
+import Messenger.Foundation.Observers.Listeners.UserListUpdated;
+
+import java.util.Locale;
 
 /**
  * @author Damien MOLINA
@@ -88,6 +90,9 @@ abstract public class Application implements ApplicationContract {
      * Start the application instance.
      */
     public void start() {
+        // Set the default local value.
+        Locale.setDefault(Locale.FRANCE) ;
+
         // Set the current user.
         Env.setUser(new User()) ;
 

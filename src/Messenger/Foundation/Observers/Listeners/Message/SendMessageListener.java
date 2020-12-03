@@ -1,9 +1,12 @@
 package Messenger.Foundation.Observers.Listeners.Message;
 
+import Messenger.Foundation.Models.Messages.Message;
+import Messenger.Foundation.Models.Messages.MessageData;
+import Messenger.Foundation.Observers.BaseListener;
+import Messenger.GUI.Layout.RightSide;
 import Messenger.GUI.Screens.uiWindow;
 import Messenger.Foundation.Env;
-import Messenger.Foundation.Observers.BaseListener;
-import Messenger.Foundation.Models.Messages.Concerns.MessageSound;
+import Messenger.GUI.Subscreens.uiDiscussion;
 
 /**
  * @author Damien MOLINA
@@ -17,26 +20,27 @@ public class SendMessageListener extends BaseListener {
      */
     @Override
     public void handle(Object... args) {
-        String data = (String) args[0];
+        Message message = (Message) args[0] ;
 
         //TODO : send the message
-        System.out.println("Message à envoyer : " + data) ;
+        System.out.println("Message à envoyer : " + message.getData().getText()) ;
 
-        this.updateGraphics(data) ;
-        MessageSound.play() ;
+        this.updateGraphics(message) ;
     }
 
     /**
      * Update the graphics regarding the
      * sent data
      *
-     * @param data : sent data.
+     * @param message : sent message.
      */
-    private void updateGraphics(String data) {
+    private void updateGraphics(Message message) {
         try {
             uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
-            //uiWindow.getDiscussionBar().updateItem() ;
-            //TODO : continue
+            uiWindow.getDiscussionBar().updateActiveItem(message.getData()) ;
+
+            uiDiscussion discussion = (uiDiscussion) uiWindow.getRightSide().getSubScreen(RightSide.SubScreenType.Discussion) ;
+            discussion.addMessage(message) ;
         } catch (Exception e) {
             e.printStackTrace() ;
         }

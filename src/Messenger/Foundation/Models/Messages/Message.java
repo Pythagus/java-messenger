@@ -1,9 +1,11 @@
 package Messenger.Foundation.Models.Messages;
 
-import Messenger.Foundation.Env;
 import Messenger.Foundation.Models.User;
-
+import java.util.GregorianCalendar;
+import Messenger.Utils.DateUtils;
+import Messenger.Foundation.Env;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -26,7 +28,7 @@ public class Message implements Serializable {
     /**
      * Send date.
      */
-    protected final Date date ;
+    protected final long timestamp ;
 
     /**
      * Sender of the message.
@@ -54,24 +56,33 @@ public class Message implements Serializable {
          * the date attribute is set to get the
          * exact sending time.
          */
-        this.date = new Date() ;
-    }
-
-    /**
-     * Make a new Message instance.
-     *
-     * @param target : targeted user.
-     * @param text : sent text.
-     */
-    public Message(User target, String text) {
-        this(target, new MessageData(text, null)) ;
+        this.timestamp = new Timestamp(System.currentTimeMillis()).getTime() ;
     }
 
     /**
      * @return date of the message
      */
     public Date getDate() {
-        return this.date ;
+        return new Date(this.timestamp) ;
+    }
+
+    /**
+     * Get the date formatted to be
+     * print.
+     *
+     * @return the formatted date.
+     */
+    public String getDateForHuman() {
+        Date date = this.getDate() ;
+
+        GregorianCalendar calendar = new GregorianCalendar() ;
+        calendar.setTime(date) ;
+
+        Date today = DateUtils.today() ;
+
+        return DateUtils.format(
+            date, calendar.before(today) ? DateUtils.DATE_TIME_FORMAT : DateUtils.TIME_FORMAT
+        ) ;
     }
 
     /**

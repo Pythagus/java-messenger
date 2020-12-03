@@ -1,9 +1,9 @@
 package Messenger.GUI.Layout.Items.Discussion;
 
 import Messenger.Foundation.System.Assets.ImageAsset;
+import Messenger.Foundation.Models.Messages.Message;
 import Messenger.GUI.Factories.ButtonFactory;
 import Messenger.GUI.Subscreens.uiDiscussion;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -22,6 +22,11 @@ public class uiDiscussionMessage extends JPanel {
     private final Side side ;
 
     /**
+     * Displayed message.
+     */
+    private final Message message ;
+
+    /**
      * Side of the message.
      */
     public enum Side { LEFT, RIGHT }
@@ -37,9 +42,10 @@ public class uiDiscussionMessage extends JPanel {
      *
      * @param side : side the message should displayed in.
      */
-    public uiDiscussionMessage(Side side, boolean active) {
-        this.side   = side ;
-        this.active = active ;
+    public uiDiscussionMessage(Side side, Message message) {
+        this.side    = side ;
+        this.active  = (side == Side.RIGHT) ;
+        this.message = message ;
 
         this.initializeComponentGraphics() ;
     }
@@ -165,7 +171,10 @@ public class uiDiscussionMessage extends JPanel {
      */
     private JTextArea graphicMessage() {
         JTextArea area = new JTextArea() ;
-        String msg = "CONTENT ! zuffu dhuf sdf dsufhsfhsefuh ef esf sef sef sef esf esf f sfse fff feufhsef sf sef se fs f sef sf f" ;
+
+        // TODO : display the file
+        String msg = this.message.getData().getText() ;
+
         area.setText(msg) ;
         area.setEditable(false) ;
         area.setBackground(null) ;
@@ -189,10 +198,8 @@ public class uiDiscussionMessage extends JPanel {
         label.setBorder(
             BorderFactory.createEmptyBorder(10,0,0,0)
         );
-        label.setFont(
-            new Font(null, Font.PLAIN, 9)
-        ) ;
-        label.setText("8 min. ago") ;
+        label.setFont(new Font(null, Font.PLAIN, 9)) ;
+        label.setText(this.message.getDateForHuman()) ;
         label.setVerticalTextPosition(SwingConstants.TOP) ;
         label.setForeground(this.getTextColor()) ;
 

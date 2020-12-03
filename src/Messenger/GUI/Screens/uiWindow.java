@@ -3,6 +3,8 @@ package Messenger.GUI.Screens;
 import java.awt.*;
 import javax.swing.*;
 import Messenger.GUI.Layout.*;
+import Messenger.LauncherTest;
+import Messenger.Foundation.Models.Conversation;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionBar;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionItem;
 
@@ -40,12 +42,10 @@ public class uiWindow extends Screen {
     private void setAllDiscussions() {
         // TODO : make the DB call to get all discussions.
 
-        uiDiscussionItem conv = new uiDiscussionItem(42, "francois_hollande.png", "Damien Molina",
-            "Hey, comment tu vas ? Je vais bien, merci. Je veux juste savoir si l'overflow se passe bien") ;
-        uiDiscussionItem conv2 = new uiDiscussionItem(43, "francois_hollande.png", "Damien Molina", "Hey, comment tu vas ?") ;
+        Conversation conversation = new Conversation(LauncherTest.getUser()) ;
+        uiDiscussionItem conv = new uiDiscussionItem(conversation, "francois_hollande.png") ;
 
         this.discussionBar.addDiscussionItem(conv) ;
-        this.discussionBar.addDiscussionItem(conv2) ;
     }
 
     /**

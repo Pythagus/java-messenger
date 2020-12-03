@@ -53,4 +53,14 @@ public class MessageData implements Serializable {
         return this.file ;
     }
 
+    /**
+     * Determine whether the current data has
+     * a sent file.
+     *
+     * @return True or False
+     */
+    public boolean hasFile() {
+        return this.file != null ;
+    }
+
 }

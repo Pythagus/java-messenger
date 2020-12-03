@@ -68,7 +68,7 @@ public class Messenger extends Application {
      * @return a Screen instance.
      */
     protected Screen getStartingScreen() {
-        return new uiLogin() ;
+        return new uiLogin()  ;
     }
 
 }

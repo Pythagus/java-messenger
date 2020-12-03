@@ -2,6 +2,10 @@ package Messenger.GUI.Layout.Items.Discussion;
 
 import java.awt.*;
 import javax.swing.*;
+import java.util.ArrayList;
+import Messenger.Foundation.Models.User;
+import Messenger.Foundation.Models.Messages.MessageData;
+import Messenger.GUI.Exceptions.ConversationItemNotFoundException;
 
 /**
  * @author Damien MOLINA
@@ -15,10 +19,22 @@ public class uiDiscussionBar extends JPanel {
     private final JPanel list ;
 
     /**
+     * Discussion UI list.
+     */
+    private final ArrayList<uiDiscussionItem> items ;
+
+    /**
+     * Active item instance.
+     */
+    private uiDiscussionItem activeItem ;
+
+    /**
      * Make a new instance of the conversation bar.
      */
     public uiDiscussionBar() {
-        this.list = this.graphicList() ;
+        this.items      = new ArrayList<>() ;
+        this.list       = this.graphicList() ;
+        this.activeItem = null ;
 
         this.initializeComponentGraphics() ;
     }
@@ -42,13 +58,66 @@ public class uiDiscussionBar extends JPanel {
      * @param item : uiDiscussionItem instance.
      */
     public void addDiscussionItem(uiDiscussionItem item) {
+        if(this.activeItem == null) {
+            this.activeItem = item ;
+        }
+
+        this.items.add(item) ;
         this.list.add(item) ;
-        this.list.revalidate() ;
-        this.list.repaint() ;
     }
 
-    public void updateItem(uiDiscussionItem item) {
+    /**
+     * Update the active item.
+     *
+     * @param data : sent data.
+     */
+    public void updateActiveItem(MessageData data) {
+        try {
+            uiDiscussionItem item = this.getActiveItem() ;
 
+            if(data.hasFile()) {
+                item.setContent("Vous avez envoyé un fichier") ;
+            } else {
+                item.setContent(data.getText()) ;
+            }
+        } catch (ConversationItemNotFoundException e) {
+            e.printStackTrace() ;
+        }
+    }
+
+    /**
+     * Get the active item.
+     *
+     * @return the UI discussion instance.
+     * @throws ConversationItemNotFoundException : not found item.
+     */
+    public uiDiscussionItem getActiveItem() throws ConversationItemNotFoundException {
+        for(uiDiscussionItem item : this.items) {
+            if(item.getConversation().equals(this.activeItem.getConversation())) {
+                return item ;
+            }
+        }
+
+        throw new ConversationItemNotFoundException(
+            ConversationItemNotFoundException.Type.ACTIVE
+        ) ;
+    }
+
+    /**
+     * Get the conversation UI instance.
+     *
+     * @param user : targeted user instance.
+     * @return the UI instance.
+     * @throws ConversationItemNotFoundException : no element found.
+     */
+    public uiDiscussionItem getFromUser(User user) throws ConversationItemNotFoundException {
+        /*for(uiDiscussionItem item : this.items) {
+            if(item.getConversation().getTarget().equals(user)) {
+                return item ;
+            }
+        }*/
+
+        throw new ConversationItemNotFoundException(user) ;
     }
 
     /**

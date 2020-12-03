@@ -2,10 +2,15 @@ package Messenger.GUI.Layout.Items.Discussion;
 
 import java.awt.*;
 import javax.swing.*;
+
+import Messenger.Foundation.Env;
+import Messenger.Foundation.Models.Messages.Message;
 import Messenger.GUI.Utils.Placeholder;
 import Messenger.GUI.Subscreens.uiDiscussion;
-import Messenger.Foundation.Providers.ObserverProvider;
 import Messenger.GUI.Listeners.DiscussionInputListener;
+import Messenger.Foundation.Providers.ObserverProvider;
+import Messenger.Foundation.Models.Messages.MessageFile;
+import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.Foundation.Observers.Contracts.Listener;
 import Messenger.Foundation.Observers.Contracts.Observable;
 
@@ -49,10 +54,16 @@ public class uiDiscussionInput extends JTextField implements Observable {
      * Send the input content.
      */
     public void sendInputContent() {
-        String message = this.getText().trim() ;
+        MessageFile file = null ; // TODO : regarder si un fichier a été envoyé
+        String text      = this.getText().trim() ;
 
-        if(message.length() > 0) {
+        if((text.length() > 0) && (file == null)) {
+            Message message = new Message(
+                Env.getUser(), new MessageData(text, file)
+            ) ;
+
             this.observer.notifyAllListeners(message) ;
+
             this.setText(null) ;
         }
     }

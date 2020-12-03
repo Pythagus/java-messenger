@@ -1,5 +1,7 @@
 package Messenger.GUI.Subscreens;
 
+import Messenger.Foundation.Env;
+import Messenger.Foundation.Models.Messages.Message;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionScrollBar;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionFooter;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionHeader;
@@ -15,6 +17,11 @@ public class uiDiscussion extends SubScreen {
 
     // Main discussion color.
     public static final Color backgroundColor = SideBar.backgroundColor ;
+
+    /**
+     * Messages content.
+     */
+    private JPanel content ;
 
     /**
      * Make a new instance of uiDiscussion.
@@ -64,42 +71,41 @@ public class uiDiscussion extends SubScreen {
      * @return the JPanel generated.
      */
     private JPanel graphicContent() {
-        JPanel panel = new JPanel(new GridLayout(0, 1, 5, 5)) ;
-        panel.setBackground(uiDiscussion.backgroundColor) ;
+        this.content = new JPanel(new GridLayout(0, 1, 5, 5)) ;
+        this.content.setBackground(uiDiscussion.backgroundColor) ;
 
         uiDiscussionMessage[] list = this.getDiscussionMessages() ;
         for(uiDiscussionMessage msg : list) {
-            panel.add(msg) ;
+            this.content.add(msg) ;
         }
 
         JPanel container = new JPanel(new BorderLayout()) ;
-        container.add(panel, BorderLayout.NORTH) ;
+        container.add(this.content, BorderLayout.NORTH) ;
         container.setBackground(uiDiscussion.backgroundColor) ;
 
         return container ;
     }
 
+    /**
+     * Add the message.
+     *
+     * @param message : message instance.
+     */
+    public void addMessage(Message message) {
+        this.content.add(
+            new uiDiscussionMessage(
+                message.getSender().equals(Env.getUser()) ? uiDiscussionMessage.Side.RIGHT : uiDiscussionMessage.Side.LEFT, message
+            )
+        ) ;
+
+        this.content.revalidate() ;
+        this.content.repaint() ;
+    }
 
 
-
-    // TODO : rechercher les messages dans l'historique
+    // TODO
     private uiDiscussionMessage[] getDiscussionMessages() {
-        //TODO : à refaire
-        int nbr = 10 ;
-        uiDiscussionMessage[] list = new uiDiscussionMessage[nbr] ;
-
-        int i = 0 ;
-        while(i < nbr) {
-            uiDiscussionMessage msg = new uiDiscussionMessage(
-                    i % 3 == 0 ? uiDiscussionMessage.Side.RIGHT : uiDiscussionMessage.Side.LEFT, i % 3 == 0
-            ) ;
-
-            list[i] = msg ;
-
-            i++ ;
-        }
-
-        return list ;
+        return new uiDiscussionMessage[0] ;
     }
 
 }

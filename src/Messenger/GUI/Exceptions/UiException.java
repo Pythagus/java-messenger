@@ -1,11 +1,11 @@
-package Messenger.Utils.Seeders.Concerns;
+package Messenger.GUI.Exceptions;
 
 import Messenger.Foundation.Exceptions.AppException;
 
 /**
  * @author Damien MOLINA
  */
-public class SeederException extends AppException {
+public class UiException extends AppException {
 
     /**
      * Make a new App exception with
@@ -13,8 +13,8 @@ public class SeederException extends AppException {
      *
      * @param msg : exception message.
      */
-    public SeederException(String msg) {
-        super("Seeder : " + msg) ;
+    public UiException(String msg) {
+        super(msg) ;
     }
 
 }

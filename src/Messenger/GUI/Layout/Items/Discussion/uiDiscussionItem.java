@@ -1,11 +1,12 @@
 package Messenger.GUI.Layout.Items.Discussion;
 
 import Messenger.Foundation.System.Assets.ImageAsset;
-import Messenger.Foundation.Env;
+import Messenger.Foundation.Models.Conversation;
 import Messenger.GUI.Layout.RightSide;
 import Messenger.GUI.Screens.uiWindow;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import Messenger.Foundation.Env;
 import javax.swing.*;
 import java.awt.*;
 
@@ -22,29 +23,50 @@ public class uiDiscussionItem extends JPanel {
     // uiDiscussionItem picture.
     private final String picture ;
 
-    // uiDiscussionItem name.
-    private final String conversationName ;
-
-    // uiDiscussionItem short content.
-    private final String content ;
-
     // uiDiscussion identifier.
-    private final int discussion_id ;
+    private final Conversation conversation ;
+
+    /**
+     * Content label instance.
+     */
+    private final JLabel contentLabel ;
 
     /**
      * Make a new graphic instance of conversation.
      *
      * @param picture : file name.
-     * @param name : name of the conversation.
-     * @param content : short content.
      */
-    public uiDiscussionItem(int discussion_id, String picture, String name, String content) {
-        this.picture          = picture ;
-        this.conversationName = name ;
-        this.content          = content ;
-        this.discussion_id    = discussion_id ;
+    public uiDiscussionItem(Conversation conversation, String picture) {
+        this.picture      = picture ;
+        this.conversation = conversation ;
+        this.contentLabel = this.graphicContentLabel() ;
+        this.setContent("") ;
 
         this.initializeComponentGraphics() ;
+    }
+
+    /**
+     * Set the content of the item.
+     *
+     * @param content : item content.
+     */
+    public void setContent(String content) {
+        String c = content ;
+
+        if(c.length() > MAX_CONTENT_SIZE) {
+            c = c.substring(0, MAX_CONTENT_SIZE) + "..." ;
+        }
+
+        this.contentLabel.setText("<html>" + c + "</html>") ;
+    }
+
+    /**
+     * Get the conversation.
+     *
+     * @return Conversation instance.
+     */
+    public Conversation getConversation() {
+        return this.conversation ;
     }
 
     /**
@@ -61,7 +83,7 @@ public class uiDiscussionItem extends JPanel {
         this.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 //TODO : afficher la conversation
-                System.out.println(uiDiscussionItem.this.discussion_id) ;
+                System.out.println("discussion") ;
 
                 uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
                 uiWindow.getRightSide().activeSubScreen(RightSide.SubScreenType.Discussion) ;
@@ -116,7 +138,7 @@ public class uiDiscussionItem extends JPanel {
 
         // Add the components.
         content.add(this.graphicNameLabel()) ;
-        content.add(this.graphicContentLabel()) ;
+        content.add(this.contentLabel) ;
 
         return content ;
     }
@@ -128,7 +150,7 @@ public class uiDiscussionItem extends JPanel {
      */
     private JLabel graphicNameLabel() {
         JLabel label = new JLabel() ;
-        label.setText(this.conversationName) ;
+        label.setText(this.conversation.getTarget().getPseudo()) ;
 
         Font f = new Font(null, Font.PLAIN, 14) ;
         label.setFont(f.deriveFont(Font.BOLD)) ;
@@ -142,19 +164,28 @@ public class uiDiscussionItem extends JPanel {
      * @return the JLabel generated.
      */
     private JLabel graphicContentLabel() {
-        String content = this.content ;
-
-        if(content.length() > MAX_CONTENT_SIZE) {
-            content = content.substring(0, MAX_CONTENT_SIZE) + "..." ;
-        }
-
         JLabel label = new JLabel() ;
-        label.setText("<html>" + content + "</html>") ;
+        label.setText("<html></html>") ;
 
         Font f = new Font(null, Font.PLAIN, 12) ;
         label.setFont(f.deriveFont(Font.PLAIN)) ;
 
         return label ;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true ;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false ;
+        }
+
+        uiDiscussionItem that = (uiDiscussionItem) o ;
+
+        return this.conversation.equals(that.getConversation()) ;
     }
 
 }
