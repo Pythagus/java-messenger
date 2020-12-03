@@ -1,12 +1,18 @@
-package Messenger.Network.Models;
+package Messenger.Network.Models.Concerns;
 
 import java.io.Serializable;
 import java.net.InetAddress;
 
 /**
+ * Serial version numbers:
+ * - 4242424242424242430L : Packet
+ * - 4242424242424242431L : UserPacket
+ * - 4242424242424242432L : MeetingPacket
+ * - 4242424242424242433L : MessagePacket
+ *
  * @author Damien MOLINA
  */
-abstract public class Packet implements Serializable {
+abstract public class Packet<T> implements Serializable {
 
     /**
      * Serialisation identifier.
@@ -26,7 +32,7 @@ abstract public class Packet implements Serializable {
     /**
      * Packet data.
      */
-    private Object data ;
+    private T data ;
 
     /**
      * Make a new packet instance.
@@ -62,7 +68,7 @@ abstract public class Packet implements Serializable {
      *
      * @return the data.
      */
-    public Object getData() {
+    public T getData() {
         return this.data ;
     }
 
@@ -71,7 +77,7 @@ abstract public class Packet implements Serializable {
      *
      * @param data : packet data.
      */
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data ;
     }
 

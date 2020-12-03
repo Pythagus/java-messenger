@@ -1,12 +1,14 @@
-package Messenger.Network.Tasks.Listeners;
+package Messenger.Network.Tasks.Listeners.Meetings;
 
-import Messenger.Foundation.System.Console.Console;
-import Messenger.Network.Tasks.Listeners.Concerns.NetworkBaseListener;
-import Messenger.Foundation.Controllers.UserController;
-import Messenger.Network.Models.Datagram.Stream;
-import Messenger.Network.Models.MeetingPacket;
-import Messenger.Foundation.Environment;
 import java.net.Socket;
+import Messenger.Foundation.Environment;
+import Messenger.Network.Models.MeetingPacket;
+import Messenger.Network.Models.Datagram.Stream;
+import Messenger.Foundation.System.Console.Console;
+import Messenger.Foundation.Controllers.UserController;
+import Messenger.Network.Tasks.Listeners.Concerns.NetworkBaseListener;
+import Messenger.Network.Tasks.Listeners.Meetings.Handlers.DeniedConnection;
+import Messenger.Network.Tasks.Listeners.Meetings.Handlers.AcceptedConnection;
 
 /**
  * @author Damien MOLINA
@@ -17,13 +19,13 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
      * Runnable called when the packet is
      * accepted.
      */
-    private Runnable callbackOnAccepted ;
+    private AcceptedConnection callbackOnAccepted ;
 
     /**
      * Runnable called when the packet is
      * accepted.
      */
-    private Runnable callbackOnDenied ;
+    private DeniedConnection callbackOnDenied ;
 
     /**
      * Make a new listener instance.
@@ -36,22 +38,14 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
 
     /**
      * Set the runnable executed when the
-     * packet has been accepted.
+     * packet has been accepted or denied.
      *
-     * @param runnable : runnable to execute.
+     * @param accepted : accepted runnable.
+     * @param denied : denied runnable.
      */
-    public void setCallbackOnAccepted(Runnable runnable) {
-        this.callbackOnAccepted = runnable ;
-    }
-
-    /**
-     * Set the runnable executed when the
-     * packet has been denied.
-     *
-     * @param runnable : runnable to execute.
-     */
-    public void setCallbackOnDenied(Runnable runnable) {
-        this.callbackOnDenied = runnable ;
+    public void setCallbacks(AcceptedConnection accepted, DeniedConnection denied) {
+        this.callbackOnAccepted = accepted ;
+        this.callbackOnDenied   = denied ;
     }
 
     /**
@@ -116,7 +110,7 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
         this.getUserController().addUser(packet.getSourceUser()) ;
 
         if(this.callbackOnAccepted != null) {
-            this.callbackOnAccepted.run() ;
+            this.callbackOnAccepted.accepted(packet.getSourceUser()) ;
         }
     }
 
@@ -131,7 +125,7 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
         }
 
         if(this.callbackOnDenied != null) {
-            this.callbackOnDenied.run() ;
+            this.callbackOnDenied.denied() ;
         }
     }
 

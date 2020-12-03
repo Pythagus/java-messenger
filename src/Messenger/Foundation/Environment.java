@@ -1,14 +1,14 @@
 package Messenger.Foundation;
 
-import Messenger.Foundation.Controllers.Controller;
-import Messenger.Foundation.Models.User;
 import Messenger.Foundation.Providers.ControllerProvider;
+import Messenger.Foundation.Controllers.Controller;
 import Messenger.Network.NetworkInterface;
+import Messenger.Foundation.Models.User;
 
 /**
  * @author Damien MOLINA
  */
-public class Environment {
+public final class Environment {
 
     // Forbid object instantiation.
     private Environment() {}

@@ -2,16 +2,17 @@ package Messenger.Network.Models;
 
 import java.util.Objects;
 import Messenger.Foundation.Models.User;
+import Messenger.Network.Models.Concerns.UserPacket;
 
 /**
  * @author Damien MOLINA
  */
-public class MeetingPacket extends Packet {
+public class MeetingPacket extends UserPacket<Object> {
 
     /**
      * Serialisation identifier.
      */
-    private static final long serialVersionUID = 4242424242424242431L ;
+    private static final long serialVersionUID = 4242424242424242432L ;
 
     /**
      * Possible packet state.
@@ -40,26 +41,13 @@ public class MeetingPacket extends Packet {
     private State state ;
 
     /**
-     * The source user.
-     */
-    private User srcUser ;
-
-    /**
-     * The destination user.
-     */
-    private User destUser ;
-
-    /**
      * Make a new packet instance.
      *
      * @param srcUser  : source user instance.
      * @param destUser : destination user instance.
      */
     public MeetingPacket(User srcUser, User destUser) {
-        super(srcUser.getAddress(), destUser.getAddress()) ;
-
-        this.srcUser  = srcUser ;
-        this.destUser = destUser ;
+        super(srcUser, destUser) ;
     }
 
     /**
@@ -92,24 +80,6 @@ public class MeetingPacket extends Packet {
     }
 
     /**
-     * Get the source user instance.
-     *
-     * @return the User instance.
-     */
-    public User getSourceUser() {
-        return this.srcUser ;
-    }
-
-    /**
-     * Get the destination user instance.
-     *
-     * @return the User instance.
-     */
-    public User getDestinationUser() {
-        return this.destUser ;
-    }
-
-    /**
      * Determine whether two packets are
      * equal.
      *
@@ -131,18 +101,6 @@ public class MeetingPacket extends Packet {
             && Objects.equals(this.destUser, that.getDestinationUser())
             && Objects.equals(this.srcAddress, that.getSourceAddress())
             && Objects.equals(this.destAddress, that.getDestinationAddress());
-    }
-
-    /**
-     * Reverse the packet addresses.
-     */
-    public void reverse() {
-        super.reverse() ;
-
-        User tmp = this.srcUser ;
-
-        this.srcUser  = this.destUser ;
-        this.destUser = tmp ;
     }
 
 }

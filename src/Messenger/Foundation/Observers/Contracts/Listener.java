@@ -10,6 +10,6 @@ public interface Listener {
      *
      * @param args : notification arguments.
      */
-    void notify(Object... args) ;
+    void handle(Object... args) ;
 
 }

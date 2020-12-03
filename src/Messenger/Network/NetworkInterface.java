@@ -1,9 +1,9 @@
 package Messenger.Network;
 
-import java.net.*;
-import java.io.IOException;
+import Messenger.Network.Tasks.Listeners.Meetings.MeetingListener;
+import Messenger.Network.Tasks.Listeners.ReceiveListener;
 import Messenger.Network.Tasks.Envoyers.NetworkEnvoyer;
-import Messenger.Network.Tasks.Listeners.MeetingListener;
+import java.io.IOException;
 
 /**
  * @author Damien MOLINA
@@ -18,7 +18,7 @@ public class NetworkInterface extends Thread {
     /**
      * Receiving port.
      */
-    public static final int receivingPort = 60043 ;
+    private static final int receivingPort = 60043 ;
 
     /**
      * Sending port.
@@ -39,6 +39,13 @@ public class NetworkInterface extends Thread {
     private final MeetingListener meetingListener ;
 
     /**
+     * Receive listener.
+     * This listener receive the messages sent
+     * in the receivingPort.
+     */
+    private final ReceiveListener receiveListener ;
+
+    /**
      * Envoyer instance.
      */
     private final NetworkEnvoyer envoyer ;
@@ -49,7 +56,7 @@ public class NetworkInterface extends Thread {
      *
      * @throws IOException : broadcast error.
      */
-    public NetworkInterface() throws IOException {
+    public NetworkInterface() throws Exception {
         // Prepare the broadcast socket.
         //TODO : replace with the listener.
        /* this.broadcastSocket = new DatagramSocket() ;
@@ -57,8 +64,11 @@ public class NetworkInterface extends Thread {
 
         // Prepare the meeting listener.
         this.meetingListener = new MeetingListener(
-            this, new ServerSocket(NetworkInterface.meetingPort)
+            this, NetworkInterface.meetingPort
         ) ;
+
+        // Prepare the receiving listener.
+        this.receiveListener = new ReceiveListener(NetworkInterface.receivingPort) ;
 
         // Prepare the envoyer.
         this.envoyer = new NetworkEnvoyer() ;
@@ -74,19 +84,11 @@ public class NetworkInterface extends Thread {
     }
 
     /**
-     * Get the MeetingListener instance.
-     *
-     * @return the listener instance.
-     */
-    public MeetingListener getMeetingListener() {
-        return this.meetingListener ;
-    }
-
-    /**
      * Run the network listeners.
      */
     public void run() {
         this.meetingListener.start() ;
+        this.receiveListener.start() ;
     }
 
 

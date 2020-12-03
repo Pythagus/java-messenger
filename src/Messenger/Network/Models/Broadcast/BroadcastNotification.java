@@ -5,13 +5,14 @@ import java.io.ObjectOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.net.UnknownHostException;
 
-import Messenger.Network.Models.Packet;
+import Messenger.Foundation.Models.User;
+import Messenger.Network.Models.Concerns.Packet;
 import Messenger.Network.Utils.AddressUtils;
 
 /**
  * @author Damien MOLINA
  */
-public class BroadcastNotification extends Packet {
+public class BroadcastNotification extends Packet<User> {
 
     /**
      * Broadcast type.
@@ -19,23 +20,18 @@ public class BroadcastNotification extends Packet {
     private final BroadcastType type ;
 
     /**
-     * Data sent with the broadcast notification.
-     */
-    private final Object data ;
-
-    /**
      * Make a new BroadcastNotification instance.
      *
      * @param type : broadcast type.
-     * @param data : sent data.
+     * @param user : user sending the notification.
      */
-    public BroadcastNotification(BroadcastType type, Object data) throws UnknownHostException {
+    public BroadcastNotification(BroadcastType type, User user) throws UnknownHostException {
         super(
             AddressUtils.getIpAddress(), AddressUtils.getBroadcastAddress()
         ) ;
 
         this.type = type ;
-        this.data = data ;
+        this.setData(user) ;
     }
 
     /**
@@ -45,6 +41,7 @@ public class BroadcastNotification extends Packet {
      * @throws IOException : impossible to serialize.
      */
     public byte[] serialize() throws IOException {
+        // TODO : do it with serialize
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             ObjectOutputStream out ;
             out = new ObjectOutputStream(bos) ;

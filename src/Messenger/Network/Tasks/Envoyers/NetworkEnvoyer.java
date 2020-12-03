@@ -4,12 +4,9 @@ import java.net.Socket;
 import java.io.IOException;
 import java.util.concurrent.Executors;
 import Messenger.Foundation.Models.User;
-import Messenger.Network.Models.Packet;
-import Messenger.Network.NetworkInterface;
 import java.util.concurrent.ExecutorService;
-import Messenger.Network.Models.MeetingPacket;
+import Messenger.Network.Models.Concerns.Packet;
 import Messenger.Network.Models.Datagram.Stream;
-import Messenger.Network.Tasks.Listeners.MeetingResponseListener;
 
 /**
  * @author Damien MOLINA
@@ -41,23 +38,8 @@ public class NetworkEnvoyer {
      * @param user : user to connect with.
      * @throws IOException : socket error.
      */
-    public void sendRequestMeeting(User user, Runnable onAccepted, Runnable onDenied) throws IOException {
-        MeetingPacket packet = new MeetingPacket(
-            new User(), user
-        ) ;
-        packet.setState(MeetingPacket.State.REQUEST) ;
-
-        Socket socket = new Socket(
-            packet.getDestinationAddress(), NetworkInterface.meetingPort
-        ) ;
-
-        this.send(socket, packet, false) ;
-
-        // Start the listener at the given port.
-        MeetingResponseListener listener = new MeetingResponseListener(socket) ;
-        listener.setCallbackOnAccepted(onAccepted) ;
-        listener.setCallbackOnDenied(onDenied) ;
-        listener.start() ;
+    public void sendRequestMeeting(User user) throws IOException {
+        new MeetingEnvoyer(this, user).send() ;
     }
 
     /**
@@ -66,7 +48,7 @@ public class NetworkEnvoyer {
      * @param socket : socket instance.
      * @param packet : packet instance.
      */
-    public void send(Socket socket, Packet packet, boolean closeSocket) {
+    public void send(Socket socket, Packet<?> packet, boolean closeSocket) {
         this.executor.submit(() -> {
             try {
                 // Send the packet.

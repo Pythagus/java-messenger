@@ -1,8 +1,6 @@
 package Messenger.Foundation;
 
-import javax.swing.*;
 import Messenger.GUI.Frame;
-import java.io.IOException;
 import Messenger.GUI.GraphicThread;
 import Messenger.GUI.Screens.Screen;
 import Messenger.Network.NetworkInterface;
@@ -108,11 +106,9 @@ abstract public class Application implements ApplicationContract {
      */
     private void startNetwork() {
         try {
-            Environment.setNetworkInterface(
-                new NetworkInterface()
-            ) ;
+            Environment.setNetworkInterface(new NetworkInterface()) ;
             Environment.getNetworkInterface().start() ;
-        } catch (IOException exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
     }

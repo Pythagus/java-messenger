@@ -16,7 +16,7 @@ public class SendMessageListener extends BaseListener {
      * @param args : notification arguments.
      */
     @Override
-    public void notify(Object... args) {
+    public void handle(Object... args) {
         String data = (String) args[0];
 
         //TODO : send the message

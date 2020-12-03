@@ -49,7 +49,7 @@ public class uiDiscussionInput extends JTextField implements Observable {
      * Send the input content.
      */
     public void sendInputContent() {
-        String message = this.getText() ;
+        String message = this.getText().trim() ;
 
         if(message.length() > 0) {
             this.observer.notifyAllListeners(message) ;

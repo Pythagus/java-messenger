@@ -21,7 +21,7 @@ public class ObserverProvider implements Observable {
      */
     public void notifyAllListeners(Object... args) {
         this.listeners.forEach(
-            (Listener listener) -> listener.notify(args)
+            (Listener listener) -> listener.handle(args)
         ) ;
     }
 

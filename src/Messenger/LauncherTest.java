@@ -1,8 +1,8 @@
 package Messenger;
 
+import java.net.InetAddress;
 import Messenger.Foundation.Environment;
 import Messenger.Foundation.Models.User;
-import java.net.InetAddress;
 
 // TODO : TO DELETE
 public class LauncherTest {
@@ -12,9 +12,9 @@ public class LauncherTest {
         msn.start() ;
 
         InetAddress ip = InetAddress.getByName("192.168.1.1") ;
-        Environment.getNetworkInterface().getEnvoyer().sendRequestMeeting(
-            new User(ip), () -> System.out.println("Accepted"), () -> System.out.println("Denied")
-        ) ;
+        User target = new User(ip) ;
+        target.setPseudo("André") ;
+        Environment.getNetworkInterface().getEnvoyer().sendRequestMeeting(target) ;
     }
 
 }
