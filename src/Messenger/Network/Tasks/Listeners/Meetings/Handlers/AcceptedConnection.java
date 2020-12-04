@@ -1,10 +1,7 @@
 package Messenger.Network.Tasks.Listeners.Meetings.Handlers;
 
-import java.util.Scanner;
 import Messenger.Foundation.Env;
-import Messenger.Foundation.Models.Messages.Message;
 import Messenger.Foundation.Models.User;
-import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.Foundation.Controllers.UserController;
 
 /**
@@ -20,20 +17,6 @@ public class AcceptedConnection {
         this.getUserController().addUser(user) ;
 
         // TODO : to do
-
-
-        // TODO : to delete
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNext()) {
-            String text = scanner.next() ;
-
-
-            Env.getNetworkInterface().getEnvoyer().sendMessage(
-                new Message(
-                    user, new MessageData(text, null)
-                )
-            ) ;
-        }
     }
 
     /**

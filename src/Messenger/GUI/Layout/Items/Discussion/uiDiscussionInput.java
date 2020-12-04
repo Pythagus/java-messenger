@@ -2,17 +2,19 @@ package Messenger.GUI.Layout.Items.Discussion;
 
 import java.awt.*;
 import javax.swing.*;
-
 import Messenger.Foundation.Env;
-import Messenger.Foundation.Models.Messages.Message;
+import Messenger.GUI.Screens.uiWindow;
 import Messenger.GUI.Utils.Placeholder;
+import Messenger.Foundation.Models.User;
 import Messenger.GUI.Subscreens.uiDiscussion;
+import Messenger.Foundation.Models.Messages.Message;
 import Messenger.GUI.Listeners.DiscussionInputListener;
 import Messenger.Foundation.Providers.ObserverProvider;
 import Messenger.Foundation.Models.Messages.MessageFile;
 import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.Foundation.Observers.Contracts.Listener;
 import Messenger.Foundation.Observers.Contracts.Observable;
+import Messenger.GUI.Exceptions.ConversationItemNotFoundException;
 
 /**
  * @author Damien MOLINA
@@ -58,13 +60,22 @@ public class uiDiscussionInput extends JTextField implements Observable {
         String text      = this.getText().trim() ;
 
         if(text.length() > 0) { /* && (file == null)*/
-            Message message = new Message(
-                Env.getUser(), new MessageData(text, file)
-            ) ;
+            uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
 
-            this.observer.notifyAllListeners(message) ;
+            try {
+                User target = uiWindow.getDiscussionBar().getActiveItem().getConversation().getTarget() ;
 
-            this.setText(null) ;
+                Message message = new Message(
+                    target, new MessageData(text, file)
+                ) ;
+
+                this.observer.notifyAllListeners(message) ;
+
+                this.setText(null) ;
+            } catch (ConversationItemNotFoundException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 

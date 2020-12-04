@@ -21,8 +21,7 @@ public class SendMessageListener extends BaseListener {
     public void handle(Object... args) {
         Message message = (Message) args[0] ;
 
-        //TODO : send the message
-        System.out.println("Message à envoyer : " + message.getData().getText()) ;
+        Env.getNetworkInterface().getEnvoyer().sendMessage(message) ;
 
         this.updateGraphics(message) ;
     }

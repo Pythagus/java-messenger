@@ -4,7 +4,9 @@ import java.net.Socket;
 import java.io.IOException;
 import Messenger.Foundation.Env;
 import Messenger.GUI.Screens.uiWindow;
+import Messenger.GUI.Subscreens.uiDiscussion;
 import Messenger.Network.Models.MessagePacket;
+import Messenger.Foundation.Models.Conversation;
 import Messenger.Foundation.Models.Messages.Message;
 import Messenger.Network.Tasks.Listeners.Concerns.ServerListener;
 import Messenger.GUI.Exceptions.ConversationItemNotFoundException;
@@ -55,6 +57,13 @@ public class ReceiveListener extends ServerListener<MessagePacket> {
             uiWindow.getDiscussionBar().updateFromUser(
                 packet.getSourceUser(), packet.getData().getData()
             );
+
+            uiDiscussion discussion = (uiDiscussion) uiWindow.getRightSide().getSubScreen() ;
+            Conversation conversation = discussion.getActiveConversation() ;
+
+            if(conversation != null && conversation.getTarget().equals(packet.getSourceUser())) {
+                discussion.addMessage(message) ;
+            }
         } catch (ConversationItemNotFoundException e) {
             e.printStackTrace();
         }
