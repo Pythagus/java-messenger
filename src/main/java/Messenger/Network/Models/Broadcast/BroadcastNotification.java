@@ -1,29 +1,43 @@
 package Messenger.Network.Models.Broadcast;
 
-import java.util.regex.*;
-import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.ArrayList;
 import Messenger.Foundation.Models.User;
-import Messenger.Foundation.System.Console.Console;
 
 /**
  * @author Damien MOLINA
  */
-public class BroadcastNotification  {
+public class BroadcastNotification {
+
+    private static final String DELIMITER = "#" ;
 
     /**
      * Broadcast type.
      */
-    private BroadcastType type ;
+    private final BroadcastType type ;
 
     /**
      * User sent with the broadcast notification.
      */
-    private User sender ;
+    private final User sender ;
 
-    public BroadcastType getType(){return this.type; }
+    /**
+     * Get the broadcast type.
+     *
+     * @return the type.
+     */
+    public BroadcastType getType() {
+        return this.type ;
+    }
 
-    public User getUser(){return this.sender; }
-
+    /**
+     * Get the notification's sender.
+     *
+     * @return the user instance.
+     */
+    public User getUser() {
+        return this.sender ;
+    }
 
     /**
      * Make a new BroadcastNotification instance.
@@ -31,79 +45,45 @@ public class BroadcastNotification  {
      * @param type : broadcast type.
      * @param user : user sending the notification.
      */
-    public BroadcastNotification(BroadcastType type, User user) throws UnknownHostException
-    {
-        this.type = type ;
+    public BroadcastNotification(BroadcastType type, User user) {
+        this.type   = type ;
         this.sender = user ;
     }
 
-
     /**
-     * make a string out of a Broadcast notification
+     * Make a string out of a Broadcast notification.
+     *
      * @return String with a standardized format
      */
-    public String NotifToString()
-    {
-        return "##" + this.type + "#@#" + this.sender.getPseudo() + "@" + this.sender.getIdentifier() + "#" + this.sender.getAddress().getHostAddress() + "###";
+    public String serialize() {
+        return BroadcastNotification.DELIMITER + this.type +
+                BroadcastNotification.DELIMITER + this.sender.getPseudo() +
+                BroadcastNotification.DELIMITER + this.sender.getIdentifier() +
+                BroadcastNotification.DELIMITER + this.sender.getAddress().getHostAddress() +
+                BroadcastNotification.DELIMITER ;
     }
 
     /**
-     * make a broadcastNotification out of a string
-     * @param notifString payload of a UPD packet
-     * @throws Exception
+     * Unserialize the given string to make
+     * a BroadcastNotification instance.
+     *
+     * @param str : string to unserialize.
+     * @return the new instance.
+     * @throws Exception : user error.
      */
-    public BroadcastNotification (String notifString) throws Exception {
+    public static BroadcastNotification unserialize(String str) throws Exception {
+        String[] data = str.trim().split(BroadcastNotification.DELIMITER) ;
 
-        System.out.println("Notif : " + notifString) ;
+        ArrayList<String> arr = new ArrayList<>(
+            Arrays.asList(data)
+        ) ;
+        arr.removeIf(
+            item -> item == null || "".equals(item)
+        ) ;
 
-        // TODO split ou regex, au choix
-        /*for(String s : notifString.split("#")) {
-            System.out.println(s);
-        }*/
-
-        Pattern pType = Pattern.compile("##([A-Z]+)#");
-        Matcher m = pType.matcher(notifString);
-        if (m.find())
-        {
-            switch (m.group(1))
-            {
-                case "LOGIN":
-                    this.type = BroadcastType.LOGIN;
-                    break;
-                case "LOGOUT":
-                    this.type = BroadcastType.LOGOUT;
-                    break;
-                case "HASPSEUDO":
-                    this.type = BroadcastType.HASPSEUDO;
-                    break;
-                case "CHANGEDPSEUDO":
-                    this.type = BroadcastType.CHANGEDPSEUDO;
-                    break;
-            }
-        } else
-        {
-            Console.comment("=> oups, string to broadcast failed (1)");
-        }
-
-        //user information
-        Pattern pName = Pattern.compile("#@#([A-Za-z0-9]+)#"); // group 1
-        Matcher m1 = pName.matcher(notifString);
-        Pattern pMAC = Pattern.compile("@(([A-Za-z0-9][A-Za-z0-9]:)+[A-Za-z0-9][A-Za-z0-9])"); //group 1
-        Matcher m2 = pMAC.matcher(notifString);
-        Pattern pIP = Pattern.compile("#([0-9]+.[0-9]+.[0-9]+.[0-9]+)###"); // group 1
-        Matcher m3 = pIP.matcher(notifString);
-
-        System.out.println(m1.find());
-        System.out.println(m2.find());
-        System.out.println(m3.find());
-
-        if (m1.find() & m2.find() & m3.find())
-        {
-            this.sender = new User(m1.group(1), m2.group(1), m3.group(1));
-        } else
-        {
-            Console.comment("=> oups, string to broadcast failed (2)");
-        }
+        return new BroadcastNotification(
+            BroadcastType.valueOf(data[0]), new User(arr.get(1), arr.get(2), arr.get(3))
+        ) ;
     }
 
 }

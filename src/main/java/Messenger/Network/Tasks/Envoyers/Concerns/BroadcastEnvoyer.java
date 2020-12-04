@@ -36,7 +36,7 @@ public class BroadcastEnvoyer extends BaseEnvoyer {
     @Override
     protected void send() {
         try {
-            String message = this.notification.NotifToString();
+            String message = this.notification.serialize();
             byte[] buffer = message.getBytes();
 
             DatagramSocket sender = new DatagramSocket();  //create connexion

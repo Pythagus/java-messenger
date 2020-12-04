@@ -43,12 +43,11 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
                     Console.comment("=> BroadcastListener received a datagram from " + datagram.getAddress()) ;
                 }
 
-                BroadcastNotification receivedNotif = new BroadcastNotification(
+                BroadcastNotification notification = BroadcastNotification.unserialize(
                     new String(datagram.getData())
                 ) ;
 
-                this.manageReceivedPDU(receivedNotif);
-
+                this.manageReceivedPDU(notification);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -74,22 +73,26 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
             /*
              * This packet is from a user that has to choose a pseudo and ask for everyone else information.
              */
-            case HASPSEUDO: this.manageHasPseudoPDU(pdu); break ;
+            case EVERYONE_INFO: this.manageHasPseudoPDU(pdu); break ;
 
             /*
              * This packet is from a user that change its pseudo while still using the app.
              */
-            case CHANGEDPSEUDO: this.manageChangedPseudoPDU(pdu); break ;
+            case CHANGED_PSEUDO: this.manageChangedPseudoPDU(pdu); break ;
         }
     }
 
     /**
      * add an entry to the user DTB
-     * @param notif Need the content of the notification
+     * @param notification : Need the content of the notification
      */
-    private void manageLoginPDU(BroadcastNotification notif)
-    {
+    private void manageLoginPDU(BroadcastNotification notification) {
         Console.comment("=> Broadcast LOGIN PDU received") ;
+
+        System.out.println(
+            "User : " + notification.getUser().getPseudo()
+        );
+
        // ((UserController)Environment.getController(UserController.class)).addUser(notif.getUser());
     }
 

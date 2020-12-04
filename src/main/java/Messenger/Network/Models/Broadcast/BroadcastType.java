@@ -18,14 +18,14 @@ public enum BroadcastType {
     /**
      * The user wants to know if anybody has
      * the given pseudo.
-     * Moreover asked for everyone informations (ip, mac, pseudo, listening port)
+     * Moreover asked for everyone information (ip, mac, pseudo, listening port)
      */
-    HASPSEUDO,
+    EVERYONE_INFO,
 
     /**
      * The user tells everyone he changed his
      * pseudo.
      */
-    CHANGEDPSEUDO,
+    CHANGED_PSEUDO,
 
 }
