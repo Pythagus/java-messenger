@@ -3,6 +3,8 @@ package Messenger.GUI.Layout;
 import Messenger.GUI.Subscreens.uiDiscussion;
 import Messenger.GUI.Subscreens.uiSettings;
 import Messenger.GUI.Subscreens.SubScreen;
+import Messenger.GUI.Subscreens.uiWelcome;
+
 import java.util.HashMap;
 import javax.swing.*;
 
@@ -25,7 +27,7 @@ public class RightSide extends JPanel {
      * Available subScreen types.
      */
     public enum SubScreenType {
-        Discussion, Settings
+        Discussion, Settings, Welcome
     }
 
     /**
@@ -46,12 +48,13 @@ public class RightSide extends JPanel {
 
         this.addSubScreen(SubScreenType.Discussion, new uiDiscussion()) ;
         this.addSubScreen(SubScreenType.Settings, new uiSettings()) ;
+        this.addSubScreen(SubScreenType.Welcome, new uiWelcome()) ;
 
         /*
          * By default, the active screen is the
          * discussion one.
          */
-        this.activeSubScreen(SubScreenType.Discussion) ;
+        this.activeSubScreen(SubScreenType.Welcome) ;
     }
 
     /**

@@ -1,7 +1,10 @@
 package Messenger.Network.Tasks.Listeners.Meetings.Handlers;
 
 import java.net.SocketException;
+
+import Messenger.Foundation.Env;
 import Messenger.Foundation.Models.User;
+import Messenger.Foundation.System.Console.Console;
 
 /**
  * @author Damien MOLINA
@@ -15,8 +18,6 @@ public class DeniedConnection {
      * @param user : unreachable user instance.
      */
     public void unreachableUser(SocketException exception, User user) {
-        System.out.println("User unreachable : " + user.getPseudo()) ;
-
         // TODO : to do
     }
 
@@ -24,8 +25,6 @@ public class DeniedConnection {
      * When the connection was simply refused.
      */
     public void denied() {
-        System.out.println("Denied") ;
-
         // TODO : to do
     }
 

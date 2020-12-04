@@ -32,9 +32,16 @@ public class uiDiscussion extends SubScreen {
     private Conversation activeConversation ;
 
     /**
+     * Discussion header.
+     */
+    private final uiDiscussionHeader header ;
+
+    /**
      * Make a new instance of uiDiscussion.
      */
     public uiDiscussion() {
+        this.header = new uiDiscussionHeader() ;
+
         this.initializeComponentGraphics() ;
     }
 
@@ -58,6 +65,7 @@ public class uiDiscussion extends SubScreen {
         }
 
         this.activeConversation = conversation ;
+        this.header.updateConversation(conversation) ;
 
         this.content.removeAll() ;
 
@@ -141,7 +149,7 @@ public class uiDiscussion extends SubScreen {
         this.setLayout(new BorderLayout()) ;
 
         // Add the component elements.
-        this.add(new uiDiscussionHeader(), BorderLayout.PAGE_START) ;
+        this.add(this.header, BorderLayout.PAGE_START) ;
         this.add(this.graphicContentContainer(), BorderLayout.CENTER) ;
         this.add(new uiDiscussionFooter(), BorderLayout.PAGE_END) ;
     }

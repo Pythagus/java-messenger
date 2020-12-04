@@ -1,10 +1,10 @@
 package Messenger.GUI.Layout.Items.Discussion;
 
-import Messenger.Foundation.System.Assets.ImageAsset;
-import Messenger.GUI.Subscreens.uiDiscussion;
-
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import Messenger.GUI.Subscreens.uiDiscussion;
+import Messenger.Foundation.Models.Conversation;
+import Messenger.Foundation.System.Assets.ImageAsset;
 
 /**
  * @author Damien MOLINA
@@ -12,10 +12,35 @@ import java.awt.*;
 public class uiDiscussionHeader extends JPanel {
 
     /**
+     * Conversation instance.
+     */
+    private Conversation conversation ;
+
+    /**
+     * Label name.
+     */
+    private final JLabel nameLabel ;
+
+    /**
      * Make a new instance of uiDiscussionHeader.
      */
     public uiDiscussionHeader() {
+        this.nameLabel = this.graphicName() ;
+
         this.initializeComponentGraphics() ;
+    }
+
+    /**
+     * Update the conversation.
+     *
+     * @param conversation : conversation instance.
+     */
+    public void updateConversation(Conversation conversation) {
+        this.conversation = conversation ;
+
+        this.nameLabel.setText(
+            conversation.getTarget().getPseudo()
+        ) ;
     }
 
     /**
@@ -78,7 +103,7 @@ public class uiDiscussionHeader extends JPanel {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS)) ;
 
         // Add the component elements.
-        container.add(this.graphicName()) ;
+        container.add(this.nameLabel) ;
         container.add(this.graphicStatus()) ;
 
         return container ;
@@ -91,7 +116,7 @@ public class uiDiscussionHeader extends JPanel {
      */
     private JLabel graphicName() {
         JLabel name = new JLabel() ;
-        name.setText("François Hollande") ;
+        name.setText("") ;
         name.setPreferredSize(new Dimension(490, 18)) ;
         name.setRequestFocusEnabled(false) ;
 

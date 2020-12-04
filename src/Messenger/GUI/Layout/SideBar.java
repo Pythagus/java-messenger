@@ -64,7 +64,7 @@ public class SideBar extends JPanel {
 
         // Add the icon.
         logo.add(
-            this.graphicImagedButton("logo.jpg", this::onMessageButtonClick), BorderLayout.CENTER
+            this.graphicImagedButton("logo.jpg", this::onWelcomeButtonClick), BorderLayout.CENTER
         ) ;
 
         return logo ;
@@ -159,6 +159,15 @@ public class SideBar extends JPanel {
      */
     private void onMessageButtonClick(ActionEvent e) {
         this.rightSide.activeSubScreen(RightSide.SubScreenType.Discussion) ;
+    }
+
+    /**
+     * Executed when the Welcome button is clicked.
+     *
+     * @param e : click event.
+     */
+    private void onWelcomeButtonClick(ActionEvent e) {
+        this.rightSide.activeSubScreen(RightSide.SubScreenType.Welcome) ;
     }
 
     /**

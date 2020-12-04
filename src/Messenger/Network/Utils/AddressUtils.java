@@ -15,7 +15,8 @@ public class AddressUtils {
      * @throws Exception : impossible to get the MAC address.
      */
     public static String getMacAddress() throws Exception {
-        NetworkInterface netInf = NetworkInterface.getNetworkInterfaces().nextElement() ;
+        return "00:00:00:00:00:42" ;
+        /*NetworkInterface netInf = NetworkInterface.getNetworkInterfaces().nextElement() ;
 
         // Get the first MAC address available.
         byte[] mac = netInf.getHardwareAddress() ;
@@ -28,7 +29,7 @@ public class AddressUtils {
             ) ;
         }
 
-        return sb.toString() ;
+        return sb.toString() ;*/
     }
 
     /**
@@ -74,9 +75,7 @@ public class AddressUtils {
                      * || addr instanceof Inet6Address
                      */
                     if (addr instanceof Inet4Address) {
-                        return InetAddress.getByName(
-                            addr.getHostAddress()
-                        ) ;
+                        return InetAddress.getByName(addr.getHostAddress()) ;
                     }
                 }
             }
