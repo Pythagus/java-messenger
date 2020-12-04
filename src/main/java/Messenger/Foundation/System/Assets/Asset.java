@@ -9,7 +9,7 @@ import java.net.URL;
 abstract public class Asset {
 
     // Path root to the assets folder.
-    protected static final String ROOT = "/Messenger/Assets/" ;
+    protected static final String ROOT = "/" ;
 
     /**
      * Get the file complete URL.
