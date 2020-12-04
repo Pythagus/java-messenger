@@ -43,7 +43,7 @@ public class BroadcastEnvoyer extends BaseEnvoyer {
 
             //datagram
             // TODO : Use Messenger.Network.Utils.AddressUtils.getBroadcastAddress() instead
-            InetAddress ipAdress = InetAddress.getByName("255.255.255.255"); //broadcast
+            InetAddress ipAdress = InetAddress.getByName("192.168.1.255"); //broadcast
             DatagramPacket datagram = new DatagramPacket(buffer, buffer.length, ipAdress, NetworkInterface.broadcastListeningPort);
 
             datagram.setData(buffer); //payload

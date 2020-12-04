@@ -40,10 +40,12 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
                 this.listenerSocket.receive(datagram);   //receiving datagram
 
                 if(Env.getApplication().isDebugMode()) {
-                    Console.comment("=> MeetingListener received a datagram from " + datagram.getAddress()) ;
+                    Console.comment("=> BroadcastListener received a datagram from " + datagram.getAddress()) ;
                 }
 
-                BroadcastNotification receivedNotif = new BroadcastNotification(datagram.getData().toString()); //comment faire ?
+                BroadcastNotification receivedNotif = new BroadcastNotification(
+                    new String(datagram.getData())
+                ) ;
 
                 this.manageReceivedPDU(receivedNotif);
 

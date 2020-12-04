@@ -44,8 +44,7 @@ public class BroadcastNotification  {
      */
     public String NotifToString()
     {
-        String notifString = "##" + this.type + "#@#" + this.sender.getPseudo() + "@" + this.sender.getIdentifier() + "#" + this.sender.getAddress() + "###" ;
-        return notifString ;
+        return "##" + this.type + "#@#" + this.sender.getPseudo() + "@" + this.sender.getIdentifier() + "#" + this.sender.getAddress().getHostAddress() + "###";
     }
 
     /**
@@ -53,8 +52,15 @@ public class BroadcastNotification  {
      * @param notifString payload of a UPD packet
      * @throws Exception
      */
-    public BroadcastNotification (String notifString) throws Exception
-    {
+    public BroadcastNotification (String notifString) throws Exception {
+
+        System.out.println("Notif : " + notifString) ;
+
+        // TODO split ou regex, au choix
+        /*for(String s : notifString.split("#")) {
+            System.out.println(s);
+        }*/
+
         Pattern pType = Pattern.compile("##([A-Z]+)#");
         Matcher m = pType.matcher(notifString);
         if (m.find())
@@ -76,7 +82,7 @@ public class BroadcastNotification  {
             }
         } else
         {
-            Console.comment("=> oups, string to broadcast failed");
+            Console.comment("=> oups, string to broadcast failed (1)");
         }
 
         //user information
@@ -86,12 +92,17 @@ public class BroadcastNotification  {
         Matcher m2 = pMAC.matcher(notifString);
         Pattern pIP = Pattern.compile("#([0-9]+.[0-9]+.[0-9]+.[0-9]+)###"); // group 1
         Matcher m3 = pIP.matcher(notifString);
+
+        System.out.println(m1.find());
+        System.out.println(m2.find());
+        System.out.println(m3.find());
+
         if (m1.find() & m2.find() & m3.find())
         {
             this.sender = new User(m1.group(1), m2.group(1), m3.group(1));
         } else
         {
-            Console.comment("=> oups, string to broadcast failed");
+            Console.comment("=> oups, string to broadcast failed (2)");
         }
     }
 
