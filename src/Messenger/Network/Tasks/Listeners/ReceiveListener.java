@@ -2,9 +2,12 @@ package Messenger.Network.Tasks.Listeners;
 
 import java.net.Socket;
 import java.io.IOException;
+import Messenger.Foundation.Env;
+import Messenger.GUI.Screens.uiWindow;
 import Messenger.Network.Models.MessagePacket;
 import Messenger.Foundation.Models.Messages.Message;
 import Messenger.Network.Tasks.Listeners.Concerns.ServerListener;
+import Messenger.GUI.Exceptions.ConversationItemNotFoundException;
 
 /**
  * @author Damien MOLINA
@@ -41,9 +44,20 @@ public class ReceiveListener extends ServerListener<MessagePacket> {
     protected void manageReceivedPacket(Socket socket, MessagePacket packet) {
         Message message = packet.getData() ;
 
+        // TODO : to remove
         System.out.println(
             message.getData().getText()
         ) ;
+
+        uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
+
+        try {
+            uiWindow.getDiscussionBar().updateFromUser(
+                packet.getSourceUser(), packet.getData().getData()
+            );
+        } catch (ConversationItemNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }

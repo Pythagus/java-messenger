@@ -1,12 +1,11 @@
 package Messenger.Foundation.Observers.Listeners.Message;
 
-import Messenger.Foundation.Models.Messages.Message;
-import Messenger.Foundation.Models.Messages.MessageData;
-import Messenger.Foundation.Observers.BaseListener;
+import Messenger.Foundation.Env;
 import Messenger.GUI.Layout.RightSide;
 import Messenger.GUI.Screens.uiWindow;
-import Messenger.Foundation.Env;
 import Messenger.GUI.Subscreens.uiDiscussion;
+import Messenger.Foundation.Observers.BaseListener;
+import Messenger.Foundation.Models.Messages.Message;
 
 /**
  * @author Damien MOLINA

@@ -1,5 +1,6 @@
 package Messenger.GUI.Layout.Items.Discussion;
 
+import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.Foundation.System.Assets.ImageAsset;
 import Messenger.Foundation.Models.Conversation;
 import Messenger.GUI.Layout.RightSide;
@@ -58,6 +59,19 @@ public class uiDiscussionItem extends JPanel {
         }
 
         this.contentLabel.setText("<html>" + c + "</html>") ;
+    }
+
+    /**
+     * Update the content from the given data.
+     *
+     * @param data : data instance.
+     */
+    public void setContentFromData(MessageData data) {
+        if(data.hasFile()) {
+            this.setContent("Vous avez envoyé un fichier") ;
+        } else {
+            this.setContent(data.getText()) ;
+        }
     }
 
     /**

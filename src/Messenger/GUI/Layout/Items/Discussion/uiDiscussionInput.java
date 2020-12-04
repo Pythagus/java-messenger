@@ -57,7 +57,7 @@ public class uiDiscussionInput extends JTextField implements Observable {
         MessageFile file = null ; // TODO : regarder si un fichier a été envoyé
         String text      = this.getText().trim() ;
 
-        if((text.length() > 0) && (file == null)) {
+        if(text.length() > 0) { /* && (file == null)*/
             Message message = new Message(
                 Env.getUser(), new MessageData(text, file)
             ) ;

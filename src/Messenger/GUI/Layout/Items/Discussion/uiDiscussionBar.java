@@ -74,12 +74,7 @@ public class uiDiscussionBar extends JPanel {
     public void updateActiveItem(MessageData data) {
         try {
             uiDiscussionItem item = this.getActiveItem() ;
-
-            if(data.hasFile()) {
-                item.setContent("Vous avez envoyé un fichier") ;
-            } else {
-                item.setContent(data.getText()) ;
-            }
+            item.setContentFromData(data) ;
         } catch (ConversationItemNotFoundException e) {
             e.printStackTrace() ;
         }
@@ -104,6 +99,18 @@ public class uiDiscussionBar extends JPanel {
     }
 
     /**
+     * Update the item from the user.
+     *
+     * @param user : user sending the data.
+     * @param data : data sent.
+     * @throws ConversationItemNotFoundException : not found item.
+     */
+    public void updateFromUser(User user, MessageData data) throws ConversationItemNotFoundException {
+        uiDiscussionItem item = this.getFromUser(user) ;
+        item.setContentFromData(data) ;
+    }
+
+    /**
      * Get the conversation UI instance.
      *
      * @param user : targeted user instance.
@@ -111,11 +118,11 @@ public class uiDiscussionBar extends JPanel {
      * @throws ConversationItemNotFoundException : no element found.
      */
     public uiDiscussionItem getFromUser(User user) throws ConversationItemNotFoundException {
-        /*for(uiDiscussionItem item : this.items) {
+        for(uiDiscussionItem item : this.items) {
             if(item.getConversation().getTarget().equals(user)) {
                 return item ;
             }
-        }*/
+        }
 
         throw new ConversationItemNotFoundException(user) ;
     }

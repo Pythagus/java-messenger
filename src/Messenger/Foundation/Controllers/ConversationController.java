@@ -36,9 +36,10 @@ public class ConversationController extends Controller {
      *
      * @param user : user with whom the conversation is held.
      */
-    public void getHistoric(User user)     /// METTRE UN NBR DE MESSAGES A GET ?
-    {
+    public Message[] getHistoric(User user) {
         // TODO
+
+        return new Message[0] ;
     }
 
 
