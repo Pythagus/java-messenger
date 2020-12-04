@@ -9,6 +9,9 @@ import Messenger.Foundation.Models.User;
  */
 public class BroadcastNotification {
 
+    /**
+     * String delimiter.
+     */
     private static final String DELIMITER = "#" ;
 
     /**
@@ -81,8 +84,10 @@ public class BroadcastNotification {
             item -> item == null || "".equals(item)
         ) ;
 
+        System.out.println(arr.get(0));
+
         return new BroadcastNotification(
-            BroadcastType.valueOf(data[0]), new User(arr.get(1), arr.get(2), arr.get(3))
+            BroadcastType.valueOf(arr.get(0)), new User(arr.get(1), arr.get(2), arr.get(3))
         ) ;
     }
 

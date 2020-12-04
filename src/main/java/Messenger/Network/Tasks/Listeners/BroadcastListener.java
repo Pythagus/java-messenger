@@ -56,6 +56,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
 
     /**
      * redirect on functions depending of the type of packet
+     *
      * @param pdu payload of the udp packet
      */
     protected void manageReceivedPDU(BroadcastNotification pdu) {
@@ -73,7 +74,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
             /*
              * This packet is from a user that has to choose a pseudo and ask for everyone else information.
              */
-            case EVERYONE_INFO: this.manageHasPseudoPDU(pdu); break ;
+            case EVERYONE_INFO: this.manageEveryoneInformationPDU(pdu); break ;
 
             /*
              * This packet is from a user that change its pseudo while still using the app.
@@ -84,6 +85,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
 
     /**
      * add an entry to the user DTB
+     *
      * @param notification : Need the content of the notification
      */
     private void manageLoginPDU(BroadcastNotification notification) {
@@ -98,6 +100,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
 
     /**
      * Erase the sender from the userConnected DTB
+     *
      * @param notification : Need the content of the notification
      */
     private void manageLogoutPDU(BroadcastNotification notification)
@@ -107,9 +110,10 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
 
     /**
      * Send its information (ip, mac, pseudo, port ?)
+     *
      * @param notification : Need the content of the notification
      */
-    private void manageHasPseudoPDU(BroadcastNotification notification)
+    private void manageEveryoneInformationPDU(BroadcastNotification notification)
     {
         //todo
     }
@@ -117,6 +121,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
     // y'a un truc qui va pas ici !!! comment trouver grace à seulement l'attribut MAC ?
     /**
      * Change the sender pseudo in the userConnected DTB
+     *
      * @param notification Need the content of the notification
      */
     private void manageChangedPseudoPDU(BroadcastNotification notification)
