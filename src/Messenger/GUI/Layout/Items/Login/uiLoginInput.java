@@ -75,6 +75,9 @@ public class uiLoginInput extends JTextField {
             this.errorLabel.updateText("") ;
             System.out.println("Pseudo envoyé : " + pseudo) ;
 
+            // TODO : retirer cette ligne. Ceci doit être fait en ayant la réponse du broadcast.
+            Env.getUser().setPseudo(pseudo) ;
+
             try {
                 // TODO : Maud -> vérifier si le pseudo n'est pas déjà pris. S'il l'est, générer l'exception AlreadyUsedPseudoException
 

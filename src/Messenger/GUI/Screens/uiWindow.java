@@ -3,10 +3,7 @@ package Messenger.GUI.Screens;
 import java.awt.*;
 import javax.swing.*;
 import Messenger.GUI.Layout.*;
-import Messenger.LauncherTest;
-import Messenger.Foundation.Models.Conversation;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionBar;
-import Messenger.GUI.Layout.Items.Discussion.uiDiscussionItem;
 
 /**
  * @author Damien MOLINA
@@ -33,19 +30,6 @@ public class uiWindow extends Screen {
         this.rightSide     = new RightSide() ;
 
         this.initializeComponentGraphics() ;
-        this.setAllDiscussions() ;
-    }
-
-    /**
-     * Set the discussions into the discussion bar.
-     */
-    private void setAllDiscussions() {
-        // TODO : make the DB call to get all discussions.
-
-        Conversation conversation = new Conversation(LauncherTest.getUser()) ;
-        uiDiscussionItem conv = new uiDiscussionItem(conversation, "francois_hollande.png") ;
-
-        this.discussionBar.addDiscussionItem(conv) ;
     }
 
     /**

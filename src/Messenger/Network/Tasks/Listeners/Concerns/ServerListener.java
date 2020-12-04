@@ -3,9 +3,8 @@ package Messenger.Network.Tasks.Listeners.Concerns;
 import java.net.Socket;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.io.ObjectInputStream;
-
 import Messenger.Foundation.Env;
+import java.io.ObjectInputStream;
 import Messenger.Network.Models.Concerns.Packet;
 import Messenger.Foundation.System.Console.Console;
 import Messenger.Foundation.Controllers.UserController;
@@ -73,10 +72,9 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
 
                 // TODO : do it in a thread
                 if(this.shouldManagePacket(packet)) {
-                    System.out.println("to manage");
                     this.manageReceivedPacket(socket, packet) ;
-                } else {
-                    System.out.println("NOT to manage");
+                } else if(Env.getApplication().isDebugMode()) {
+                    Console.warning("Received packet not managed") ;
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();

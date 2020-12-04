@@ -1,11 +1,13 @@
 package Messenger.GUI.Layout;
 
-import Messenger.Foundation.System.Assets.ImageAsset;
-import Messenger.GUI.Factories.ButtonFactory;
-import java.util.function.Consumer;
-import java.awt.event.ActionEvent;
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import Messenger.Launcher;
+import Messenger.Foundation.Env;
+import java.awt.event.ActionEvent;
+import java.util.function.Consumer;
+import Messenger.GUI.Factories.ButtonFactory;
+import Messenger.Foundation.System.Assets.ImageAsset;
 
 /**
  * Main navigation bar to create a message,
@@ -134,6 +136,11 @@ public class SideBar extends JPanel {
      */
     private void onCreateMessageButtonClick(ActionEvent e) {
         System.out.println("Create message") ;
+
+        // TODO : to delete
+        Env.getNetworkInterface().getEnvoyer().sendRequestMeeting(
+            Launcher.targetedUser()
+        ) ;
     }
 
     /**

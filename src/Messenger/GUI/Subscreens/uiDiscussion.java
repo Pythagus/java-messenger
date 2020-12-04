@@ -53,7 +53,13 @@ public class uiDiscussion extends SubScreen {
      * @param conversation : new active conversation.
      */
     public void changeActiveConversation(Conversation conversation) {
+        if(this.activeConversation != null && this.activeConversation.equals(conversation)) {
+            return ;
+        }
+
         this.activeConversation = conversation ;
+
+        this.content.removeAll() ;
 
         this.addMessages(
             this.getDiscussionMessages(conversation.getTarget())
@@ -171,12 +177,6 @@ public class uiDiscussion extends SubScreen {
     private JPanel graphicContent() {
         this.content = new JPanel(new GridLayout(0, 1, 5, 5)) ;
         this.content.setBackground(uiDiscussion.backgroundColor) ;
-
-        // TODO : to delete.
-       /* uiDiscussionMessage[] list = this.getDiscussionMessages() ;
-        for(uiDiscussionMessage msg : list) {
-            this.content.add(msg) ;
-        }*/
 
         JPanel container = new JPanel(new BorderLayout()) ;
         container.add(this.content, BorderLayout.NORTH) ;

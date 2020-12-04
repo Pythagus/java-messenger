@@ -3,6 +3,7 @@ package Messenger.GUI.Layout.Items.Discussion;
 import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.Foundation.System.Assets.ImageAsset;
 import Messenger.Foundation.Models.Conversation;
+import Messenger.GUI.Subscreens.uiDiscussion;
 import Messenger.GUI.Layout.RightSide;
 import Messenger.GUI.Screens.uiWindow;
 import java.awt.event.MouseAdapter;
@@ -94,15 +95,7 @@ public class uiDiscussionItem extends JPanel {
                 BorderFactory.createMatteBorder(0, 15, 0, 15, uiDiscussionBar.backgroundColor)
         ) ;
         this.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-        this.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                //TODO : afficher la conversation
-                System.out.println("discussion") ;
-
-                uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
-                uiWindow.getRightSide().activeSubScreen(RightSide.SubScreenType.Discussion) ;
-            }
-        }) ;
+        this.addMouseListener(new DiscussionItemOnClick(this)) ;
 
         // Add the picture panel.
         this.add(this.graphicPicture()) ;
@@ -200,6 +193,44 @@ public class uiDiscussionItem extends JPanel {
         uiDiscussionItem that = (uiDiscussionItem) o ;
 
         return this.conversation.equals(that.getConversation()) ;
+    }
+
+    /**
+     * Handler to the click event in
+     * a discussion item.
+     *
+     * @author Damien MOLINA
+     */
+    private static class DiscussionItemOnClick extends MouseAdapter {
+
+        /**
+         * Clicked item.
+         */
+        private final uiDiscussionItem item ;
+
+        /**
+         * Make a new listener instance.
+         *
+         * @param item : clicked item.
+         */
+        DiscussionItemOnClick(uiDiscussionItem item) {
+            this.item = item ;
+        }
+
+        /**
+         * When the item is clicked.
+         *
+         * @param e : click event.
+         */
+        public void mouseClicked(MouseEvent e) {
+            uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
+            uiWindow.getRightSide().activeSubScreen(RightSide.SubScreenType.Discussion) ;
+
+            uiDiscussion discussion = (uiDiscussion) uiWindow.getRightSide().getSubScreen() ;
+            discussion.changeActiveConversation(this.item.getConversation()) ;
+
+            uiWindow.getDiscussionBar().setActiveItem(this.item) ;
+        }
     }
 
 }

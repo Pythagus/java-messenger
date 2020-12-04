@@ -44,16 +44,29 @@ public class User implements Serializable {
         }
     }
 
-    public User(String pseudo, String macAddress, String addr) throws Exception
-    {
+    /**
+     * Make a new user instance.
+     *
+     * @param pseudo : user pseudo.
+     * @param macAddress : user mac address.
+     * @param addr : user IP address.
+     * @throws Exception : address error.
+     */
+    public User(String pseudo, String macAddress, String addr) throws Exception {
         this(pseudo, macAddress, InetAddress.getByName(addr)) ;
     }
 
-    public User(String pseudo, String macAddress, InetAddress addr)
-    {
-        this.pseudo = pseudo ;
+    /**
+     * Make a new user instance.
+     *
+     * @param pseudo : user pseudo.
+     * @param macAddress : user mac address.
+     * @param addr : user IP address.
+     */
+    public User(String pseudo, String macAddress, InetAddress addr) {
+        this.pseudo     = pseudo ;
         this.macAddress = macAddress;
-        this.address = addr ;
+        this.address    = addr ;
     }
 
     /**

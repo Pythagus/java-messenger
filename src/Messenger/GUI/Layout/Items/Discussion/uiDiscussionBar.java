@@ -81,6 +81,17 @@ public class uiDiscussionBar extends JPanel {
     }
 
     /**
+     * Set the active item.
+     *
+     * @param item : active item.
+     */
+    public void setActiveItem(uiDiscussionItem item) {
+        int index = this.items.indexOf(item) ;
+
+        this.activeItem = this.items.get(index) ;
+    }
+
+    /**
      * Get the active item.
      *
      * @return the UI discussion instance.

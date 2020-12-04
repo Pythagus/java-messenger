@@ -2,13 +2,11 @@ package Messenger.Network.Tasks.Envoyers;
 
 import java.net.Socket;
 import java.util.concurrent.Executors;
-
-import Messenger.Foundation.Models.Messages.Message;
 import Messenger.Foundation.Models.User;
 import java.util.concurrent.ExecutorService;
 import Messenger.Network.Models.Concerns.Packet;
+import Messenger.Foundation.Models.Messages.Message;
 import Messenger.Network.Models.Datagram.SocketStream;
-import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.Network.Models.Broadcast.BroadcastNotification;
 import Messenger.Network.Tasks.Envoyers.Concerns.MeetingEnvoyer;
 import Messenger.Network.Tasks.Envoyers.Concerns.MessageEnvoyer;

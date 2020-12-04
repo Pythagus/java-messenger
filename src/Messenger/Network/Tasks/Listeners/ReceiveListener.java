@@ -56,7 +56,7 @@ public class ReceiveListener extends ServerListener<MessagePacket> {
         try {
             uiWindow.getDiscussionBar().updateFromUser(
                 packet.getSourceUser(), packet.getData().getData()
-            );
+            ) ;
 
             uiDiscussion discussion = (uiDiscussion) uiWindow.getRightSide().getSubScreen() ;
             Conversation conversation = discussion.getActiveConversation() ;
