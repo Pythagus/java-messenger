@@ -20,12 +20,12 @@ public class LauncherBroadcast {
         Messenger msn = new Messenger() ;
         msn.start() ;
 
-        Env.getUser().setPseudo("Tata Antoinette") ;
+        Env.getUser().setPseudo("André") ;
+
+        System.out.println(Env.getUser().getAddress());
 
         Env.getNetworkInterface().getEnvoyer().broadcast(
-            new BroadcastNotification(
-                BroadcastType.LOGIN, Env.getUser()
-            )
+            new BroadcastNotification(BroadcastType.EVERYONE_INFO)
         ) ;
     }
 

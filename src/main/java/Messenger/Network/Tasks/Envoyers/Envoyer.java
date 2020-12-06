@@ -1,6 +1,7 @@
 package Messenger.Network.Tasks.Envoyers;
 
 import java.net.Socket;
+import java.net.InetAddress;
 import java.util.concurrent.Executors;
 import Messenger.Foundation.Models.User;
 import java.util.concurrent.ExecutorService;
@@ -10,9 +11,7 @@ import Messenger.Network.Models.Datagram.SocketStream;
 import Messenger.Network.Models.Broadcast.BroadcastNotification;
 import Messenger.Network.Tasks.Envoyers.Concerns.MeetingEnvoyer;
 import Messenger.Network.Tasks.Envoyers.Concerns.MessageEnvoyer;
-import Messenger.Network.Models.Broadcast.BroadcastResponsePacket;
 import Messenger.Network.Tasks.Envoyers.Concerns.BroadcastEnvoyer;
-import Messenger.Network.Tasks.Envoyers.Concerns.BroadcastResponseEnvoyer;
 
 /**
  * @author Damien MOLINA
@@ -66,12 +65,12 @@ public class Envoyer {
     }
 
     /**
-     * Send the given user packet
+     * Broadcast the given notification.
      *
-     * @param packet : user packet.
+     * @param notification : notification to broadcast.
      */
-    public void send(BroadcastResponsePacket packet) {
-        new BroadcastResponseEnvoyer(this, packet).start() ;
+    public void broadcastResponse(BroadcastNotification notification, InetAddress address) {
+        new BroadcastEnvoyer(this, notification, address).start() ;
     }
 
     /**

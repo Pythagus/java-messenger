@@ -7,7 +7,6 @@ import Messenger.Foundation.System.Console.Console;
 import Messenger.Foundation.Controllers.UserController;
 import Messenger.Network.Models.Broadcast.BroadcastType;
 import Messenger.Network.Models.Broadcast.BroadcastNotification;
-import Messenger.Network.Models.Broadcast.BroadcastResponsePacket;
 import Messenger.Network.Tasks.Listeners.Concerns.NetworkBaseListener;
 
 /**
@@ -39,17 +38,21 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
 
                 DatagramPacket datagram = new DatagramPacket(buffer, buffer.length);
 
-                this.listenerSocket.receive(datagram) ;
+                if(! (datagram.getAddress().equals(Env.getUser().getAddress()))) {
+                    this.listenerSocket.receive(datagram) ;
 
-                if(Env.getApplication().isDebugMode()) {
-                    Console.comment("=> BroadcastListener received a datagram from " + datagram.getAddress()) ;
+                    if(Env.getApplication().isDebugMode()) {
+                        Console.comment("=> BroadcastListener received a datagram from " + datagram.getAddress()) ;
+                    }
+
+                    BroadcastNotification notification = BroadcastNotification.unserialize(
+                        new String(datagram.getData())
+                    ) ;
+
+                    if(! notification.getUser().equals(Env.getUser())) {
+                        this.manageReceivedPDU(notification);
+                    }
                 }
-
-                BroadcastNotification notification = BroadcastNotification.unserialize(
-                    new String(datagram.getData())
-                ) ;
-
-                this.manageReceivedPDU(notification);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -119,8 +122,8 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
     private void manageEveryoneInformationPDU(BroadcastNotification notification) {
         this.printReceivedNotification(notification) ;
 
-        Env.getNetworkInterface().getEnvoyer().send(
-            new BroadcastResponsePacket(BroadcastType.LOGIN, notification.getUser())
+        Env.getNetworkInterface().getEnvoyer().broadcastResponse(
+            new BroadcastNotification(BroadcastType.LOGIN), notification.getUser().getAddress()
         ) ;
     }
 
