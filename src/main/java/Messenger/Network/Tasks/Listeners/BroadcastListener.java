@@ -38,20 +38,18 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
 
                 DatagramPacket datagram = new DatagramPacket(buffer, buffer.length);
 
-                if(! (datagram.getAddress().equals(Env.getUser().getAddress()))) {
-                    this.listenerSocket.receive(datagram) ;
+                this.listenerSocket.receive(datagram) ;
 
-                    if(Env.getApplication().isDebugMode()) {
-                        Console.comment("=> BroadcastListener received a datagram from " + datagram.getAddress()) ;
-                    }
+                if(Env.getApplication().isDebugMode()) {
+                    Console.comment("=> BroadcastListener received a datagram from " + datagram.getAddress()) ;
+                }
 
-                    BroadcastNotification notification = BroadcastNotification.unserialize(
-                        new String(datagram.getData())
-                    ) ;
+                BroadcastNotification notification = BroadcastNotification.unserialize(
+                    new String(datagram.getData())
+                ) ;
 
-                    if(! notification.getUser().equals(Env.getUser())) {
-                        this.manageReceivedPDU(notification);
-                    }
+                if(! notification.getUser().equals(Env.getUser())) {
+                    this.manageReceivedPDU(notification);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
