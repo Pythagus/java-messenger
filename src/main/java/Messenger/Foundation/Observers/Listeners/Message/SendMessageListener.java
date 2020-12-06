@@ -1,8 +1,8 @@
 package Messenger.Foundation.Observers.Listeners.Message;
 
-import Messenger.Foundation.Env;
 import Messenger.GUI.Layout.RightSide;
 import Messenger.GUI.Screens.uiWindow;
+import Messenger.Foundation.System.Env;
 import Messenger.GUI.Subscreens.uiDiscussion;
 import Messenger.Foundation.Observers.BaseListener;
 import Messenger.Foundation.Models.Messages.Message;

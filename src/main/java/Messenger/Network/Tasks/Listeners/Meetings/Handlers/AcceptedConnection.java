@@ -1,12 +1,12 @@
 package Messenger.Network.Tasks.Listeners.Meetings.Handlers;
 
-import Messenger.Foundation.Env;
+import Messenger.GUI.Screens.uiWindow;
+import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
 import Messenger.Foundation.Models.Conversation;
-import Messenger.Foundation.Controllers.UserController;
 import Messenger.Foundation.System.Console.Console;
+import Messenger.Foundation.Controllers.UserController;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionItem;
-import Messenger.GUI.Screens.uiWindow;
 
 /**
  * @author Damien MOLINA

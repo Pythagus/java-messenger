@@ -2,8 +2,8 @@ package Messenger.GUI.Subscreens;
 
 import java.awt.*;
 import javax.swing.*;
-import Messenger.Foundation.Env;
 import Messenger.GUI.Layout.SideBar;
+import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
 import Messenger.Foundation.Models.Conversation;
 import Messenger.Foundation.Models.Messages.Message;

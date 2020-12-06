@@ -1,10 +1,7 @@
 package Messenger.Network.Tasks.Listeners.Meetings.Handlers;
 
 import java.net.SocketException;
-
-import Messenger.Foundation.Env;
 import Messenger.Foundation.Models.User;
-import Messenger.Foundation.System.Console.Console;
 
 /**
  * @author Damien MOLINA

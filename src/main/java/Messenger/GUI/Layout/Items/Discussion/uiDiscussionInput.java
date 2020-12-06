@@ -2,8 +2,8 @@ package Messenger.GUI.Layout.Items.Discussion;
 
 import java.awt.*;
 import javax.swing.*;
-import Messenger.Foundation.Env;
 import Messenger.GUI.Screens.uiWindow;
+import Messenger.Foundation.System.Env;
 import Messenger.GUI.Utils.Placeholder;
 import Messenger.Foundation.Models.User;
 import Messenger.GUI.Subscreens.uiDiscussion;

@@ -1,12 +1,12 @@
 package Messenger.Foundation.Models.Messages;
 
-import Messenger.Foundation.Models.User;
-import java.util.GregorianCalendar;
-import Messenger.Utils.DateUtils;
-import Messenger.Foundation.Env;
-import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
+import java.sql.Timestamp;
+import java.io.Serializable;
+import Messenger.Utils.DateUtils;
+import java.util.GregorianCalendar;
+import Messenger.Foundation.System.Env;
+import Messenger.Foundation.Models.User;
 
 /**
  * Message sent between two users.

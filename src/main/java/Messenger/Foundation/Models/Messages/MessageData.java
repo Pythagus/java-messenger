@@ -63,4 +63,14 @@ public class MessageData implements Serializable {
         return this.file != null ;
     }
 
+    /**
+     * Determine whether the current data has
+     * a text.
+     *
+     * @return True or False
+     */
+    public boolean hasText() {
+        return this.text != null ;
+    }
+
 }

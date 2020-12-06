@@ -2,10 +2,9 @@ package Messenger.GUI.Layout.Items.Login;
 
 import java.awt.*;
 import javax.swing.*;
-
 import Messenger.GUI.Screens.uiWindow;
 import Messenger.GUI.Utils.Placeholder;
-import Messenger.Foundation.Env;
+import Messenger.Foundation.System.Env;
 import Messenger.GUI.Listeners.DiscussionInputListener;
 import Messenger.Foundation.Exceptions.Pseudo.PseudoException;
 import Messenger.Foundation.Exceptions.Pseudo.AlreadyUsedPseudoException;

@@ -1,9 +1,10 @@
-package Messenger.Foundation;
+package Messenger.Foundation.System;
 
-import Messenger.Foundation.Providers.ControllerProvider;
-import Messenger.Foundation.Controllers.Controller;
-import Messenger.Network.NetworkInterface;
+import Messenger.Foundation.Application;
 import Messenger.Foundation.Models.User;
+import Messenger.Network.NetworkInterface;
+import Messenger.Foundation.Controllers.Controller;
+import Messenger.Foundation.Providers.ControllerProvider;
 
 /**
  * @author Damien MOLINA

@@ -30,4 +30,14 @@ public class MessageFile extends File {
         return this.length() ;
     }
 
+    /**
+     * Get the full path of the file.
+     *
+     * @return file path.
+     */
+    public String getFullPath() {
+        // TODO !
+        return "" ;
+    }
+
 }

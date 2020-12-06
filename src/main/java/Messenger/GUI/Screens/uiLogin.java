@@ -2,8 +2,7 @@ package Messenger.GUI.Screens;
 
 import java.awt.*;
 import javax.swing.*;
-
-import Messenger.Foundation.Env;
+import Messenger.Foundation.System.Env;
 import Messenger.GUI.Layout.Items.Login.uiLoginError;
 import Messenger.GUI.Layout.Items.Login.uiLoginInput;
 import Messenger.Foundation.System.Assets.ImageAsset;

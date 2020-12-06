@@ -4,11 +4,11 @@ import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.Foundation.System.Assets.ImageAsset;
 import Messenger.Foundation.Models.Conversation;
 import Messenger.GUI.Subscreens.uiDiscussion;
+import Messenger.Foundation.System.Env;
 import Messenger.GUI.Layout.RightSide;
 import Messenger.GUI.Screens.uiWindow;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import Messenger.Foundation.Env;
 import javax.swing.*;
 import java.awt.*;
 
