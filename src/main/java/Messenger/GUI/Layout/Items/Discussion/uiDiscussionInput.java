@@ -69,9 +69,7 @@ public class uiDiscussionInput extends JTextField implements Observable {
             try {
                 User target = uiWindow.getDiscussionBar().getActiveItem().getConversation().getTarget() ;
 
-                Message message = new Message(
-                    target, new MessageData(text, file)
-                ) ;
+                Message message = new Message(target, new MessageData(text, file)) ;
 
                 this.observer.notifyAllListeners(message) ;
 

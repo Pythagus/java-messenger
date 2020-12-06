@@ -58,12 +58,14 @@ public class uiDiscussionBar extends JPanel {
      * @param item : uiDiscussionItem instance.
      */
     public void addDiscussionItem(uiDiscussionItem item) {
-        if(this.activeItem == null) {
-            this.activeItem = item ;
-        }
+        if(! this.items.contains(item)) {
+            if(this.activeItem == null) {
+                this.activeItem = item ;
+            }
 
-        this.items.add(item) ;
-        this.list.add(item) ;
+            this.items.add(item) ;
+            this.list.add(item) ;
+        }
     }
 
     /**

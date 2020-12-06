@@ -3,6 +3,7 @@ package Messenger.Foundation.Controllers;
 import java.util.ArrayList;
 import Messenger.Foundation.Models.User;
 import Messenger.Foundation.Exceptions.AppException;
+import Messenger.Foundation.System.Env;
 
 /**
  * @author Damien MOLINA
@@ -71,6 +72,10 @@ public class UserController extends Controller {
      * @throws AppException : user not found.
      */
     public User getFromIdentifier(String identifier) throws AppException {
+        if(Env.getUser().getIdentifier().equals(identifier)) {
+            return Env.getUser() ;
+        }
+
         for(User user : this.users) {
             if(user.getIdentifier().equals(identifier)) {
                 return user ;

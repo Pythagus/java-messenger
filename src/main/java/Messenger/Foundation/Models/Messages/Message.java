@@ -64,9 +64,19 @@ public class Message implements Serializable {
      * @param data : sent message.
      */
     public Message(User target, MessageData data, long timestamp) {
+        this(Env.getUser(), target, data, timestamp) ;
+    }
+
+    /**
+     * Make a new Message instance.
+     *
+     * @param target : targeted user.
+     * @param data : sent message.
+     */
+    public Message(User sender, User target, MessageData data, long timestamp) {
         this.target    = target ;
         this.data      = data ;
-        this.sender    = Env.getUser() ;
+        this.sender    = sender ;
         this.timestamp = timestamp ;
     }
 

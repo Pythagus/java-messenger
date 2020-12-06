@@ -1,6 +1,8 @@
 package Messenger.Foundation;
 
 import java.util.Locale;
+
+import Messenger.Foundation.Controllers.ConversationController;
 import Messenger.GUI.Frame;
 import Messenger.Database.DB;
 import javax.swing.SwingUtilities;
@@ -116,6 +118,7 @@ abstract public class Application implements ApplicationContract {
         UserController userController = new UserController() ;
         userController.addListener(new UserListUpdated()) ;
         Env.addController(userController) ;
+        Env.addController(new ConversationController()) ;
 
         // Start the network components.
         this.startNetwork() ;

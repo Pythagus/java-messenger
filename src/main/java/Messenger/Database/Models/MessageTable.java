@@ -99,26 +99,17 @@ public class MessageTable extends DatabaseModel {
     public static Message toMessage(ResultSet result) throws Exception {
         UserController controller = (UserController) Env.getController(UserController.class) ;
 
-        String identifier = result.getString("user_receiver") ;
-
-        User user ;
-        if(Env.getUser().getIdentifier().equals(identifier)) {
-            user = Env.getUser() ;
-        } else {
-            user = controller.getFromIdentifier(identifier) ;
-        }
-
-        Type type = Type.valueOf(
-            result.getString("type")
-        ) ;
-
+        Type type    = Type.valueOf(result.getString("type")) ;
         String value = result.getString("content") ;
-
-        String text = type.equals(Type.MESSAGE) ? value : null ;
+        String text  = type.equals(Type.MESSAGE) ? value : null ;
         MessageFile file = null ; // TODO : check if it is a file.
 
+        String sender = result.getString("user_sender") ;
+        String receiver = result.getString("user_receiver") ;
+
         return new Message(
-            user, new MessageData(text, file), DateUtils.timestamp(result.getString("sent_at"))
+            controller.getFromIdentifier(sender), controller.getFromIdentifier(receiver),
+            new MessageData(text, file), DateUtils.timestamp(result.getString("sent_at"))
         ) ;
     }
 

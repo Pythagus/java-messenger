@@ -84,7 +84,7 @@ public class uiLoginInput extends JTextField {
             if(controller.availablePseudo(pseudo)) {
                 Env.getUser().setPseudo(pseudo) ;
                 Env.getNetworkInterface().getEnvoyer().broadcast(
-                    new BroadcastNotification(BroadcastType.CHANGED_PSEUDO)
+                    new BroadcastNotification(BroadcastType.LOGIN)
                 ) ;
                 Env.getApplication().getGraphicFrame().replaceScreen(new uiWindow()) ;
             } else {

@@ -48,6 +48,7 @@ public class ConversationController extends Controller {
                 try {
                     messages.add(MessageTable.toMessage(r)) ;
                 } catch (Exception e) {
+                    e.printStackTrace() ;
                     return false ;
                 }
 
@@ -57,7 +58,7 @@ public class ConversationController extends Controller {
             a.printStackTrace() ;
         }
 
-        return (Message[]) messages.toArray();
+        return messages.toArray(new Message[]{}) ;
     }
 
 

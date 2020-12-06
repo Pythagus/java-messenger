@@ -6,7 +6,7 @@ import Messenger.Foundation.System.Env;
 import Messenger.Network.NetworkInterface;
 import Messenger.Network.Models.MeetingPacket;
 import Messenger.Foundation.System.Console.Console;
-import Messenger.Foundation.Controllers.UserController;
+//import Messenger.Foundation.Controllers.UserController;
 import Messenger.Network.Tasks.Listeners.Concerns.ServerListener;
 import Messenger.Network.Tasks.Listeners.Meetings.Handlers.AcceptedConnection;
 
@@ -50,27 +50,27 @@ public class MeetingListener extends ServerListener<MeetingPacket> {
      * @param packet : received packet.
      */
     protected void manageReceivedPacket(Socket socket, MeetingPacket packet) {
-        UserController controller = this.getUserController() ;
+        //UserController controller = this.getUserController() ;
 
         /*
          * First of all, I check if I already
          * know the source user.
          */
-        if(controller.hasUser(packet.getSourceUser())) {
+        //if(controller.hasUser(packet.getSourceUser())) {
             /*
              * I already know the user. So I refuse another
              * connection. We can use the current one !
              */
-            packet.setState(MeetingPacket.State.DENIED) ;
-        }
+           // packet.setState(MeetingPacket.State.DENIED) ;
+        //}
         /*
          * Else, the packet is valid. We can
          * accept it.
          */
-        else {
+        //else {
             packet.setState(MeetingPacket.State.ACCEPTED) ;
             new AcceptedConnection().accepted(packet.getSourceUser()) ;
-        }
+       // }
 
         if(Env.getApplication().isDebugMode()) {
             Console.comment("=> New state : " + packet.getState()) ;
