@@ -5,7 +5,9 @@ import java.net.DatagramSocket;
 import Messenger.Foundation.System.Env;
 import Messenger.Foundation.System.Console.Console;
 import Messenger.Foundation.Controllers.UserController;
+import Messenger.Network.Models.Broadcast.BroadcastType;
 import Messenger.Network.Models.Broadcast.BroadcastNotification;
+import Messenger.Network.Models.Broadcast.BroadcastResponsePacket;
 import Messenger.Network.Tasks.Listeners.Concerns.NetworkBaseListener;
 
 /**
@@ -37,7 +39,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
 
                 DatagramPacket datagram = new DatagramPacket(buffer, buffer.length);
 
-                this.listenerSocket.receive(datagram);   //receiving datagram
+                this.listenerSocket.receive(datagram) ;
 
                 if(Env.getApplication().isDebugMode()) {
                     Console.comment("=> BroadcastListener received a datagram from " + datagram.getAddress()) ;
@@ -72,7 +74,9 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
             case LOGOUT: this.manageLogoutPDU(pdu); break ;
 
             /*
-             * This packet is from a user that has to choose a pseudo and ask for everyone else information.
+             * This packet is from a user that has to choose a pseudo and
+             * ask for everyone else information. The users will respond
+             * a LOGIN notification.
              */
             case EVERYONE_INFO: this.manageEveryoneInformationPDU(pdu); break ;
 
@@ -84,18 +88,15 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
     }
 
     /**
-     * add an entry to the user DTB
+     * Add an entry to the user DTB.
      *
      * @param notification : Need the content of the notification
      */
     private void manageLoginPDU(BroadcastNotification notification) {
-        Console.comment("=> Broadcast LOGIN PDU received") ;
+        this.printReceivedNotification(notification) ;
 
-        System.out.println(
-            "User : " + notification.getUser().getPseudo()
-        );
-
-       // ((UserController)Environment.getController(UserController.class)).addUser(notif.getUser());
+        // Add the sending user to the users list.
+        this.getUserController().addUser(notification.getUser()) ;
     }
 
     /**
@@ -103,9 +104,11 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
      *
      * @param notification : Need the content of the notification
      */
-    private void manageLogoutPDU(BroadcastNotification notification)
-    {
-        this.getUserController().removeUser(notification.getUser());
+    private void manageLogoutPDU(BroadcastNotification notification) {
+        this.printReceivedNotification(notification) ;
+
+        // Remove the sending user from the users list.
+        this.getUserController().removeUser(notification.getUser()) ;
     }
 
     /**
@@ -113,24 +116,27 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
      *
      * @param notification : Need the content of the notification
      */
-    private void manageEveryoneInformationPDU(BroadcastNotification notification)
-    {
-        //todo
+    private void manageEveryoneInformationPDU(BroadcastNotification notification) {
+        this.printReceivedNotification(notification) ;
+
+        Env.getNetworkInterface().getEnvoyer().send(
+            new BroadcastResponsePacket(BroadcastType.LOGIN, notification.getUser())
+        ) ;
     }
 
-    // y'a un truc qui va pas ici !!! comment trouver grace à seulement l'attribut MAC ?
     /**
      * Change the sender pseudo in the userConnected DTB
      *
      * @param notification Need the content of the notification
      */
-    private void manageChangedPseudoPDU(BroadcastNotification notification)
-    {
+    private void manageChangedPseudoPDU(BroadcastNotification notification) {
+        this.printReceivedNotification(notification) ;
+
+        // Update the user pseudo
         this.getUserController().modifyUserName(
             notification.getUser(), notification.getUser().getPseudo()
         ) ;
     }
-
 
     /**
      * Get the User Controller.
@@ -139,6 +145,18 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
      */
     private UserController getUserController() {
         return (UserController) Env.getController(UserController.class) ;
+    }
+
+    /**
+     * Print into the console the received
+     * notification.
+     *
+     * @param notification : received notification.
+     */
+    private void printReceivedNotification(BroadcastNotification notification) {
+        if(Env.getApplication().isDebugMode()) {
+            Console.comment("=> Broadcast " + notification.getType() + " received from " + notification.getUser().getPseudo()) ;
+        }
     }
 
 }

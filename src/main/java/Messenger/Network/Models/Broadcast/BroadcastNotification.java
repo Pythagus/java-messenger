@@ -1,28 +1,25 @@
 package Messenger.Network.Models.Broadcast;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
+import Messenger.Network.Models.Concerns.DataPacket;
+import Messenger.Network.Utils.BroadcastSplitter;
 
 /**
  * @author Damien MOLINA
  */
-public class BroadcastNotification {
-
-    /**
-     * String delimiter.
-     */
-    private static final String DELIMITER = "#" ;
+public class BroadcastNotification extends DataPacket<Object> {
 
     /**
      * Broadcast type.
      */
-    private final BroadcastType type ;
+    protected final BroadcastType type ;
 
     /**
      * User sent with the broadcast notification.
      */
-    private final User sender ;
+    protected final User user ;
 
     /**
      * Get the broadcast type.
@@ -39,7 +36,7 @@ public class BroadcastNotification {
      * @return the user instance.
      */
     public User getUser() {
-        return this.sender ;
+        return this.user;
     }
 
     /**
@@ -49,8 +46,17 @@ public class BroadcastNotification {
      * @param user : user sending the notification.
      */
     public BroadcastNotification(BroadcastType type, User user) {
-        this.type   = type ;
-        this.sender = user ;
+        this.type = type ;
+        this.user = user ;
+    }
+
+    /**
+     * Make a new BroadcastNotification instance.
+     *
+     * @param type : broadcast type.
+     */
+    public BroadcastNotification(BroadcastType type) {
+        this(type, Env.getUser()) ;
     }
 
     /**
@@ -59,11 +65,11 @@ public class BroadcastNotification {
      * @return String with a standardized format
      */
     public String serialize() {
-        return BroadcastNotification.DELIMITER + this.type +
-                BroadcastNotification.DELIMITER + this.sender.getPseudo() +
-                BroadcastNotification.DELIMITER + this.sender.getIdentifier() +
-                BroadcastNotification.DELIMITER + this.sender.getAddress().getHostAddress() +
-                BroadcastNotification.DELIMITER ;
+        return BroadcastSplitter.DELIMITER + this.type +
+            BroadcastSplitter.DELIMITER + this.user.getPseudo() +
+            BroadcastSplitter.DELIMITER + this.user.getIdentifier() +
+            BroadcastSplitter.DELIMITER + this.user.getAddress().getHostAddress() +
+            BroadcastSplitter.DELIMITER ;
     }
 
     /**
@@ -75,16 +81,7 @@ public class BroadcastNotification {
      * @throws Exception : user error.
      */
     public static BroadcastNotification unserialize(String str) throws Exception {
-        String[] data = str.trim().split(BroadcastNotification.DELIMITER) ;
-
-        ArrayList<String> arr = new ArrayList<>(
-            Arrays.asList(data)
-        ) ;
-        arr.removeIf(
-            item -> item == null || "".equals(item)
-        ) ;
-
-        System.out.println(arr.get(0));
+        ArrayList<String> arr = BroadcastSplitter.split(str) ;
 
         return new BroadcastNotification(
             BroadcastType.valueOf(arr.get(0)), new User(arr.get(1), arr.get(2), arr.get(3))

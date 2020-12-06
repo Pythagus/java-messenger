@@ -7,6 +7,7 @@ import Messenger.Network.NetworkInterface;
 import Messenger.Network.Tasks.Envoyers.Envoyer;
 import Messenger.Network.Tasks.Envoyers.BaseEnvoyer;
 import Messenger.Network.Models.Broadcast.BroadcastNotification;
+import Messenger.Network.Utils.AddressUtils;
 
 /**
  * @author Maud Pennetier, Damien Molina
@@ -36,15 +37,15 @@ public class BroadcastEnvoyer extends BaseEnvoyer {
     @Override
     protected void send() {
         try {
-            String message = this.notification.serialize();
-            byte[] buffer = message.getBytes();
+            // Broadcast address.
+            InetAddress address = AddressUtils.getBroadcastAddress() ;
 
-            DatagramSocket sender = new DatagramSocket();  //create connexion
+            byte[] buffer         = this.notification.serialize().getBytes();
+            DatagramSocket sender = new DatagramSocket() ;
 
-            //datagram
-            // TODO : Use Messenger.Network.Utils.AddressUtils.getBroadcastAddress() instead
-            InetAddress ipAdress = InetAddress.getByName("192.168.1.255"); //broadcast
-            DatagramPacket datagram = new DatagramPacket(buffer, buffer.length, ipAdress, NetworkInterface.broadcastListeningPort);
+            DatagramPacket datagram = new DatagramPacket(
+                buffer, buffer.length, address, NetworkInterface.broadcastListeningPort
+            ) ;
 
             datagram.setData(buffer); //payload
             sender.send(datagram); // send packet

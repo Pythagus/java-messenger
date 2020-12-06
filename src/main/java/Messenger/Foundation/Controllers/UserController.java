@@ -24,8 +24,10 @@ public class UserController extends Controller {
      * @param user : User instance.
      */
     public void addUser(User user) {
-        this.users.add(user) ;
-        this.notifyAllListeners(user) ;
+        if(! this.hasUser(user)) {
+            this.users.add(user) ;
+            this.notifyAllListeners(user) ;
+        }
     }
 
     /**
@@ -43,7 +45,7 @@ public class UserController extends Controller {
      * @param user User instance
      * @param newName String that will replace the ancient pseudo
      */
-    public void modifyUserName(User user, String newName){
+    public void modifyUserName(User user, String newName) {
         this.users.get(
             this.users.indexOf(user)
         ).setPseudo(newName) ;
@@ -58,6 +60,23 @@ public class UserController extends Controller {
      */
     public boolean hasUser(User user) {
         return this.users.contains(user) ;
+    }
+
+    /**
+     * Determine whether the given pseudo is available.
+     *
+     * @param pseudo : pseudo to test.
+     * @return True if the pseudo is available,
+     *          False if the pseudo is already used.
+     */
+    public boolean availablePseudo(String pseudo) {
+        for(User user : this.users) {
+            if(user.getPseudo().equals(pseudo)) {
+                return false ;
+            }
+        }
+
+        return true ;
     }
 
 }

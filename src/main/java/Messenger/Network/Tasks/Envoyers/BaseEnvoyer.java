@@ -1,6 +1,10 @@
 package Messenger.Network.Tasks.Envoyers;
 
+import java.net.Socket;
 import Messenger.Foundation.Models.User;
+import Messenger.Network.Models.Concerns.DataPacket;
+import Messenger.Network.Models.Concerns.Packet;
+import Messenger.Network.Models.Datagram.OutputSocketStream;
 
 /**
  * @author Damien MOLINA
@@ -50,6 +54,27 @@ abstract public class BaseEnvoyer extends Thread {
             this.send() ;
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Send the given packet.
+     *
+     * @param packet : packet
+     * @param user : targeted user.
+     * @param port : destination port.
+     */
+    protected void sendPacket(DataPacket<?> packet, User user, int port) {
+        try {
+            Socket socket = new Socket(user.getAddress(), port) ;
+
+            OutputSocketStream exchanger = new OutputSocketStream(socket) ;
+            exchanger.send(packet) ;
+
+            exchanger.close() ;
+            socket.close() ;
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 

@@ -1,13 +1,11 @@
 package Messenger.Network.Tasks.Envoyers.Concerns;
 
-import java.net.Socket;
 import Messenger.Foundation.System.Env;
 import Messenger.Network.NetworkInterface;
 import Messenger.Network.Models.MessagePacket;
 import Messenger.Network.Tasks.Envoyers.Envoyer;
 import Messenger.Foundation.Models.Messages.Message;
 import Messenger.Network.Tasks.Envoyers.BaseEnvoyer;
-import Messenger.Network.Models.Datagram.OutputSocketStream;
 
 /**
  * @author Damien MOLINA
@@ -41,19 +39,7 @@ public class MessageEnvoyer extends BaseEnvoyer {
         ) ;
         packet.setData(this.message) ;
 
-        try {
-            Socket socket = new Socket(
-                this.user.getAddress(), NetworkInterface.receivingPort
-            ) ;
-
-            OutputSocketStream exchanger = new OutputSocketStream(socket) ;
-            exchanger.send(packet) ;
-
-            exchanger.close() ;
-            socket.close() ;
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
+        this.sendPacket(packet, this.user, NetworkInterface.receivingPort) ;
     }
 
 }

@@ -1,5 +1,6 @@
 package Messenger.Network.Models.Concerns;
 
+import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
 
 /**
@@ -33,6 +34,15 @@ abstract public class UserPacket<T> extends Packet<T> {
 
         this.srcUser  = srcUser ;
         this.destUser = destUser ;
+    }
+
+    /**
+     * Make a new packet instance.
+     *
+     * @param destUser : destination user instance.
+     */
+    public UserPacket(User destUser) {
+        this(Env.getUser(), destUser) ;
     }
 
     /**

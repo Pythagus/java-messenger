@@ -10,7 +10,9 @@ import Messenger.Network.Models.Datagram.SocketStream;
 import Messenger.Network.Models.Broadcast.BroadcastNotification;
 import Messenger.Network.Tasks.Envoyers.Concerns.MeetingEnvoyer;
 import Messenger.Network.Tasks.Envoyers.Concerns.MessageEnvoyer;
+import Messenger.Network.Models.Broadcast.BroadcastResponsePacket;
 import Messenger.Network.Tasks.Envoyers.Concerns.BroadcastEnvoyer;
+import Messenger.Network.Tasks.Envoyers.Concerns.BroadcastResponseEnvoyer;
 
 /**
  * @author Damien MOLINA
@@ -61,6 +63,15 @@ public class Envoyer {
      */
     public void broadcast(BroadcastNotification notification) {
         new BroadcastEnvoyer(this, notification).start() ;
+    }
+
+    /**
+     * Send the given user packet
+     *
+     * @param packet : user packet.
+     */
+    public void send(BroadcastResponsePacket packet) {
+        new BroadcastResponseEnvoyer(this, packet).start() ;
     }
 
     /**

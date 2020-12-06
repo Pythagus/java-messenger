@@ -14,6 +14,7 @@ import Messenger.Foundation.Models.Messages.MessageFile;
 import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.Foundation.Observers.Contracts.Listener;
 import Messenger.Foundation.Observers.Contracts.Observable;
+import Messenger.Foundation.Controllers.ConversationController;
 import Messenger.GUI.Exceptions.ConversationItemNotFoundException;
 
 /**
@@ -59,7 +60,10 @@ public class uiDiscussionInput extends JTextField implements Observable {
         MessageFile file = null ; // TODO : regarder si un fichier a été envoyé
         String text      = this.getText().trim() ;
 
-        if(text.length() > 0) { /* && (file == null)*/
+        // Conversation controller instance.
+        ConversationController controller = (ConversationController) Env.getController(ConversationController.class) ;
+
+        if(controller.isValidTest(text)) { /* && (file == null)*/
             uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
 
             try {
@@ -75,7 +79,6 @@ public class uiDiscussionInput extends JTextField implements Observable {
             } catch (ConversationItemNotFoundException e) {
                 e.printStackTrace();
             }
-
         }
     }
 

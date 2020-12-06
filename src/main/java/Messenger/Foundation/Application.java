@@ -103,9 +103,10 @@ abstract public class Application implements ApplicationContract {
     }
 
     /**
-     * Start the application instance.
+     * Start the application instance
+     * without any graphics.
      */
-    public void start() {
+    public void startWithoutGraphics() {
         this.load() ;
 
         // Set the current user.
@@ -118,6 +119,13 @@ abstract public class Application implements ApplicationContract {
 
         // Start the network components.
         this.startNetwork() ;
+    }
+
+    /**
+     * Start the application instance.
+     */
+    public void start() {
+        this.startWithoutGraphics() ;
 
         // Start the graphic components.
         SwingUtilities.invokeLater(() -> {
@@ -125,7 +133,7 @@ abstract public class Application implements ApplicationContract {
             Application.this.graphicThread.setFrameScreen(
                     Application.this.getStartingScreen()
             ) ;
-            //Application.this.graphicThread.start() ;
+            Application.this.graphicThread.start() ;
         }) ;
     }
 

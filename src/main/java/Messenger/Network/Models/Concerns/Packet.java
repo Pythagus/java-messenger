@@ -12,7 +12,7 @@ import java.net.InetAddress;
  *
  * @author Damien MOLINA
  */
-abstract public class Packet<T> implements Serializable {
+abstract public class Packet<T> extends DataPacket<T> implements Serializable {
 
     /**
      * Serialisation identifier.
@@ -28,11 +28,6 @@ abstract public class Packet<T> implements Serializable {
      * Destination address.
      */
     protected InetAddress destAddress ;
-
-    /**
-     * Packet data.
-     */
-    private T data ;
 
     /**
      * Make a new packet instance.
@@ -61,24 +56,6 @@ abstract public class Packet<T> implements Serializable {
      */
     public InetAddress getDestinationAddress() {
         return this.destAddress ;
-    }
-
-    /**
-     * Get the packet data.
-     *
-     * @return the data.
-     */
-    public T getData() {
-        return this.data ;
-    }
-
-    /**
-     * Set the packet data.
-     *
-     * @param data : packet data.
-     */
-    public void setData(T data) {
-        this.data = data ;
     }
 
     /**

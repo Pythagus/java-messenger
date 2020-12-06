@@ -40,7 +40,11 @@ public class AddressUtils {
     public static InetAddress getBroadcastAddress() {
         // TODO
 
-        return null ;
+        try {
+            return InetAddress.getByName("192.168.1.255") ;
+        } catch (Exception e) {
+            return null ;
+        }
     }
 
     /**

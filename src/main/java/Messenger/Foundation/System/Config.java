@@ -55,12 +55,10 @@ public class Config {
      */
     public static void load() {
         try {
-            FileInputStream in = new FileInputStream("src/main/" + Config.FILE) ;
-
-            Properties properties = new Properties() ;
-            properties.load(in) ;
-
-            Config.configs = properties ;
+            Config.configs = new Properties() ;
+            Config.configs.load(
+                new FileInputStream("src/main/" + Config.FILE)
+            ) ;
         } catch (Exception e) {
             e.printStackTrace() ;
         }

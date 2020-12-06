@@ -6,8 +6,9 @@ import Messenger.GUI.Screens.uiWindow;
 import Messenger.GUI.Utils.Placeholder;
 import Messenger.Foundation.System.Env;
 import Messenger.GUI.Listeners.DiscussionInputListener;
-import Messenger.Foundation.Exceptions.Pseudo.PseudoException;
-import Messenger.Foundation.Exceptions.Pseudo.AlreadyUsedPseudoException;
+import Messenger.Foundation.Controllers.UserController;
+import Messenger.Network.Models.Broadcast.BroadcastNotification;
+import Messenger.Network.Models.Broadcast.BroadcastType;
 
 /**
  * @author Damien MOLINA
@@ -24,6 +25,11 @@ public class uiLoginInput extends JTextField {
      */
     private final uiLoginError errorLabel ;
 
+    /**
+     * Make a new login input instance.
+     *
+     * @param errorLabel : error label instance.
+     */
     public uiLoginInput(uiLoginError errorLabel) {
         this.errorLabel = errorLabel ;
 
@@ -72,24 +78,17 @@ public class uiLoginInput extends JTextField {
 
         if(pseudo.length() > 0) {
             this.errorLabel.updateText("") ;
-            System.out.println("Pseudo envoyé : " + pseudo) ;
 
-            // TODO : retirer cette ligne. Ceci doit être fait en ayant la réponse du broadcast.
-            Env.getUser().setPseudo(pseudo) ;
+            UserController controller = (UserController) Env.getController(UserController.class) ;
 
-            try {
-                // TODO : Maud -> vérifier si le pseudo n'est pas déjà pris. S'il l'est, générer l'exception AlreadyUsedPseudoException
-
-                if(!pseudo.equals("André")) {
-                    throw new AlreadyUsedPseudoException() ;
-                }
-
-                Env.getApplication().getGraphicFrame().replaceScreen(
-                    new uiWindow()
+            if(controller.availablePseudo(pseudo)) {
+                Env.getUser().setPseudo(pseudo) ;
+                Env.getNetworkInterface().getEnvoyer().broadcast(
+                    new BroadcastNotification(BroadcastType.CHANGED_PSEUDO)
                 ) ;
-            } catch(PseudoException exception) {
-                // The selected pseudo is already used in the system.
-                this.errorLabel.updateText(exception.getMessage()) ;
+                Env.getApplication().getGraphicFrame().replaceScreen(new uiWindow()) ;
+            } else {
+                this.errorLabel.updateText("Le pseudo choisi est déjà utilisé par un autre utilisateur") ;
             }
         } else {
             this.errorLabel.updateText("Vous devez spécifier un pseudo !") ;
