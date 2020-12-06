@@ -47,16 +47,27 @@ public class Message implements Serializable {
      * @param data : sent message.
      */
     public Message(User target, MessageData data) {
-        this.target = target ;
-        this.data   = data ;
-        this.sender = Env.getUser() ;
-
         /*
          * When the Message instance is created,
          * the date attribute is set to get the
          * exact sending time.
          */
-        this.timestamp = new Timestamp(System.currentTimeMillis()).getTime() ;
+        this(
+            target, data, new Timestamp(System.currentTimeMillis()).getTime()
+        ) ;
+    }
+
+    /**
+     * Make a new Message instance.
+     *
+     * @param target : targeted user.
+     * @param data : sent message.
+     */
+    public Message(User target, MessageData data, long timestamp) {
+        this.target    = target ;
+        this.data      = data ;
+        this.sender    = Env.getUser() ;
+        this.timestamp = timestamp ;
     }
 
     /**

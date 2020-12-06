@@ -1,5 +1,8 @@
 package Messenger.Network;
 
+import Messenger.Foundation.System.Env;
+import Messenger.Network.Models.Broadcast.BroadcastNotification;
+import Messenger.Network.Models.Broadcast.BroadcastType;
 import Messenger.Network.Tasks.Listeners.Meetings.MeetingListener;
 import Messenger.Network.Tasks.Listeners.BroadcastListener;
 import Messenger.Network.Tasks.Listeners.ReceiveListener;
@@ -94,6 +97,16 @@ public class NetworkInterface extends Thread {
         this.meetingListener.start() ;
         this.receiveListener.start() ;
         this.broadcastListener.start() ;
+
+        /*
+         * When we start the network interface,
+         * we should broadcast a message to know
+         * how is currently logged into the
+         * application.
+         */
+        Env.getNetworkInterface().getEnvoyer().broadcast(
+            new BroadcastNotification(BroadcastType.EVERYONE_INFO)
+        ) ;
     }
 
 }

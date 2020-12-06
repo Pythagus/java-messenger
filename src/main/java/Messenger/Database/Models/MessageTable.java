@@ -1,9 +1,14 @@
 package Messenger.Database.Models;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import Messenger.Utils.DateUtils;
+import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
 import Messenger.Database.Queries.DatabaseResult;
 import Messenger.Foundation.Models.Messages.Message;
+import Messenger.Foundation.Controllers.UserController;
+import Messenger.Foundation.Models.Messages.MessageFile;
 import Messenger.Foundation.Models.Messages.MessageData;
 
 /**
@@ -82,6 +87,39 @@ public class MessageTable extends DatabaseModel {
         if(status != 1) {
             throw new SQLException("Insert failed with status " + status) ;
         }
+    }
+
+    /**
+     * Convert a result to a Message instance.
+     *
+     * @param result : database query result.
+     * @return a Message instance.
+     * @throws Exception : not found user.
+     */
+    public static Message toMessage(ResultSet result) throws Exception {
+        UserController controller = (UserController) Env.getController(UserController.class) ;
+
+        String identifier = result.getString("user_receiver") ;
+
+        User user ;
+        if(Env.getUser().getIdentifier().equals(identifier)) {
+            user = Env.getUser() ;
+        } else {
+            user = controller.getFromIdentifier(identifier) ;
+        }
+
+        Type type = Type.valueOf(
+            result.getString("type")
+        ) ;
+
+        String value = result.getString("content") ;
+
+        String text = type.equals(Type.MESSAGE) ? value : null ;
+        MessageFile file = null ; // TODO : check if it is a file.
+
+        return new Message(
+            user, new MessageData(text, file), DateUtils.timestamp(result.getString("sent_at"))
+        ) ;
     }
 
 }

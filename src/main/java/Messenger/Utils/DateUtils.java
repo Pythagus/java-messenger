@@ -1,5 +1,6 @@
 package Messenger.Utils;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -65,6 +66,16 @@ public class DateUtils {
      */
     public static Date today() {
         return DateUtils.today(0, 0, 0) ;
+    }
+
+    /**
+     * Get the timestamp of the given date.
+     *
+     * @param date : date to convert.
+     * @return the timestamp.
+     */
+    public static long timestamp(String date) {
+        return Timestamp.valueOf("2020-12-06 12:00:01").getTime() ;
     }
 
 }

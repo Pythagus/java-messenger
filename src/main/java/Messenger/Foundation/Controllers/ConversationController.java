@@ -1,5 +1,7 @@
 package Messenger.Foundation.Controllers;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.sql.SQLException;
 import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
@@ -39,9 +41,23 @@ public class ConversationController extends Controller {
      * @param user : user with whom the conversation is held.
      */
     public Message[] getHistoric(User user) {
-        // TODO
+        ArrayList<Message> messages = new ArrayList<>() ;
 
-        return new Message[0] ;
+        try {
+            new MessageTable().select(Env.getUser(), user).forEach((ResultSet r) -> {
+                try {
+                    messages.add(MessageTable.toMessage(r)) ;
+                } catch (Exception e) {
+                    return false ;
+                }
+
+                return true ;
+            }) ;
+        } catch (SQLException a) {
+            a.printStackTrace() ;
+        }
+
+        return (Message[]) messages.toArray();
     }
 
 
