@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import Messenger.Foundation.Models.User;
 import Messenger.Foundation.Exceptions.AppException;
 import Messenger.Foundation.System.Env;
+import java.util.regex.*;
 
 /**
  * @author Damien MOLINA
@@ -14,6 +15,8 @@ public class UserController extends Controller {
      * Users list.
      */
     private final ArrayList<User> users ;
+
+
 
     /**
      * Make a new instance of the User controller.
@@ -87,19 +90,30 @@ public class UserController extends Controller {
 
     /**
      * Determine whether the given pseudo is available.
+     * Or if the pseudo is valid (no forbidden characters)
      *
      * @param pseudo : pseudo to test.
-     * @return True if the pseudo is available,
-     *          False if the pseudo is already used.
+     * @return 1 if the pseudo is available,
+     *         2 if the pseudo contains forbidden characters : #
+     *         3 if the pseudo is already used.
      */
-    public boolean availablePseudo(String pseudo) {
-        for(User user : this.users) {
-            if(user.getPseudo().equals(pseudo)) {
-                return false ;
+    public int availablePseudo(String pseudo) {
+        Pattern pattern = Pattern.compile("\\W");
+        Matcher matcher = pattern.matcher(pseudo);
+        if (matcher.find()) {
+            return 2;
+        } else
+        {
+            for (User user : this.users)
+            {
+                if (user.getPseudo().equals(pseudo))
+                {
+                    return 3;
+                }
             }
-        }
 
-        return true ;
+            return 1;
+        }
     }
 
 }

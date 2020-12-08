@@ -42,7 +42,7 @@ supporting *MySQL* connection at port 3306.
 - Multicast support
 - Database support from the outside
 - Change pseudo
-- Pseudo verification
+- Pseudo verification - DONE
 - Send file support
 - Generate executable
 - Stop conversation button

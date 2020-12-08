@@ -81,12 +81,15 @@ public class uiLoginInput extends JTextField {
 
             UserController controller = (UserController) Env.getController(UserController.class) ;
 
-            if(controller.availablePseudo(pseudo)) {
-                Env.getUser().setPseudo(pseudo) ;
+            if(controller.availablePseudo(pseudo) == 1 )
+            {
+                Env.getUser().setPseudo(pseudo);
                 Env.getNetworkInterface().getEnvoyer().broadcast(
-                    new BroadcastNotification(BroadcastType.LOGIN)
-                ) ;
-                Env.getApplication().getGraphicFrame().replaceScreen(new uiWindow()) ;
+                        new BroadcastNotification(BroadcastType.LOGIN)
+                );
+                Env.getApplication().getGraphicFrame().replaceScreen(new uiWindow());
+            } else if (controller.availablePseudo(pseudo) == 2 ){
+                this.errorLabel.updateText("Le pseudo choisi contient des caractères interdits, seuls les lettres et les chiffres sont autorisées") ;
             } else {
                 this.errorLabel.updateText("Le pseudo choisi est déjà utilisé par un autre utilisateur") ;
             }
