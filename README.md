@@ -42,7 +42,6 @@ supporting *MySQL* connection at port 3306.
 - Multicast support
 - Database support from the outside
 - Change pseudo
-- Pseudo verification - DONE
 - Send file support
 - Generate executable
 - Stop conversation button
@@ -50,6 +49,7 @@ supporting *MySQL* connection at port 3306.
 - Manage unreachable host
 
 ### Optional
+- Make only 1 fixed port and the others variable.
 
 ## Contributing
 The project is currently maintained by Maud Pennetier and Damien Molina, students at INSA Toulouse, France.

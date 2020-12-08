@@ -1,14 +1,14 @@
 package Messenger.Network;
 
-import Messenger.Foundation.System.Env;
-import Messenger.Network.Models.Broadcast.BroadcastNotification;
-import Messenger.Network.Models.Broadcast.BroadcastType;
-import Messenger.Network.Tasks.Listeners.Meetings.MeetingListener;
-import Messenger.Network.Tasks.Listeners.BroadcastListener;
-import Messenger.Network.Tasks.Listeners.ReceiveListener;
-import Messenger.Network.Tasks.Envoyers.Envoyer;
-import java.net.DatagramSocket;
 import java.io.IOException;
+import java.net.DatagramSocket;
+import Messenger.Foundation.System.Env;
+import Messenger.Network.Tasks.Envoyers.Envoyer;
+import Messenger.Network.Models.Broadcast.BroadcastType;
+import Messenger.Network.Tasks.Listeners.ReceiveListener;
+import Messenger.Network.Tasks.Listeners.BroadcastListener;
+import Messenger.Network.Models.Broadcast.BroadcastNotification;
+import Messenger.Network.Tasks.Listeners.Meetings.MeetingListener;
 
 /**
  * @author Damien MOLINA
@@ -16,19 +16,24 @@ import java.io.IOException;
 public class NetworkInterface extends Thread {
 
     /**
+     * Starting application port.
+     */
+    private static final int STARTING_PORT = 42420 ;
+
+    /**
      * Meeting port.
      */
-    public static final int meetingPort = 60040 ;
+    public static final int MEETING_PORT = STARTING_PORT ;
 
     /**
      * Receiving port.
      */
-    public static final int receivingPort = 60043 ;
+    public static final int RECEIVING_PORT = STARTING_PORT + 1 ;
 
     /**
      * Broadcast listening port.
      */
-    public static final int broadcastListeningPort = 60044 ;
+    public static final int BROADCAST_PORT = STARTING_PORT + 2 ;
 
     /**
      * Meeting listener.
@@ -66,15 +71,15 @@ public class NetworkInterface extends Thread {
     public NetworkInterface() throws Exception {
         // Prepare the meeting listener.
         this.meetingListener = new MeetingListener(
-            this, NetworkInterface.meetingPort
+            this, NetworkInterface.MEETING_PORT
         ) ;
 
         // Prepare the receiving listener.
-        this.receiveListener = new ReceiveListener(NetworkInterface.receivingPort) ;
+        this.receiveListener = new ReceiveListener(NetworkInterface.RECEIVING_PORT) ;
 
         // Prepare the broadcast listener.
         this.broadcastListener = new BroadcastListener(
-            new DatagramSocket(NetworkInterface.broadcastListeningPort)
+            new DatagramSocket(NetworkInterface.BROADCAST_PORT)
         ) ;
 
         // Prepare the envoyer.

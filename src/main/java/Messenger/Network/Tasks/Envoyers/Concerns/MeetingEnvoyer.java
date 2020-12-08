@@ -46,7 +46,7 @@ public class MeetingEnvoyer extends BaseEnvoyer {
         try {
             // Make the socket.
             Socket socket = new Socket(
-                this.packet.getDestinationAddress(), NetworkInterface.meetingPort
+                this.packet.getDestinationAddress(), NetworkInterface.MEETING_PORT
             ) ;
 
             this.envoyer.send(

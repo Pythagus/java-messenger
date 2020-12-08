@@ -58,7 +58,7 @@ public class BroadcastEnvoyer extends BaseEnvoyer {
             DatagramSocket sender = new DatagramSocket() ;
 
             DatagramPacket datagram = new DatagramPacket(
-                buffer, buffer.length, this.target, NetworkInterface.broadcastListeningPort
+                buffer, buffer.length, this.target, NetworkInterface.BROADCAST_PORT
             ) ;
 
             datagram.setData(buffer) ;

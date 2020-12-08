@@ -27,7 +27,7 @@ public class AcceptedConnection {
         uiDiscussionItem conv = new uiDiscussionItem(conversation, "francois_hollande.png") ; // TODO : change the picture
 
         uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
-        uiWindow.getDiscussionBar().addDiscussionItem(conv) ;
+        uiWindow.getDiscussionBar().addItem(conv) ;
     }
 
     /**
