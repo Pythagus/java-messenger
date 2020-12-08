@@ -204,7 +204,7 @@ public class uiDiscussionBar extends JPanel {
     private JPanel graphicList() {
         JPanel list = new JPanel() ;
 
-        list.setPreferredSize(new Dimension(42, 705)) ;
+        list.setPreferredSize(new Dimension(42, 700)) ;
         list.setBorder(null) ;
         list.setBackground(uiDiscussionBar.backgroundColor) ;
 

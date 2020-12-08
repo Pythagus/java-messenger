@@ -102,6 +102,7 @@ public class SideBar extends JPanel {
         nav.setLayout(new BoxLayout(nav, BoxLayout.Y_AXIS));
 
         // Add buttons
+        // TODO : delete the create_message button
         nav.add(this.graphicImagedButton("sidebar/create_message_button.png", this::onCreateMessageButtonClick)) ;
         nav.add(this.graphicImagedButton("sidebar/contact_button.png", this::onContactButtonClick)) ;
         nav.add(this.graphicImagedButton("sidebar/message_button.png", this::onMessageButtonClick)) ;
@@ -158,7 +159,7 @@ public class SideBar extends JPanel {
      * @param e : click event.
      */
     private void onMessageButtonClick(ActionEvent e) {
-        this.rightSide.activeSubScreen(RightSide.SubScreenType.Discussion) ;
+        this.rightSide.activeSubScreen(RightSide.SubScreenType.Welcome) ;
     }
 
     /**
