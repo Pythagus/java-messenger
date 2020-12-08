@@ -15,8 +15,7 @@ public class AddressUtils {
      * @throws Exception : impossible to get the MAC address.
      */
     public static String getMacAddress() throws Exception {
-        return "00:00:00:00:00:42" ;
-        /*NetworkInterface netInf = NetworkInterface.getNetworkInterfaces().nextElement() ;
+        NetworkInterface netInf = NetworkInterface.getNetworkInterfaces().nextElement() ;
 
         // Get the first MAC address available.
         byte[] mac = netInf.getHardwareAddress() ;
@@ -29,22 +28,41 @@ public class AddressUtils {
             ) ;
         }
 
-        return sb.toString() ;*/
+        return sb.toString() ;
     }
 
     /**
      * Get the broadcast network address.
      *
+     * @apiNote https://stackoverflow.com/a/29238764
      * @return the broadcast address.
      */
     public static InetAddress getBroadcastAddress() {
-        // TODO
-
         try {
-            return InetAddress.getByName("192.168.1.255") ;
-        } catch (Exception e) {
-            return null ;
+            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces() ;
+
+            while(interfaces.hasMoreElements()) {
+                NetworkInterface networkInterface = interfaces.nextElement() ;
+
+                // Don't use the loopback interface.
+                if(networkInterface.isLoopback()) {
+                    continue ;
+                }
+                // Do not want to use the loopback interface.
+                for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
+                    InetAddress broadcast = interfaceAddress.getBroadcast();
+                    if (broadcast == null) {
+                        continue ;
+                    }
+
+                    return broadcast ;
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace() ;
         }
+
+        return null ;
     }
 
     /**
