@@ -5,7 +5,9 @@ import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
 import Messenger.Foundation.Models.Conversation;
 import Messenger.Foundation.System.Console.Console;
+import Messenger.GUI.Layout.Concerns.VerticalBarType;
 import Messenger.Foundation.Controllers.UserController;
+import Messenger.GUI.Layout.Items.Discussion.uiDiscussionBar;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionItem;
 
 /**
@@ -26,8 +28,9 @@ public class AcceptedConnection {
         Conversation conversation = new Conversation(user) ;
         uiDiscussionItem conv = new uiDiscussionItem(conversation, "francois_hollande.png") ; // TODO : change the picture
 
-        uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
-        uiWindow.getDiscussionBar().addItem(conv) ;
+        uiWindow uiWindow   = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
+        uiDiscussionBar bar = (uiDiscussionBar) uiWindow.getVerticalBar(VerticalBarType.DISCUSSION) ;
+        bar.addItem(conv) ;
     }
 
     /**

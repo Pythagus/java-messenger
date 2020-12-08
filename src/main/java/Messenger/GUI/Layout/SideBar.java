@@ -2,11 +2,12 @@ package Messenger.GUI.Layout;
 
 import java.awt.*;
 import javax.swing.*;
-import Messenger.Launcher;
 import java.awt.event.ActionEvent;
 import java.util.function.Consumer;
+import Messenger.GUI.Screens.uiWindow;
 import Messenger.Foundation.System.Env;
 import Messenger.GUI.Factories.ButtonFactory;
+import Messenger.GUI.Layout.Concerns.VerticalBarType;
 import Messenger.Foundation.System.Assets.ImageAsset;
 
 /**
@@ -102,8 +103,6 @@ public class SideBar extends JPanel {
         nav.setLayout(new BoxLayout(nav, BoxLayout.Y_AXIS));
 
         // Add buttons
-        // TODO : delete the create_message button
-        nav.add(this.graphicImagedButton("sidebar/create_message_button.png", this::onCreateMessageButtonClick)) ;
         nav.add(this.graphicImagedButton("sidebar/contact_button.png", this::onContactButtonClick)) ;
         nav.add(this.graphicImagedButton("sidebar/message_button.png", this::onMessageButtonClick)) ;
 
@@ -130,27 +129,12 @@ public class SideBar extends JPanel {
     }
 
     /**
-     * Executed when the CreateMessage button is
-     * clicked.
-     *
-     * @param e : click event.
-     */
-    private void onCreateMessageButtonClick(ActionEvent e) {
-        System.out.println("Create message") ;
-
-        // TODO : to delete
-        Env.getNetworkInterface().getEnvoyer().sendRequestMeeting(
-            Launcher.targetedUser()
-        ) ;
-    }
-
-    /**
      * Executed when the Contact button is clicked.
      *
      * @param e : click event.
      */
     private void onContactButtonClick(ActionEvent e) {
-        System.out.println("Contact") ;
+        this.setActiveVerticalBar(VerticalBarType.CONTACT) ;
     }
 
     /**
@@ -159,6 +143,7 @@ public class SideBar extends JPanel {
      * @param e : click event.
      */
     private void onMessageButtonClick(ActionEvent e) {
+        this.setActiveVerticalBar(VerticalBarType.DISCUSSION) ;
         this.rightSide.activeSubScreen(RightSide.SubScreenType.Welcome) ;
     }
 
@@ -168,6 +153,7 @@ public class SideBar extends JPanel {
      * @param e : click event.
      */
     private void onWelcomeButtonClick(ActionEvent e) {
+        this.setActiveVerticalBar(VerticalBarType.DISCUSSION) ;
         this.rightSide.activeSubScreen(RightSide.SubScreenType.Welcome) ;
     }
 
@@ -178,6 +164,16 @@ public class SideBar extends JPanel {
      */
     private void onSettingsButtonClick(ActionEvent e) {
         this.rightSide.activeSubScreen(RightSide.SubScreenType.Settings) ;
+    }
+
+    /**
+     * Set the active vertical bar.
+     *
+     * @param type : bar type.
+     */
+    private void setActiveVerticalBar(VerticalBarType type) {
+        uiWindow window = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
+        window.activeBar(type) ;
     }
 
 }

@@ -2,6 +2,8 @@ package Messenger.GUI.Layout.Items.Discussion;
 
 import java.awt.*;
 import javax.swing.*;
+
+import Messenger.GUI.Layout.Concerns.VerticalBarType;
 import Messenger.GUI.Screens.uiWindow;
 import Messenger.Foundation.System.Env;
 import Messenger.GUI.Utils.Placeholder;
@@ -67,7 +69,8 @@ public class uiDiscussionInput extends JTextField implements Observable {
             uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
 
             try {
-                User target = uiWindow.getDiscussionBar().getActiveItem().getConversation().getTarget() ;
+                uiDiscussionBar bar = (uiDiscussionBar) uiWindow.getVerticalBar(VerticalBarType.DISCUSSION) ;
+                User target         = bar.getActiveItem().getConversation().getTarget() ;
 
                 Message message = new Message(target, new MessageData(text, file)) ;
 

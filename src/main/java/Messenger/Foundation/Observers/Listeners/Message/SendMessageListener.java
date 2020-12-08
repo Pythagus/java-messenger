@@ -6,6 +6,8 @@ import Messenger.Foundation.System.Env;
 import Messenger.GUI.Subscreens.uiDiscussion;
 import Messenger.Foundation.Observers.BaseListener;
 import Messenger.Foundation.Models.Messages.Message;
+import Messenger.GUI.Layout.Concerns.VerticalBarType;
+import Messenger.GUI.Layout.Items.Discussion.uiDiscussionBar;
 import Messenger.Foundation.Controllers.ConversationController;
 
 /**
@@ -18,7 +20,6 @@ public class SendMessageListener extends BaseListener {
      *
      * @param args : notification arguments.
      */
-    @Override
     public void handle(Object... args) {
         Message message = (Message) args[0] ;
 
@@ -36,8 +37,9 @@ public class SendMessageListener extends BaseListener {
      */
     private void updateGraphics(Message message) {
         try {
-            uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
-            uiWindow.getDiscussionBar().updateActiveItem(message.getData()) ;
+            uiWindow uiWindow   = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
+            uiDiscussionBar bar = (uiDiscussionBar) uiWindow.getVerticalBar(VerticalBarType.DISCUSSION) ;
+            bar.updateActiveItem(message.getData()) ;
 
             uiDiscussion discussion = (uiDiscussion) uiWindow.getRightSide().getSubScreen(RightSide.SubScreenType.Discussion) ;
             discussion.addMessage(message) ;

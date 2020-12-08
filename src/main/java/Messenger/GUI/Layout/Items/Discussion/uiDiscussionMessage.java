@@ -2,6 +2,7 @@ package Messenger.GUI.Layout.Items.Discussion;
 
 import Messenger.Foundation.System.Assets.ImageAsset;
 import Messenger.Foundation.Models.Messages.Message;
+import Messenger.GUI.Layout.Items.uiVerticalBar;
 import Messenger.GUI.Factories.ButtonFactory;
 import Messenger.GUI.Subscreens.uiDiscussion;
 import javax.swing.*;
@@ -13,7 +14,7 @@ import java.awt.*;
 public class uiDiscussionMessage extends JPanel {
 
     // Main active color.
-    private static final Color backgroundColor = uiDiscussionBar.backgroundColor ;
+    private static final Color backgroundColor = uiVerticalBar.backgroundColor ;
 
     // Main active color.
     private static final Color backgroundColorActive = new Color(1, 118, 255) ;

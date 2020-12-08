@@ -2,6 +2,9 @@ package Messenger.Network.Tasks.Listeners;
 
 import java.net.Socket;
 import java.io.IOException;
+
+import Messenger.GUI.Layout.Concerns.VerticalBarType;
+import Messenger.GUI.Layout.Items.Discussion.uiDiscussionBar;
 import Messenger.GUI.Screens.uiWindow;
 import Messenger.Foundation.System.Env;
 import Messenger.GUI.Subscreens.uiDiscussion;
@@ -54,7 +57,8 @@ public class ReceiveListener extends ServerListener<MessagePacket> {
         uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
 
         try {
-            uiWindow.getDiscussionBar().updateFromUser(
+            uiDiscussionBar bar = (uiDiscussionBar) uiWindow.getVerticalBar(VerticalBarType.DISCUSSION) ;
+            bar.updateFromUser(
                 packet.getSourceUser(), packet.getData().getData()
             ) ;
 
