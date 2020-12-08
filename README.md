@@ -35,6 +35,22 @@ All the credentials starting by ```DB_``` are referring to the database.
 **Note :** The ```DB_CONNECTION``` and ```DB_PORT``` cannot be modified. For now, the project is only
 supporting *MySQL* connection at port 3306.
 
+## To do list
+
+### Required
+- Add contact list screen
+- Multicast support
+- Database support from the outside
+- Change pseudo
+- Pseudo verification
+- Send file support
+- Generate executable
+- Stop conversation button
+- Revise frame graphics
+- Manage unreachable host
+
+### Optional
+
 ## Contributing
 The project is currently maintained by Maud Pennetier and Damien Molina, students at INSA Toulouse, France.
 
