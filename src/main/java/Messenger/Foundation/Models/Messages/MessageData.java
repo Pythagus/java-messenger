@@ -73,4 +73,17 @@ public class MessageData implements Serializable {
         return this.text != null ;
     }
 
+    /**
+     * Get the message to print.
+     *
+     * @return print message.
+     */
+    public String messageToPrint() {
+        if(this.hasFile()) {
+            return "Vous avez envoyé un fichier" ;
+        }
+
+        return this.getText() ;
+    }
+
 }

@@ -52,6 +52,15 @@ public class uiDiscussionMessage extends JPanel {
     }
 
     /**
+     * Get the message instance.
+     *
+     * @return the message instance.
+     */
+    public Message getMessage() {
+        return this.message ;
+    }
+
+    /**
      * Initialize graphically the component.
      */
     private void initializeComponentGraphics() {

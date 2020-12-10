@@ -26,7 +26,7 @@ abstract public class VerticalItemClicked<T extends uiVerticalBarItem> extends M
     /**
      * Handle the event.
      */
-    abstract protected void handle() ;
+    abstract public void handle() ;
 
     /**
      * When the item is clicked.

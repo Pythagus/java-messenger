@@ -38,6 +38,8 @@ public class uiDiscussionHeader extends JPanel {
     public void updateConversation(Conversation conversation) {
         this.conversation = conversation ;
 
+        System.out.println(conversation.getTarget().getPseudo());
+
         this.nameLabel.setText(
             conversation.getTarget().getPseudo()
         ) ;

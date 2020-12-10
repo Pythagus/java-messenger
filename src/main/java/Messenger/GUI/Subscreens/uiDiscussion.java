@@ -55,6 +55,15 @@ public class uiDiscussion extends SubScreen {
     }
 
     /**
+     * Get the content panel.
+     *
+     * @return the JPanel generated.
+     */
+    public JPanel getContent() {
+        return this.content ;
+    }
+
+    /**
      * Change the active conversation.
      *
      * @param conversation : new active conversation.

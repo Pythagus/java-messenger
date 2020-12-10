@@ -9,10 +9,6 @@ import Messenger.GUI.Layout.Concerns.Actions.ContactItemClicked;
  */
 public class uiContactItem extends uiVerticalBarItem {
 
-    /**
-     * User instance.
-     */
-    private final User user ;
 
     /**
      * Make a new graphic instance of conversation.
@@ -21,10 +17,8 @@ public class uiContactItem extends uiVerticalBarItem {
      * @param picture : file name.
      */
     public uiContactItem(User user, String picture) {
-        super(picture) ;
+        super(user, picture) ;
 
-        this.user = user ;
-        this.setContent(user.getPseudo()) ;
         this.addMouseListener(new ContactItemClicked(this)) ;
     }
 
@@ -35,15 +29,6 @@ public class uiContactItem extends uiVerticalBarItem {
      */
     public uiContactItem(User user) {
         this(user, "francois_hollande.png") ;
-    }
-
-    /**
-     * Get the user instance.
-     *
-     * @return the user instance.
-     */
-    public User getUser() {
-        return this.user ;
     }
 
 }

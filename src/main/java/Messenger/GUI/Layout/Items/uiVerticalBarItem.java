@@ -2,6 +2,7 @@ package Messenger.GUI.Layout.Items;
 
 import java.awt.*;
 import javax.swing.*;
+import Messenger.Foundation.Models.User;
 import Messenger.Foundation.System.Assets.ImageAsset;
 
 /**
@@ -20,6 +21,16 @@ abstract public class uiVerticalBarItem extends JPanel {
     private final String picture ;
 
     /**
+     * User instance.
+     */
+    private final User user ;
+
+    /**
+     * Content label instance.
+     */
+    protected final JLabel userPseudoLabel ;
+
+    /**
      * Content label instance.
      */
     protected final JLabel contentLabel ;
@@ -29,9 +40,11 @@ abstract public class uiVerticalBarItem extends JPanel {
      *
      * @param picture : file name.
      */
-    public uiVerticalBarItem(String picture) {
-        this.picture      = picture ;
-        this.contentLabel = this.graphicContentLabel() ;
+    public uiVerticalBarItem(User user, String picture) {
+        this.picture         = picture ;
+        this.user            = user ;
+        this.userPseudoLabel = this.graphicUserLabel() ;
+        this.contentLabel    = this.graphicContentLabel() ;
 
         this.setContent("") ;
         this.initializeComponentGraphics() ;
@@ -44,9 +57,19 @@ abstract public class uiVerticalBarItem extends JPanel {
      * @return the updated panel.
      */
     protected JPanel graphicItemContent(JPanel content) {
+        content.add(this.userPseudoLabel) ;
         content.add(this.contentLabel) ;
 
         return content ;
+    }
+
+    /**
+     * Get the user instance.
+     *
+     * @return the user instance.
+     */
+    public User getUser() {
+        return this.user ;
     }
 
     /**
@@ -117,10 +140,25 @@ abstract public class uiVerticalBarItem extends JPanel {
      */
     private JLabel graphicContentLabel() {
         JLabel label = new JLabel() ;
-        label.setText("<html></html>") ;
+        label.setText("<html>" + this.user.getPseudo() + "</html>") ;
 
         Font f = new Font(null, Font.PLAIN, 12) ;
         label.setFont(f.deriveFont(Font.PLAIN)) ;
+
+        return label ;
+    }
+
+    /**
+     * Generate the name label.
+     *
+     * @return the JLabel generated.
+     */
+    private JLabel graphicUserLabel() {
+        JLabel label = new JLabel() ;
+        label.setText("<html>" + this.user.getPseudo() + "</html>") ;
+
+        Font f = new Font(null, Font.PLAIN, 14) ;
+        label.setFont(f.deriveFont(Font.BOLD)) ;
 
         return label ;
     }

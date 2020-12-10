@@ -1,7 +1,5 @@
 package Messenger.GUI.Layout.Items.Discussion;
 
-import java.awt.*;
-import javax.swing.*;
 import Messenger.Foundation.Models.Conversation;
 import Messenger.GUI.Layout.Items.uiVerticalBarItem;
 import Messenger.Foundation.Models.Messages.MessageData;
@@ -22,7 +20,7 @@ public class uiDiscussionItem extends uiVerticalBarItem {
      * @param picture : file name.
      */
     public uiDiscussionItem(Conversation conversation, String picture) {
-        super(picture) ;
+        super(conversation.getTarget(), picture) ;
 
         this.conversation = conversation ;
 
@@ -44,11 +42,7 @@ public class uiDiscussionItem extends uiVerticalBarItem {
      * @param data : data instance.
      */
     public void setContentFromData(MessageData data) {
-        if(data.hasFile()) {
-            this.setContent("Vous avez envoyé un fichier") ;
-        } else {
-            this.setContent(data.getText()) ;
-        }
+        this.setContent(data.messageToPrint()) ;
     }
 
     /**
@@ -58,34 +52,6 @@ public class uiDiscussionItem extends uiVerticalBarItem {
      */
     public Conversation getConversation() {
         return this.conversation ;
-    }
-
-    /**
-     * Update the item content graphically.
-     *
-     * @param content : panel to update.
-     * @return the updated panel.
-     */
-    protected JPanel graphicItemContent(JPanel content) {
-        content = super.graphicItemContent(content) ;
-        content.add(this.contentLabel) ;
-
-        return content ;
-    }
-
-    /**
-     * Generate the name label.
-     *
-     * @return the JLabel generated.
-     */
-    private JLabel graphicNameLabel() {
-        JLabel label = new JLabel() ;
-        label.setText(this.conversation.getTarget().getPseudo()) ;
-
-        Font f = new Font(null, Font.PLAIN, 14) ;
-        label.setFont(f.deriveFont(Font.BOLD)) ;
-
-        return label ;
     }
 
     @Override

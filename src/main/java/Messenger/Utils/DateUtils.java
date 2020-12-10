@@ -75,7 +75,7 @@ public class DateUtils {
      * @return the timestamp.
      */
     public static long timestamp(String date) {
-        return Timestamp.valueOf("2020-12-06 12:00:01").getTime() ;
+        return Timestamp.valueOf(date).getTime() ;
     }
 
 }

@@ -29,14 +29,9 @@ public class ContactItemClicked extends VerticalItemClicked<uiContactItem> {
     /**
      * Handle the event.
      */
-    protected void handle() {
+    public void handle() {
         uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
         uiWindow.getRightSide().activeSubScreen(RightSide.SubScreenType.Discussion) ;
-
-       /* uiDiscussion discussion = (uiDiscussion) uiWindow.getRightSide().getSubScreen() ;
-        discussion.changeActiveConversation(
-            new Conversation(this.item.getUser())
-        ) ;*/
 
         uiDiscussionBar bar = (uiDiscussionBar) uiWindow.getVerticalBar(VerticalBarType.DISCUSSION) ;
         uiWindow.activeBar(VerticalBarType.DISCUSSION) ;
@@ -45,6 +40,8 @@ public class ContactItemClicked extends VerticalItemClicked<uiContactItem> {
         ) ;
         bar.addItem(conversation) ;
         bar.setActiveItem(conversation) ;
+
+        new DiscussionItemClicked(conversation).handle() ;
     }
 
 }

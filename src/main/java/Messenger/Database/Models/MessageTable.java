@@ -41,7 +41,7 @@ public class MessageTable extends DatabaseModel {
             "SELECT * FROM %s " +
                 "WHERE (user_sender = ? AND user_receiver = ?) " +
                 "OR (user_sender = ? AND user_receiver = ?) " +
-                "ORDER BY sent_at DESC", this.table
+                "ORDER BY sent_at ASC", this.table
         ) ;
 
         return this.query().prepare(
