@@ -2,21 +2,19 @@ package Messenger.GUI.Layout.Items.Discussion;
 
 import java.awt.*;
 import javax.swing.*;
-
-import Messenger.GUI.Layout.Concerns.VerticalBarType;
 import Messenger.GUI.Screens.uiWindow;
 import Messenger.Foundation.System.Env;
 import Messenger.GUI.Utils.Placeholder;
 import Messenger.Foundation.Models.User;
 import Messenger.GUI.Subscreens.uiDiscussion;
 import Messenger.Foundation.Models.Messages.Message;
+import Messenger.GUI.Layout.Concerns.VerticalBarType;
 import Messenger.GUI.Listeners.DiscussionInputListener;
 import Messenger.Foundation.Providers.ObserverProvider;
 import Messenger.Foundation.Models.Messages.MessageFile;
 import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.Foundation.Observers.Contracts.Listener;
 import Messenger.Foundation.Observers.Contracts.Observable;
-import Messenger.Foundation.Controllers.ConversationController;
 import Messenger.GUI.Exceptions.ConversationItemNotFoundException;
 
 /**
@@ -62,10 +60,7 @@ public class uiDiscussionInput extends JTextField implements Observable {
         MessageFile file = null ; // TODO : regarder si un fichier a été envoyé
         String text      = this.getText().trim() ;
 
-        // Conversation controller instance.
-        ConversationController controller = (ConversationController) Env.getController(ConversationController.class) ;
-
-        if(controller.isValidTest(text)) { /* && (file == null)*/
+        if(Env.conversationController().isValidTest(text)) { /* && (file == null)*/
             uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
 
             try {

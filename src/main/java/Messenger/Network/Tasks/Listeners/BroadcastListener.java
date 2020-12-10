@@ -4,7 +4,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import Messenger.Foundation.System.Env;
 import Messenger.Foundation.System.Console.Console;
-import Messenger.Foundation.Controllers.UserController;
 import Messenger.Network.Models.Broadcast.BroadcastType;
 import Messenger.Network.Models.Broadcast.BroadcastNotification;
 import Messenger.Network.Tasks.Listeners.Concerns.NetworkBaseListener;
@@ -97,7 +96,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
         this.printReceivedNotification(notification) ;
 
         // Add the sending user to the users list.
-        this.getUserController().addUser(notification.getUser()) ;
+        Env.userController().addUser(notification.getUser()) ;
     }
 
     /**
@@ -109,7 +108,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
         this.printReceivedNotification(notification) ;
 
         // Remove the sending user from the users list.
-        this.getUserController().removeUser(notification.getUser()) ;
+        Env.userController().removeUser(notification.getUser()) ;
     }
 
     /**
@@ -134,18 +133,9 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
         this.printReceivedNotification(notification) ;
 
         // Update the user pseudo
-        this.getUserController().modifyUserName(
+        Env.userController().modifyUserName(
             notification.getUser(), notification.getUser().getPseudo()
         ) ;
-    }
-
-    /**
-     * Get the User Controller.
-     *
-     * @return the UserController instance.
-     */
-    private UserController getUserController() {
-        return (UserController) Env.getController(UserController.class) ;
     }
 
     /**

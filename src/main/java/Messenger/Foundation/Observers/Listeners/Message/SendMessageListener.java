@@ -8,7 +8,6 @@ import Messenger.Foundation.Observers.BaseListener;
 import Messenger.Foundation.Models.Messages.Message;
 import Messenger.GUI.Layout.Concerns.VerticalBarType;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionBar;
-import Messenger.Foundation.Controllers.ConversationController;
 
 /**
  * @author Damien MOLINA
@@ -23,8 +22,7 @@ public class SendMessageListener extends BaseListener {
     public void handle(Object... args) {
         Message message = (Message) args[0] ;
 
-        ConversationController controller = (ConversationController) Env.getController(ConversationController.class) ;
-        controller.send(message) ;
+        Env.conversationController().send(message) ;
 
         this.updateGraphics(message) ;
     }

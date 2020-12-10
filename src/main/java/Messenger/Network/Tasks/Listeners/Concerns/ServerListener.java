@@ -7,7 +7,6 @@ import java.io.ObjectInputStream;
 import Messenger.Foundation.System.Env;
 import Messenger.Network.Models.Concerns.Packet;
 import Messenger.Foundation.System.Console.Console;
-import Messenger.Foundation.Controllers.UserController;
 
 /**
  * @author Damien MOLINA
@@ -80,15 +79,6 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
                 e.printStackTrace();
             }
         }
-    }
-
-    /**
-     * Get the User Controller.
-     *
-     * @return the UserController instance.
-     */
-    protected UserController getUserController() {
-        return (UserController) Env.getController(UserController.class) ;
     }
 
     /**

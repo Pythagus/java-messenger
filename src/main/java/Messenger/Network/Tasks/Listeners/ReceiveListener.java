@@ -36,7 +36,7 @@ public class ReceiveListener extends ServerListener<MessagePacket> {
      * False otherwise.
      */
     protected boolean shouldManagePacket(MessagePacket packet) {
-        return this.getUserController().hasUser(packet.getSourceUser()) ;
+        return Env.userController().hasUser(packet.getSourceUser()) ;
     }
 
     /**

@@ -97,7 +97,7 @@ public class MessageTable extends DatabaseModel {
      * @throws Exception : not found user.
      */
     public static Message toMessage(ResultSet result) throws Exception {
-        UserController controller = (UserController) Env.getController(UserController.class) ;
+        UserController controller = Env.userController() ;
 
         Type type    = Type.valueOf(result.getString("type")) ;
         String value = result.getString("content") ;

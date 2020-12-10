@@ -6,7 +6,6 @@ import Messenger.Foundation.Models.User;
 import Messenger.Foundation.Models.Conversation;
 import Messenger.Foundation.System.Console.Console;
 import Messenger.GUI.Layout.Concerns.VerticalBarType;
-import Messenger.Foundation.Controllers.UserController;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionBar;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionItem;
 
@@ -23,7 +22,7 @@ public class AcceptedConnection {
             Console.comment("=> Accepted user : " + user.getPseudo()) ;
         }
 
-        this.getUserController().addUser(user) ;
+        Env.userController().addUser(user) ;
 
         Conversation conversation = new Conversation(user) ;
         uiDiscussionItem conv = new uiDiscussionItem(conversation) ;
@@ -31,15 +30,6 @@ public class AcceptedConnection {
         uiWindow uiWindow   = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
         uiDiscussionBar bar = (uiDiscussionBar) uiWindow.getVerticalBar(VerticalBarType.DISCUSSION) ;
         bar.addItem(conv) ;
-    }
-
-    /**
-     * Get the User Controller.
-     *
-     * @return the UserController instance.
-     */
-    private UserController getUserController() {
-        return (UserController) Env.getController(UserController.class) ;
     }
 
 }

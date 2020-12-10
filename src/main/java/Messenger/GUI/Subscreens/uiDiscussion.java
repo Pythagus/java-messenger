@@ -7,7 +7,6 @@ import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
 import Messenger.Foundation.Models.Conversation;
 import Messenger.Foundation.Models.Messages.Message;
-import Messenger.Foundation.Controllers.ConversationController;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionFooter;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionHeader;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionMessage;
@@ -148,7 +147,7 @@ public class uiDiscussion extends SubScreen {
      * @return the messages list.
      */
     private Message[] getDiscussionMessages(User user) {
-        return new ConversationController().getHistoric(user) ;
+        return Env.conversationController().getHistoric(user) ;
     }
 
     /**

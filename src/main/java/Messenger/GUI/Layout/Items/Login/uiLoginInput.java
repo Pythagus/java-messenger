@@ -10,7 +10,6 @@ import Messenger.GUI.Layout.Concerns.VerticalBarType;
 import Messenger.GUI.Listeners.DiscussionInputListener;
 import Messenger.Foundation.Exceptions.PseudoException;
 import Messenger.GUI.Layout.Items.Contact.uiContactBar;
-import Messenger.Foundation.Controllers.UserController;
 import Messenger.GUI.Layout.Items.Contact.uiContactItem;
 import Messenger.Network.Models.Broadcast.BroadcastType;
 import Messenger.Network.Models.Broadcast.BroadcastNotification;
@@ -85,7 +84,7 @@ public class uiLoginInput extends JTextField {
             this.errorLabel.updateText("") ;
 
             try {
-                this.getUserController().checkPseudo(pseudo) ;
+                Env.userController().checkPseudo(pseudo) ;
 
                 this.loggedIn(pseudo) ;
             } catch (PseudoException e) {
@@ -118,20 +117,9 @@ public class uiLoginInput extends JTextField {
         uiWindow window  = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
         uiContactBar bar = (uiContactBar) window.getVerticalBar(VerticalBarType.CONTACT) ;
 
-        UserController controller = this.getUserController() ;
-
-        for(User user : controller.getUsers()) {
+        for(User user : Env.userController().getUsers()) {
             bar.addItem(new uiContactItem(user)) ;
         }
-    }
-
-    /**
-     * Get the UserController instance.
-     *
-     * @return the user controller instance.
-     */
-    private UserController getUserController() {
-        return (UserController) Env.getController(UserController.class) ;
     }
 
 }

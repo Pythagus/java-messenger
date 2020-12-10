@@ -4,7 +4,9 @@ import Messenger.Foundation.Application;
 import Messenger.Foundation.Models.User;
 import Messenger.Network.NetworkInterface;
 import Messenger.Foundation.Controllers.Controller;
+import Messenger.Foundation.Controllers.UserController;
 import Messenger.Foundation.Providers.ControllerProvider;
+import Messenger.Foundation.Controllers.ConversationController;
 
 /**
  * @author Damien MOLINA
@@ -33,7 +35,6 @@ public final class Env {
      * Network interface instance.
      */
     private static NetworkInterface networkInterface ;
-
 
     /**
      * Get the current logged in user instance.
@@ -82,14 +83,21 @@ public final class Env {
     }
 
     /**
-     * Get the controller identified by the given
-     * class instance.
+     * Get the UserController instance.
      *
-     * @param controller : controller class.
-     * @return the controller instance, null otherwise.
+     * @return the user controller instance.
      */
-    public static Controller getController(Class<? extends Controller> controller) {
-        return Env.controller.get(controller) ;
+    public static UserController userController() {
+        return (UserController) Env.controller.get(UserController.class) ;
+    }
+
+    /**
+     * Get the ConversationController instance.
+     *
+     * @return the conversation controller instance.
+     */
+    public static ConversationController conversationController() {
+        return (ConversationController) Env.controller.get(ConversationController.class) ;
     }
 
     /**
