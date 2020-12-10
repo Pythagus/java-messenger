@@ -34,4 +34,9 @@ public interface ApplicationContract {
      */
     void start() ;
 
+    /**
+     * Load the application dependencies.
+     */
+    void load() ;
+
 }

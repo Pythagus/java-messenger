@@ -1,21 +1,16 @@
 package Messenger.Foundation;
 
 import java.util.Locale;
-
-import Messenger.Foundation.Controllers.ConversationController;
 import Messenger.GUI.Frame;
 import Messenger.Database.DB;
 import javax.swing.SwingUtilities;
 import Messenger.GUI.GraphicThread;
 import Messenger.GUI.Screens.Screen;
 import Messenger.Foundation.System.Env;
-import Messenger.Foundation.Models.User;
 import Messenger.Foundation.System.Config;
-import Messenger.Network.NetworkInterface;
 import Messenger.Foundation.System.Console.Console;
-import Messenger.Foundation.Controllers.UserController;
+import Messenger.Foundation.System.ApplicationStarter;
 import Messenger.Foundation.Contracts.ApplicationContract;
-import Messenger.Foundation.Observers.Listeners.UserListUpdated;
 
 /**
  * @author Damien MOLINA
@@ -93,7 +88,7 @@ abstract public class Application implements ApplicationContract {
     /**
      * Load the application dependencies.
      */
-    private void load() {
+    public void load() {
         // Set the default local value.
         Locale.setDefault(Locale.FRANCE) ;
 
@@ -105,51 +100,23 @@ abstract public class Application implements ApplicationContract {
     }
 
     /**
-     * Start the application instance
-     * without any graphics.
-     */
-    public void startWithoutGraphics() {
-        this.load() ;
-
-        // Set the current user.
-        Env.setUser(new User()) ;
-
-        // Start the controllers.
-        UserController userController = new UserController() ;
-        userController.addListener(new UserListUpdated()) ;
-        Env.addController(userController) ;
-        Env.addController(new ConversationController()) ;
-
-        // Start the network components.
-        this.startNetwork() ;
-    }
-
-    /**
      * Start the application instance.
      */
     public void start() {
-        this.startWithoutGraphics() ;
-
-        // Start the graphic components.
-        SwingUtilities.invokeLater(() -> {
-            Application.this.graphicThread = new GraphicThread() ;
-            Application.this.graphicThread.setFrameScreen(
-                    Application.this.getStartingScreen()
-            ) ;
-            Application.this.graphicThread.start() ;
-        }) ;
+        ApplicationStarter.start(this) ;
     }
 
     /**
-     * Start the network interface.
+     * Start the graphics.
      */
-    private void startNetwork() {
-        try {
-            Env.setNetworkInterface(new NetworkInterface()) ;
-            Env.getNetworkInterface().start() ;
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
+    public void startGraphics() {
+        SwingUtilities.invokeLater(() -> {
+            Application.this.graphicThread = new GraphicThread() ;
+            Application.this.graphicThread.setFrameScreen(
+                Application.this.getStartingScreen()
+            ) ;
+            Application.this.graphicThread.start() ;
+        }) ;
     }
 
     /**
