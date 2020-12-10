@@ -5,10 +5,15 @@ import javax.swing.*;
 import Messenger.GUI.Screens.uiWindow;
 import Messenger.GUI.Utils.Placeholder;
 import Messenger.Foundation.System.Env;
+import Messenger.Foundation.Models.User;
+import Messenger.GUI.Layout.Concerns.VerticalBarType;
 import Messenger.GUI.Listeners.DiscussionInputListener;
+import Messenger.Foundation.Exceptions.PseudoException;
+import Messenger.GUI.Layout.Items.Contact.uiContactBar;
 import Messenger.Foundation.Controllers.UserController;
-import Messenger.Network.Models.Broadcast.BroadcastNotification;
+import Messenger.GUI.Layout.Items.Contact.uiContactItem;
 import Messenger.Network.Models.Broadcast.BroadcastType;
+import Messenger.Network.Models.Broadcast.BroadcastNotification;
 
 /**
  * @author Damien MOLINA
@@ -79,23 +84,54 @@ public class uiLoginInput extends JTextField {
         if(pseudo.length() > 0) {
             this.errorLabel.updateText("") ;
 
-            UserController controller = (UserController) Env.getController(UserController.class) ;
+            try {
+                this.getUserController().checkPseudo(pseudo) ;
 
-            if(controller.availablePseudo(pseudo) == 1 )
-            {
-                Env.getUser().setPseudo(pseudo);
-                Env.getNetworkInterface().getEnvoyer().broadcast(
-                        new BroadcastNotification(BroadcastType.LOGIN)
-                );
-                Env.getApplication().getGraphicFrame().replaceScreen(new uiWindow());
-            } else if (controller.availablePseudo(pseudo) == 2 ){
-                this.errorLabel.updateText("Le pseudo choisi contient des caractères interdits, seuls les lettres et les chiffres sont autorisées") ;
-            } else {
-                this.errorLabel.updateText("Le pseudo choisi est déjà utilisé par un autre utilisateur") ;
+                this.loggedIn(pseudo) ;
+            } catch (PseudoException e) {
+                this.errorLabel.updateText(e.getMessage()) ;
             }
         } else {
             this.errorLabel.updateText("Vous devez spécifier un pseudo !") ;
         }
+    }
+
+    /**
+     * Executed when the user is logged in
+     * with a valid pseudo.
+     *
+     * @param pseudo : taken pseudo.
+     */
+    private void loggedIn(String pseudo) {
+        // Set the pseudo.
+        Env.getUser().setPseudo(pseudo) ;
+
+        // Send the broadcast notification.
+        Env.getNetworkInterface().getEnvoyer().broadcast(
+            new BroadcastNotification(BroadcastType.LOGIN)
+        ) ;
+
+        // Set the new screen.
+        Env.getApplication().getGraphicFrame().replaceScreen(new uiWindow());
+
+        // Add the data into the screen.
+        uiWindow window  = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
+        uiContactBar bar = (uiContactBar) window.getVerticalBar(VerticalBarType.CONTACT) ;
+
+        UserController controller = this.getUserController() ;
+
+        for(User user : controller.getUsers()) {
+            bar.addItem(new uiContactItem(user)) ;
+        }
+    }
+
+    /**
+     * Get the UserController instance.
+     *
+     * @return the user controller instance.
+     */
+    private UserController getUserController() {
+        return (UserController) Env.getController(UserController.class) ;
     }
 
 }

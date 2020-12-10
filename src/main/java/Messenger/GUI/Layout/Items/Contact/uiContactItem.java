@@ -2,6 +2,7 @@ package Messenger.GUI.Layout.Items.Contact;
 
 import Messenger.Foundation.Models.User;
 import Messenger.GUI.Layout.Items.uiVerticalBarItem;
+import Messenger.GUI.Layout.Concerns.Actions.ContactItemClicked;
 
 /**
  * @author Damien MOLINA
@@ -24,6 +25,16 @@ public class uiContactItem extends uiVerticalBarItem {
 
         this.user = user ;
         this.setContent(user.getIdentifier()) ;
+        this.addMouseListener(new ContactItemClicked(this)) ;
+    }
+
+    /**
+     * Make a new graphic instance of conversation.
+     *
+     * @param user : user instance.
+     */
+    public uiContactItem(User user) {
+        this(user, "francois_hollande.png") ;
     }
 
     /**

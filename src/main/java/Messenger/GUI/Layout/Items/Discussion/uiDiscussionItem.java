@@ -18,6 +18,7 @@ public class uiDiscussionItem extends uiVerticalBarItem {
     /**
      * Make a new graphic instance of conversation.
      *
+     * @param conversation : displayed conversation.
      * @param picture : file name.
      */
     public uiDiscussionItem(Conversation conversation, String picture) {
@@ -26,6 +27,15 @@ public class uiDiscussionItem extends uiVerticalBarItem {
         this.conversation = conversation ;
 
         this.addMouseListener(new DiscussionItemClicked(this)) ;
+    }
+
+    /**
+     * Make a new graphic instance of conversation.
+     *
+     * @param conversation : displayed conversation.
+     */
+    public uiDiscussionItem(Conversation conversation) {
+        this(conversation, "francois_hollande.png") ;
     }
 
     /**

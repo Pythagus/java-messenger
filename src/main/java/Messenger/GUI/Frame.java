@@ -78,13 +78,6 @@ public class Frame extends JFrame {
         }
 
         this.addScreen(screen) ;
-        this.fullyRepaint() ;
-    }
-
-    /**
-     * Repaint the entire frame.
-     */
-    public void fullyRepaint() {
         this.revalidate() ;
         this.repaint() ;
     }

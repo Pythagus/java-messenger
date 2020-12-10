@@ -26,7 +26,7 @@ public class AcceptedConnection {
         this.getUserController().addUser(user) ;
 
         Conversation conversation = new Conversation(user) ;
-        uiDiscussionItem conv = new uiDiscussionItem(conversation, "francois_hollande.png") ; // TODO : change the picture
+        uiDiscussionItem conv = new uiDiscussionItem(conversation) ;
 
         uiWindow uiWindow   = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
         uiDiscussionBar bar = (uiDiscussionBar) uiWindow.getVerticalBar(VerticalBarType.DISCUSSION) ;

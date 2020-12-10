@@ -1,6 +1,8 @@
 package Messenger.Foundation.Controllers;
 
 import java.util.ArrayList;
+
+import Messenger.Foundation.Exceptions.PseudoException;
 import Messenger.Foundation.Models.User;
 import Messenger.Foundation.Exceptions.AppException;
 import Messenger.Foundation.System.Env;
@@ -15,8 +17,6 @@ public class UserController extends Controller {
      * Users list.
      */
     private final ArrayList<User> users ;
-
-
 
     /**
      * Make a new instance of the User controller.
@@ -89,32 +89,38 @@ public class UserController extends Controller {
     }
 
     /**
-     * Determine whether the given pseudo is available.
-     * Or if the pseudo is valid (no forbidden characters)
+     * Check the validity of the given
+     * pseudo.
      *
-     * @param pseudo : pseudo to test.
-     * @return 1 if the pseudo is available,
-     *         2 if the pseudo contains forbidden characters : #
-     *         3 if the pseudo is already used.
+     * @param pseudo : pseudo to verify.
+     * @throws PseudoException : invalid pseudo exception.
      */
-    public int availablePseudo(String pseudo) {
-        // todo : minimal size of pseudo
-        Pattern pattern = Pattern.compile("[^A-Za-z0-9éèàïö ]");
-        Matcher matcher = pattern.matcher(pseudo);
-        if (matcher.find()) {
-            return 2;
-        } else
-        {
-            for (User user : this.users)
-            {
-                if (user.getPseudo().equals(pseudo))
-                {
-                    return 3;
-                }
-            }
-
-            return 1;
+    public void checkPseudo(String pseudo) throws PseudoException {
+        if(pseudo.length() < 3) {
+            throw new PseudoException("Le pseudo doit faire au moins 3 caractères") ;
         }
+
+        Pattern pattern = Pattern.compile("[^A-Za-z0-9éèàïö ]") ;
+        Matcher matcher = pattern.matcher(pseudo) ;
+
+        if(matcher.find()) {
+            throw new PseudoException("Le pseudo ne doit contenir que des chiffres et des lettres") ;
+        }
+
+        for(User user : this.users) {
+            if(user.getPseudo().equals(pseudo)) {
+                throw new PseudoException("Le pseudo est déjà utilisé") ;
+            }
+        }
+    }
+
+    /**
+     * Get the users list.
+     *
+     * @return the users list.
+     */
+    public ArrayList<User> getUsers() {
+        return this.users ;
     }
 
 }
