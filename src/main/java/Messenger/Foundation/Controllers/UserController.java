@@ -98,7 +98,8 @@ public class UserController extends Controller {
      *         3 if the pseudo is already used.
      */
     public int availablePseudo(String pseudo) {
-        Pattern pattern = Pattern.compile("\\W");
+        // todo : minimal size of pseudo
+        Pattern pattern = Pattern.compile("[^A-Za-z0-9éèàïö ]");
         Matcher matcher = pattern.matcher(pseudo);
         if (matcher.find()) {
             return 2;
