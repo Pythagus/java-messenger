@@ -3,7 +3,6 @@ package Messenger.Network.Tasks.Envoyers;
 import java.net.Socket;
 import Messenger.Foundation.Models.User;
 import Messenger.Network.Models.Concerns.DataPacket;
-import Messenger.Network.Models.Concerns.Packet;
 import Messenger.Network.Models.Datagram.OutputSocketStream;
 
 /**
