@@ -3,10 +3,11 @@ package Messenger.GUI.Layout.Concerns.Actions;
 import Messenger.GUI.Layout.RightSide;
 import Messenger.GUI.Screens.uiWindow;
 import Messenger.Foundation.System.Env;
-import Messenger.GUI.Subscreens.uiDiscussion;
+import Messenger.Foundation.Models.Conversation;
 import Messenger.GUI.Layout.Concerns.VerticalBarType;
 import Messenger.GUI.Layout.Items.Contact.uiContactItem;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionBar;
+import Messenger.GUI.Layout.Items.Discussion.uiDiscussionItem;
 
 /**
  * Handler to the click event in
@@ -29,15 +30,21 @@ public class ContactItemClicked extends VerticalItemClicked<uiContactItem> {
      * Handle the event.
      */
     protected void handle() {
-        System.out.println("contact clicked : " + item.getUser().getPseudo() + "(" + item.getUser().getAddress().toString()+")") ;
-        /*uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
+        uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
         uiWindow.getRightSide().activeSubScreen(RightSide.SubScreenType.Discussion) ;
 
-        uiDiscussion discussion = (uiDiscussion) uiWindow.getRightSide().getSubScreen() ;
-        discussion.changeActiveConversation(this.item.getConversation()) ;
+       /* uiDiscussion discussion = (uiDiscussion) uiWindow.getRightSide().getSubScreen() ;
+        discussion.changeActiveConversation(
+            new Conversation(this.item.getUser())
+        ) ;*/
 
         uiDiscussionBar bar = (uiDiscussionBar) uiWindow.getVerticalBar(VerticalBarType.DISCUSSION) ;
-        bar.setActiveItem(this.item) ;*/
+        uiWindow.activeBar(VerticalBarType.DISCUSSION) ;
+        uiDiscussionItem conversation = new uiDiscussionItem(
+            new Conversation(this.item.getUser())
+        ) ;
+        bar.addItem(conversation) ;
+        bar.setActiveItem(conversation) ;
     }
 
 }

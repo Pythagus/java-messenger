@@ -24,7 +24,7 @@ public class uiContactItem extends uiVerticalBarItem {
         super(picture) ;
 
         this.user = user ;
-        this.setContent(user.getIdentifier()) ;
+        this.setContent(user.getPseudo()) ;
         this.addMouseListener(new ContactItemClicked(this)) ;
     }
 
