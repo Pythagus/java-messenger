@@ -2,7 +2,7 @@ package Messenger.GUI.Layout.Items.Discussion;
 
 import Messenger.Foundation.System.Assets.ImageAsset;
 import Messenger.GUI.Factories.ButtonFactory;
-import Messenger.Foundation.Observers.Listeners.Message.SendMessageListener;
+import Messenger.Foundation.Observers.Listeners.SendMessageListener;
 import Messenger.GUI.Subscreens.uiDiscussion;
 
 import javax.swing.*;

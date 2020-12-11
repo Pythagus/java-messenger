@@ -1,4 +1,4 @@
-package Messenger.Foundation.Observers.Listeners.Message;
+package Messenger.Foundation.Observers.Listeners;
 
 import Messenger.GUI.Layout.RightSide;
 import Messenger.GUI.Screens.uiWindow;

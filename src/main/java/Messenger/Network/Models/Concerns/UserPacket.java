@@ -1,12 +1,13 @@
 package Messenger.Network.Models.Concerns;
 
+import java.io.Serializable;
 import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
 
 /**
  * @author Damien MOLINA
  */
-abstract public class UserPacket<T> extends Packet<T> {
+abstract public class UserPacket<T> extends Packet<T> implements Serializable {
 
     /**
      * Serialisation identifier.

@@ -1,5 +1,7 @@
 package Messenger.Network.Models.Concerns;
 
+import java.io.Serializable;
+
 /**
  * Serial version numbers:
  * - 4242424242424242430L : Packet
@@ -9,7 +11,12 @@ package Messenger.Network.Models.Concerns;
  *
  * @author Damien MOLINA
  */
-abstract public class DataPacket<T> {
+abstract public class DataPacket<T> implements Serializable {
+
+    /**
+     * Serialisation identifier.
+     */
+    private static final long serialVersionUID = 4242424242424242434L ;
 
     /**
      * Packet data.

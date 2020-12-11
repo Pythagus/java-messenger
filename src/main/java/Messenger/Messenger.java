@@ -15,6 +15,7 @@ import Messenger.Foundation.Application;
  * - 4242424242424242431L : UserPacket
  * - 4242424242424242432L : MeetingPacket
  * - 4242424242424242433L : MessagePacket
+ * - 4242424242424242434L : DataPacket
  *
  * @author Damien MOLINA
  */

@@ -1,5 +1,6 @@
 package Messenger.Network.Models;
 
+import java.io.Serializable;
 import Messenger.Foundation.Models.User;
 import Messenger.Foundation.Models.Messages.Message;
 import Messenger.Network.Models.Concerns.UserPacket;
@@ -7,7 +8,7 @@ import Messenger.Network.Models.Concerns.UserPacket;
 /**
  * @author Damien MOLINA
  */
-public class MessagePacket extends UserPacket<Message> {
+public class MessagePacket extends UserPacket<Message> implements Serializable {
 
     /**
      * Serialisation identifier.

@@ -1,4 +1,4 @@
-package Messenger.Foundation.Models.Messages.Concerns;
+package Messenger.Foundation.Models.Messages;
 
 import Messenger.Foundation.System.Assets.Sounds.SoundThread;
 
