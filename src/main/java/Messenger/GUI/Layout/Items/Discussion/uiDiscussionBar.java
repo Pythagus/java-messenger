@@ -1,5 +1,6 @@
 package Messenger.GUI.Layout.Items.Discussion;
 
+import Messenger.Foundation.Models.Conversation;
 import Messenger.Foundation.Models.User;
 import Messenger.GUI.Layout.Items.uiVerticalBar;
 import Messenger.Foundation.Models.Messages.MessageData;
@@ -59,11 +60,17 @@ public class uiDiscussionBar extends uiVerticalBar<uiDiscussionItem> {
      *
      * @param user : user sending the data.
      * @param data : data sent.
-     * @throws ConversationItemNotFoundException : not found item.
      */
-    public void updateFromUser(User user, MessageData data) throws ConversationItemNotFoundException {
-        uiDiscussionItem item = this.getFromUser(user) ;
-        item.setContentFromData(data) ;
+    public void updateFromUser(User user, MessageData data) {
+        try {
+            uiDiscussionItem item = this.getFromUser(user) ;
+            item.setContentFromData(data) ;
+        } catch (ConversationItemNotFoundException e) {
+            uiDiscussionItem item = new uiDiscussionItem(new Conversation(user)) ;
+            item.setContentFromData(data) ;
+
+            this.addItem(item) ;
+        }
     }
 
 }

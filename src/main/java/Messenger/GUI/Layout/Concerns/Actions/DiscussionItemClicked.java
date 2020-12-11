@@ -37,7 +37,9 @@ public class DiscussionItemClicked extends VerticalItemClicked<uiDiscussionItem>
         uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
         uiWindow.getRightSide().activeSubScreen(RightSide.SubScreenType.Discussion) ;
 
-        uiDiscussion discussion = (uiDiscussion) uiWindow.getRightSide().getSubScreen() ;
+        uiDiscussion discussion = (uiDiscussion) uiWindow.getRightSide().getSubScreen(
+            RightSide.SubScreenType.Discussion
+        ) ;
         discussion.changeActiveConversation(this.item.getConversation()) ;
 
         uiDiscussionBar bar = (uiDiscussionBar) uiWindow.getVerticalBar(VerticalBarType.DISCUSSION) ;

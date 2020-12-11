@@ -2,6 +2,8 @@ package Messenger.Network.Tasks.Listeners;
 
 import java.net.Socket;
 import java.io.IOException;
+
+import Messenger.GUI.Layout.RightSide;
 import Messenger.GUI.Screens.uiWindow;
 import Messenger.Foundation.System.Env;
 import Messenger.GUI.Subscreens.uiDiscussion;
@@ -11,7 +13,6 @@ import Messenger.Foundation.Models.Messages.Message;
 import Messenger.GUI.Layout.Concerns.VerticalBarType;
 import Messenger.GUI.Layout.Items.Discussion.uiDiscussionBar;
 import Messenger.Network.Tasks.Listeners.Concerns.ServerListener;
-import Messenger.GUI.Exceptions.ConversationItemNotFoundException;
 
 /**
  * @author Damien MOLINA
@@ -49,20 +50,16 @@ public class ReceiveListener extends ServerListener<MessagePacket> {
         Message message   = packet.getData() ;
         uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
 
-        try {
-            uiDiscussionBar bar = (uiDiscussionBar) uiWindow.getVerticalBar(VerticalBarType.DISCUSSION) ;
-            bar.updateFromUser(
-                packet.getSourceUser(), packet.getData().getData()
-            ) ;
+        uiDiscussionBar bar = (uiDiscussionBar) uiWindow.getVerticalBar(VerticalBarType.DISCUSSION) ;
+        bar.updateFromUser(
+            packet.getSourceUser(), packet.getData().getData()
+        ) ;
 
-            uiDiscussion discussion = (uiDiscussion) uiWindow.getRightSide().getSubScreen() ;
-            Conversation conversation = discussion.getActiveConversation() ;
+        uiDiscussion discussion = (uiDiscussion) uiWindow.getRightSide().getSubScreen(RightSide.SubScreenType.Discussion) ;
+        Conversation conversation = discussion.getActiveConversation() ;
 
-            if(conversation != null && conversation.getTarget().equals(packet.getSourceUser())) {
-                discussion.addMessage(message) ;
-            }
-        } catch (ConversationItemNotFoundException e) {
-            e.printStackTrace() ;
+        if(conversation != null && conversation.getTarget().equals(packet.getSourceUser())) {
+            discussion.addMessage(message) ;
         }
     }
 
