@@ -36,6 +36,11 @@ public class NetworkInterface extends Thread {
     public static final int BROADCAST_PORT = STARTING_PORT + 2 ;
 
     /**
+     * Multicast listening port.
+     */
+    public static final int MULTICAST_PORT = STARTING_PORT + 3;
+
+    /**
      * Meeting listener.
      * This listener is used to negotiate the
      * future used port between the current user

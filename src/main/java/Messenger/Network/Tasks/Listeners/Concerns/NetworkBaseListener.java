@@ -13,6 +13,11 @@ abstract public class NetworkBaseListener<T extends Closeable> extends Thread {
     protected final T listenerSocket;
 
     /**
+     *  File listener socket
+     */
+    protected T filelistenerSocket;
+
+    /**
      * Make a new listener instance.
      *
      * @param listenerSocket : listening socket.
