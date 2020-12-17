@@ -4,7 +4,9 @@ import javax.swing.*;
 import Messenger.GUI.Frames.MainFrame;
 import Messenger.GUI.Frames.LoginFrame;
 import Messenger.Foundation.System.Env;
+import Messenger.Network.NetworkInterface;
 import Messenger.Foundation.System.Console.Console;
+import Messenger.Foundation.Controllers.UserController;
 import Messenger.Foundation.Exceptions.PseudoException;
 import Messenger.Network.Models.Broadcast.BroadcastType;
 import Messenger.Foundation.Observers.Contracts.Listener;
@@ -51,7 +53,7 @@ public class SentPseudoListener implements Listener {
         String pseudo = p.trim() ;
 
         if(pseudo.length() > 0) {
-            Env.userController().checkPseudo(pseudo) ;
+            UserController.instance().checkPseudo(pseudo) ;
 
             return pseudo ;
         }
@@ -70,7 +72,7 @@ public class SentPseudoListener implements Listener {
         Env.getUser().setPseudo(pseudo) ;
 
         // Send the broadcast notification.
-        Env.getNetworkInterface().getEnvoyer().broadcast(
+        NetworkInterface.instance().getEnvoyer().broadcast(
             new BroadcastNotification(BroadcastType.LOGIN)
         ) ;
 

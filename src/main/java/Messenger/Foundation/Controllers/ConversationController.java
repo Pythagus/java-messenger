@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.sql.SQLException;
 import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
+import Messenger.Network.NetworkInterface;
 import Messenger.Database.Models.MessageTable;
 import Messenger.Foundation.Models.Conversation;
 import Messenger.Network.Utils.BroadcastSplitter;
@@ -79,7 +80,7 @@ public class ConversationController extends Controller {
      * @param user : user with whom the conversation is held.
      */
     public void start(User user) {
-        Env.getNetworkInterface().getEnvoyer().sendRequestMeeting(user) ;
+        NetworkInterface.instance().getEnvoyer().sendRequestMeeting(user) ;
     }
 
     /**
@@ -129,7 +130,7 @@ public class ConversationController extends Controller {
      * @param message : content of the message.
      */
     public void send(Message message) {
-        Env.getNetworkInterface().getEnvoyer().sendMessage(message) ;
+        NetworkInterface.instance().getEnvoyer().sendMessage(message) ;
 
         try {
             new MessageTable().insert(message) ;

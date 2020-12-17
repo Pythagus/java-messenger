@@ -3,7 +3,9 @@ package Messenger.Network.Tasks.Listeners;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import Messenger.Foundation.System.Env;
+import Messenger.Network.NetworkInterface;
 import Messenger.Foundation.System.Console.Console;
+import Messenger.Foundation.Controllers.UserController;
 import Messenger.Network.Models.Broadcast.BroadcastType;
 import Messenger.Network.Models.Broadcast.BroadcastNotification;
 import Messenger.Network.Tasks.Listeners.Concerns.NetworkBaseListener;
@@ -89,7 +91,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
         this.printReceivedNotification(notification) ;
 
         // Add the sending user to the users list.
-        Env.userController().addUser(notification.getUser()) ;
+        UserController.instance().addUser(notification.getUser()) ;
     }
 
     /**
@@ -101,7 +103,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
         this.printReceivedNotification(notification) ;
 
         // Remove the sending user from the users list.
-        Env.userController().removeUser(notification.getUser()) ;
+        UserController.instance().removeUser(notification.getUser()) ;
     }
 
     /**
@@ -112,7 +114,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
     private void manageEveryoneInformationPDU(BroadcastNotification notification) {
         this.printReceivedNotification(notification) ;
 
-        Env.getNetworkInterface().getEnvoyer().broadcastResponse(
+        NetworkInterface.instance().getEnvoyer().broadcastResponse(
             new BroadcastNotification(BroadcastType.LOGIN), notification.getUser().getAddress()
         ) ;
     }
@@ -126,7 +128,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
         this.printReceivedNotification(notification) ;
 
         // Update the user pseudo
-        Env.userController().modifyUserName(
+        UserController.instance().modifyUserName(
             notification.getUser(), notification.getUser().getPseudo()
         ) ;
     }

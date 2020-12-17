@@ -1,9 +1,9 @@
 package Messenger.Network.Tasks.Listeners.Meetings.Handlers;
 
 import Messenger.GUI.GraphicInterface;
-import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
 import Messenger.Foundation.System.Console.Console;
+import Messenger.Foundation.Controllers.UserController;
 
 /**
  * @author Damien MOLINA
@@ -16,7 +16,7 @@ public class AcceptedConnection {
     public void accepted(User user) {
         Console.comment("=> Accepted user : " + user.getPseudo()) ;
 
-        Env.userController().addUser(user) ;
+        UserController.instance().addUser(user) ;
 
         // Graphic updates.
         GraphicInterface.instance().contactBar().removeItem(user) ;

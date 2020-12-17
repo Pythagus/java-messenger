@@ -1,6 +1,5 @@
 package Messenger.GUI.Listeners;
 
-import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.Conversation;
 import Messenger.Foundation.Models.Messages.Message;
 import Messenger.GUI.Frames.Screens.DiscussionScreen;
@@ -37,7 +36,7 @@ public class SentMessageListener implements Listener {
         Message message = (Message) args[1] ;
 
         // Send the message.
-        Env.conversationController().send(message) ;
+        ConversationController.instance().send(message) ;
 
         // Add the message.
         ConversationController.instance().addConversationMessage(
