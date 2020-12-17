@@ -94,6 +94,11 @@ public class SocketStream implements PacketExchangerContract {
         this.output.flush() ;
     }
 
+    public void sendF(byte[] data, int offset, int leng) throws Exception{
+        this.output.write(data, offset, leng);
+        this.output.flush();
+    }
+
     /**
      * Close the streams.
      *
