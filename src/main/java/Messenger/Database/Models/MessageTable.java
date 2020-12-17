@@ -3,7 +3,6 @@ package Messenger.Database.Models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Messenger.Utils.DateUtils;
-import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
 import Messenger.Database.Queries.DatabaseResult;
 import Messenger.Foundation.Models.Messages.Message;
