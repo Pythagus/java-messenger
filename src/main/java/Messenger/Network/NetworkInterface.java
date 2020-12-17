@@ -37,6 +37,7 @@ public class NetworkInterface extends Thread {
 
     /**
      * Multicast listening port.
+     *
      */
     public static final int MULTICAST_PORT = STARTING_PORT + 3;
 

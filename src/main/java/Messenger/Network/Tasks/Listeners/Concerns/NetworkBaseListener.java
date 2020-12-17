@@ -14,6 +14,7 @@ abstract public class NetworkBaseListener<T extends Closeable> extends Thread {
 
     /**
      *  File listener socket
+     *
      */
     protected T filelistenerSocket;
 

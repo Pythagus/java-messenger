@@ -50,6 +50,7 @@ public class MulticastEnvoyer extends BaseEnvoyer {
 
     /**
      * Make the sending.
+     *
      */
     @Override
     protected void send() {
