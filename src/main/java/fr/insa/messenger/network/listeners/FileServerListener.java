@@ -3,14 +3,17 @@ package fr.insa.messenger.network.listeners;
 import java.net.Socket;
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.io.DataInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import fr.insa.messenger.system.Env;
 import fr.insa.messenger.system.console.Console;
 import fr.insa.messenger.network.models.basis.Packet;
 
 /**
- * @author Damien MOLINA
+ * @author Maud PENNETIER
  */
-abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseListener<ServerSocket> {
+abstract public class FileServerListener<T extends Packet<?>> extends NetworkBaseListener<ServerSocket> {
 
     /**
      * The current listener running
@@ -23,7 +26,7 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
      *
      * @param port : listening port.
      */
-    public ServerListener(int port) throws IOException {
+    public FileServerListener(int port) throws IOException {
         super(new ServerSocket(port)) ;
 
         this.run = true ;
@@ -69,19 +72,44 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
 
         while(this.run) {
             try {
-                Console.comment("=> " + name + " is waiting") ;
-                Socket socket        = this.listenerSocket.accept() ;
+                if(Env.getApplication().isDebugMode()) {
+                    Console.comment("=> " + name + " is waiting for a file") ;
+                }
+
+                Socket socket        = this.filelistenerSocket.accept() ;
                 ObjectInputStream is = new ObjectInputStream(socket.getInputStream()) ;
-                Console.comment("=> " + name + " received a packet from " + socket.getInetAddress()) ;
+
+
+                if(Env.getApplication().isDebugMode()) {
+                    Console.comment("=> " + name + " received a file from " + socket.getInetAddress()) ;
+                }
 
                 T packet = (T) is.readObject() ;
 
                 // TODO : do it in a thread
 
-                if(this.shouldManagePacket(packet)) {
+                if(packet.equals("BOIimfCdPSTgspWu34MbJRWzgDRO3OmY4ULRjKdb")) {
+                    Console.comment("=> a file has been detected") ;
+                    int bytes = 0;
+
+                    // receive file name
+                    String fileName = String.valueOf(packet.getData());  //remplacer par la date peut etre -> transférer le nom bloque un peu
+                    String pathToTemp = System.getProperty("java.io.tmpdir"); // get the temporary directory
+                    FileOutputStream fileOutputStream = new FileOutputStream(pathToTemp + fileName);
+
+                    // receive file size
+                    long size = is.readLong();
+
+                    byte[] buffer = new byte[4*1024]; // must be coherent with the envoyer
+                    while (size > 0 && (bytes = is.read(buffer, 0, (int)Math.min(buffer.length, size))) != -1){
+                        fileOutputStream.write(buffer, 0, bytes);
+                        size -= bytes ;
+                    }
+                    fileOutputStream.close();
                     this.manageReceivedPacket(socket, packet) ;
-                } else {
-                    Console.warning("Received packet not managed") ;
+
+                } else if(Env.getApplication().isDebugMode()) {
+                    Console.warning("File packet not managed") ;
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
@@ -95,5 +123,7 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
     public void close() {
         this.run = false ;
     }
+
+
 
 }

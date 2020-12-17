@@ -1,7 +1,10 @@
 package fr.insa.messenger.network;
 
+import java.io.File;
 import java.net.Socket;
 import java.net.InetAddress;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import fr.insa.messenger.models.User;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
@@ -14,7 +17,7 @@ import fr.insa.messenger.network.envoyers.MessageEnvoyer;
 import fr.insa.messenger.network.envoyers.BroadcastEnvoyer;
 
 /**
- * @author Damien MOLINA
+ * @author Damien MOLINA, Maud PENNETIER
  */
 public class Envoyer {
 
@@ -74,6 +77,24 @@ public class Envoyer {
     }
 
     /**
+     * Multicast the given notification
+     *
+     * @param notification : notification to multicast.
+     */
+    public void multicast(BroadcastNotification notification){
+        new MulticastEnvoyer(this, notification).start() ;
+    }
+
+    /**
+     * Broadcast the given notification.
+     *
+     * @param notification : notification to broadcast.
+     */
+    public void multicastResponse(BroadcastNotification notification, InetAddress address) {
+        new MulticastEnvoyer(this, notification, address).start() ;
+    }
+
+    /**
      * Send the given packet with the given socket.
      *
      * @param socket : socket instance.
@@ -96,6 +117,51 @@ public class Envoyer {
                 e.printStackTrace() ;
             }
         }) ;
+    }
+
+    /**
+     * Send a file
+     * @param socket
+     * @param filePath Path to the file
+     */
+    public void sendFile (Socket socket, String filePath, boolean closeSocket)
+    {
+        try
+        {
+            final int[] bytes = {0};
+            File file = new File(filePath);
+            FileInputStream fileInputStream = new FileInputStream(file);
+
+            this.executor.submit(() ->
+            {
+                try
+                {
+                    this.exchanger.clear();
+                    this.exchanger.bindOutput(socket.getOutputStream());
+                    // packet send to precise that a file will be sent
+                    this.exchanger.send("BOIimfCdPSTgspWu34MbJRWzgDRO3OmY4ULRjKdb");
+                    // file name without path
+                    this.exchanger.send(file.getName());
+                    // file size
+                    this.exchanger.send(file.length());
+
+                    byte[] buffer = new byte[4 * 1024];
+                    while ((bytes[0] = fileInputStream.read(buffer)) != -1)
+                    {
+                        this.exchanger.sendF(buffer, 0, bytes[0]);
+                    }
+                    // Close the socket.
+                    if(closeSocket) {
+                        this.exchanger.close() ;
+                        socket.close() ;
+                    }
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            });
+
+        }catch (Exception e){}
     }
 
 }
