@@ -2,6 +2,10 @@ package Messenger.GUI.Frames.Screens;
 
 import java.awt.*;
 import javax.swing.*;
+
+import Messenger.Foundation.Models.Messages.Message;
+import Messenger.Foundation.Models.Messages.MessageData;
+import Messenger.Foundation.Models.User;
 import Messenger.Utils.ColorUtils;
 import Messenger.GUI.Factories.FontFactory;
 import Messenger.GUI.Factories.ButtonFactory;
@@ -162,6 +166,17 @@ public class DiscussionScreen extends ContentScreen {
 
         if (conversation != null) {
             this.title.setText(conversation.getTitle()) ;
+            this.list.getModel().removeAllElements() ;
+
+            // Add all the messages into the screen.
+            conversation.getMessages().forEach(DiscussionScreen.this.list::addItem) ;
+            try {
+                this.list.addItem(new Message(
+                    new User("tata", "00", "localhost"), new MessageData("tata", null)
+                ));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -71,7 +71,12 @@ public class ConversationController extends Controller {
      * @param user : targeted user.
      */
     public void addConversation(User user) {
-        ConversationController.conversations.add(new Conversation(user)) ;
+        Conversation conversation = new Conversation(user) ;
+
+        // Get the conversation historic.
+        conversation.addMessages(this.getHistoric(user)) ;
+
+        ConversationController.conversations.add(conversation) ;
     }
 
     /**
@@ -102,7 +107,7 @@ public class ConversationController extends Controller {
      *
      * @param user : user with whom the conversation is held.
      */
-    public Message[] getHistoric(User user) {
+    private Message[] getHistoric(User user) {
         ArrayList<Message> messages = new ArrayList<>() ;
 
         try {

@@ -59,6 +59,17 @@ public class Conversation {
     }
 
     /**
+     * Add a new message into the list.
+     *
+     * @param messages : messages list instance.
+     */
+    public void addMessages(Message[] messages) {
+        for(Message message : messages) {
+            this.addMessage(message) ;
+        }
+    }
+
+    /**
      * Get the conversation title.
      *
      * @return the conversation title.
