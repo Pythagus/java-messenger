@@ -8,7 +8,6 @@ import Messenger.GUI.Frames.LoginFrame;
 import Messenger.Foundation.System.Config;
 import Messenger.Foundation.System.Console.Console;
 import Messenger.Foundation.System.ApplicationStarter;
-import Messenger.Foundation.Contracts.ApplicationContract;
 
 /**
  * @author Damien MOLINA

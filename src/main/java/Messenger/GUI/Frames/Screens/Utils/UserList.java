@@ -53,16 +53,6 @@ abstract public class UserList extends MyJList<UserListItem> {
      * user.
      *
      * @param user : user instance.
-     */
-    public void addItem(User user) {
-        this.addItem(user, false) ;
-    }
-
-    /**
-     * Make and add an item with the given
-     * user.
-     *
-     * @param user : user instance.
      * @param select : whether the item should be selected.
      */
     public void addItem(User user, boolean select) {
