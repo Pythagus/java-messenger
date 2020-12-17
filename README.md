@@ -39,14 +39,17 @@ supporting *MySQL* connection at port 3306.
 
 ### Required
 - Add contact list screen
-- Multicast support
 - Database support from the outside
-- Change pseudo
+- Change pseudo during a session
 - Send file support
 - Generate executable
 - Stop conversation button
 - Revise frame graphics
 - Manage unreachable host
+
+- presence Service (server on the internet) : hold valid users accounts and manage their status. With java servlet and tomcat server. 
+        Agents can subscribe() / publish() their status / notify() if change
+- Multicast support (if better than broadcast)
 
 ### Optional
 - Make only 1 fixed port and the others variable.
