@@ -3,3 +3,4 @@ target
 .idea
 Messenger.iml
 java-messenger.iml
+.properties

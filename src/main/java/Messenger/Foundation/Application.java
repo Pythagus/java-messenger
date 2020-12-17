@@ -28,9 +28,15 @@ abstract public class Application implements ApplicationContract {
     protected final ApplicationMode mode ;
 
     /**
+     * Application name.
+     */
+    private final String name ;
+
+    /**
      * Make a new instance of the application.
      */
     public Application() {
+        this.name = Config.get("APP_NAME") ;
         this.mode = Boolean.parseBoolean(
             Config.get("APP_DEBUG", "0")
         ) ? ApplicationMode.DEBUG : ApplicationMode.PRODUCTION ;
@@ -60,6 +66,15 @@ abstract public class Application implements ApplicationContract {
      */
     public ApplicationMode getMode() {
         return this.mode ;
+    }
+
+    /**
+     * Get the current application's name.
+     *
+     * @return the application name.
+     */
+    public String getName() {
+        return this.name ;
     }
 
     /**

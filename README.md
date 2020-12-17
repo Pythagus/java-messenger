@@ -7,6 +7,17 @@ folder.
 This project uses Maven framework to manage dependencies. Please check the [Maven installation guide](https://maven.apache.org/install.html)
 to correctly install the project.
 
+### Project
+
+##### Configuration file
+You will find a config file `src/main/.properties.example` which is an example of the project configurations. You
+need to copy this file in a `.properties` file used by the application with the Unix command:
+```bash
+$ cp src/main/.properties.example src/main/.properties
+```
+
+**Note :** please refer to the Database section to correctly specify the database credentials.
+
 ### Database
 This part describes the mandatory steps to make the database working.
 

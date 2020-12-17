@@ -1,7 +1,6 @@
 package Messenger;
 
 import Messenger.Foundation.Application;
-import Messenger.Foundation.System.Config;
 
 /**
  * This is a list of the taken serialize
@@ -26,17 +25,10 @@ public class Messenger extends Application {
     private static final String VERSION = "1.0.0" ;
 
     /**
-     * Application name.
-     */
-    private final String name ;
-
-    /**
      * Make a new instance of Messenger.
      */
     public Messenger() {
         super() ;
-
-        this.name = Config.get("APP_NAME") ;
     }
 
     /**
@@ -47,15 +39,6 @@ public class Messenger extends Application {
      */
     public String getVersion() {
         return Messenger.VERSION ;
-    }
-
-    /**
-     * Get the current application's name.
-     *
-     * @return the application name.
-     */
-    public String getName() {
-        return this.name ;
     }
 
 }
