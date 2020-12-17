@@ -19,6 +19,6 @@ public interface ResultCallback {
      * False otherwise.
      * @throws SQLException : result error.
      */
-    public boolean manage(ResultSet result) throws SQLException;
+    boolean manage(ResultSet result) throws SQLException;
 
 }

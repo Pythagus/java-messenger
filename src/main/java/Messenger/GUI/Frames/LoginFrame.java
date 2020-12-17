@@ -43,7 +43,7 @@ public class LoginFrame extends Frame implements ActionListener, Observable {
     public LoginFrame() {
         super("Connexion - Messenger") ;
 
-        this.setContentPane(new LoginFrameContent("background/login-background.png")) ;
+        this.setContentPane(new LoginFrameContent()) ;
         this.setResizable(false) ;
         this.center(LoginFrame.SIZE) ;
         this.initializeGraphics() ;
@@ -151,11 +151,9 @@ public class LoginFrame extends Frame implements ActionListener, Observable {
 
         /**
          * Login frame content instance.
-         *
-         * @param image : background image.
          */
-        LoginFrameContent(String image) {
-            this.backgroundImage =  ImageAsset.asImageIcon(image).getImage() ;
+        LoginFrameContent() {
+            this.backgroundImage = ImageAsset.asImageIcon("background/login-background.png").getImage() ;
 
             this.setLayout(null) ;
         }

@@ -10,7 +10,7 @@ abstract public class NetworkBaseListener<T extends Closeable> extends Thread {
     /**
      * Listener socket.
      */
-    protected T listenerSocket;
+    protected final T listenerSocket;
 
     /**
      * Make a new listener instance.

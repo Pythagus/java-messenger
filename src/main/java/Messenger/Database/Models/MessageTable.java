@@ -19,7 +19,7 @@ public class MessageTable extends DatabaseModel {
     /**
      * Model table name.
      */
-    protected String table = "messages" ;
+    protected final String table = "messages" ;
 
     /**
      * Available message type.

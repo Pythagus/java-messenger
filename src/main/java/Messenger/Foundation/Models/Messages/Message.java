@@ -23,7 +23,7 @@ public class Message implements Serializable {
     /**
      * Message data.
      */
-    protected MessageData data ;
+    protected final MessageData data ;
 
     /**
      * Send date.
@@ -33,12 +33,12 @@ public class Message implements Serializable {
     /**
      * Sender of the message.
      */
-    protected User sender ;
+    protected final User sender ;
 
     /**
      * Targeted user.
      */
-    protected User target ;
+    protected final User target ;
 
     /**
      * Make a new Message instance.
