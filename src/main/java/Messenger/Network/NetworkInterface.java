@@ -70,9 +70,7 @@ public class NetworkInterface extends Thread {
      */
     public NetworkInterface() throws Exception {
         // Prepare the meeting listener.
-        this.meetingListener = new MeetingListener(
-            this, NetworkInterface.MEETING_PORT
-        ) ;
+        this.meetingListener = new MeetingListener(NetworkInterface.MEETING_PORT) ;
 
         // Prepare the receiving listener.
         this.receiveListener = new ReceiveListener(NetworkInterface.RECEIVING_PORT) ;

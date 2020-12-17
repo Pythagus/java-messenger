@@ -1,17 +1,28 @@
 package Messenger.Foundation.Controllers;
 
+import java.util.regex.*;
 import java.util.ArrayList;
-
-import Messenger.Foundation.Exceptions.PseudoException;
+import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
 import Messenger.Foundation.Exceptions.AppException;
-import Messenger.Foundation.System.Env;
-import java.util.regex.*;
+import Messenger.Foundation.Exceptions.PseudoException;
 
 /**
  * @author Damien MOLINA
  */
 public class UserController extends Controller {
+
+    /**
+     * Singleton instance.
+     */
+    private static final UserController INSTANCE = new UserController() ;
+
+    /**
+     * Possible update state.
+     */
+    public enum UpdateState {
+        ADDED, REMOVED
+    }
 
     /**
      * Users list.
@@ -24,6 +35,15 @@ public class UserController extends Controller {
     public UserController() { this.users = new ArrayList<>() ; }
 
     /**
+     * Get the UserController singleton instance.
+     *
+     * @return the singleton instance.
+     */
+    public static UserController instance() {
+        return UserController.INSTANCE ;
+    }
+
+    /**
      * Add a user.
      *
      * @param user : User instance.
@@ -31,7 +51,7 @@ public class UserController extends Controller {
     public void addUser(User user) {
         if(! this.hasUser(user)) {
             this.users.add(user) ;
-            this.notifyAllListeners(user) ;
+            this.notifyAllListeners(user, UpdateState.ADDED) ;
         }
     }
 
@@ -42,7 +62,7 @@ public class UserController extends Controller {
      */
     public void removeUser(User user) {
         this.users.remove(user) ;
-        this.notifyAllListeners(user) ;
+        this.notifyAllListeners(user, UpdateState.REMOVED) ;
     }
 
     /**

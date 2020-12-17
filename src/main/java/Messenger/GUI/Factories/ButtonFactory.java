@@ -1,12 +1,13 @@
 package Messenger.GUI.Factories;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import Messenger.Utils.ColorUtils;
 
 /**
  * @author Damien MOLINA
  */
-public class ButtonFactory {
+final public class ButtonFactory {
 
     private ButtonFactory() {}
 
@@ -36,6 +37,17 @@ public class ButtonFactory {
      */
     public static JButton withoutBorder(Color color) {
         return ButtonFactory.withoutBorder(new JButton(), color) ;
+    }
+
+    /**
+     * Generate a button without any borders.
+     *
+     * @return the changed button.
+     */
+    public static JButton withoutBorder() {
+        return ButtonFactory.withoutBorder(
+            new JButton(), ColorUtils.transparent()
+        ) ;
     }
 
 }

@@ -1,12 +1,10 @@
 package Messenger.Foundation;
 
 import java.util.Locale;
-import Messenger.GUI.Frame;
 import Messenger.Database.DB;
-import javax.swing.SwingUtilities;
-import Messenger.GUI.GraphicThread;
-import Messenger.GUI.Screens.Screen;
+import Messenger.GUI.GraphicInterface;
 import Messenger.Foundation.System.Env;
+import Messenger.GUI.Frames.LoginFrame;
 import Messenger.Foundation.System.Config;
 import Messenger.Foundation.System.Console.Console;
 import Messenger.Foundation.System.ApplicationStarter;
@@ -28,19 +26,6 @@ abstract public class Application implements ApplicationContract {
      * Env application mode.
      */
     protected final ApplicationMode mode ;
-
-    /**
-     * Graphic application thread.
-     */
-    protected GraphicThread graphicThread ;
-
-    /**
-     * Get the screen instance displayed when
-     * the application is started.
-     *
-     * @return a Screen instance.
-     */
-    abstract protected Screen getStartingScreen() ;
 
     /**
      * Make a new instance of the application.
@@ -110,22 +95,7 @@ abstract public class Application implements ApplicationContract {
      * Start the graphics.
      */
     public void startGraphics() {
-        SwingUtilities.invokeLater(() -> {
-            Application.this.graphicThread = new GraphicThread() ;
-            Application.this.graphicThread.setFrameScreen(
-                Application.this.getStartingScreen()
-            ) ;
-            Application.this.graphicThread.start() ;
-        }) ;
-    }
-
-    /**
-     * Get the graphic frame instance.
-     *
-     * @return Frame instance.
-     */
-    public Frame getGraphicFrame() {
-        return this.graphicThread.getFrame() ;
+        GraphicInterface.instance().start(LoginFrame.class) ;
     }
 
 }

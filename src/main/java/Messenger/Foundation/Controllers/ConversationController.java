@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
 import Messenger.Database.Models.MessageTable;
+import Messenger.Foundation.Models.Conversation;
 import Messenger.Network.Utils.BroadcastSplitter;
 import Messenger.Foundation.Models.Messages.Message;
 
@@ -15,6 +16,62 @@ import Messenger.Foundation.Models.Messages.Message;
  * @author Maud PENNETIER, Damien MOLINA
  */
 public class ConversationController extends Controller {
+
+    /**
+     * Singleton instance.
+     */
+    private static final ConversationController INSTANCE = new ConversationController() ;
+
+    /**
+     * Conversations list.
+     */
+    private static final ArrayList<Conversation> conversations = new ArrayList<>() ;
+
+    /**
+     * Get the ConversationController singleton instance.
+     *
+     * @return the singleton instance.
+     */
+    public static ConversationController instance() {
+        return ConversationController.INSTANCE ;
+    }
+
+    /**
+     * Get the conversation belonged to
+     * the given user.
+     *
+     * @param user : targeted user.
+     * @return the conversation instance, null otherwise.
+     */
+    public Conversation getConversation(User user) {
+        for(Conversation conversation : ConversationController.conversations) {
+            if(conversation.getTarget().equals(user)) {
+                return conversation ;
+            }
+        }
+
+        return null ;
+    }
+
+    /**
+     * Add a message into the conversation.
+     *
+     * @param user : targeted user.
+     * @param message : message to add.
+     */
+    public void addConversationMessage(User user, Message message) {
+        this.getConversation(user).addMessage(message) ;
+    }
+
+    /**
+     * Add a new conversation with the
+     * given user.
+     *
+     * @param user : targeted user.
+     */
+    public void addConversation(User user) {
+        ConversationController.conversations.add(new Conversation(user)) ;
+    }
 
     /**
      * Start new discussion.
@@ -31,7 +88,11 @@ public class ConversationController extends Controller {
      * @param user : user with whom the conversation is held.
      */
     public void stop(User user) {
-        // TODO
+        // TODO: call network.
+
+        ConversationController.conversations.removeIf(
+            conversation -> conversation.getTarget().equals(user)
+        ) ;
     }
 
 
@@ -95,7 +156,7 @@ public class ConversationController extends Controller {
      * @param text : submitted text.
      * @return True or False.
      */
-    public boolean isValidTest(String text) {
+    public boolean isValidText(String text) {
         return text.length() > 0 && ! text.contains(BroadcastSplitter.DELIMITER) ;
     }
 

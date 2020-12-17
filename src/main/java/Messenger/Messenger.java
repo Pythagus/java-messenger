@@ -1,7 +1,5 @@
 package Messenger;
 
-import Messenger.GUI.Screens.Screen;
-import Messenger.GUI.Screens.uiLogin;
 import Messenger.Foundation.Application;
 
 /**
@@ -60,16 +58,6 @@ public class Messenger extends Application {
      */
     public String getName() {
         return Messenger.NAME ;
-    }
-
-    /**
-     * Get the screen instance displayed when
-     * the application is started.
-     *
-     * @return a Screen instance.
-     */
-    protected Screen getStartingScreen() {
-        return new uiLogin()  ;
     }
 
 }

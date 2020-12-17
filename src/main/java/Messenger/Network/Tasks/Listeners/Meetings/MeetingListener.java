@@ -16,20 +16,12 @@ import Messenger.Network.Tasks.Listeners.Meetings.Handlers.AcceptedConnection;
 public class MeetingListener extends ServerListener<MeetingPacket> {
 
     /**
-     * Network interface instance.
-     */
-    private final NetworkInterface networkInterface ;
-
-    /**
      * Make a new meeting listener instance.
      *
-     * @param networkInterface : network interface.
      * @param port : listening port.
      */
-    public MeetingListener(NetworkInterface networkInterface, int port) throws IOException {
+    public MeetingListener(int port) throws IOException {
         super(port) ;
-
-        this.networkInterface = networkInterface ;
     }
 
     /**
@@ -56,6 +48,7 @@ public class MeetingListener extends ServerListener<MeetingPacket> {
          * First of all, I check if I already
          * know the source user.
          */
+        // TODO : check the current-user status.
         //if(controller.hasUser(packet.getSourceUser())) {
             /*
              * I already know the user. So I refuse another
@@ -69,6 +62,7 @@ public class MeetingListener extends ServerListener<MeetingPacket> {
          */
         //else {
             packet.setState(MeetingPacket.State.ACCEPTED) ;
+            // TODO : make a handler instead.
             new AcceptedConnection().accepted(packet.getSourceUser()) ;
        // }
 
@@ -79,7 +73,7 @@ public class MeetingListener extends ServerListener<MeetingPacket> {
         packet.reverse() ;
 
         try {
-            this.networkInterface.getEnvoyer().send(socket, packet, true) ;
+            Env.getNetworkInterface().getEnvoyer().send(socket, packet, true) ;
         } catch (Exception e) {
             e.printStackTrace() ;
         }

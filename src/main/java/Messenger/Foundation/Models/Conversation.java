@@ -59,6 +59,15 @@ public class Conversation {
     }
 
     /**
+     * Get the conversation title.
+     *
+     * @return the conversation title.
+     */
+    public String getTitle() {
+        return this.target.getPseudo() ;
+    }
+
+    /**
      * Override the default equals method.
      * Two conversations are equals only if they have
      * the same target.

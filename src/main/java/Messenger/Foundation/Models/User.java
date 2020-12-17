@@ -3,6 +3,8 @@ package Messenger.Foundation.Models;
 import java.util.Objects;
 import java.io.Serializable;
 import java.net.InetAddress;
+
+import Messenger.Foundation.System.Env;
 import Messenger.Network.Utils.AddressUtils;
 
 /**
@@ -105,6 +107,17 @@ public class User implements Serializable {
      */
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo ;
+    }
+
+    /**
+     * Determine whether the current user
+     * instance is the one logged in
+     * the application.
+     *
+     * @return True or False.
+     */
+    public boolean isEnvUser() {
+        return this.equals(Env.getUser()) ;
     }
 
     /**

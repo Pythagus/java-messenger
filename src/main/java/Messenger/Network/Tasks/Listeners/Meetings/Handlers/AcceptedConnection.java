@@ -1,13 +1,9 @@
 package Messenger.Network.Tasks.Listeners.Meetings.Handlers;
 
-import Messenger.GUI.Screens.uiWindow;
+import Messenger.GUI.GraphicInterface;
 import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
-import Messenger.Foundation.Models.Conversation;
 import Messenger.Foundation.System.Console.Console;
-import Messenger.GUI.Layout.Concerns.VerticalBarType;
-import Messenger.GUI.Layout.Items.Discussion.uiDiscussionBar;
-import Messenger.GUI.Layout.Items.Discussion.uiDiscussionItem;
 
 /**
  * @author Damien MOLINA
@@ -24,12 +20,9 @@ public class AcceptedConnection {
 
         Env.userController().addUser(user) ;
 
-        Conversation conversation = new Conversation(user) ;
-        uiDiscussionItem conv = new uiDiscussionItem(conversation) ;
-
-        uiWindow uiWindow   = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
-        uiDiscussionBar bar = (uiDiscussionBar) uiWindow.getVerticalBar(VerticalBarType.DISCUSSION) ;
-        bar.addItem(conv) ;
+        // Graphic updates.
+        GraphicInterface.instance().contactBar().removeItem(user) ;
+        GraphicInterface.instance().discussionBar().addItem(user) ;
     }
 
 }

@@ -17,28 +17,12 @@ public class DiscussionInputListener implements DocumentListener {
     private final JTextField input ;
 
     /**
-     * Runnable to run on input changing.
-     */
-    private Runnable runnable = null ;
-
-    /**
      * Make a new listener instance.
      *
      * @param input : input we are listen to.
      */
     public DiscussionInputListener(JTextField input) {
         this.input = input ;
-    }
-
-    /**
-     * Make a new listener instance.
-     *
-     * @param input : input we are listen to.
-     */
-    public DiscussionInputListener(JTextField input, Runnable runnable) {
-        this(input) ;
-
-        this.runnable = runnable ;
     }
 
     public void changedUpdate(DocumentEvent e) {
@@ -61,10 +45,6 @@ public class DiscussionInputListener implements DocumentListener {
          */
         if(this.input.getText().length() <= 1) {
             this.input.repaint() ;
-        }
-
-        if(this.runnable != null) {
-            this.runnable.run() ;
         }
     }
 

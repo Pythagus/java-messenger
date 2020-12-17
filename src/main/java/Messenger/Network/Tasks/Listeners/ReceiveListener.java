@@ -2,16 +2,11 @@ package Messenger.Network.Tasks.Listeners;
 
 import java.net.Socket;
 import java.io.IOException;
-
-import Messenger.GUI.Layout.RightSide;
-import Messenger.GUI.Screens.uiWindow;
+import Messenger.GUI.GraphicInterface;
 import Messenger.Foundation.System.Env;
-import Messenger.GUI.Subscreens.uiDiscussion;
 import Messenger.Network.Models.MessagePacket;
 import Messenger.Foundation.Models.Conversation;
-import Messenger.Foundation.Models.Messages.Message;
-import Messenger.GUI.Layout.Concerns.VerticalBarType;
-import Messenger.GUI.Layout.Items.Discussion.uiDiscussionBar;
+import Messenger.GUI.Frames.Screens.DiscussionScreen;
 import Messenger.Network.Tasks.Listeners.Concerns.ServerListener;
 
 /**
@@ -47,19 +42,19 @@ public class ReceiveListener extends ServerListener<MessagePacket> {
      * @param packet : received packet.
      */
     protected void manageReceivedPacket(Socket socket, MessagePacket packet) {
-        Message message   = packet.getData() ;
-        uiWindow uiWindow = (uiWindow) Env.getApplication().getGraphicFrame().getScreen() ;
+        // Discussion screen.
+        DiscussionScreen screen = GraphicInterface.instance().discussionScreen() ;
 
-        uiDiscussionBar bar = (uiDiscussionBar) uiWindow.getVerticalBar(VerticalBarType.DISCUSSION) ;
-        bar.updateFromUser(
-            packet.getSourceUser(), packet.getData().getData()
-        ) ;
+        // Active conversation.
+        Conversation activeConversation = screen.getConversation() ;
 
-        uiDiscussion discussion = (uiDiscussion) uiWindow.getRightSide().getSubScreen(RightSide.SubScreenType.Discussion) ;
-        Conversation conversation = discussion.getActiveConversation() ;
-
-        if(conversation != null && conversation.getTarget().equals(packet.getSourceUser())) {
-            discussion.addMessage(message) ;
+        /*
+         * If there is an active conversation and
+         * the conversation is the current displayed,
+         * then add the message to the screen.
+         */
+        if(activeConversation != null && activeConversation.getTarget().equals(packet.getSourceUser())) {
+            screen.getList().addItem(packet.getData()) ;
         }
     }
 
