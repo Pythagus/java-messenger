@@ -3,7 +3,6 @@ package fr.insa.messenger.network.listeners;
 import java.net.Socket;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.io.DataInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import fr.insa.messenger.system.Env;

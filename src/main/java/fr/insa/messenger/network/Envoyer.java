@@ -4,7 +4,6 @@ import java.io.File;
 import java.net.Socket;
 import java.net.InetAddress;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import fr.insa.messenger.models.User;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
@@ -15,6 +14,7 @@ import fr.insa.messenger.network.models.BroadcastPacket;
 import fr.insa.messenger.network.envoyers.MeetingEnvoyer;
 import fr.insa.messenger.network.envoyers.MessageEnvoyer;
 import fr.insa.messenger.network.envoyers.BroadcastEnvoyer;
+import fr.insa.messenger.network.envoyers.MulticastEnvoyer;
 
 /**
  * @author Damien MOLINA, Maud PENNETIER
@@ -81,7 +81,7 @@ public class Envoyer {
      *
      * @param notification : notification to multicast.
      */
-    public void multicast(BroadcastNotification notification){
+    public void multicast(BroadcastPacket notification){
         new MulticastEnvoyer(this, notification).start() ;
     }
 
@@ -90,7 +90,7 @@ public class Envoyer {
      *
      * @param notification : notification to broadcast.
      */
-    public void multicastResponse(BroadcastNotification notification, InetAddress address) {
+    public void multicastResponse(BroadcastPacket notification, InetAddress address) {
         new MulticastEnvoyer(this, notification, address).start() ;
     }
 
