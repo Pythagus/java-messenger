@@ -1,6 +1,7 @@
 package Messenger.Foundation.System.Console;
 
 import java.io.PrintStream;
+import Messenger.Foundation.System.Env;
 
 /**
  * @author Damien MOLINA
@@ -46,7 +47,9 @@ public class Console implements ConsoleInterface {
      * @param style : message's style.
      */
     public static void println(String msg, String style) {
-        Console.stream.println(style + msg + RESET) ;
+        if(Env.getApplication().isDebugMode()) {
+            Console.stream.println(style + msg + RESET) ;
+        }
     }
 
     /**

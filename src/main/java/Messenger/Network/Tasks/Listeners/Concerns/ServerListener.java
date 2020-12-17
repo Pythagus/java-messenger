@@ -4,7 +4,6 @@ import java.net.Socket;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.io.ObjectInputStream;
-import Messenger.Foundation.System.Env;
 import Messenger.Network.Models.Concerns.Packet;
 import Messenger.Foundation.System.Console.Console;
 
@@ -56,23 +55,17 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
 
         while(this.run) {
             try {
-                if(Env.getApplication().isDebugMode()) {
-                    Console.comment("=> " + name + " is waiting") ;
-                }
-
+                Console.comment("=> " + name + " is waiting") ;
                 Socket socket        = this.listenerSocket.accept() ;
                 ObjectInputStream is = new ObjectInputStream(socket.getInputStream()) ;
-
-                if(Env.getApplication().isDebugMode()) {
-                    Console.comment("=> " + name + " received a packet from " + socket.getInetAddress()) ;
-                }
+                Console.comment("=> " + name + " received a packet from " + socket.getInetAddress()) ;
 
                 T packet = (T) is.readObject() ;
 
                 // TODO : do it in a thread
                 if(this.shouldManagePacket(packet)) {
                     this.manageReceivedPacket(socket, packet) ;
-                } else if(Env.getApplication().isDebugMode()) {
+                } else {
                     Console.warning("Received packet not managed") ;
                 }
             } catch (IOException | ClassNotFoundException e) {

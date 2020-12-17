@@ -31,17 +31,10 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
             try {
                 byte[] buffer = new byte[4096];
 
-                if(Env.getApplication().isDebugMode()) {
-                    Console.comment("=> BroadcastListener is waiting");
-                }
-
+                Console.comment("=> BroadcastListener is waiting");
                 DatagramPacket datagram = new DatagramPacket(buffer, buffer.length);
-
                 this.listenerSocket.receive(datagram) ;
-
-                if(Env.getApplication().isDebugMode()) {
-                    Console.comment("=> BroadcastListener received a datagram from " + datagram.getAddress()) ;
-                }
+                Console.comment("=> BroadcastListener received a datagram from " + datagram.getAddress()) ;
 
                 BroadcastNotification notification = BroadcastNotification.unserialize(
                     new String(datagram.getData())
@@ -145,9 +138,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
      * @param notification : received notification.
      */
     private void printReceivedNotification(BroadcastNotification notification) {
-        if(Env.getApplication().isDebugMode()) {
-            Console.comment("=> Broadcast " + notification.getType() + " received from " + notification.getUser().getPseudo()) ;
-        }
+        Console.comment("=> Broadcast " + notification.getType() + " received from " + notification.getUser().getPseudo()) ;
     }
 
 }

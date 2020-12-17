@@ -14,9 +14,7 @@ public class AcceptedConnection {
      * Run the listener.
      */
     public void accepted(User user) {
-        if(Env.getApplication().isDebugMode()) {
-            Console.comment("=> Accepted user : " + user.getPseudo()) ;
-        }
+        Console.comment("=> Accepted user : " + user.getPseudo()) ;
 
         Env.userController().addUser(user) ;
 

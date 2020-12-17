@@ -3,7 +3,6 @@ package Messenger.Network.Tasks.Listeners.Meetings;
 import java.net.Socket;
 import java.io.IOException;
 import Messenger.Foundation.System.Env;
-import Messenger.Network.NetworkInterface;
 import Messenger.Network.Models.MeetingPacket;
 import Messenger.Foundation.System.Console.Console;
 //import Messenger.Foundation.Controllers.UserController;
@@ -50,25 +49,23 @@ public class MeetingListener extends ServerListener<MeetingPacket> {
          */
         // TODO : check the current-user status.
         //if(controller.hasUser(packet.getSourceUser())) {
-            /*
-             * I already know the user. So I refuse another
-             * connection. We can use the current one !
-             */
-           // packet.setState(MeetingPacket.State.DENIED) ;
+        /*
+         * I already know the user. So I refuse another
+         * connection. We can use the current one !
+         */
+        // packet.setState(MeetingPacket.State.DENIED) ;
         //}
         /*
          * Else, the packet is valid. We can
          * accept it.
          */
         //else {
-            packet.setState(MeetingPacket.State.ACCEPTED) ;
-            // TODO : make a handler instead.
-            new AcceptedConnection().accepted(packet.getSourceUser()) ;
-       // }
+        packet.setState(MeetingPacket.State.ACCEPTED) ;
+        // TODO : make a handler instead.
+        new AcceptedConnection().accepted(packet.getSourceUser()) ;
+        // }
 
-        if(Env.getApplication().isDebugMode()) {
-            Console.comment("=> New state : " + packet.getState()) ;
-        }
+        Console.comment("=> New state : " + packet.getState()) ;
 
         packet.reverse() ;
 

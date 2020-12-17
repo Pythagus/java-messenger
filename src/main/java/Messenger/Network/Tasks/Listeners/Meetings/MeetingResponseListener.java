@@ -1,7 +1,6 @@
 package Messenger.Network.Tasks.Listeners.Meetings;
 
 import java.net.Socket;
-import Messenger.Foundation.System.Env;
 import Messenger.Network.Models.MeetingPacket;
 import Messenger.Foundation.System.Console.Console;
 import Messenger.Network.Models.Datagram.InputSocketStream;
@@ -92,9 +91,7 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
      * @param packet : accepted packet instance.
      */
     private void manageAcceptedPacket(MeetingPacket packet) {
-        if(Env.getApplication().isDebugMode()) {
-            Console.comment("=> Meeting response packet accepted from " + packet.getSourceAddress()) ;
-        }
+        Console.comment("=> Meeting response packet accepted from " + packet.getSourceAddress()) ;
 
         if(this.callbackOnAccepted != null) {
             this.callbackOnAccepted.accepted(packet.getSourceUser()) ;
@@ -107,9 +104,7 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
      * @param packet : denied packet instance.
      */
     private void manageDeniedPacket(MeetingPacket packet) {
-        if(Env.getApplication().isDebugMode()) {
-            Console.comment("=> Denied packet from " + packet.getSourceAddress()) ;
-        }
+        Console.comment("=> Denied packet from " + packet.getSourceAddress()) ;
 
         if(this.callbackOnDenied != null) {
             this.callbackOnDenied.denied() ;
