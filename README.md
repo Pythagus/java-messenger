@@ -7,6 +7,24 @@ folder.
 This project uses Maven framework to manage dependencies. Please check the [Maven installation guide](https://maven.apache.org/install.html)
 to correctly install the project.
 
+### Project
+A `Makefile` script is available avoiding you to manually do some part of the following installation
+guide.
+
+#### Makefile
+The `Makefile` provides some useful commands:
+- `make install` to copy the `.properties` file.
+- `make jar` to make a JAR file named `messenger.jar`. You can change the name adding the option `toto=JAR-NAME.jar`
+
+##### Configuration file
+You will find a config file `src/main/.properties.example` which is an example of the project configurations. You
+need to copy this file in a `.properties` file used by the application with the Unix command:
+```bash
+$ cp src/main/.properties.example src/main/.properties
+```
+
+**Note :** please refer to the Database section to correctly specify the database credentials.
+
 ### Database
 This part describes the mandatory steps to make the database working.
 
@@ -38,13 +56,10 @@ supporting *MySQL* connection at port 3306.
 ## To do list
 
 ### Required
-- Add contact list screen
-- Database support from the outside
 - Change pseudo during a session
 - Send file support
 - Generate executable
 - Stop conversation button
-- Revise frame graphics
 - Manage unreachable host
 
 - presence Service (server on the internet) : hold valid users accounts and manage their status. With java servlet and tomcat server. 

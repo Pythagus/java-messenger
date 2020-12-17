@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import Messenger.Utils.ColorUtils;
 import java.awt.event.ActionListener;
+import Messenger.Foundation.System.Env;
 import Messenger.GUI.Factories.FontFactory;
 import Messenger.GUI.Listeners.SentPseudoListener;
 import Messenger.Foundation.System.Assets.ImageAsset;
@@ -41,7 +42,7 @@ public class LoginFrame extends Frame implements ActionListener, Observable {
      * Make a new LoginFrame instance.
      */
     public LoginFrame() {
-        super("Connexion - Messenger") ;
+        super("Connexion") ;
 
         this.setContentPane(new LoginFrameContent()) ;
         this.setResizable(false) ;
@@ -58,7 +59,7 @@ public class LoginFrame extends Frame implements ActionListener, Observable {
      */
     private void initializeGraphics() {
         // Title label.
-        JLabel title = new JLabel("Messenger", SwingConstants.CENTER) ;
+        JLabel title = new JLabel(Env.getApplication().getName(), SwingConstants.CENTER) ;
         title.setFont(FontFactory.bold("Arial", 20)) ;
         this.addComponent(title, 40, 30) ;
 

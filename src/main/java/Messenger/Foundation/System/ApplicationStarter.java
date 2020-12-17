@@ -3,9 +3,6 @@ package Messenger.Foundation.System;
 import Messenger.Foundation.Application;
 import Messenger.Foundation.Models.User;
 import Messenger.Network.NetworkInterface;
-import Messenger.Foundation.Controllers.UserController;
-import Messenger.Foundation.Controllers.ConversationController;
-import Messenger.Foundation.Observers.Listeners.UserListUpdated;
 
 /**
  * @author Damien MOLINA
@@ -71,9 +68,6 @@ public class ApplicationStarter {
         // Set the current user.
         Env.setUser(new User()) ;
 
-        // Start the controllers.
-        this.startControllers() ;
-
         /*
          * Start the graphics only whether
          * the application need them.
@@ -91,24 +85,11 @@ public class ApplicationStarter {
      */
     public void startNetwork() {
         try {
-            Env.setNetworkInterface(new NetworkInterface()) ;
-            Env.getNetworkInterface().start() ;
+            NetworkInterface.setInstance(new NetworkInterface()) ;
+            NetworkInterface.instance().start() ;
         } catch (Exception exception) {
-            exception.printStackTrace();
+            exception.printStackTrace() ;
         }
-    }
-
-    /**
-     * Start the controllers.
-     */
-    public void startControllers() {
-        // User controller.
-        UserController userController = new UserController() ;
-        userController.addListener(new UserListUpdated()) ;
-        Env.addController(userController) ;
-
-        // Conversation controller.
-        Env.addController(new ConversationController()) ;
     }
 
 }

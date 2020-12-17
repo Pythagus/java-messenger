@@ -2,7 +2,6 @@ package Messenger.Network;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
-import Messenger.Foundation.System.Env;
 import Messenger.Network.Tasks.Envoyers.Envoyer;
 import Messenger.Network.Models.Broadcast.BroadcastType;
 import Messenger.Network.Tasks.Listeners.ReceiveListener;
@@ -13,7 +12,12 @@ import Messenger.Network.Tasks.Listeners.Meetings.MeetingListener;
 /**
  * @author Damien MOLINA
  */
-public class NetworkInterface extends Thread {
+final public class NetworkInterface extends Thread {
+
+    /**
+     * Singleton instance.
+     */
+    private static NetworkInterface INSTANCE;
 
     /**
      * Starting application port.
@@ -91,6 +95,24 @@ public class NetworkInterface extends Thread {
     }
 
     /**
+     * Get the NetworkInterface singleton instance.
+     *
+     * @return the singleton instance.
+     */
+    public static NetworkInterface instance() {
+        return NetworkInterface.INSTANCE ;
+    }
+
+    /**
+     * Set the NetworkInterface singleton.
+     *
+     * @param instance : singleton instance.
+     */
+    public static void setInstance(NetworkInterface instance) {
+        NetworkInterface.INSTANCE = instance ;
+    }
+
+    /**
      * Get the Envoyer instance.
      *
      * @return the Envoyer instance.
@@ -113,7 +135,7 @@ public class NetworkInterface extends Thread {
          * how is currently logged into the
          * application.
          */
-        Env.getNetworkInterface().getEnvoyer().broadcast(
+        this.envoyer.broadcast(
             new BroadcastNotification(BroadcastType.EVERYONE_INFO)
         ) ;
     }

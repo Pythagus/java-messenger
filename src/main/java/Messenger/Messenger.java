@@ -25,20 +25,10 @@ public class Messenger extends Application {
     private static final String VERSION = "1.0.0" ;
 
     /**
-     * The application name.
-     */
-    private static final String NAME = "Java Messenger" ;
-
-    /**
-     * Env application mode.
-     */
-    private static final ApplicationMode mode = ApplicationMode.DEBUG ;
-
-    /**
      * Make a new instance of Messenger.
      */
     public Messenger() {
-        super(Messenger.mode) ;
+        super() ;
     }
 
     /**
@@ -49,15 +39,6 @@ public class Messenger extends Application {
      */
     public String getVersion() {
         return Messenger.VERSION ;
-    }
-
-    /**
-     * Get the current application's name.
-     *
-     * @return the application name.
-     */
-    public String getName() {
-        return Messenger.NAME ;
     }
 
 }

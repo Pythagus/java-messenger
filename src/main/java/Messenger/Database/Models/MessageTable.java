@@ -3,7 +3,6 @@ package Messenger.Database.Models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Messenger.Utils.DateUtils;
-import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
 import Messenger.Database.Queries.DatabaseResult;
 import Messenger.Foundation.Models.Messages.Message;
@@ -97,8 +96,6 @@ public class MessageTable extends DatabaseModel {
      * @throws Exception : not found user.
      */
     public static Message toMessage(ResultSet result) throws Exception {
-        UserController controller = Env.userController() ;
-
         Type type    = Type.valueOf(result.getString("type")) ;
         String value = result.getString("content") ;
         String text  = type.equals(Type.MESSAGE) ? value : null ;
@@ -108,7 +105,7 @@ public class MessageTable extends DatabaseModel {
         String receiver = result.getString("user_receiver") ;
 
         return new Message(
-            controller.getFromIdentifier(sender), controller.getFromIdentifier(receiver),
+            UserController.instance().getFromIdentifier(sender), UserController.instance().getFromIdentifier(receiver),
             new MessageData(text, file), DateUtils.timestamp(result.getString("sent_at"))
         ) ;
     }

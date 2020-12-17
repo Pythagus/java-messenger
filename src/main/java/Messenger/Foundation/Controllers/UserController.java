@@ -2,6 +2,8 @@ package Messenger.Foundation.Controllers;
 
 import java.util.regex.*;
 import java.util.ArrayList;
+
+import Messenger.Foundation.Observers.Listeners.UserListUpdated;
 import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
 import Messenger.Foundation.Exceptions.AppException;
@@ -32,7 +34,11 @@ public class UserController extends Controller {
     /**
      * Make a new instance of the User controller.
      */
-    public UserController() { this.users = new ArrayList<>() ; }
+    public UserController() {
+        this.users = new ArrayList<>() ;
+
+        this.addListener(new UserListUpdated()) ;
+    }
 
     /**
      * Get the UserController singleton instance.

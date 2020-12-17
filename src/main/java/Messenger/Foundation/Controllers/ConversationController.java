@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.sql.SQLException;
 import Messenger.Foundation.System.Env;
 import Messenger.Foundation.Models.User;
+import Messenger.Network.NetworkInterface;
 import Messenger.Database.Models.MessageTable;
 import Messenger.Foundation.Models.Conversation;
 import Messenger.Network.Utils.BroadcastSplitter;
@@ -70,7 +71,12 @@ public class ConversationController extends Controller {
      * @param user : targeted user.
      */
     public void addConversation(User user) {
-        ConversationController.conversations.add(new Conversation(user)) ;
+        Conversation conversation = new Conversation(user) ;
+
+        // Get the conversation historic.
+        conversation.addMessages(this.getHistoric(user)) ;
+
+        ConversationController.conversations.add(conversation) ;
     }
 
     /**
@@ -79,7 +85,7 @@ public class ConversationController extends Controller {
      * @param user : user with whom the conversation is held.
      */
     public void start(User user) {
-        Env.getNetworkInterface().getEnvoyer().sendRequestMeeting(user) ;
+        NetworkInterface.instance().getEnvoyer().sendRequestMeeting(user) ;
     }
 
     /**
@@ -101,7 +107,7 @@ public class ConversationController extends Controller {
      *
      * @param user : user with whom the conversation is held.
      */
-    public Message[] getHistoric(User user) {
+    private Message[] getHistoric(User user) {
         ArrayList<Message> messages = new ArrayList<>() ;
 
         try {
@@ -129,7 +135,7 @@ public class ConversationController extends Controller {
      * @param message : content of the message.
      */
     public void send(Message message) {
-        Env.getNetworkInterface().getEnvoyer().sendMessage(message) ;
+        NetworkInterface.instance().getEnvoyer().sendMessage(message) ;
 
         try {
             new MessageTable().insert(message) ;

@@ -1,6 +1,4 @@
-package Messenger.Foundation.Contracts;
-
-import Messenger.Foundation.Application;
+package Messenger.Foundation;
 
 /**
  * @author Damien MOLINA

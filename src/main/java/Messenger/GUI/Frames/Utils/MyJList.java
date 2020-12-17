@@ -26,6 +26,15 @@ abstract public class MyJList<T extends MyJListItem> extends JList<T> {
     }
 
     /**
+     * Get the list model.
+     *
+     * @return the model instance.
+     */
+    public DefaultListModel<T> getModel() {
+        return this.model ;
+    }
+
+    /**
      * Add the given item to the list.
      *
      * @param item : item to add.
@@ -36,23 +45,14 @@ abstract public class MyJList<T extends MyJListItem> extends JList<T> {
 
     /**
      * Remove the given item from the list.
-     *
-     * @param item : item to remove.
-     */
-    public void removeItem(T item) {
-        this.model.removeElement(item) ;
-    }
-
-    /**
-     * Remove the given item from the list.
      */
     public void removeItemAt(int rank) {
-        this.model.removeElement(rank) ;
+        this.model.removeElementAt(rank) ;
     }
 
     /**
      * Determine whether the given event
-     * should be managed.
+     * should be managed
      *
      * @param e : incoming event.
      * @return True or False

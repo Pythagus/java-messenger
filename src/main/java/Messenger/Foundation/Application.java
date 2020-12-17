@@ -8,7 +8,6 @@ import Messenger.GUI.Frames.LoginFrame;
 import Messenger.Foundation.System.Config;
 import Messenger.Foundation.System.Console.Console;
 import Messenger.Foundation.System.ApplicationStarter;
-import Messenger.Foundation.Contracts.ApplicationContract;
 
 /**
  * @author Damien MOLINA
@@ -28,16 +27,24 @@ abstract public class Application implements ApplicationContract {
     protected final ApplicationMode mode ;
 
     /**
+     * Application name.
+     */
+    private final String name ;
+
+    /**
      * Make a new instance of the application.
      */
-    public Application(ApplicationMode mode) {
-        this.mode = mode ;
+    public Application() {
+        this.name = Config.get("APP_NAME") ;
+        this.mode = Boolean.parseBoolean(
+            Config.get("APP_DEBUG", "0")
+        ) ? ApplicationMode.DEBUG : ApplicationMode.PRODUCTION ;
+
+        Env.setApplication(this) ;
 
         if(this.isDebugMode()) {
             this.printConsoleIntro() ;
         }
-
-        Env.setApplication(this) ;
     }
 
     /**
@@ -61,6 +68,15 @@ abstract public class Application implements ApplicationContract {
     }
 
     /**
+     * Get the current application's name.
+     *
+     * @return the application name.
+     */
+    public String getName() {
+        return this.name ;
+    }
+
+    /**
      * Determine whether the application is in
      * debug mode.
      *
@@ -76,9 +92,6 @@ abstract public class Application implements ApplicationContract {
     public void load() {
         // Set the default local value.
         Locale.setDefault(Locale.FRANCE) ;
-
-        // Load the configuration values.
-        Config.load() ;
 
         // Load the database.
         DB.load() ;

@@ -2,6 +2,7 @@ package Messenger.GUI.Frames;
 
 import java.awt.*;
 import javax.swing.*;
+import Messenger.Foundation.System.Env;
 import Messenger.Foundation.System.Assets.ImageAsset;
 
 /**
@@ -15,7 +16,7 @@ abstract public class Frame extends JFrame {
      * @param title : frame title.
      */
     public Frame(String title) {
-        this.setTitle(title) ;
+        this.setTitle(title + " - " + Env.getApplication().getName()) ;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ;
         this.setIconImage(ImageAsset.logoAsImageIcon().getImage()) ;
     }

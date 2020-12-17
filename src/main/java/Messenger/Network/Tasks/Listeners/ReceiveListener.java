@@ -3,10 +3,10 @@ package Messenger.Network.Tasks.Listeners;
 import java.net.Socket;
 import java.io.IOException;
 import Messenger.GUI.GraphicInterface;
-import Messenger.Foundation.System.Env;
 import Messenger.Network.Models.MessagePacket;
 import Messenger.Foundation.Models.Conversation;
 import Messenger.GUI.Frames.Screens.DiscussionScreen;
+import Messenger.Foundation.Controllers.UserController;
 import Messenger.Network.Tasks.Listeners.Concerns.ServerListener;
 
 /**
@@ -32,7 +32,7 @@ public class ReceiveListener extends ServerListener<MessagePacket> {
      * False otherwise.
      */
     protected boolean shouldManagePacket(MessagePacket packet) {
-        return Env.userController().hasUser(packet.getSourceUser()) ;
+        return UserController.instance().hasUser(packet.getSourceUser()) ;
     }
 
     /**

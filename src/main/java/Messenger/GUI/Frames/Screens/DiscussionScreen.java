@@ -1,15 +1,19 @@
 package Messenger.GUI.Frames.Screens;
 
 import java.awt.*;
+import java.io.File;
 import javax.swing.*;
 import Messenger.Utils.ColorUtils;
+import Messenger.Foundation.Models.User;
 import Messenger.GUI.Factories.FontFactory;
 import Messenger.GUI.Factories.ButtonFactory;
 import Messenger.GUI.Frames.Utils.GridBagUtil;
 import Messenger.Foundation.Models.Conversation;
 import Messenger.GUI.Listeners.SentMessageListener;
+import Messenger.Foundation.Models.Messages.Message;
 import Messenger.Foundation.System.Assets.ImageAsset;
 import Messenger.GUI.Frames.Screens.Utils.ContentType;
+import Messenger.Foundation.Models.Messages.MessageData;
 import Messenger.GUI.Frames.Screens.Utils.ContentScreen;
 import Messenger.GUI.Frames.Screens.Discussions.MessageList;
 import Messenger.GUI.Frames.Screens.Discussions.DiscussionInput;
@@ -140,7 +144,18 @@ public class DiscussionScreen extends ContentScreen {
      * Choose a file in the user directory.
      */
     private void chooseFile() {
-        System.out.println("FILE") ;
+        JFileChooser chooser = new JFileChooser() ;
+
+        /*
+         * Check whether the user chose
+         * a file in his system.
+         */
+        if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile() ;
+
+            // TODO : send file.
+            System.out.println("Chosen file : " + file.getName()) ;
+        }
     }
 
     /**
@@ -162,6 +177,17 @@ public class DiscussionScreen extends ContentScreen {
 
         if (conversation != null) {
             this.title.setText(conversation.getTitle()) ;
+            this.list.getModel().removeAllElements() ;
+
+            // Add all the messages into the screen.
+            conversation.getMessages().forEach(DiscussionScreen.this.list::addItem) ;
+            try {
+                this.list.addItem(new Message(
+                    new User("tata", "00", "localhost"), new MessageData("tata", null)
+                ));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

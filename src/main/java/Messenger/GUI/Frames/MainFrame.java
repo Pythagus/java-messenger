@@ -42,7 +42,7 @@ public class MainFrame extends Frame {
      * Make a new MainFrame instance.
      */
     public MainFrame() {
-        super("The Java Internal Network - Messenger") ;
+        super("The Java Internal Network") ;
 
         this.barContainer     = new JPanel() ;
         this.contentContainer = new JPanel() ;

@@ -2,7 +2,7 @@ package Messenger.Network.Tasks.Listeners.Meetings;
 
 import java.net.Socket;
 import java.io.IOException;
-import Messenger.Foundation.System.Env;
+import Messenger.Network.NetworkInterface;
 import Messenger.Network.Models.MeetingPacket;
 import Messenger.Foundation.System.Console.Console;
 //import Messenger.Foundation.Controllers.UserController;
@@ -70,7 +70,7 @@ public class MeetingListener extends ServerListener<MeetingPacket> {
         packet.reverse() ;
 
         try {
-            Env.getNetworkInterface().getEnvoyer().send(socket, packet, true) ;
+            NetworkInterface.instance().getEnvoyer().send(socket, packet, true) ;
         } catch (Exception e) {
             e.printStackTrace() ;
         }
