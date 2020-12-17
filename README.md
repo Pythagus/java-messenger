@@ -8,6 +8,13 @@ This project uses Maven framework to manage dependencies. Please check the [Mave
 to correctly install the project.
 
 ### Project
+A `Makefile` script is available avoiding you to manually do some part of the following installation
+guide.
+
+#### Makefile
+The `Makefile` provides some useful commands:
+- `make install` to copy the `.properties` file.
+- `make jar` to make a JAR file named `messenger.jar`. You can change the name adding the option `toto=JAR-NAME.jar`
 
 ##### Configuration file
 You will find a config file `src/main/.properties.example` which is an example of the project configurations. You

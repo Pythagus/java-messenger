@@ -4,3 +4,4 @@ target
 Messenger.iml
 java-messenger.iml
 .properties
+*.jar
