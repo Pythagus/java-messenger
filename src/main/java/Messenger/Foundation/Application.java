@@ -30,14 +30,16 @@ abstract public class Application implements ApplicationContract {
     /**
      * Make a new instance of the application.
      */
-    public Application(ApplicationMode mode) {
-        this.mode = mode ;
+    public Application() {
+        this.mode = Boolean.parseBoolean(
+            Config.get("APP_DEBUG", "0")
+        ) ? ApplicationMode.DEBUG : ApplicationMode.PRODUCTION ;
+
+        Env.setApplication(this) ;
 
         if(this.isDebugMode()) {
             this.printConsoleIntro() ;
         }
-
-        Env.setApplication(this) ;
     }
 
     /**
@@ -76,9 +78,6 @@ abstract public class Application implements ApplicationContract {
     public void load() {
         // Set the default local value.
         Locale.setDefault(Locale.FRANCE) ;
-
-        // Load the configuration values.
-        Config.load() ;
 
         // Load the database.
         DB.load() ;

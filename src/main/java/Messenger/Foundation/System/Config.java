@@ -42,7 +42,7 @@ public class Config {
      */
     public static String get(String key, String defaultValue) {
         if(Config.configs == null) {
-            return defaultValue ;
+            Config.load() ;
         }
 
         String value = Config.configs.getProperty(key) ;
