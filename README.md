@@ -56,13 +56,10 @@ supporting *MySQL* connection at port 3306.
 ## To do list
 
 ### Required
-- Add contact list screen
-- Database support from the outside
 - Change pseudo during a session
 - Send file support
 - Generate executable
 - Stop conversation button
-- Revise frame graphics
 - Manage unreachable host
 
 - presence Service (server on the internet) : hold valid users accounts and manage their status. With java servlet and tomcat server. 
