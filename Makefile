@@ -1,9 +1,12 @@
 name?="messenger.jar"
 
 install:
-	@cp src/main/.properties.example src/main/.properties
+	@cp .properties.example .properties
 	@echo "\e[32m=> Installation completed!\e[39m"
 
 jar:
-	@jar cfe ${name} src/main/java/Messenger/Messenger target/classes/Messenger/Messenger.class
+	@jar -cvfm tata.jar src/main/resources/META-INF/MANIFEST.MF target/classes/fr/insa/messenger/Launcher.class
 	@echo "\e[32m=> JAR file successfully generated!\e[39m"
+
+run:
+	// Run the jar.

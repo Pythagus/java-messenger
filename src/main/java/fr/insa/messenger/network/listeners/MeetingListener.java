@@ -3,10 +3,9 @@ package fr.insa.messenger.network.listeners;
 import java.net.Socket;
 import java.io.IOException;
 import fr.insa.messenger.system.console.Console;
-//import Application.Controllers.UserController;
 import fr.insa.messenger.network.NetworkInterface;
 import fr.insa.messenger.network.models.MeetingPacket;
-import fr.insa.messenger.network.listeners.handlers.AcceptedConnection;
+import fr.insa.messenger.network.listeners.handlers.AcceptedHandler;
 
 /**
  * @author Damien MOLINA
@@ -61,7 +60,7 @@ public class MeetingListener extends ServerListener<MeetingPacket> {
         //else {
         packet.setState(MeetingPacket.State.ACCEPTED) ;
         // TODO : make a handler instead.
-        new AcceptedConnection().accepted(packet.getSourceUser()) ;
+        new AcceptedHandler().handle(packet.getSourceUser()) ;
         // }
 
         Console.comment("=> New state : " + packet.getState()) ;

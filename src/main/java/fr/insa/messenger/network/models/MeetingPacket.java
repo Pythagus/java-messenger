@@ -34,6 +34,12 @@ public class MeetingPacket extends UserPacket<Object> implements Serializable {
          * The request was denied.
          */
         DENIED,
+
+        /**
+         * The sender wants to close
+         * the conversation.
+         */
+        LEAVE,
     }
 
     /**
@@ -78,6 +84,16 @@ public class MeetingPacket extends UserPacket<Object> implements Serializable {
      */
     public void setState(State state) {
         this.state = state ;
+    }
+
+    /**
+     * Determine whether the packet
+     * is waiting for response.
+     *
+     * @return True if It is, False otherwise.
+     */
+    public boolean isWaitingForResponse() {
+        return ! this.state.equals(State.LEAVE) ;
     }
 
     /**

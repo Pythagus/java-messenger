@@ -38,7 +38,7 @@ public class MessageEnvoyer extends BaseEnvoyer {
         ) ;
         packet.setData(this.message) ;
 
-        this.sendPacket(packet, this.user, NetworkInterface.RECEIVING_PORT) ;
+        this.sendPacket(packet, NetworkInterface.RECEIVING_PORT) ;
     }
 
 }

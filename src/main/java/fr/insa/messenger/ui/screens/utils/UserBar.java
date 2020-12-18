@@ -9,7 +9,7 @@ import fr.insa.messenger.ui.factories.FontFactory;
 /**
  * @author Damien MOLINA
  */
-abstract public class UserBar extends CardPanel {
+abstract public class UserBar<T extends UserList> extends CardPanel {
 
     /**
      * Bar color.
@@ -24,7 +24,7 @@ abstract public class UserBar extends CardPanel {
     /**
      * Bar list instance.
      */
-    protected final UserList list ;
+    protected final T list ;
 
     /**
      * Make a contact bar instance.
@@ -34,7 +34,7 @@ abstract public class UserBar extends CardPanel {
      * @param list : JList instance.
      * @param title : bar instance.
      */
-    public UserBar(BarType type, MainFrame frame, UserList list, String title) {
+    public UserBar(BarType type, MainFrame frame, T list, String title) {
         super(type.toString()) ;
 
         this.frame = frame ;
@@ -57,7 +57,7 @@ abstract public class UserBar extends CardPanel {
      *
      * @return the bar list instance.
      */
-    public UserList getList() {
+    public T getList() {
         return this.list ;
     }
 

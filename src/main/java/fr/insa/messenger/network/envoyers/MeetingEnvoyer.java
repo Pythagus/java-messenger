@@ -3,14 +3,15 @@ package fr.insa.messenger.network.envoyers;
 import java.net.Socket;
 import java.io.IOException;
 import java.net.ConnectException;
+import fr.insa.messenger.system.Env;
 import fr.insa.messenger.models.User;
 import java.net.NoRouteToHostException;
 import fr.insa.messenger.network.Envoyer;
 import fr.insa.messenger.network.NetworkInterface;
 import fr.insa.messenger.network.models.MeetingPacket;
 import fr.insa.messenger.network.listeners.MeetingResponseListener;
-import fr.insa.messenger.network.listeners.handlers.DeniedConnection;
-import fr.insa.messenger.network.listeners.handlers.AcceptedConnection;
+import fr.insa.messenger.network.listeners.handlers.DeniedHandler;
+import fr.insa.messenger.network.listeners.handlers.AcceptedHandler;
 
 /**
  * @author Damien MOLINA
@@ -27,20 +28,21 @@ public class MeetingEnvoyer extends BaseEnvoyer {
      *
      * @param envoyer : envoyer instance.
      * @param user : user to connect with.
+     * @param state : packet state.
      */
-    public MeetingEnvoyer(Envoyer envoyer, User user) {
+    public MeetingEnvoyer(Envoyer envoyer, User user, MeetingPacket.State state) {
         super(envoyer, user) ;
 
         // Make the meeting packet.
-        this.packet = new MeetingPacket(new User(), user) ;
-        this.packet.setState(MeetingPacket.State.REQUEST) ;
+        this.packet = new MeetingPacket(Env.getUser(), user) ;
+        this.packet.setState(state) ;
     }
 
     /**
      * Make the sending.
      */
     protected void send() throws IOException {
-        DeniedConnection deniedCallback = new DeniedConnection() ;
+        DeniedHandler deniedCallback = new DeniedHandler() ;
 
         try {
             // Make the socket.
@@ -52,12 +54,14 @@ public class MeetingEnvoyer extends BaseEnvoyer {
                 socket, this.packet, false
             ) ;
 
-            // Start the listener at the given port.
-            MeetingResponseListener listener = new MeetingResponseListener(socket) ;
-            listener.setCallbacks(
-                new AcceptedConnection(), deniedCallback
-            ) ;
-            listener.start() ;
+            if(this.packet.isWaitingForResponse()) {
+                // Start the listener at the given port.
+                MeetingResponseListener listener = new MeetingResponseListener(socket) ;
+                listener.setCallbacks(
+                    new AcceptedHandler(), deniedCallback
+                ) ;
+                listener.start() ;
+            }
         }
 
         /*

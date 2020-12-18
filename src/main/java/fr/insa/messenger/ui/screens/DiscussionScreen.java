@@ -3,18 +3,16 @@ package fr.insa.messenger.ui.screens;
 import java.awt.*;
 import java.io.File;
 import javax.swing.*;
-import fr.insa.messenger.models.User;
 import fr.insa.messenger.utils.ColorUtils;
 import fr.insa.messenger.models.Conversation;
 import fr.insa.messenger.ui.utils.GridBagUtil;
-import fr.insa.messenger.models.messages.Message;
 import fr.insa.messenger.system.assets.ImageAsset;
 import fr.insa.messenger.ui.factories.FontFactory;
 import fr.insa.messenger.ui.factories.ButtonFactory;
-import fr.insa.messenger.models.messages.MessageData;
 import fr.insa.messenger.ui.screens.utils.ContentType;
 import fr.insa.messenger.observers.SentMessageListener;
 import fr.insa.messenger.ui.screens.utils.ContentScreen;
+import fr.insa.messenger.controllers.ConversationController;
 import fr.insa.messenger.ui.screens.discussions.MessageList;
 import fr.insa.messenger.ui.screens.discussions.DiscussionInput;
 
@@ -82,11 +80,20 @@ public class DiscussionScreen extends ContentScreen {
         this.title.setFont(FontFactory.bold("Arial", 18)) ;
         this.title.setBorder(
             BorderFactory.createEmptyBorder(10, 0, 0, 0)
-        );
+        ) ;
+
+        // Quit conversation button.
+        JButton quitButton = ButtonFactory.withoutBorder("Quitter") ;
+        quitButton.setBackground(new Color(199, 0, 57)) ;
+        quitButton.setOpaque(true) ;
+        quitButton.setForeground(Color.WHITE) ;
+        quitButton.addActionListener(Unused -> this.quitConversation()) ;
 
         // Discussion header.
         JPanel header = this.preparePanel(20) ;
-        header.add(this.title) ;
+        header.setLayout(new BorderLayout()) ;
+        header.add(this.title, BorderLayout.LINE_START) ;
+        header.add(quitButton, BorderLayout.LINE_END) ;
 
         // Discussion footer.
         JPanel footer = this.preparePanel(0) ;
@@ -141,6 +148,17 @@ public class DiscussionScreen extends ContentScreen {
     }
 
     /**
+     * Quit the conversation.
+     */
+    private void quitConversation() {
+        if(this.conversation != null) {
+            ConversationController.instance().stop(
+                this.conversation.getTarget()
+            ) ;
+        }
+    }
+
+    /**
      * Choose a file in the user directory.
      */
     private void chooseFile() {
@@ -174,20 +192,15 @@ public class DiscussionScreen extends ContentScreen {
      */
     public void setConversation(Conversation conversation) {
         this.conversation = conversation ;
+        this.list.getModel().removeAllElements() ;
 
         if (conversation != null) {
             this.title.setText(conversation.getTitle()) ;
-            this.list.getModel().removeAllElements() ;
 
             // Add all the messages into the screen.
             conversation.getMessages().forEach(DiscussionScreen.this.list::addItem) ;
-            try {
-                this.list.addItem(new Message(
-                    new User("tata", "00", "localhost"), new MessageData("tata", null)
-                ));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } else {
+            this.title.setText(null) ;
         }
     }
 

@@ -7,7 +7,7 @@ import fr.insa.messenger.ui.screens.utils.UserBar;
 /**
  * @author Damien MOLINA
  */
-public class ContactBar extends UserBar {
+public class ContactBar extends UserBar<ContactList> {
 
     /**
      * Make a contact bar instance.

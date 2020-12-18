@@ -3,7 +3,7 @@ package fr.insa.messenger.network.envoyers;
 import java.net.Socket;
 import fr.insa.messenger.models.User;
 import fr.insa.messenger.network.Envoyer;
-import fr.insa.messenger.network.models.basis.DataPacket;
+import fr.insa.messenger.network.models.basis.Packet;
 import fr.insa.messenger.network.streams.OutputSocketStream;
 
 /**
@@ -61,18 +61,17 @@ abstract public class BaseEnvoyer extends Thread {
      * Send the given packet.
      *
      * @param packet : packet
-     * @param user : targeted user.
      * @param port : destination port.
      */
-    protected void sendPacket(DataPacket<?> packet, User user, int port) {
+    protected void sendPacket(Packet<?> packet, int port) {
         try {
-            Socket socket = new Socket(user.getAddress(), port) ;
+            Socket socket = new Socket(
+                packet.getDestinationAddress(), port
+            ) ;
 
-            OutputSocketStream exchanger = new OutputSocketStream(socket) ;
-            exchanger.send(packet) ;
-
-            exchanger.close() ;
-            socket.close() ;
+            this.envoyer.send(
+                socket, packet, true
+            ) ;
         } catch (Exception exception) {
             exception.printStackTrace();
         }

@@ -12,16 +12,16 @@ import fr.insa.messenger.controllers.ConversationController;
 /**
  * @author Damien MOLINA
  */
-public class AcceptedConnection {
+public class AcceptedHandler {
 
     /**
      * Run the listener.
      */
-    public void accepted(User user) {
+    public void handle(User user) {
         Console.comment("=> Accepted user : " + user.getPseudo()) ;
 
         ContactBar bar = GraphicInterface.instance().contactBar() ;
-        ContactList list = (ContactList) bar.getList() ;
+        ContactList list = bar.getList() ;
 
         // Update graphics.
         list.getFrame().showBar(BarType.DISCUSSION) ;

@@ -23,11 +23,6 @@ import fr.insa.messenger.ui.screens.discussions.DiscussionBar;
 public class MainFrame extends Frame {
 
     /**
-     * Main frame background color.
-     */
-    public static final Color backgroundColor = new Color(230, 230, 230) ;
-
-    /**
      * Card layout for the bars.
      */
     private final JPanel barContainer ;
@@ -126,8 +121,8 @@ public class MainFrame extends Frame {
      * @param type : bar type.
      * @return the bar instance.
      */
-    public UserBar getBar(BarType type) {
-        return (UserBar) this.getCardItem(this.barContainer, type.toString()) ;
+    public UserBar<?> getBar(BarType type) {
+        return (UserBar<?>) this.getCardItem(this.barContainer, type.toString()) ;
     }
 
     /**

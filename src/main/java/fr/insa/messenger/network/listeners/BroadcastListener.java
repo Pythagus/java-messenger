@@ -2,6 +2,8 @@ package fr.insa.messenger.network.listeners;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+
+import fr.insa.messenger.network.listeners.handlers.LogoutHandler;
 import fr.insa.messenger.system.Env;
 import fr.insa.messenger.system.console.Console;
 import fr.insa.messenger.network.NetworkInterface;
@@ -102,7 +104,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
         this.printReceivedNotification(notification) ;
 
         // Remove the sending user from the users list.
-        UserController.instance().removeUser(notification.getUser()) ;
+        new LogoutHandler().handle(notification.getUser()) ;
     }
 
     /**

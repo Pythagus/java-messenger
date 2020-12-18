@@ -1,5 +1,6 @@
 package fr.insa.messenger.observers;
 
+import fr.insa.messenger.controllers.ConversationController;
 import fr.insa.messenger.models.User;
 import fr.insa.messenger.ui.GraphicInterface;
 import java.util.concurrent.ConcurrentHashMap;
@@ -48,7 +49,10 @@ public class UserListListener extends BaseListener {
             UserListListener.users.forEach((User user, UpdateState state) -> {
                 switch(state) {
                     case ADDED: bar.addItem(user) ; break ;
-                    case REMOVED: bar.removeItem(user) ; break ;
+                    case REMOVED:
+                        ConversationController.instance().stop(user) ;
+                        bar.removeItem(user) ;
+                        break ;
                 }
 
                 UserListListener.users.remove(user) ;

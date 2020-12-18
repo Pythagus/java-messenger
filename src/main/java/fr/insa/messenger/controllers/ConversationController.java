@@ -3,13 +3,16 @@ package fr.insa.messenger.controllers;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.function.Predicate;
 import fr.insa.messenger.system.Env;
 import fr.insa.messenger.models.User;
 import fr.insa.messenger.models.Conversation;
 import fr.insa.messenger.models.messages.Message;
 import fr.insa.messenger.network.NetworkInterface;
+import fr.insa.messenger.network.models.MeetingPacket;
 import fr.insa.messenger.database.tables.MessageTable;
 import fr.insa.messenger.network.utils.BroadcastSplitter;
+import fr.insa.messenger.network.listeners.handlers.QuitHandler;
 
 /**
  * Handle the multiple discussions created.
@@ -45,13 +48,10 @@ public class ConversationController extends Controller {
      * @return the conversation instance, null otherwise.
      */
     public Conversation getConversation(User user) {
-        for(Conversation conversation : ConversationController.conversations) {
-            if(conversation.getTarget().equals(user)) {
-                return conversation ;
-            }
-        }
-
-        return null ;
+        return ConversationController.conversations.stream()
+            .filter(this.conversationPredicate(user))
+            .findFirst()
+            .orElse(null) ;
     }
 
     /**
@@ -72,8 +72,6 @@ public class ConversationController extends Controller {
      */
     public void addConversation(User user) {
         Conversation conversation = new Conversation(user) ;
-
-        // Get the conversation historic.
         conversation.addMessages(this.getHistoric(user)) ;
 
         ConversationController.conversations.add(conversation) ;
@@ -85,7 +83,10 @@ public class ConversationController extends Controller {
      * @param user : user with whom the conversation is held.
      */
     public void start(User user) {
-        NetworkInterface.instance().getEnvoyer().sendRequestMeeting(user) ;
+        // Send a meeting request packet.
+        NetworkInterface.instance().getEnvoyer().sendMeeting(
+            user, MeetingPacket.State.REQUEST
+        ) ;
     }
 
     /**
@@ -94,43 +95,25 @@ public class ConversationController extends Controller {
      * @param user : user with whom the conversation is held.
      */
     public void stop(User user) {
-        // TODO: call network.
+        boolean has = ConversationController.conversations.stream().anyMatch(this.conversationPredicate(user)) ;
 
-        ConversationController.conversations.removeIf(
-            conversation -> conversation.getTarget().equals(user)
-        ) ;
-    }
+        if(has) {
+            System.out.println("has");
+            // Send the leave notification to the target.
+            NetworkInterface.instance().getEnvoyer().sendMeeting(
+                user, MeetingPacket.State.LEAVE
+            ) ;
 
+            ConversationController.conversations.removeIf(this.conversationPredicate(user)) ;
 
-    /**
-     * Get the older messages.
-     *
-     * @param user : user with whom the conversation is held.
-     */
-    private Message[] getHistoric(User user) {
-        ArrayList<Message> messages = new ArrayList<>() ;
-
-        try {
-            new MessageTable().select(Env.getUser(), user).forEach((ResultSet r) -> {
-                try {
-                    messages.add(MessageTable.toMessage(r)) ;
-                } catch (Exception e) {
-                    e.printStackTrace() ;
-                    return false ;
-                }
-
-                return true ;
-            }) ;
-        } catch (SQLException a) {
-            a.printStackTrace() ;
+            new QuitHandler().handle(user) ;
+        } else {
+            System.out.println("has not");
         }
-
-        return messages.toArray(new Message[]{}) ;
     }
 
-
     /**
-     * Send message to next user, nexthop network classes.
+     * Send message to next user, next-hop network classes.
      *
      * @param message : content of the message.
      */
@@ -153,6 +136,42 @@ public class ConversationController extends Controller {
      */
     public boolean isValidText(String text) {
         return text.length() > 0 && ! text.contains(BroadcastSplitter.DELIMITER) ;
+    }
+
+    /**
+     * Get the older messages.
+     *
+     * @param user : user with whom the conversation is held.
+     */
+    private ArrayList<Message> getHistoric(User user) {
+        ArrayList<Message> messages = new ArrayList<>() ;
+
+        try {
+            new MessageTable().select(Env.getUser(), user).forEach((ResultSet r) -> {
+                try {
+                    messages.add(MessageTable.toMessage(r)) ;
+                } catch (Exception e) {
+                    e.printStackTrace() ;
+                    return false ;
+                }
+
+                return true ;
+            }) ;
+        } catch (SQLException a) {
+            a.printStackTrace() ;
+        }
+
+        return messages ;
+    }
+
+    /**
+     * Conversation predicate.
+     *
+     * @param user : user instance.
+     * @return the predicate.
+     */
+    private Predicate<Conversation> conversationPredicate(User user) {
+        return (Conversation conversation) -> conversation.getTarget().equals(user) ;
     }
 
 }

@@ -63,7 +63,7 @@ public class Conversation {
      *
      * @param messages : messages list instance.
      */
-    public void addMessages(Message[] messages) {
+    public void addMessages(Iterable<Message> messages) {
         for(Message message : messages) {
             this.addMessage(message) ;
         }

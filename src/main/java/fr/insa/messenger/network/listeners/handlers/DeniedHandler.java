@@ -6,7 +6,7 @@ import fr.insa.messenger.models.User;
 /**
  * @author Damien MOLINA
  */
-public class DeniedConnection {
+public class DeniedHandler {
 
     /**
      * The given user is unreachable.

@@ -50,4 +50,16 @@ final public class ButtonFactory {
         ) ;
     }
 
+    /**
+     * Generate a button without any borders.
+     *
+     * @param text : button text.
+     * @return the changed button.
+     */
+    public static JButton withoutBorder(String text) {
+        return ButtonFactory.withoutBorder(
+            new JButton(text), ColorUtils.transparent()
+        ) ;
+    }
+
 }

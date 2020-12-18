@@ -4,8 +4,8 @@ import java.net.Socket;
 import fr.insa.messenger.system.console.Console;
 import fr.insa.messenger.network.models.MeetingPacket;
 import fr.insa.messenger.network.streams.InputSocketStream;
-import fr.insa.messenger.network.listeners.handlers.DeniedConnection;
-import fr.insa.messenger.network.listeners.handlers.AcceptedConnection;
+import fr.insa.messenger.network.listeners.handlers.DeniedHandler;
+import fr.insa.messenger.network.listeners.handlers.AcceptedHandler;
 
 /**
  * @author Damien MOLINA
@@ -16,13 +16,13 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
      * Runnable called when the packet is
      * accepted.
      */
-    private AcceptedConnection callbackOnAccepted ;
+    private AcceptedHandler callbackOnAccepted ;
 
     /**
      * Runnable called when the packet is
      * accepted.
      */
-    private DeniedConnection callbackOnDenied ;
+    private DeniedHandler callbackOnDenied ;
 
     /**
      * Make a new listener instance.
@@ -40,7 +40,7 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
      * @param accepted : accepted runnable.
      * @param denied : denied runnable.
      */
-    public void setCallbacks(AcceptedConnection accepted, DeniedConnection denied) {
+    public void setCallbacks(AcceptedHandler accepted, DeniedHandler denied) {
         this.callbackOnAccepted = accepted ;
         this.callbackOnDenied   = denied ;
     }
@@ -93,7 +93,7 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
         Console.comment("=> Meeting response packet accepted from " + packet.getSourceAddress()) ;
 
         if(this.callbackOnAccepted != null) {
-            this.callbackOnAccepted.accepted(packet.getSourceUser()) ;
+            this.callbackOnAccepted.handle(packet.getSourceUser()) ;
         }
     }
 

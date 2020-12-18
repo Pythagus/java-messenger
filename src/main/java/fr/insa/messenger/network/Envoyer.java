@@ -8,6 +8,7 @@ import fr.insa.messenger.models.User;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import fr.insa.messenger.models.messages.Message;
+import fr.insa.messenger.network.models.MeetingPacket;
 import fr.insa.messenger.network.models.basis.Packet;
 import fr.insa.messenger.network.streams.SocketStream;
 import fr.insa.messenger.network.models.BroadcastPacket;
@@ -45,8 +46,8 @@ public class Envoyer {
      *
      * @param user : user to connect with.
      */
-    public void sendRequestMeeting(User user) {
-        new MeetingEnvoyer(this, user).start() ;
+    public void sendMeeting(User user, MeetingPacket.State state) {
+        new MeetingEnvoyer(this, user, state).start() ;
     }
 
     /**
