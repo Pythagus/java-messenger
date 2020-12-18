@@ -2,7 +2,6 @@ package fr.insa.messenger.network;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
-import fr.insa.messenger.network.models.BroadcastPacket;
 import fr.insa.messenger.network.listeners.ReceiveListener;
 import fr.insa.messenger.network.listeners.MeetingListener;
 import fr.insa.messenger.network.models.basis.BroadcastType;
@@ -134,9 +133,7 @@ final public class NetworkInterface extends Thread {
          * how is currently logged into the
          * application.
          */
-        this.envoyer.broadcast(
-            new BroadcastPacket(BroadcastType.EVERYONE_INFO)
-        ) ;
+        this.envoyer.broadcast(BroadcastType.EVERYONE_INFO) ;
     }
 
 }

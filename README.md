@@ -59,7 +59,6 @@ supporting *MySQL* connection at port 3306.
 - Change pseudo during a session
 - Send file support
 - Generate executable
-- Stop conversation button
 - Manage unreachable host
 
 - presence Service (server on the internet) : hold valid users accounts and manage their status. With java servlet and tomcat server. 

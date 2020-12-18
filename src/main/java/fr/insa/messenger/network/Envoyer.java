@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import fr.insa.messenger.models.messages.Message;
 import fr.insa.messenger.network.models.MeetingPacket;
+import fr.insa.messenger.network.models.basis.BroadcastType;
 import fr.insa.messenger.network.models.basis.Packet;
 import fr.insa.messenger.network.streams.SocketStream;
 import fr.insa.messenger.network.models.BroadcastPacket;
@@ -66,6 +67,15 @@ public class Envoyer {
      */
     public void broadcast(BroadcastPacket notification) {
         new BroadcastEnvoyer(this, notification).start() ;
+    }
+
+    /**
+     * Broadcast the given notification.
+     *
+     * @param type : broadcast notification type.
+     */
+    public void broadcast(BroadcastType type) {
+        this.broadcast(new BroadcastPacket(type)) ;
     }
 
     /**
