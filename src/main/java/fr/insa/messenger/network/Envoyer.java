@@ -120,6 +120,16 @@ public class Envoyer {
         }) ;
     }
 
+    private String getExtension(File file){
+        String fileName = file.getName();
+        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+        {
+            System.out.println(fileName.substring(fileName.lastIndexOf("."))) ;
+            return fileName.substring(fileName.lastIndexOf(".")) ;
+        } else return ".txt";
+    }
+
+
     /**
      * Send a file
      * @param socket
@@ -139,10 +149,14 @@ public class Envoyer {
                 {
                     this.exchanger.clear();
                     this.exchanger.bindOutput(socket.getOutputStream());
+
                     // packet send to precise that a file will be sent
                     this.exchanger.send("BOIimfCdPSTgspWu34MbJRWzgDRO3OmY4ULRjKdb");
-                    // file name without path
-                    this.exchanger.send(file.getName());
+
+                    // file extension
+                    String extension = getExtension(file);
+                    this.exchanger.send(extension);
+
                     // file size
                     this.exchanger.send(file.length());
 

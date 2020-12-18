@@ -9,6 +9,9 @@ import fr.insa.messenger.system.Env;
 import fr.insa.messenger.system.console.Console;
 import fr.insa.messenger.network.models.basis.Packet;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @author Maud PENNETIER
  */
@@ -91,14 +94,19 @@ abstract public class FileServerListener<T extends Packet<?>> extends NetworkBas
                     Console.comment("=> a file has been detected") ;
                     int bytes = 0;
 
-                    // receive file name
-                    String fileName = String.valueOf(packet.getData());  //remplacer par la date peut etre -> transférer le nom bloque un peu
+                    // receive file extension
+                    String extension = (String) is.readObject();
+                    // file name
+                    Date date = new Date();
+                    SimpleDateFormat formate = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
+                    String fileName = formate.format(date);
                     String pathToTemp = System.getProperty("java.io.tmpdir"); // get the temporary directory
-                    FileOutputStream fileOutputStream = new FileOutputStream(pathToTemp + fileName);
+                    FileOutputStream fileOutputStream = new FileOutputStream(pathToTemp + "Messenger" + fileName + extension);
 
                     // receive file size
                     long size = is.readLong();
 
+                    //receive data
                     byte[] buffer = new byte[4*1024]; // must be coherent with the envoyer
                     while (size > 0 && (bytes = is.read(buffer, 0, (int)Math.min(buffer.length, size))) != -1){
                         fileOutputStream.write(buffer, 0, bytes);
