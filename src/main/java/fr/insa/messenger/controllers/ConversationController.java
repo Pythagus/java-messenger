@@ -98,7 +98,6 @@ public class ConversationController extends Controller {
         boolean has = ConversationController.conversations.stream().anyMatch(this.conversationPredicate(user)) ;
 
         if(has) {
-            System.out.println("has");
             // Send the leave notification to the target.
             NetworkInterface.instance().getEnvoyer().sendMeeting(
                 user, MeetingPacket.State.LEAVE
@@ -107,8 +106,6 @@ public class ConversationController extends Controller {
             ConversationController.conversations.removeIf(this.conversationPredicate(user)) ;
 
             new QuitHandler().handle(user) ;
-        } else {
-            System.out.println("has not");
         }
     }
 

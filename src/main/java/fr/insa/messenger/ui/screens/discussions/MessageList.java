@@ -71,7 +71,6 @@ public class MessageList extends MyJList<MessageListItem> {
      * @param message : message instance.
      */
     public void addItem(Message message) {
-        System.out.println(message.getData().getText());
         this.addItem(new MessageListItem(this, message)) ;
     }
 
