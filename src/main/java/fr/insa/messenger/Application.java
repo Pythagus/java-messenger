@@ -46,7 +46,7 @@ public class Application {
     /**
      * The Application version.
      */
-    private static final String VERSION = "1.0.0" ;
+    private static final String VERSION = "0.2.0" ;
 
     /**
      * Make a new instance of the application.
