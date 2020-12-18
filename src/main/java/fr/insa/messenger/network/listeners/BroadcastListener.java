@@ -2,14 +2,12 @@ package fr.insa.messenger.network.listeners;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-
-import fr.insa.messenger.network.listeners.handlers.LogoutHandler;
-import fr.insa.messenger.system.Env;
 import fr.insa.messenger.system.console.Console;
 import fr.insa.messenger.network.NetworkInterface;
 import fr.insa.messenger.controllers.UserController;
 import fr.insa.messenger.network.models.BroadcastPacket;
 import fr.insa.messenger.network.models.basis.BroadcastType;
+import fr.insa.messenger.network.listeners.handlers.LogoutHandler;
 
 /**
  * @author Maud PENNETIER
@@ -43,8 +41,10 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
                     new String(datagram.getData())
                 ) ;
 
-                if(! notification.getUser().equals(Env.getUser())) {
+                if(! notification.getUser().isEnvUser()) {
                     this.manageReceivedPDU(notification);
+                } else {
+                    Console.warning("Broadcast packet not managed") ;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -67,19 +67,19 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
             /*
              * This packet announces that a user left the network.
              */
-            case LOGOUT: this.manageLogoutPDU(pdu); break ;
+            case LOGOUT: this.manageLogoutPDU(pdu) ; break ;
 
             /*
              * This packet is from a user that has to choose a pseudo and
              * ask for everyone else information. The users will respond
              * a LOGIN notification.
              */
-            case EVERYONE_INFO: this.manageEveryoneInformationPDU(pdu); break ;
+            case EVERYONE_INFO: this.manageEveryoneInformationPDU(pdu) ; break ;
 
             /*
              * This packet is from a user that change its pseudo while still using the app.
              */
-            case CHANGED_PSEUDO: this.manageChangedPseudoPDU(pdu); break ;
+            case CHANGED_PSEUDO: this.manageChangedPseudoPDU(pdu) ; break ;
         }
     }
 
@@ -104,7 +104,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
         this.printReceivedNotification(notification) ;
 
         // Remove the sending user from the users list.
-        new LogoutHandler().handle(notification.getUser()) ;
+        LogoutHandler.handleNetwork(notification.getUser()) ;
     }
 
     /**

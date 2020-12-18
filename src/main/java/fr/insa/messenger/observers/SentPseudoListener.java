@@ -9,7 +9,6 @@ import fr.insa.messenger.network.NetworkInterface;
 import fr.insa.messenger.controllers.UserController;
 import fr.insa.messenger.exceptions.PseudoException;
 import fr.insa.messenger.observers.contracts.Listener;
-import fr.insa.messenger.network.models.BroadcastPacket;
 import fr.insa.messenger.network.models.basis.BroadcastType;
 
 /**
@@ -72,9 +71,7 @@ public class SentPseudoListener implements Listener {
         Env.getUser().setPseudo(pseudo) ;
 
         // Send the broadcast notification.
-        NetworkInterface.instance().getEnvoyer().broadcast(
-            new BroadcastPacket(BroadcastType.LOGIN)
-        ) ;
+        NetworkInterface.instance().getEnvoyer().broadcast(BroadcastType.LOGIN) ;
 
         // Start the main frame.
         MainFrame.start() ;

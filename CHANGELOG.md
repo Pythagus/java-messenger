@@ -1,28 +1,37 @@
 # Release Notes
 This file contains all the release notes regarding the Messenger version.
 
-## [v0.1.3 (2020-12-08)](https://github.com/Pythagus/java-messenger/compare/v0.1.2...v0.1.3)
+## [v0.2.0 (2020-12-18)](https://github.com/Pythagus/java-messenger/compare/v0.1.2...v0.2.0)
 
 ### Added
-- Add Env controllers custom support.
+- Database usage for message histories.
+- Logout broadcast notification.
+- Leave a conversation.
+- HTTP request maker.
+- Application starter.
+
+### Updated
+- Packages name according to the Oracle package naming convention.
+- Singleton design pattern for NetworkInterface and the controllers.
+- UI major update.
 
 ## [v0.1.2 (2020-12-10)](https://github.com/Pythagus/java-messenger/compare/v0.1.1...v0.1.2)
 
 ### Added
-- Starter support to correct null graphics error
-- Pseudo verification
-- Contact list
+- Starter support to correct null graphics error.
+- Pseudo verification.
+- Contact list.
 
 ### Updated
-- Launcher clean
+- Launcher clean.
 
 ### Bug fixed
-- Timestamp translation
+- Timestamp translation.
 
 ## [v0.1.1 (2020-12-08)](https://github.com/Pythagus/java-messenger/compare/v0.1.0...v0.1.1)
 
 ### Added
-- Database support
+- Database support.
 
 ## v0.1.0 (2020-12-08)
 
