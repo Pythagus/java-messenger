@@ -1,5 +1,6 @@
 package fr.insa.messenger.observers;
 
+import java.awt.*;
 import javax.swing.*;
 import fr.insa.messenger.system.Env;
 import fr.insa.messenger.ui.frames.MainFrame;
@@ -25,20 +26,40 @@ public class SentPseudoListener implements Listener {
         LoginFrame frame = (LoginFrame) args[0] ;
         String pseudo = (String) args[1] ;
 
-        try {
-            pseudo = this.checkedPseudo(pseudo) ;
+        this.managePseudo(frame, pseudo) ;
+    }
 
-            if(Env.getUser().getPseudo() == null) {
-                this.connect(pseudo) ;
-            } else {
-                Console.warning("The user already chose a pseudo") ;
-            }
+
+    /**
+     * Manage the given pseudo.
+     *
+     * @param pseudo : chosen pseudo.
+     */
+    protected void managePseudo(Component component, String pseudo) {
+        try {
+            pseudo = this.checkPseudo(pseudo) ;
+
+            this.manageCheckedPseudo(pseudo) ;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
-                frame, e instanceof PseudoException ? e.getMessage() : "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE
+                component, e instanceof PseudoException ? e.getMessage() : "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE
             ) ;
         }
     }
+
+    /**
+     * Manage the pseudo after checking its validity.
+     *
+     * @param pseudo : valid pseudo.
+     */
+    protected void manageCheckedPseudo(String pseudo) {
+        if(Env.getUser().getPseudo() == null) {
+            this.connect(pseudo) ;
+        } else {
+            Console.warning("The user already chose a pseudo") ;
+        }
+    }
+
 
     /**
      * Check the given pseudo and return
@@ -48,7 +69,7 @@ public class SentPseudoListener implements Listener {
      * @return the given formatted pseudo.
      * @throws PseudoException : invalid pseudo.
      */
-    private String checkedPseudo(String p) throws PseudoException {
+    private String checkPseudo(String p) throws PseudoException {
         String pseudo = p.trim() ;
 
         if(pseudo.length() > 0) {

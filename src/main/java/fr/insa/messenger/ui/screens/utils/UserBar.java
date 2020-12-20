@@ -92,6 +92,18 @@ abstract public class UserBar<T extends UserList> extends CardPanel {
     }
 
     /**
+     * Update the given user pseudo.
+     *
+     * @param user : user to update.
+     * @param pseudo : new user pseudo.
+     */
+    public void updateUserPseudo(User user, String pseudo) {
+        this.list.getElementAt(
+            this.list.indexOf(user)
+        ).getUser().setPseudo(pseudo) ;
+    }
+
+    /**
      * Remove the item with the given
      * user.
      *

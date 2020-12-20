@@ -51,6 +51,16 @@ abstract public class MyJList<T extends MyJListItem> extends JList<T> {
     }
 
     /**
+     * Get the element at the given position
+     * in the model.
+     *
+     * @param rank : position in the model.
+     */
+    public T getElementAt(int rank) {
+        return this.model.elementAt(rank) ;
+    }
+
+    /**
      * Determine whether the given event
      * should be managed
      *

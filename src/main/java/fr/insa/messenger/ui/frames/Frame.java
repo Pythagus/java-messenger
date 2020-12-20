@@ -21,7 +21,7 @@ abstract public class Frame extends JFrame {
      */
     public Frame(String title) {
         this.setTitle(title + " - " + Env.getApplication().getName()) ;
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) ;
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE) ;
         this.setIconImage(ImageAsset.logoAsImageIcon().getImage()) ;
         this.addWindowListener(new CloseFrameHandler()) ;
     }

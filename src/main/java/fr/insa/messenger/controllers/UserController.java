@@ -22,7 +22,7 @@ public class UserController extends Controller {
      * Possible update state.
      */
     public enum UpdateState {
-        ADDED, REMOVED
+        ADDED, REMOVED, UPDATED
     }
 
     /**
@@ -79,6 +79,8 @@ public class UserController extends Controller {
         this.users.get(
             this.users.indexOf(user)
         ).setPseudo(newName) ;
+
+        this.notifyAllListeners(user, UpdateState.UPDATED) ;
     }
 
     /**

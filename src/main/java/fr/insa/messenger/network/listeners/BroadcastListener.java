@@ -77,9 +77,14 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
             case EVERYONE_INFO: this.manageEveryoneInformationPDU(pdu) ; break ;
 
             /*
-             * This packet is from a user that change its pseudo while still using the app.
+             * This packet is from a user that change its pseudo while still
+             * using the app.
              */
             case CHANGED_PSEUDO: this.manageChangedPseudoPDU(pdu) ; break ;
+
+            // Unknown type.
+            default:
+                Console.warning("Unknown received broadcast type : " + pdu.getType()) ;
         }
     }
 
