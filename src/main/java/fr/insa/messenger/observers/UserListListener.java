@@ -27,7 +27,7 @@ public class UserListListener extends BaseListener {
     @Override
     public void handle(Object... args) {
         UserListListener.users.add(new WaitingElement(
-            (User) args[0], (UpdateState) args[1], args[2]
+            (User) args[0], (UpdateState) args[1], args.length >= 3 ? args[2] : null
         )) ;
 
         UserListListener.updateUI() ;
