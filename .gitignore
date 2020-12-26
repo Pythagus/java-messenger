@@ -1,7 +1,6 @@
 out
 target
 .idea
-Messenger.iml
-java-messenger.iml
+*.iml
 .properties
 *.jar
