@@ -1,2 +1,2 @@
 Manifest-Version: 1.0
-Main-Class: fr.insa.messenger.Launcher
+Main-Class: fr.insa.messenger.client.Launcher
