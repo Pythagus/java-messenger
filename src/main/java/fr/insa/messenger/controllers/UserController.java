@@ -73,14 +73,14 @@ public class UserController extends Controller {
     /**
      * modify an existing pseudo
      * @param user User instance
-     * @param newName String that will replace the ancient pseudo
+     * @param pseudo String that will replace the ancient pseudo
      */
-    public void modifyUserName(User user, String newName) {
+    public void modifyUserName(User user, String pseudo) {
         this.users.get(
             this.users.indexOf(user)
-        ).setPseudo(newName) ;
+        ).setPseudo(pseudo) ;
 
-        this.notifyAllListeners(user, UpdateState.UPDATED) ;
+        this.notifyAllListeners(user, UpdateState.UPDATED, pseudo) ;
     }
 
     /**

@@ -101,6 +101,7 @@ abstract public class UserBar<T extends UserList> extends CardPanel {
         this.list.getElementAt(
             this.list.indexOf(user)
         ).getUser().setPseudo(pseudo) ;
+        this.list.updateUI() ;
     }
 
     /**
