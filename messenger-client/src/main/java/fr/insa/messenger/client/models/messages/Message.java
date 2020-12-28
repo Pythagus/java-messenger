@@ -8,11 +8,11 @@ import java.util.GregorianCalendar;
 import fr.insa.messenger.client.system.Env;
 import fr.insa.messenger.client.models.User;
 import fr.insa.messenger.client.utils.DateUtils;
-import fr.insa.messenger.client.database.DatabaseObject;
+import fr.insa.messenger.tools.database.DatabaseObject;
 import fr.insa.messenger.client.exceptions.AppException;
-import fr.insa.messenger.client.database.DatabaseInterface;
+import fr.insa.messenger.tools.database.DatabaseInterface;
 import fr.insa.messenger.client.controllers.UserController;
-import fr.insa.messenger.client.database.DatabaseSelectResult;
+import fr.insa.messenger.tools.database.DatabaseSelectResult;
 
 /**
  * Message sent between two users.

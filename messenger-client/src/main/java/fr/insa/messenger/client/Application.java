@@ -1,13 +1,13 @@
 package fr.insa.messenger.client;
 
 import java.util.Locale;
+import fr.insa.messenger.tools.Config;
 import fr.insa.messenger.client.system.Env;
-import fr.insa.messenger.client.system.Config;
 import fr.insa.messenger.client.ui.GraphicInterface;
 import fr.insa.messenger.client.ui.frames.LoginFrame;
 import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.system.ApplicationStarter;
-import fr.insa.messenger.client.database.DatabaseConnection;
+import fr.insa.messenger.tools.database.DatabaseConnection;
 
 /**
  * This is a list of the taken serialize
