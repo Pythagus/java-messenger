@@ -1,114 +1,117 @@
 package fr.insa.messenger.client.database.queries;
 
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import fr.insa.messenger.client.database.DatabaseConnection;
+import fr.insa.messenger.client.database.DatabaseClauseManager;
+import fr.insa.messenger.client.system.console.Console;
 
 /**
  * @author Damien MOLINA
  */
-public class DatabaseQuery {
+abstract class DatabaseQuery implements AutoCloseable {
 
     /**
-     * Database connection executing
-     * the building query.
+     * Table name.
      */
-    private final DatabaseConnection connection ;
+    protected final String table ;
 
     /**
-     * Query statement.
+     * Database connection instance.
      */
-    private PreparedStatement statement ;
+    protected final DatabaseConnection connection ;
 
     /**
-     * Make a new database connection.
+     * Query parameters.
+     */
+    protected final ArrayList<Object> parameters ;
+
+    /**
+     * Clauses manager.
+     */
+    protected final DatabaseClauseManager clauses ;
+
+    /**
+     * Make a query instance.
      *
-     * @param connection : database connection.
+     * @param table : table name.
+     * @param connection : database connection instance.
      */
-    public DatabaseQuery(DatabaseConnection connection) {
+    public DatabaseQuery(DatabaseConnection connection, String table) {
+        this.table      = table ;
         this.connection = connection ;
+        this.parameters = new ArrayList<>() ;
+        this.clauses    = new DatabaseClauseManager() ;
     }
+
+    /**
+     * Get the clauses manager.
+     *
+     * @return clauses manager instance.
+     */
+    public DatabaseClauseManager getClauses() {
+        return this.clauses ;
+    }
+
+    /**
+     * Prepare and return the SQL syntax request.
+     *
+     * @return the SQL syntax request.
+     */
+    abstract protected String prepareSQL() ;
 
     /**
      * Close the query.
      */
     public void close() {
         try {
-            if(this.statement != null) {
-                this.statement.close() ;
-            }
-
             if(this.connection != null) {
                 this.connection.close() ;
             }
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace() ;
         }
-    }
-
-    /**
-     * Get the statement instance.
-     *
-     * @return the PreparedStatement instance.
-     */
-    public PreparedStatement getStatement() {
-        return this.statement ;
     }
 
     /**
      * Prepare the SQL statement.
      *
-     * @param sql : sql request.
-     * @param values : request's values.
      * @return this
      * @throws SQLException : connection error.
      */
-    public DatabaseQuery prepare(String sql, String... values) throws SQLException {
-        this.statement = null ;
-
+    protected PreparedStatement prepare() throws SQLException {
         if(this.connection == null) {
             throw new SQLException("Connection with the database failed") ;
         }
 
-        try {
-            PreparedStatement statement = this.connection.prepareStatement(sql) ;
+        // format the SQL query.
+        String sqlQuery = String.format(this.prepareSQL(), this.table) ;
+        sqlQuery += " " + this.clauses.formatClauses() ;
 
-            /*
-             * We are adding all the statement
-             * parameters.
-             */
-            for(int i = 0 ; i < values.length ; i++) {
-                statement.setString(i + 1, values[i]);
+        try {
+            PreparedStatement statement = this.connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS) ;
+
+            // We are adding all the statement parameters.
+            for(int i = 0 ; i < this.parameters.size() ; i++) {
+                Object value = this.parameters.get(i) ;
+
+                if(value instanceof String) {
+                    statement.setString(i + 1, (String) value) ;
+                } else if (value instanceof Integer) {
+                    statement.setInt(i + 1, (Integer) value) ;
+                }
             }
 
-            this.statement = statement ;
-        } catch ( SQLException e ) {
+            Console.comment(statement.toString()) ;
+
+            return statement ;
+        } catch (SQLException e) {
             e.printStackTrace() ;
+
+            return null ;
         }
-
-        return this ;
-    }
-
-    /**
-     * Execute the query.
-     *
-     * @return this
-     * @throws SQLException : sql error.
-     */
-    public DatabaseResult executeQuery() throws SQLException {
-        return new DatabaseResult(this).setResult(
-            this.statement.executeQuery()
-        ) ;
-    }
-
-    /**
-     * Execute on update the given query.
-     *
-     * @return the update status.
-     * @throws SQLException : sql error.
-     */
-    public int executeUpdate() throws SQLException {
-        return this.statement.executeUpdate() ;
     }
 
 }

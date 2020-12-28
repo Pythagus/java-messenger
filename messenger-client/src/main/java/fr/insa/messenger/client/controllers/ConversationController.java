@@ -1,19 +1,18 @@
 package fr.insa.messenger.client.controllers;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.util.function.Predicate;
-
-import fr.insa.messenger.client.database.tables.MessageTable;
-import fr.insa.messenger.client.models.messages.Message;
-import fr.insa.messenger.client.network.listeners.handlers.QuitHandler;
-import fr.insa.messenger.client.network.models.MeetingPacket;
-import fr.insa.messenger.client.network.utils.BroadcastSplitter;
 import fr.insa.messenger.client.system.Env;
 import fr.insa.messenger.client.models.User;
 import fr.insa.messenger.client.models.Conversation;
+import fr.insa.messenger.client.models.messages.Message;
+import fr.insa.messenger.client.database.DatabaseObject;
 import fr.insa.messenger.client.network.NetworkInterface;
+import fr.insa.messenger.client.network.models.MeetingPacket;
+import fr.insa.messenger.client.database.DatabaseSelectResult;
+import fr.insa.messenger.client.network.utils.BroadcastSplitter;
+import fr.insa.messenger.client.network.listeners.handlers.QuitHandler;
 
 /**
  * Handle the multiple discussions created.
@@ -119,7 +118,7 @@ public class ConversationController extends Controller {
         NetworkInterface.instance().getEnvoyer().sendMessage(message) ;
 
         try {
-            new MessageTable().insert(message) ;
+            Message.insert(message) ;
         } catch(SQLException e) {
             e.printStackTrace() ;
         }
@@ -145,18 +144,16 @@ public class ConversationController extends Controller {
         ArrayList<Message> messages = new ArrayList<>() ;
 
         try {
-            new MessageTable().select(Env.getUser(), user).forEach((ResultSet r) -> {
-                try {
-                    messages.add(MessageTable.toMessage(r)) ;
-                } catch (Exception e) {
-                    e.printStackTrace() ;
-                    return false ;
-                }
+            // DB select query.
+            DatabaseSelectResult result = Message.select(Env.getUser(), user) ;
 
-                return true ;
-            }) ;
-        } catch (SQLException a) {
-            a.printStackTrace() ;
+            // Iterate on each elements.
+            for(DatabaseObject dbMessage : result) {
+                // Convert the DB object into a Message instance.
+                messages.add(Message.castFromDatabase(dbMessage)) ;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace() ;
         }
 
         return messages ;

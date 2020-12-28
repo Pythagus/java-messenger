@@ -7,7 +7,7 @@ import fr.insa.messenger.client.ui.GraphicInterface;
 import fr.insa.messenger.client.ui.frames.LoginFrame;
 import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.system.ApplicationStarter;
-import fr.insa.messenger.client.database.DatabaseInterface;
+import fr.insa.messenger.client.database.DatabaseConnection;
 
 /**
  * This is a list of the taken serialize
@@ -92,7 +92,7 @@ public class Application {
         Locale.setDefault(Locale.FRANCE) ;
 
         // Load the database.
-        DatabaseInterface.load() ;
+        DatabaseConnection.loadDriver() ;
     }
 
     /**

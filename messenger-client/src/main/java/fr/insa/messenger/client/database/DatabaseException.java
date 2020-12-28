@@ -1,23 +1,19 @@
 package fr.insa.messenger.client.database;
 
-import fr.insa.messenger.client.exceptions.AppException;
-import fr.insa.messenger.client.system.console.Console;
+import java.sql.SQLException;
 
 /**
  * @author Damien MOLINA
  */
-public class DatabaseException extends AppException {
+public class DatabaseException extends SQLException {
 
     /**
-     * Make a new App exception with
-     * the given message.
+     * Make a new database exception instance.
      *
-     * @param msg : exception message.
+     * @param reason : reason to explain the exception.
      */
-    public DatabaseException(String msg) {
-        super(msg) ;
-
-        Console.danger(msg) ;
+    public DatabaseException(String reason) {
+        super(reason) ;
     }
 
 }

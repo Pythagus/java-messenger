@@ -2,30 +2,22 @@ package fr.insa.messenger.client.database;
 
 import java.sql.SQLException;
 
-import fr.insa.messenger.client.database.queries.DatabaseQuery;
-
 /**
  * @author Damien MOLINA
  */
 final public class DatabaseInterface {
 
     /**
-     * Load the database drivers and set
-     * the properties once and for all.
-     */
-    public static void load() {
-        // Load the MySQL driver.
-        DatabaseConnection.loadDriver() ;
-    }
-
-    /**
-     * Make a new database query.
+     * Make a new query manager instance.
      *
-     * @return the query instance.
+     * @param table : queried table.
+     * @return the manager instance.
      * @throws SQLException : connection error.
      */
-    public static DatabaseQuery query() throws SQLException {
-        return new DatabaseQuery(new DatabaseConnection()) ;
+    public static DatabaseQueryManager query(String table) throws SQLException {
+        return new DatabaseQueryManager(
+            new DatabaseConnection(), table
+        ) ;
     }
 
 }

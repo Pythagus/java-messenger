@@ -25,9 +25,9 @@ public class DatabaseConnection extends ConnectionImpl {
      * @throws SQLException : connection error.
      */
     public DatabaseConnection(DatabaseProperties properties) throws SQLException {
-       super(
-           DatabaseConnection.createHostInfo(properties)
-       ) ;
+        super(
+            DatabaseConnection.createHostInfo(properties)
+        ) ;
     }
 
     /**
@@ -36,7 +36,7 @@ public class DatabaseConnection extends ConnectionImpl {
      * @throws SQLException : connection error.
      */
     public DatabaseConnection() throws SQLException {
-       this(DatabaseConnection.defaultProperties) ;
+        this(DatabaseConnection.defaultProperties) ;
     }
 
     /**
