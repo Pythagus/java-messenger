@@ -1,11 +1,10 @@
 package fr.insa.messenger.tools.database.queries;
 
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
-import fr.insa.messenger.tools.database.DatabaseException;
+
 import fr.insa.messenger.tools.database.DatabaseConnection;
 import fr.insa.messenger.tools.database.DatabaseClauseManager;
 
@@ -104,6 +103,8 @@ abstract public class DatabaseQuery implements AutoCloseable {
                     statement.setInt(i + 1, (Integer) value) ;
                 }
             }
+
+            System.out.println(statement.toString()) ;
 
             return statement ;
         } catch (SQLException e) {

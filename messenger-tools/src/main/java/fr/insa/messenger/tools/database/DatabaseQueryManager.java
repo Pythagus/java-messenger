@@ -3,6 +3,7 @@ package fr.insa.messenger.tools.database;
 import fr.insa.messenger.tools.database.queries.DeleteQuery;
 import fr.insa.messenger.tools.database.queries.SelectQuery;
 import fr.insa.messenger.tools.database.queries.InsertQuery;
+import fr.insa.messenger.tools.database.queries.UpdateQuery;
 
 /**
  * @author Damien MOLINA
@@ -55,6 +56,15 @@ public class DatabaseQueryManager {
      */
     public DeleteQuery delete() {
         return new DeleteQuery(this.connection, this.table) ;
+    }
+
+    /**
+     * Make an update query instance.
+     *
+     * @return the update instance.
+     */
+    public UpdateQuery update() {
+        return new UpdateQuery(this.connection, this.table) ;
     }
 
 }

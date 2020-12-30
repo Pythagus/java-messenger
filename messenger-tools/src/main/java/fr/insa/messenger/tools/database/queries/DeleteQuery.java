@@ -2,7 +2,7 @@ package fr.insa.messenger.tools.database.queries;
 
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
-import fr.insa.messenger.tools.database.DatabaseException;
+import fr.insa.messenger.tools.database.exceptions.DatabaseException;
 import fr.insa.messenger.tools.database.DatabaseConnection;
 
 /**

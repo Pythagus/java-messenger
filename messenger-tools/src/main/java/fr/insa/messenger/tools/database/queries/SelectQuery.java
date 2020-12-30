@@ -5,6 +5,7 @@ import java.sql.ResultSetMetaData;
 import fr.insa.messenger.tools.database.DatabaseObject;
 import fr.insa.messenger.tools.database.DatabaseConnection;
 import fr.insa.messenger.tools.database.DatabaseSelectResult;
+import fr.insa.messenger.tools.database.exceptions.DatabaseNotFoundException;
 
 /**
  * @author Damien MOLINA
@@ -91,12 +92,11 @@ public class SelectQuery extends WhereQuery<SelectQuery> {
      *
      * @return the element, or null.
      */
-    public DatabaseObject first() {
+    public DatabaseObject first() throws DatabaseNotFoundException {
         DatabaseSelectResult list = this.get(1) ;
 
-        // No element found.
         if(list == null) {
-            return null ;
+            throw new DatabaseNotFoundException(this) ;
         }
 
         return list.stream().findFirst().orElse(null) ;

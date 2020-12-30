@@ -1,4 +1,4 @@
-package fr.insa.messenger.tools.database;
+package fr.insa.messenger.tools.database.exceptions;
 
 import java.sql.SQLException;
 

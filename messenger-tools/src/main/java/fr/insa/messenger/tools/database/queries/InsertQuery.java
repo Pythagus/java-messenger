@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.sql.PreparedStatement;
-import fr.insa.messenger.tools.database.DatabaseException;
 import fr.insa.messenger.tools.database.DatabaseConnection;
+import fr.insa.messenger.tools.database.exceptions.DatabaseException;
 
 /**
  * @author Damien MOLINA
