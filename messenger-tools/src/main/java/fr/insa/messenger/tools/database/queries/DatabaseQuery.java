@@ -1,16 +1,18 @@
 package fr.insa.messenger.tools.database.queries;
 
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import fr.insa.messenger.tools.database.DatabaseException;
 import fr.insa.messenger.tools.database.DatabaseConnection;
 import fr.insa.messenger.tools.database.DatabaseClauseManager;
 
 /**
  * @author Damien MOLINA
  */
-abstract class DatabaseQuery implements AutoCloseable {
+abstract public class DatabaseQuery implements AutoCloseable {
 
     /**
      * Table name.

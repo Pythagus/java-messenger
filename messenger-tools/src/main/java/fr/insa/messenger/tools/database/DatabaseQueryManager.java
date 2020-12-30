@@ -1,7 +1,8 @@
 package fr.insa.messenger.tools.database;
 
-import fr.insa.messenger.tools.database.queries.InsertQuery;
+import fr.insa.messenger.tools.database.queries.DeleteQuery;
 import fr.insa.messenger.tools.database.queries.SelectQuery;
+import fr.insa.messenger.tools.database.queries.InsertQuery;
 
 /**
  * @author Damien MOLINA
@@ -45,6 +46,15 @@ public class DatabaseQueryManager {
      */
     public InsertQuery insert() {
         return new InsertQuery(this.connection, this.table) ;
+    }
+
+    /**
+     * Make a delete query instance.
+     *
+     * @return the delete instance.
+     */
+    public DeleteQuery delete() {
+        return new DeleteQuery(this.connection, this.table) ;
     }
 
 }

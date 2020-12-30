@@ -1,7 +1,7 @@
 package fr.insa.messenger.tools.database.clauses;
 
 import java.util.ArrayList;
-import fr.insa.messenger.tools.database.queries.SelectQuery;
+import fr.insa.messenger.tools.database.queries.WhereQuery;
 
 /**
  * @author Damien MOLINA
@@ -153,8 +153,11 @@ public class WhereClause extends DatabaseClause {
         return "WHERE " + wheres ;
     }
 
+    /**
+     * @author Damien MOLINA
+     */
     public interface WhereCallable {
-        SelectQuery handle(SelectQuery query) ;
+        WhereQuery<?> handle(WhereQuery<?> query) ;
     }
 
 }
