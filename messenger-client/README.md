@@ -1,4 +1,4 @@
-# Java Messenger
+# Java Messenger - Client
 This project was made regarding the course OOD (Object-Oriented Design) in the fourth-grade at INSA Toulouse, France. The 
 specifications are available at [this file](docs/specifications.pdf). The Object-Oriented Design is available in the [docs/modeling](docs/modeling)
 folder.

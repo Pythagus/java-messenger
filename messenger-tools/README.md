@@ -1,4 +1,4 @@
-# Java Messenger tools
+# Java Messenger - Tools
 This folder contains the Messenger tools used by both client and tomcat server sides.
 
 ## Installation
