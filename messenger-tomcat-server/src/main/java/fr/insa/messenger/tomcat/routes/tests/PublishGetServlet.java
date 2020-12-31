@@ -9,8 +9,8 @@ import fr.insa.messenger.tomcat.utils.servlets.MyServletException;
 /**
  * @author Damien MOLINA
  */
-@WebServlet("/subscribe-get")
-public class SubscribeGetServlet extends GetServlet {
+@WebServlet("/publish-get")
+public class PublishGetServlet extends GetServlet {
 
     /**
      * Handle the given request.
@@ -19,7 +19,7 @@ public class SubscribeGetServlet extends GetServlet {
      * @param response : generated response.
      */
     protected void handle(HttpServletRequest request, HttpServletResponse response) throws MyServletException {
-        this.forwardJSP("subscribe.jsp", request, response) ;
+        this.forwardJSP("publish.jsp", request, response) ;
     }
 
 }

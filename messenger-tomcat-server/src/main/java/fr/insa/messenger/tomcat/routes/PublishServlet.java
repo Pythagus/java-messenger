@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import fr.insa.messenger.tomcat.utils.Validator;
 import fr.insa.messenger.tomcat.models.UserStatus;
 import fr.insa.messenger.tomcat.utils.ValidatedInput;
-import fr.insa.messenger.tomcat.utils.servlets.PostServlet;
 import fr.insa.messenger.tomcat.controllers.UserController;
 import fr.insa.messenger.tomcat.exceptions.InternalException;
 import fr.insa.messenger.tomcat.exceptions.UnknownUserException;
@@ -31,6 +30,8 @@ public class PublishServlet extends SubscribeServlet {
             this.manage(
                 (String) data.get("identifier"), (UserStatus) data.get("status")
             ) ;
+
+            this.jsonSuccess(response).send() ;
         } catch (Exception e) {
             this.handleException(e, request, response) ;
         }

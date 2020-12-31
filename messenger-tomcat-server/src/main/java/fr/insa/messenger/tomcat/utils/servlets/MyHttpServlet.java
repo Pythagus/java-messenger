@@ -69,7 +69,17 @@ abstract public class MyHttpServlet extends HttpServlet {
      * @return the JSON response.
      */
     protected JsonResponse jsonError(HttpServletResponse response, int code, String message) {
-        return this.json(response).data("code", code).data("error", message) ;
+        return this.json(response).data("error", code).data("message", message) ;
+    }
+
+    /**
+     * Make a JSON response.
+     *
+     * @param response : HTTP response instance.
+     * @return the JSON response.
+     */
+    protected JsonResponse jsonSuccess(HttpServletResponse response) {
+        return this.json(response).data("error", 0) ;
     }
 
     /**

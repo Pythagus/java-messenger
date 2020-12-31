@@ -31,7 +31,7 @@ public class SubscribeServlet extends PostServlet {
                 (String) data.get("identifier"), this.getIpAddress(request)
             ) ;
 
-            this.json(response).data("error", 0).send() ;
+            this.jsonSuccess(response).send() ;
         } catch (Exception e) {
             this.handleException(e, request, response) ;
         }
