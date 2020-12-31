@@ -1,15 +1,15 @@
 package fr.insa.messenger.tomcat.routes;
 
-import java.io.PrintWriter;
-import org.json.JSONObject;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import fr.insa.messenger.tomcat.models.UserStatus;
+import fr.insa.messenger.tomcat.utils.Validator;
+import fr.insa.messenger.tomcat.utils.ValidatedInput;
 import fr.insa.messenger.tomcat.controllers.UserController;
 import fr.insa.messenger.tomcat.utils.servlets.PostServlet;
-import fr.insa.messenger.tomcat.utils.servlets.InternalException;
+import fr.insa.messenger.tomcat.exceptions.InternalException;
 import fr.insa.messenger.tools.database.exceptions.DatabaseException;
+import fr.insa.messenger.tomcat.exceptions.AlreadyExistUserException;
 
 /**
  * @author Damien MOLINA
@@ -25,63 +25,48 @@ public class SubscribeServlet extends PostServlet {
      */
     protected void handle(HttpServletRequest request, HttpServletResponse response) {
         try {
-            String identifier = request.getParameter("identifier") ;
-            String strStatus  = request.getParameter("status") ;
-            UserStatus status ;
+            ValidatedInput data = this.validateInput(request) ;
 
-            /*
-             * We try to cast the status. It could generate
-             * a cast error. If It happens, then we generate
-             * an internal error handled by the previous
-             * try-catch block.
-             */
-            try {
-                status = UserStatus.valueOf(strStatus) ;
-            } catch (Exception e) {
-                throw new InternalException("Unknown status " + strStatus) ;
-            }
-
-            if(identifier == null || identifier.trim().length() <= 0) {
-                throw new InternalException("Null identifier") ;
-            }
-
-            this.managed(identifier, status) ;
-        } catch (Exception e) {
-            this.unmanaged(
-                request, response, e instanceof InternalException ? e.getMessage() : "Internal server error : " + e.getMessage()
+            this.manage(
+                (String) data.get("identifier"), this.getIpAddress(request)
             ) ;
+
+            this.json(response).data("error", 0).send() ;
+        } catch (Exception e) {
+            this.handleException(e, request, response) ;
         }
     }
 
     /**
-     * Return a JSON error response.
+     * Validate the request's inputs.
      *
-     * @param request : incoming request.
-     * @param response : generated response.
-     * @param error : error message.
+     * @param request : HTTP request.
+     * @return list of inputs.
+     * @throws InternalException : input error.
      */
-    private void unmanaged(HttpServletRequest request, HttpServletResponse response, String error) {
-        response.setContentType("application/json") ;
+    protected ValidatedInput validateInput(HttpServletRequest request) throws InternalException {
+        ValidatedInput data = new ValidatedInput() ;
 
-        try {
-            JSONObject json = new JSONObject() ;
-            json.accumulate("code", 400) ;
-            json.accumulate("error", error) ;
+        // Validate the identifier input.
+        String identifier = request.getParameter("identifier") ;
 
-            PrintWriter out = response.getWriter() ;
-            out.print(json.toString()) ;
-            out.flush() ;
-        } catch (Exception ignored) {}
+        if(Validator.isNull(identifier)) {
+            throw new InternalException("Null identifier") ;
+        }
+
+        data.put("identifier", identifier) ;
+
+        return data ;
     }
 
     /**
      * Manage the user new status.
      *
      * @param identifier : user identifier.
-     * @param status : user new status.
+     * @param ip : user's ip address.
      */
-    private void managed(String identifier, UserStatus status) throws DatabaseException {
-        UserController.setStatus(identifier, status) ;
+    private void manage(String identifier, String ip) throws DatabaseException, AlreadyExistUserException {
+        UserController.addUser(identifier, ip) ;
     }
 
 }

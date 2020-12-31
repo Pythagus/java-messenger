@@ -17,7 +17,6 @@ abstract public class GetServlet extends MyHttpServlet {
      * @param response : generated response.
      */
     protected final void doGet(HttpServletRequest request, HttpServletResponse response) throws MyServletException {
-        this.setWriter(response) ;
         this.handle(request, response) ;
     }
 

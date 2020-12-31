@@ -2,6 +2,9 @@ package fr.insa.messenger.tomcat.utils.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import fr.insa.messenger.tools.Config;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 abstract public class MyHttpServlet extends HttpServlet {
 
     /**
-     * Writer instance.
+     * Make a Servlet instance.
      */
-    protected PrintWriter writer ;
+    public MyHttpServlet() {
+        try {
+            String root = this.getClass().getResource("/").toString();
+            root = root.substring("file:".length()) ;
+
+            Config.setRoot(root) ;
+        } catch (Exception ignored) {}
+    }
 
     /**
      * Handle the given request.
@@ -24,18 +34,6 @@ abstract public class MyHttpServlet extends HttpServlet {
      * @param response : generated response.
      */
     abstract protected void handle(HttpServletRequest request, HttpServletResponse response) throws MyServletException ;
-
-    /**
-     * Handle an incoming request.
-     *
-     * @param request : incoming request.
-     * @param response : generated response.
-     * @throws MyServletException : handle error.
-     */
-    protected void handleIncomingRequest(HttpServletRequest request, HttpServletResponse response) throws MyServletException {
-        this.setWriter(response) ;
-        this.handle(request, response) ;
-    }
 
     /**
      * Forward the request with the given jsp.
@@ -53,14 +51,63 @@ abstract public class MyHttpServlet extends HttpServlet {
     }
 
     /**
-     * Set the writer instance.
+     * Make a JSON response.
      *
-     * @param response : generated response.
+     * @param response : HTTP response instance.
+     * @return the JSON response.
      */
-    protected void setWriter(HttpServletResponse response) {
-        try {
-            this.writer = response.getWriter() ;
-        } catch (Exception ignored) {}
+    protected JsonResponse json(HttpServletResponse response) {
+        return new JsonResponse(response) ;
+    }
+
+    /**
+     * Make a JSON response.
+     *
+     * @param response : HTTP response instance.
+     * @param code : error code.
+     * @param message : error message.
+     * @return the JSON response.
+     */
+    protected JsonResponse jsonError(HttpServletResponse response, int code, String message) {
+        return this.json(response).data("code", code).data("error", message) ;
+    }
+
+    /**
+     * Get the user's ip address.
+     *
+     * @param request : HTTP request.
+     * @return the user's ip address.
+     */
+    protected String getIpAddress(HttpServletRequest request) {
+        String ip = request.getHeader("X-FORWARDED-FOR");
+
+        if(ip == null) {
+            ip = request.getRemoteAddr();
+        }
+
+        return ip ;
+    }
+
+
+
+    // TODO : TO REMOVE
+    private static HttpServletResponse r ;
+    public static ArrayList<String> messages = new ArrayList<>() ;
+    protected void print(HttpServletResponse response, String msg) {
+        MyHttpServlet.r = response ;
+        MyHttpServlet.print(msg) ;
+    }
+
+    public static void print(String msg) {
+        messages.add(msg) ;
+
+        for(String m : messages) {
+            try {
+                PrintWriter out = MyHttpServlet.r.getWriter() ;
+                out.println(m) ;
+                out.flush() ;
+            } catch (Exception ignored) {}
+        }
     }
 
 }

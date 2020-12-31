@@ -30,4 +30,13 @@ public class MyServletException extends ServletException {
         super(rootCause) ;
     }
 
+    /**
+     * Make a new servlet exception.
+     *
+     * @param message : servlet error.
+     */
+    public MyServletException(String message) {
+        super(message) ;
+    }
+
 }

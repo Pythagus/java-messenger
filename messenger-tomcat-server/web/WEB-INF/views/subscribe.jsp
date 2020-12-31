@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>COUCOU</title>
+    <title>Subscribe GET</title>
     <style type="text/css">
       body, html {
         padding: 0 !important ;
@@ -18,11 +18,11 @@
   <body>
     <form method="POST" action="${pageContext.request.contextPath}/subscribe">
       <input type="text" name="identifier" placeholder="Identifier">
-      <select name="status">
+      <!--<select name="status">
         <option value="DISCONNECTED">Déconnecté</option>
         <option value="IDLE">Absent</option>
         <option value="CONNECTED">Connecté</option>
-      </select>
+      </select>-->
       <button type="submit">Envoyer</button>
     </form>
   </body>

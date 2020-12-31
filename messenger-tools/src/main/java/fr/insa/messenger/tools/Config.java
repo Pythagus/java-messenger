@@ -19,6 +19,11 @@ public class Config {
     private static Properties configs ;
 
     /**
+     * Configuration root.
+     */
+    private static String root = "" ;
+
+    /**
      * Get the configuration value of
      * the given key.
      *
@@ -51,12 +56,27 @@ public class Config {
     }
 
     /**
+     * Set the configuration root.
+     *
+     * @param root : configuration root.
+     */
+    public static void setRoot(String root) {
+        String r = root ;
+
+        if(r.length() > 0) {
+            r = r.endsWith("/") ? r : r + "/" ;
+        }
+
+        Config.root = r ;
+    }
+
+    /**
      * Load the configuration values.
      */
     public static void load() {
         try {
             Config.configs = new Properties() ;
-            Config.configs.load(new FileInputStream(Config.FILE)) ;
+            Config.configs.load(new FileInputStream(Config.root + Config.FILE)) ;
         } catch (Exception e) {
             e.printStackTrace() ;
         }
