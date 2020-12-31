@@ -1,56 +1,77 @@
 package fr.insa.messenger.tomcat.controllers;
 
-import java.util.ArrayList;
-import fr.insa.messenger.tomcat.models.User;
+import java.sql.SQLException;
+import fr.insa.messenger.tomcat.models.UserStatus;
+import fr.insa.messenger.tools.database.DatabaseObject;
+import fr.insa.messenger.tools.database.DatabaseInterface;
+import fr.insa.messenger.tools.database.DatabaseSelectResult;
+import fr.insa.messenger.tools.database.exceptions.DatabaseException;
 
 /**
  * @author Damien MOLINA
  */
-public class UserController {
+final public class UserController {
 
     /**
-     * Singleton instance.
-     */
-    private static final UserController INSTANCE = new UserController() ;
-
-    /**
-     * Users list.
-     */
-    private final ArrayList<User> users ;
-
-    /**
-     * Make a new instance of the User controller.
-     */
-    public UserController() {
-        this.users = new ArrayList<>() ;
-    }
-
-    /**
-     * Get the UserController singleton instance.
+     * Set the status of the given user.
      *
-     * @return the singleton instance.
+     * @param identifier : user string identifier.
+     * @param status : new user's status.
      */
-    public static UserController instance() {
-        return UserController.INSTANCE ;
+    public static void setStatus(String identifier, UserStatus status) throws DatabaseException {
+        try {
+            DatabaseObject row = DatabaseInterface.select("presence")
+                .where("identifier", "=", identifier)
+                .first() ;
+
+            if(row == null) {
+                // Add a new row.
+                DatabaseInterface.insert("presence")
+                    .value("identifier", identifier)
+                    .value("status", status)
+                    .execute() ;
+            } else {
+                // Update the row.
+                DatabaseInterface.update("presence")
+                    .where("identifier", "=", identifier)
+                    .value("status", status.toString())
+                    .execute() ;
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage()) ;
+        }
     }
 
     /**
-     * Determine whether the given user
-     * is already in the array.
+     * Get the status of the user identified by
+     * the given string.
      *
      * @param identifier : user identifier.
-     * @return True if it is, False otherwise.
+     * @return the status, null otherwise.
      */
-    public boolean hasUser(String identifier) {
-        // TODO : do it with a DB request.
+    public static UserStatus getStatus(String identifier) {
+        try {
+            DatabaseObject row = DatabaseInterface.select("presence")
+                .where("identifier", "=", identifier)
+                .first() ;
 
-        for(User user : this.users) {
-            if(user.getIdentifier().equals(identifier)) {
-                return true ;
-            }
+            return row == null ? null : UserStatus.valueOf(row.get("status")) ;
+        } catch (SQLException ignored) {
+            return null ;
         }
+    }
 
-        return false ;
+    /**
+     * Get all the users stored in the database.
+     *
+     * @return array list of users.
+     */
+    public static DatabaseSelectResult getUsers() {
+        try {
+            return DatabaseInterface.select("presence").get() ;
+        } catch (SQLException ignored) {
+            return null ;
+        }
     }
 
 }

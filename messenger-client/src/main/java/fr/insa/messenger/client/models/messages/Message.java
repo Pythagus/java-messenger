@@ -178,7 +178,7 @@ public class Message implements Serializable {
      * @return the messages list.
      */
     public static DatabaseSelectResult select(User user1, User user2) throws SQLException {
-        return DatabaseInterface.query("messages").select().where(query ->
+        return DatabaseInterface.select("messages").where(query ->
             query.where("user_sender", "=", user1.getIdentifier()).where("user_receiver", "=", user2.getIdentifier())
         ).orWhere(query ->
             query.where("user_sender", "=", user2.getIdentifier()).where("user_receiver", "=", user1.getIdentifier())
@@ -212,7 +212,7 @@ public class Message implements Serializable {
      * @throws SQLException : sql error.
      */
     private static void insert(Message message, Message.Type type, String content) throws SQLException {
-        DatabaseInterface.query("messages").insert()
+        DatabaseInterface.insert("messages")
             .value("user_sender", message.getSender().getIdentifier())
             .value("user_receiver", message.getTarget().getIdentifier())
             .value("type", type.toString())

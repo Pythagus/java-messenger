@@ -6,8 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import fr.insa.messenger.tomcat.models.UserStatus;
+import fr.insa.messenger.tomcat.controllers.UserController;
 import fr.insa.messenger.tomcat.utils.servlets.PostServlet;
 import fr.insa.messenger.tomcat.utils.servlets.InternalException;
+import fr.insa.messenger.tools.database.exceptions.DatabaseException;
 
 /**
  * @author Damien MOLINA
@@ -46,7 +48,7 @@ public class SubscribeServlet extends PostServlet {
             this.managed(identifier, status) ;
         } catch (Exception e) {
             this.unmanaged(
-                request, response, e instanceof InternalException ? e.getMessage() : "Internal server error"
+                request, response, e instanceof InternalException ? e.getMessage() : "Internal server error : " + e.getMessage()
             ) ;
         }
     }
@@ -66,13 +68,10 @@ public class SubscribeServlet extends PostServlet {
             json.accumulate("code", 400) ;
             json.accumulate("error", error) ;
 
-            PrintWriter out = response.getWriter();
-            out.print(json.toString());
-            out.flush();
-        } catch (Exception e) {
-            // TODO : to remove
-            this.writer.println(e.getMessage()) ;
-        }
+            PrintWriter out = response.getWriter() ;
+            out.print(json.toString()) ;
+            out.flush() ;
+        } catch (Exception ignored) {}
     }
 
     /**
@@ -81,20 +80,8 @@ public class SubscribeServlet extends PostServlet {
      * @param identifier : user identifier.
      * @param status : user new status.
      */
-    private void managed(String identifier, UserStatus status) {
-        switch(status) {
-            case CONNECTED:
-                this.writer.println("The user is connected") ;
-                break ;
-            case IDLE:
-                this.writer.println("The user is idle") ;
-                break ;
-            case DISCONNECTED:
-                this.writer.println("The user is disconnected") ;
-                break ;
-        }
-
-        this.writer.println("identifier = " + identifier) ;
+    private void managed(String identifier, UserStatus status) throws DatabaseException {
+        UserController.setStatus(identifier, status) ;
     }
 
 }

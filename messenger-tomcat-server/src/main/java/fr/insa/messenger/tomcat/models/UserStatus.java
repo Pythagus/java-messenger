@@ -21,17 +21,6 @@ public enum UserStatus {
      * The user is connected to the
      * application, but he is idle.
      */
-    IDLE ;
-
-    /**
-     * Determine whether the current status
-     * defines a logged in user.
-     *
-     * @return True if the user should already be connected,
-     *         False otherwise.
-     */
-    public boolean shouldBeConnected() {
-        return this.equals(CONNECTED) || this.equals(IDLE) ;
-    }
+    IDLE
 
 }
