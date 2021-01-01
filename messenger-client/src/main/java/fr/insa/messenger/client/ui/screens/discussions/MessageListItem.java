@@ -48,7 +48,7 @@ public class MessageListItem extends MyJListItem {
      */
     private void initializeGraphics() {
         this.setLayout(new GridBagLayout()) ;
-        this.setBackground(ColorUtils.transparent()) ;
+        this.setBackground(ColorUtils.TRANSPARENT) ;
         this.setBorder(
             BorderFactory.createEmptyBorder(10, 10, 10, 10)
         ) ;
@@ -59,7 +59,7 @@ public class MessageListItem extends MyJListItem {
         container.setBorder(
             BorderFactory.createEmptyBorder(5, 10, 5, 10)
         ) ;
-        container.setBackground(ColorUtils.transparent()) ;
+        container.setBackground(ColorUtils.TRANSPARENT) ;
 
         // Message content.
         // TODO : manage too long message problem.
@@ -93,7 +93,7 @@ public class MessageListItem extends MyJListItem {
 
         // Empty space panel.
         JPanel space = new JPanel() ;
-        space.setBackground(ColorUtils.transparent()) ;
+        space.setBackground(ColorUtils.TRANSPARENT) ;
 
         // Add the panels.
         GridBagUtil.addColumn(this, container, this.active ? 2 : 1, 60) ;

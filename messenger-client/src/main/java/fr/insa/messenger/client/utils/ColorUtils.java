@@ -8,12 +8,8 @@ import java.awt.*;
 public class ColorUtils {
 
     /**
-     * Make a transparent color.
-     *
-     * @return a transparent color instance.
+     * Transparent color.
      */
-    public static Color transparent() {
-        return new Color(0, 0, 0, 0) ;
-    }
+    public static final Color TRANSPARENT = new Color(0, 0, 0, 0) ;
 
 }

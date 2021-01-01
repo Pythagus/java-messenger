@@ -67,7 +67,7 @@ public class LoginFrame extends Frame implements ActionListener, Observable {
 
         // Description label.
         JTextArea description = new JTextArea("Vous devez choisir un pseudo qui vous servira à contacter les autres utilisateurs de l'application.") ;
-        description.setBackground(ColorUtils.transparent()) ;
+        description.setBackground(ColorUtils.TRANSPARENT) ;
         description.setBorder(
             BorderFactory.createEmptyBorder(10, 10, 10, 10)
         );

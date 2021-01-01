@@ -97,7 +97,7 @@ abstract public class UserList extends MyJList<UserListItem> {
      * Graphically initialize the frame.
      */
     private void initializeGraphics() {
-        this.setBackground(ColorUtils.transparent()) ;
+        this.setBackground(ColorUtils.TRANSPARENT) ;
         this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION) ;
         this.setLayoutOrientation(JList.VERTICAL) ;
         this.setVisibleRowCount(10) ;

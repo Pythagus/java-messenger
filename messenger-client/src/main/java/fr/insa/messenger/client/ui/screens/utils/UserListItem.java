@@ -55,7 +55,7 @@ abstract public class UserListItem extends MyJListItem {
      * Graphically initialize the frame.
      */
     private void initializeGraphics() {
-        this.setBackground(ColorUtils.transparent()) ;
+        this.setBackground(ColorUtils.TRANSPARENT) ;
         this.setBorder(
             BorderFactory.createEmptyBorder(15, 0,15, 0)
         ) ;

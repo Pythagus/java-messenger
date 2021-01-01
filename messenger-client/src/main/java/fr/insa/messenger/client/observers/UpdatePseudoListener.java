@@ -1,10 +1,10 @@
 package fr.insa.messenger.client.observers;
 
-import fr.insa.messenger.client.network.models.basis.BroadcastType;
-import fr.insa.messenger.client.system.console.Console;
-import fr.insa.messenger.client.ui.screens.SettingsScreen;
 import fr.insa.messenger.client.system.Env;
+import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.network.NetworkInterface;
+import fr.insa.messenger.client.ui.screens.SettingsScreen;
+import fr.insa.messenger.client.network.models.basis.BroadcastType;
 
 /**
  * @author Damien MOLINA

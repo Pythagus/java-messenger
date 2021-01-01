@@ -2,13 +2,12 @@ package fr.insa.messenger.client.ui.screens;
 
 import java.awt.*;
 import javax.swing.*;
-
-import fr.insa.messenger.client.system.assets.ImageAsset;
-import fr.insa.messenger.client.ui.screens.utils.ContentScreen;
-import fr.insa.messenger.client.ui.screens.utils.ContentType;
-import fr.insa.messenger.client.utils.ColorUtils;
 import fr.insa.messenger.client.system.Env;
+import fr.insa.messenger.client.utils.ColorUtils;
+import fr.insa.messenger.client.system.assets.ImageAsset;
 import fr.insa.messenger.client.ui.factories.FontFactory;
+import fr.insa.messenger.client.ui.screens.utils.ContentType;
+import fr.insa.messenger.client.ui.screens.utils.ContentScreen;
 
 /**
  * @author Damien MOLINA
@@ -40,7 +39,7 @@ public class WelcomeScreen extends ContentScreen {
 
         // Prepare the screen content.
         JPanel container = new JPanel() ;
-        container.setBackground(ColorUtils.transparent()) ;
+        container.setBackground(ColorUtils.TRANSPARENT) ;
         container.setMinimumSize(new Dimension(500, 50)) ;
         container.setLayout(new BorderLayout()) ;
 

@@ -62,6 +62,7 @@ final public class GraphicInterface {
                     GraphicInterface.this.listener = null ;
                 }
             } catch (Exception ignored) {
+                ignored.printStackTrace();
                 Console.danger("Impossible to create the " + c.getName() + " instance") ;
             }
         }) ;

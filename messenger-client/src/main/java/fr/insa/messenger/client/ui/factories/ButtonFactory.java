@@ -47,7 +47,7 @@ final public class ButtonFactory {
      */
     public static JButton withoutBorder() {
         return ButtonFactory.withoutBorder(
-            new JButton(), ColorUtils.transparent()
+            new JButton(), ColorUtils.TRANSPARENT
         ) ;
     }
 
@@ -59,7 +59,7 @@ final public class ButtonFactory {
      */
     public static JButton withoutBorder(String text) {
         return ButtonFactory.withoutBorder(
-            new JButton(text), ColorUtils.transparent()
+            new JButton(text), ColorUtils.TRANSPARENT
         ) ;
     }
 

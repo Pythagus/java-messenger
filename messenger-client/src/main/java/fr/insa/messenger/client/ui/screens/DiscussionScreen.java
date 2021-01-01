@@ -66,7 +66,7 @@ public class DiscussionScreen extends ContentScreen {
         panel.setBorder(
             BorderFactory.createEmptyBorder(padding, padding, padding, padding)
         ) ;
-        panel.setBackground(ColorUtils.transparent()) ;
+        panel.setBackground(ColorUtils.TRANSPARENT) ;
 
         return panel ;
     }
