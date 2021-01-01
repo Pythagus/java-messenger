@@ -4,7 +4,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import fr.insa.messenger.tomcat.utils.Validator;
-import fr.insa.messenger.tomcat.models.UserStatus;
+import fr.insa.messenger.tools.models.UserStatus;
 import fr.insa.messenger.tomcat.utils.ValidatedInput;
 import fr.insa.messenger.tomcat.controllers.UserController;
 import fr.insa.messenger.tomcat.exceptions.InternalException;

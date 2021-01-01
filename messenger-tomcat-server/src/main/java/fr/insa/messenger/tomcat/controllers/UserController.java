@@ -1,7 +1,7 @@
 package fr.insa.messenger.tomcat.controllers;
 
 import java.sql.SQLException;
-import fr.insa.messenger.tomcat.models.UserStatus;
+import fr.insa.messenger.tools.models.UserStatus;
 import fr.insa.messenger.tools.database.DatabaseObject;
 import fr.insa.messenger.tools.database.DatabaseInterface;
 import fr.insa.messenger.tomcat.exceptions.UnknownUserException;
