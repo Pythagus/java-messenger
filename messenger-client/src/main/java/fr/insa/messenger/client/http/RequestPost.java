@@ -1,6 +1,6 @@
 package fr.insa.messenger.client.http;
 
-import org.apache.http.Consts;
+import java.io.UnsupportedEncodingException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 
@@ -23,10 +23,14 @@ public class RequestPost extends Request<HttpPost> {
      * It could be made here.
      */
     protected void afterPreparingRequest() {
-        // Add the form parameters.
-        this.request.setEntity(
-            new UrlEncodedFormEntity(this.formParameters, Consts.UTF_8)
-        ) ;
+        try {
+            // Add the form parameters.
+            this.request.setEntity(
+                new UrlEncodedFormEntity(this.formParameters, "UTF-8")
+            ) ;
+        } catch(UnsupportedEncodingException e) {
+            e.printStackTrace() ;
+        }
     }
 
 }
