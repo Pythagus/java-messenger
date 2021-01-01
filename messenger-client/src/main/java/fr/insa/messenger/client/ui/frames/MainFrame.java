@@ -2,21 +2,18 @@ package fr.insa.messenger.client.ui.frames;
 
 import java.awt.*;
 import javax.swing.*;
-
-import fr.insa.messenger.client.ui.GraphicInterface;
 import fr.insa.messenger.client.ui.Sidebar;
-import fr.insa.messenger.client.ui.screens.DiscussionScreen;
-import fr.insa.messenger.client.ui.screens.SettingsScreen;
-import fr.insa.messenger.client.ui.screens.WelcomeScreen;
-import fr.insa.messenger.client.ui.screens.contacts.ContactBar;
-import fr.insa.messenger.client.ui.screens.discussions.DiscussionBar;
 import fr.insa.messenger.client.ui.utils.GridBagUtil;
+import fr.insa.messenger.client.ui.screens.WelcomeScreen;
 import fr.insa.messenger.client.ui.screens.utils.UserBar;
 import fr.insa.messenger.client.ui.screens.utils.BarType;
+import fr.insa.messenger.client.ui.screens.SettingsScreen;
 import fr.insa.messenger.client.ui.screens.utils.CardPanel;
-import fr.insa.messenger.client.observers.UserListListener;
+import fr.insa.messenger.client.ui.screens.DiscussionScreen;
 import fr.insa.messenger.client.ui.screens.utils.ContentType;
+import fr.insa.messenger.client.ui.screens.contacts.ContactBar;
 import fr.insa.messenger.client.ui.screens.utils.ContentScreen;
+import fr.insa.messenger.client.ui.screens.discussions.DiscussionBar;
 
 /**
  * @author Damien MOLINA
@@ -44,14 +41,6 @@ public class MainFrame extends Frame {
         this.contentContainer = new JPanel() ;
 
         this.initializeGraphics() ;
-    }
-
-    /**
-     * Start the main frame.
-     */
-    public static void start() {
-        GraphicInterface.instance().start(MainFrame.class) ;
-        GraphicInterface.instance().notifyWhenRendered(UserListListener::updateUI) ;
     }
 
     /**

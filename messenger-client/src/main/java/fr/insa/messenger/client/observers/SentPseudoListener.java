@@ -2,16 +2,12 @@ package fr.insa.messenger.client.observers;
 
 import java.awt.*;
 import javax.swing.*;
-
+import fr.insa.messenger.client.system.Env;
+import fr.insa.messenger.client.ui.frames.LoginFrame;
+import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.controllers.UserController;
 import fr.insa.messenger.client.exceptions.PseudoException;
-import fr.insa.messenger.client.network.models.basis.BroadcastType;
 import fr.insa.messenger.client.observers.contracts.Listener;
-import fr.insa.messenger.client.system.console.Console;
-import fr.insa.messenger.client.ui.frames.LoginFrame;
-import fr.insa.messenger.client.ui.frames.MainFrame;
-import fr.insa.messenger.client.system.Env;
-import fr.insa.messenger.client.network.NetworkInterface;
 
 /**
  * @author Damien MOLINA
@@ -92,11 +88,8 @@ public class SentPseudoListener implements Listener {
         // Set the pseudo.
         Env.getUser().setPseudo(pseudo) ;
 
-        // Send the broadcast notification.
-        NetworkInterface.instance().getEnvoyer().broadcast(BroadcastType.LOGIN) ;
-
         // Start the main frame.
-        MainFrame.start() ;
+        Env.getApplication().getStarter().startLoggedIn() ;
     }
 
 }

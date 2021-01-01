@@ -3,8 +3,6 @@ package fr.insa.messenger.client;
 import java.util.Locale;
 import fr.insa.messenger.tools.Config;
 import fr.insa.messenger.client.system.Env;
-import fr.insa.messenger.client.ui.GraphicInterface;
-import fr.insa.messenger.client.ui.frames.LoginFrame;
 import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.system.ApplicationStarter;
 import fr.insa.messenger.tools.database.DatabaseConnection;
@@ -49,6 +47,11 @@ public class Application {
     private static final String VERSION = "0.2.0" ;
 
     /**
+     * Application starter instance.
+     */
+    private final ApplicationStarter starter ;
+
+    /**
      * Make a new instance of the application.
      */
     public Application() {
@@ -56,12 +59,22 @@ public class Application {
         this.mode = Boolean.parseBoolean(
             Config.get("APP_DEBUG", "0")
         ) ? ApplicationMode.DEBUG : ApplicationMode.PRODUCTION ;
+        this.starter = new ApplicationStarter(this) ;
 
         Env.setApplication(this) ;
 
         if(this.isDebugMode()) {
             this.printConsoleIntro() ;
         }
+    }
+
+    /**
+     * Get the application starter instance.
+     *
+     * @return application starter instance.
+     */
+    public ApplicationStarter getStarter() {
+        return this.starter ;
     }
 
     /**
@@ -99,14 +112,7 @@ public class Application {
      * Start the application instance.
      */
     public void start() {
-        ApplicationStarter.start(this) ;
-    }
-
-    /**
-     * Start the graphics.
-     */
-    public void startGraphics() {
-        GraphicInterface.instance().start(LoginFrame.class) ;
+        this.starter.start() ;
     }
 
     /**

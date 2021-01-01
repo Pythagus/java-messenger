@@ -8,6 +8,7 @@ import fr.insa.messenger.client.utils.ColorUtils;
 import fr.insa.messenger.tools.models.UserStatus;
 import fr.insa.messenger.client.http.PresenceResponse;
 import fr.insa.messenger.client.http.PresenceInterface;
+import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.ui.factories.FontFactory;
 import fr.insa.messenger.client.ui.screens.SettingsScreen;
 
@@ -46,6 +47,7 @@ public class StatusContainer extends JPanel implements ActionListener {
             BorderFactory.createEmptyBorder(10, 10, 10, 10)
         ) ;
 
+        this.select.setSelectedItem(UserStatus.CONNECTED.toString()) ;
         this.select.addActionListener(this) ;
 
         // Pseudo label.
@@ -67,14 +69,17 @@ public class StatusContainer extends JPanel implements ActionListener {
      */
     public void actionPerformed(ActionEvent event) {
         try {
-            PresenceResponse response = PresenceInterface.publish(
-                UserStatus.translate((String) this.select.getSelectedItem())
-            ) ;
+            UserStatus status = UserStatus.translate((String) this.select.getSelectedItem()) ;
 
-            if(! response.isSuccessful()) {
+            PresenceResponse response = PresenceInterface.publish(status) ;
+
+            if(response.isSuccessful()) {
+                Console.comment("[SUCCESS] Status changed : " + status.toString()) ;
+            } else {
                 throw new Exception() ;
             }
         } catch (Exception e) {
+            Console.comment("[ERROR] Status change failed") ;
             JOptionPane.showMessageDialog(
                 this.screen, "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE
             ) ;
