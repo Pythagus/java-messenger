@@ -34,6 +34,15 @@ public class PresenceResponse {
     }
 
     /**
+     * Get the response message.
+     *
+     * @return response message.
+     */
+    public String getMessage() {
+        return (String) this.get("message") ;
+    }
+
+    /**
      * Get the value identified by the
      * given key.
      *

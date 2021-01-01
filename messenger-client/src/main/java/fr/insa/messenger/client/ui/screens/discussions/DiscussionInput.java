@@ -2,11 +2,9 @@ package fr.insa.messenger.client.ui.screens.discussions;
 
 import java.awt.*;
 import javax.swing.*;
-
 import fr.insa.messenger.client.utils.Cleaner;
 import fr.insa.messenger.client.ui.utils.Placeholder;
 import fr.insa.messenger.client.models.messages.Message;
-import fr.insa.messenger.client.models.messages.MessageData;
 import fr.insa.messenger.client.ui.screens.DiscussionScreen;
 import fr.insa.messenger.client.observers.contracts.Listener;
 import fr.insa.messenger.client.observers.contracts.Observable;
@@ -66,7 +64,7 @@ public class DiscussionInput extends JTextField implements Observable {
 
             // TODO : add file.
             this.observer.notifyAllListeners(this.screen.getConversation(),
-                new Message(this.screen.getConversation().getTarget(), new MessageData(text, null))
+                new Message(this.screen.getConversation().getTarget(), text, null)
             ) ;
         }
     }

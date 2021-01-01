@@ -2,12 +2,11 @@ package fr.insa.messenger.client.network.listeners;
 
 import java.net.Socket;
 import java.io.IOException;
-
-import fr.insa.messenger.client.network.listeners.handlers.AcceptedHandler;
-import fr.insa.messenger.client.network.listeners.handlers.QuitHandler;
 import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.network.NetworkInterface;
 import fr.insa.messenger.client.network.models.MeetingPacket;
+import fr.insa.messenger.client.network.listeners.handlers.QuitHandler;
+import fr.insa.messenger.client.network.listeners.handlers.AcceptedHandler;
 
 /**
  * @author Damien MOLINA

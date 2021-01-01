@@ -38,13 +38,6 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
     abstract protected void manageReceivedPacket(Socket socket, T packet) ;
 
     /**
-     * Manage the received file instance
-     *
-     */
-    // TODO
-    //abstract protected void manageFilePacket(Socket socket, T packet);
-
-    /**
      * Determine whether the packet should
      * be managed.
      *
@@ -53,15 +46,6 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
      *          False otherwise.
      */
     abstract protected boolean shouldManagePacket(T packet) ;
-
-    /**
-     *
-     * @param packet : packet to manage.
-     * @return True if the packet is a file,
-     *          False otherwise.
-     */
-    // TODO
-    //abstract protected boolean shouldManageFile(T packet);
 
     /**
      * Run the listener.

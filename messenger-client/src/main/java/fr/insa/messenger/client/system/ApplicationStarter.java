@@ -2,7 +2,11 @@ package fr.insa.messenger.client.system;
 
 import fr.insa.messenger.client.Application;
 import fr.insa.messenger.client.models.User;
+import fr.insa.messenger.client.http.PresenceResponse;
+import fr.insa.messenger.client.http.PresenceInterface;
+import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.network.NetworkInterface;
+import fr.insa.messenger.client.http.PresenceServerException;
 
 /**
  * @author Damien MOLINA
@@ -13,12 +17,6 @@ public class ApplicationStarter {
      * Application instance.
      */
     private final Application application ;
-
-    /**
-     * Determine whether the graphics should
-     * start with the application.
-     */
-    private boolean graphics = true ;
 
     /**
      * Start the application.
@@ -40,26 +38,6 @@ public class ApplicationStarter {
 
     /**
      * Start the application.
-     *
-     * @param app : application to start.
-     */
-    public static void startWithoutGraphics(Application app) {
-        new ApplicationStarter(app).withoutGraphics().start() ;
-    }
-
-    /**
-     * Set the graphics properties to false.
-     *
-     * @return this.
-     */
-    public ApplicationStarter withoutGraphics() {
-        this.graphics = false ;
-
-        return this ;
-    }
-
-    /**
-     * Start the application.
      */
     public void start() {
         // Load the dependencies.
@@ -68,16 +46,14 @@ public class ApplicationStarter {
         // Set the current user.
         Env.setUser(new User()) ;
 
-        /*
-         * Start the graphics only whether
-         * the application need them.
-         */
-        if(this.graphics) {
-            this.application.startGraphics() ;
-        }
+        // Start the graphics.
+        this.application.startGraphics() ;
 
         // Start the network interface.
         this.startNetwork() ;
+
+        // Subscribe to the status list.
+        this.startPresence() ;
     }
 
     /**
@@ -89,6 +65,24 @@ public class ApplicationStarter {
             NetworkInterface.instance().start() ;
         } catch (Exception exception) {
             exception.printStackTrace() ;
+        }
+    }
+
+    /**
+     * Subscribe to the presence server
+     * status list.
+     */
+    public void startPresence() {
+        try {
+            PresenceResponse response = PresenceInterface.subscribe() ;
+
+            if(response.isSuccessful()) {
+                Console.comment("[SUCCESS] Presence subscribe") ;
+            } else {
+                Console.danger("[ERROR] Presence subscribe failed : " + response.getMessage()) ;
+            }
+        } catch (PresenceServerException ignored) {
+            Console.danger("[ERROR] Presence subscribe failed") ;
         }
     }
 

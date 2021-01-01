@@ -17,7 +17,7 @@ public final class PresenceInterface {
      * @return the HTTP response as a JSON object.
      */
     public static PresenceResponse subscribe() {
-        RequestPost post = new RequestPost(PresenceInterface.getURL()) ;
+        RequestPost post = new RequestPost(PresenceInterface.getURL("subscribe")) ;
         post.formParameter("identifier", Env.getUser().getIdentifier()) ;
 
         return PresenceInterface.makeRequest(post) ;
@@ -29,7 +29,7 @@ public final class PresenceInterface {
      * @return the HTTP response as a JSON object.
      */
     public static PresenceResponse publish(UserStatus status) {
-        RequestPost post = new RequestPost(PresenceInterface.getURL()) ;
+        RequestPost post = new RequestPost(PresenceInterface.getURL("publish")) ;
         post.formParameter("identifier", Env.getUser().getIdentifier()) ;
         post.formParameter("status", status.toString()) ;
 
@@ -39,10 +39,17 @@ public final class PresenceInterface {
     /**
      * Get the presence server URL.
      *
+     * @param route : specific route.
      * @return URL.
      */
-    private static String getURL() {
-        return Config.get("PRESENCE_URL") ;
+    private static String getURL(String route) {
+        String uri = Config.get("PRESENCE_URL") ;
+
+        if(uri == null || uri.trim().length() <= 0) {
+            throw new PresenceServerException(route) ;
+        }
+
+        return uri.endsWith("/") ? uri + route : uri + "/" + route ;
     }
 
     /**

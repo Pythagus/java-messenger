@@ -2,7 +2,6 @@ package fr.insa.messenger.client.ui.screens.discussions;
 
 import java.awt.*;
 import javax.swing.*;
-
 import fr.insa.messenger.client.utils.ColorUtils;
 import fr.insa.messenger.client.ui.utils.GridBagUtil;
 import fr.insa.messenger.client.ui.utils.MyJListItem;
@@ -64,7 +63,7 @@ public class MessageListItem extends MyJListItem {
 
         // Message content.
         // TODO : manage too long message problem.
-        JLabel content = new JLabel(this.message.getData().getText()) ;
+        JLabel content = new JLabel(this.message.getText()) ;
         content.setBorder(
             BorderFactory.createEmptyBorder(10, 10, 10, 10)
         );

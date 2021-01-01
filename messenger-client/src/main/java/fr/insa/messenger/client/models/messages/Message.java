@@ -34,9 +34,14 @@ public class Message implements Serializable {
     private static final long serialVersionUID = 4242424242424242411L ;
 
     /**
-     * Message data.
+     * Message text.
      */
-    protected final MessageData data ;
+    private final String text ;
+
+    /**
+     * Sent file.
+     */
+    private final MessageFile file ;
 
     /**
      * Send date.
@@ -57,16 +62,17 @@ public class Message implements Serializable {
      * Make a new Message instance.
      *
      * @param target : targeted user.
-     * @param data : sent message.
+     * @param text : message text.
+     * @param file : message file.
      */
-    public Message(User target, MessageData data) {
+    public Message(User target, String text, MessageFile file) {
         /*
          * When the Message instance is created,
          * the date attribute is set to get the
          * exact sending time.
          */
         this(
-            target, data, new Timestamp(System.currentTimeMillis()).getTime()
+            target, text, file, new Timestamp(System.currentTimeMillis()).getTime()
         ) ;
     }
 
@@ -74,21 +80,24 @@ public class Message implements Serializable {
      * Make a new Message instance.
      *
      * @param target : targeted user.
-     * @param data : sent message.
+     * @param text : message text.
+     * @param file : message file.
      */
-    public Message(User target, MessageData data, long timestamp) {
-        this(Env.getUser(), target, data, timestamp) ;
+    public Message(User target, String text, MessageFile file, long timestamp) {
+        this(Env.getUser(), target, text, file, timestamp) ;
     }
 
     /**
      * Make a new Message instance.
      *
      * @param target : targeted user.
-     * @param data : sent message.
+     * @param text : message text.
+     * @param file : message file.
      */
-    public Message(User sender, User target, MessageData data, long timestamp) {
+    public Message(User sender, User target, String text, MessageFile file, long timestamp) {
         this.target    = target ;
-        this.data      = data ;
+        this.text      = text ;
+        this.file      = file ;
         this.sender    = sender ;
         this.timestamp = timestamp ;
     }
@@ -134,12 +143,42 @@ public class Message implements Serializable {
     }
 
     /**
-     * @return the MessageData instance
+     * Get the message text.
+     *
+     * @return the String message.
      */
-    public MessageData getData() {
-        return this.data ;
+    public String getText() {
+        return this.text ;
     }
 
+    /**
+     * Get the message file.
+     *
+     * @return the MessageFile instance.
+     */
+    public MessageFile getFile() {
+        return this.file ;
+    }
+
+    /**
+     * Determine whether the current data has
+     * a sent file.
+     *
+     * @return True or False
+     */
+    public boolean hasFile() {
+        return this.file != null ;
+    }
+
+    /**
+     * Determine whether the current data has
+     * a text.
+     *
+     * @return True or False
+     */
+    public boolean hasText() {
+        return this.text != null ;
+    }
 
     /**
      * Cats the given object as a
@@ -160,7 +199,7 @@ public class Message implements Serializable {
                 // Message receiver.
                 UserController.instance().getFromIdentifier(obj.get("user_receiver")),
                 // Message data.
-                new MessageData(text, file), DateUtils.timestamp(obj.get("sent_at"))
+                text, file, DateUtils.timestamp(obj.get("sent_at"))
             ) ;
         } catch (AppException e) {
             e.printStackTrace();
@@ -192,14 +231,12 @@ public class Message implements Serializable {
      * @throws SQLException : sql error.
      */
     public static void insert(Message message) throws SQLException {
-        MessageData data = message.getData() ;
-
-        if(data.hasFile()) {
-            Message.insert(message, Message.Type.FILE, data.getFile().getFullPath()) ;
+        if(message.hasFile()) {
+            Message.insert(message, Message.Type.FILE, message.getFile().getFullPath()) ;
         }
 
-        if(data.hasText()) {
-            Message.insert(message, Message.Type.MESSAGE, data.getText()) ;
+        if(message.hasText()) {
+            Message.insert(message, Message.Type.MESSAGE, message.getText()) ;
         }
     }
 
