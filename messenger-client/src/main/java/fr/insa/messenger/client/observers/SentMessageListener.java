@@ -1,11 +1,11 @@
 package fr.insa.messenger.client.observers;
 
-import fr.insa.messenger.client.controllers.ConversationController;
-import fr.insa.messenger.client.models.messages.Message;
-import fr.insa.messenger.client.observers.contracts.Listener;
-import fr.insa.messenger.client.ui.screens.DiscussionScreen;
-import fr.insa.messenger.client.ui.screens.discussions.MessageListItem;
+import fr.insa.messenger.client.models.Message;
 import fr.insa.messenger.client.models.Conversation;
+import fr.insa.messenger.client.ui.screens.DiscussionScreen;
+import fr.insa.messenger.client.observers.contracts.Listener;
+import fr.insa.messenger.client.controllers.ConversationController;
+import fr.insa.messenger.client.ui.screens.discussions.MessageListItem;
 
 /**
  * @author Damien MOLINA

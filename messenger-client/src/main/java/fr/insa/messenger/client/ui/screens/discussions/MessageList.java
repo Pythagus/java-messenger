@@ -2,8 +2,8 @@ package fr.insa.messenger.client.ui.screens.discussions;
 
 import java.awt.*;
 import javax.swing.*;
+import fr.insa.messenger.client.models.Message;
 import fr.insa.messenger.client.ui.utils.MyJList;
-import fr.insa.messenger.client.models.messages.Message;
 import fr.insa.messenger.client.ui.screens.DiscussionScreen;
 
 /**

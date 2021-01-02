@@ -1,4 +1,4 @@
-package fr.insa.messenger.client.models.messages;
+package fr.insa.messenger.client.models;
 
 import java.io.File;
 

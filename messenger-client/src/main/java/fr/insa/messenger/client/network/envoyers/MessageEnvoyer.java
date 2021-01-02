@@ -1,8 +1,8 @@
 package fr.insa.messenger.client.network.envoyers;
 
 import fr.insa.messenger.client.system.Env;
+import fr.insa.messenger.client.models.Message;
 import fr.insa.messenger.client.network.Envoyer;
-import fr.insa.messenger.client.models.messages.Message;
 import fr.insa.messenger.client.network.NetworkInterface;
 import fr.insa.messenger.client.network.models.MessagePacket;
 

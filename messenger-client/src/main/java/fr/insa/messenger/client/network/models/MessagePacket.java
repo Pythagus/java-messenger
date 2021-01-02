@@ -1,10 +1,9 @@
 package fr.insa.messenger.client.network.models;
 
 import java.io.Serializable;
-
-import fr.insa.messenger.client.network.models.basis.UserPacket;
 import fr.insa.messenger.client.models.User;
-import fr.insa.messenger.client.models.messages.Message;
+import fr.insa.messenger.client.models.Message;
+import fr.insa.messenger.client.network.models.basis.UserPacket;
 
 /**
  * @author Damien MOLINA

@@ -1,4 +1,4 @@
-package fr.insa.messenger.client.models.messages;
+package fr.insa.messenger.client.models;
 
 import java.util.Date;
 import java.sql.Timestamp;
@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.GregorianCalendar;
 import fr.insa.messenger.client.system.Env;
-import fr.insa.messenger.client.models.User;
 import fr.insa.messenger.client.utils.DateUtils;
 import fr.insa.messenger.tools.database.DatabaseObject;
 import fr.insa.messenger.client.exceptions.AppException;

@@ -2,8 +2,6 @@ package fr.insa.messenger.client.models;
 
 import java.util.ArrayList;
 
-import fr.insa.messenger.client.models.messages.Message;
-
 /**
  * Describe 1 discussion between 2 users.
  *
