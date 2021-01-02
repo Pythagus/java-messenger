@@ -2,9 +2,8 @@ package fr.insa.messenger.client.ui.screens.utils;
 
 import java.awt.*;
 import javax.swing.*;
-
-import fr.insa.messenger.client.utils.ColorUtils;
 import fr.insa.messenger.client.models.User;
+import fr.insa.messenger.client.utils.ColorUtils;
 import fr.insa.messenger.client.ui.utils.MyJListItem;
 import fr.insa.messenger.client.ui.factories.FontFactory;
 
@@ -17,6 +16,11 @@ abstract public class UserListItem extends MyJListItem {
      * Content label.
      */
     private final JLabel content ;
+
+    /**
+     * Additional label.
+     */
+    protected final JLabel additionalLabel ;
 
     /**
      * Targeted User instance.
@@ -38,6 +42,7 @@ abstract public class UserListItem extends MyJListItem {
         this.user    = user ;
         this.list    = list ;
         this.content = new JLabel() ;
+        this.additionalLabel = this.additionalLabel() ;
 
         this.initializeGraphics() ;
     }
@@ -60,6 +65,7 @@ abstract public class UserListItem extends MyJListItem {
             BorderFactory.createEmptyBorder(15, 0,15, 0)
         ) ;
         this.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
+        this.setLayout(new BorderLayout()) ;
 
         // Prepare content label.
         this.content.setText(this.user.getPseudo()) ;
@@ -67,6 +73,19 @@ abstract public class UserListItem extends MyJListItem {
 
         // Add the component.
         this.add(this.content) ;
+
+        if(this.additionalLabel != null) {
+            this.add(this.additionalLabel) ;
+        }
+    }
+
+    /**
+     * Generate a additional content label.
+     *
+     * @return a JLabel instance.
+     */
+    protected JLabel additionalLabel() {
+        return null ;
     }
 
     /**

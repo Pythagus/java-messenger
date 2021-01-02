@@ -3,9 +3,9 @@ package fr.insa.messenger.client.models;
 import java.util.Objects;
 import java.io.Serializable;
 import java.net.InetAddress;
-
-import fr.insa.messenger.client.network.utils.AddressUtils;
 import fr.insa.messenger.client.system.Env;
+import fr.insa.messenger.tools.models.UserStatus;
+import fr.insa.messenger.client.network.utils.AddressUtils;
 
 /**
  * Main application user.
@@ -22,17 +22,22 @@ public class User implements Serializable {
     /**
      * User pseudo.
      */
-    protected String pseudo;
+    private String pseudo;
 
     /**
      * User MAC address.
      */
-    protected String macAddress;
+    private String macAddress;
 
     /**
      * Source address.
      */
-    protected InetAddress address ;
+    private InetAddress address ;
+
+    /**
+     * User status.
+     */
+    private UserStatus status ;
 
     /**
      * Make a new User instance.
@@ -92,6 +97,15 @@ public class User implements Serializable {
     }
 
     /**
+     * Get the user's status.
+     *
+     * @return the user status.
+     */
+    public UserStatus getStatus() {
+        return this.status ;
+    }
+
+    /**
      * Get the user inet address.
      *
      * @return the address.
@@ -107,6 +121,15 @@ public class User implements Serializable {
      */
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo ;
+    }
+
+    /**
+     * Set the user's status/
+     *
+     * @param status : user status.
+     */
+    public void setStatus(UserStatus status) {
+        this.status = status ;
     }
 
     /**

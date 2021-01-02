@@ -7,6 +7,8 @@ import fr.insa.messenger.client.controllers.UserController;
 import fr.insa.messenger.client.ui.screens.contacts.ContactBar;
 import fr.insa.messenger.client.observers.contracts.BaseListener;
 import fr.insa.messenger.client.controllers.ConversationController;
+import fr.insa.messenger.client.ui.screens.discussions.DiscussionBar;
+import fr.insa.messenger.tools.models.UserStatus;
 
 /**
  * @author Damien MOLINA
@@ -37,7 +39,8 @@ public class UserListListener extends BaseListener {
      * Manage the waiting users.
      */
     public static synchronized void updateUI() {
-        ContactBar bar = GraphicInterface.instance().contactBar() ;
+        ContactBar cBar = GraphicInterface.instance().contactBar() ;
+        DiscussionBar dBar = GraphicInterface.instance().discussionBar() ;
 
         /*
          * This is mandatory because the contact
@@ -45,18 +48,23 @@ public class UserListListener extends BaseListener {
          * logging in. So, we need to wait until
          * the bar is made.
          */
-        if(bar != null) {
+        if(cBar != null && dBar != null) {
             UserListListener.users.forEach((WaitingElement el) -> {
                 User user = el.getUser() ;
 
                 switch(el.getState()) {
-                    case ADDED: bar.addItem(user) ; break ;
+                    case ADDED:
+                        cBar.addItem(user) ;
+                        break ;
                     case REMOVED:
                         ConversationController.instance().stop(user) ;
-                        bar.removeItem(user) ;
+                        cBar.removeItem(user) ;
                         break ;
                     case UPDATED:
-                        bar.updateUserPseudo(user, (String) el.getData()) ;
+                        cBar.updateUserPseudo(user, (String) el.getData()) ;
+                        break ;
+                    case STATUS:
+                        dBar.updateUserStatus(user, (UserStatus) el.getData()) ;
                         break ;
                 }
 
@@ -97,9 +105,9 @@ public class UserListListener extends BaseListener {
          * @param data : update data. Could be null.
          */
         WaitingElement(User user, UserController.UpdateState state, Object data) {
-            this.user = user ;
+            this.user  = user ;
             this.state = state ;
-            this.data = data ;
+            this.data  = data ;
         }
 
         /**

@@ -82,7 +82,7 @@ abstract public class UserList extends MyJList<UserListItem> {
      * @param user : user to find.
      * @return the index, -1 if the user wasn't find.
      */
-    protected int indexOf(User user) {
+    public int indexOf(User user) {
         for (int a = 0; a < this.getModel().getSize(); a++) {
             UserListItem item2 = this.getModel().getElementAt(a) ;
             if (item2.getUser().equals(user))  {

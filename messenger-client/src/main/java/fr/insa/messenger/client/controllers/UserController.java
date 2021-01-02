@@ -2,11 +2,11 @@ package fr.insa.messenger.client.controllers;
 
 import java.util.regex.*;
 import java.util.ArrayList;
-
-import fr.insa.messenger.client.exceptions.AppException;
-import fr.insa.messenger.client.exceptions.PseudoException;
 import fr.insa.messenger.client.system.Env;
 import fr.insa.messenger.client.models.User;
+import fr.insa.messenger.tools.models.UserStatus;
+import fr.insa.messenger.client.exceptions.AppException;
+import fr.insa.messenger.client.exceptions.PseudoException;
 import fr.insa.messenger.client.observers.UserListListener;
 
 /**
@@ -23,7 +23,7 @@ public class UserController extends Controller {
      * Possible update state.
      */
     public enum UpdateState {
-        ADDED, REMOVED, UPDATED
+        ADDED, REMOVED, UPDATED, STATUS
     }
 
     /**
@@ -72,9 +72,10 @@ public class UserController extends Controller {
     }
 
     /**
-     * modify an existing pseudo
-     * @param user User instance
-     * @param pseudo String that will replace the ancient pseudo
+     * modify an existing pseudo.
+     *
+     * @param user User instance.
+     * @param pseudo String that will replace the ancient pseudo.
      */
     public void modifyUserName(User user, String pseudo) {
         this.users.get(
@@ -82,6 +83,20 @@ public class UserController extends Controller {
         ).setPseudo(pseudo) ;
 
         this.notifyAllListeners(user, UpdateState.UPDATED, pseudo) ;
+    }
+
+    /**
+     * Update the user's status.
+     *
+     * @param user User instance.
+     * @param status new user's status.
+     */
+    public void modifyUserStatus(User user, UserStatus status) {
+        this.users.get(
+            this.users.indexOf(user)
+        ).setStatus(status) ;
+
+        this.notifyAllListeners(user, UpdateState.STATUS, status) ;
     }
 
     /**
