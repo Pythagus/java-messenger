@@ -40,21 +40,27 @@ public class MulticastEnvoyer extends BroadcastEnvoyer {
     @Override
     protected void send() {
         try {
+            /*
+             * We need to set the socket TTL. By
+             * default, the TTL value is 1. So, we
+             * put 15 to access the entire local
+             * network.
+             *
+             * @see https://perso.telecom-paristech.fr/hudry/coursJava/reseau/multicast.html
+             */
+            MulticastSocket socket = new MulticastSocket() ;
+            socket.setTimeToLive(15) ;
+
+            // Buffer to send.
             byte[] buffer = this.notification.serialize().getBytes() ;
 
-            // Prepare and join the multicast group.
-            MulticastSocket socket = new MulticastSocket() ;
-            socket.joinGroup(this.target) ;
-            //socket.setTimeToLive() ;  // TODO : set the socket TTL
-
-            // Prepare the datagram to send.
-            DatagramPacket datagram = new DatagramPacket(
-                    buffer, buffer.length, this.target, NetworkInterface.MULTICAST_PORT
+            // Packet to send.
+            DatagramPacket packet = new DatagramPacket(
+                buffer, buffer.length, AddressUtils.getMulticastAddress(), NetworkInterface.MULTICAST_PORT
             ) ;
-            datagram.setData(buffer) ;
 
             // Send the datagram.
-            socket.send(datagram) ;
+            socket.send(packet) ;
         } catch(Exception e) {
             e.printStackTrace() ;
         }

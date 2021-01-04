@@ -6,7 +6,7 @@ import javax.swing.*;
 /**
  * @author Damien MOLINA
  */
-public class ImageAsset {
+final public class ImageAsset {
 
     /**
      * Get the logo URL.

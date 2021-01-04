@@ -2,10 +2,11 @@ package fr.insa.messenger.client.network;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
+import fr.insa.messenger.client.network.utils.AddressUtils;
 import fr.insa.messenger.client.network.listeners.MeetingListener;
 import fr.insa.messenger.client.network.listeners.ReceiveListener;
 import fr.insa.messenger.client.network.models.basis.BroadcastType;
-import fr.insa.messenger.client.network.listeners.BroadcastListener;
+import fr.insa.messenger.client.network.listeners.MulticastListener;
 
 /**
  * @author Damien MOLINA
@@ -47,7 +48,7 @@ final public class NetworkInterface extends Thread {
      * Multicast listening port.
      *
      */
-    public static final int MULTICAST_PORT = STARTING_PORT + 3;
+    public static final int MULTICAST_PORT = STARTING_PORT + 3 ;
 
     /**
      * Meeting listener.
@@ -64,12 +65,19 @@ final public class NetworkInterface extends Thread {
      */
     private final ReceiveListener receiveListener ;
 
-    /**
+    /*
      * Broadcast listener.
      * This listener receives messages from all
      * the connected users.
      */
-    private final BroadcastListener broadcastListener ;
+    //private final BroadcastListener broadcastListener ;
+
+    /**
+     * Multicast listener.
+     * This listener receives messages from all
+     * the connected users.
+     */
+    private final MulticastListener multicastListener ;
 
     /**
      * Envoyer instance.
@@ -90,8 +98,13 @@ final public class NetworkInterface extends Thread {
         this.receiveListener = new ReceiveListener(NetworkInterface.RECEIVING_PORT) ;
 
         // Prepare the broadcast listener.
-        this.broadcastListener = new BroadcastListener(
+        /*this.broadcastListener = new BroadcastListener(
             new DatagramSocket(NetworkInterface.BROADCAST_PORT)
+        ) ;*/
+
+        // Prepare the multicast listener.
+        this.multicastListener = new MulticastListener(
+            new DatagramSocket(NetworkInterface.MULTICAST_PORT, AddressUtils.getMulticastAddress())
         ) ;
 
         // Prepare the envoyer.
@@ -131,7 +144,8 @@ final public class NetworkInterface extends Thread {
     public void run() {
         this.meetingListener.start() ;
         this.receiveListener.start() ;
-        this.broadcastListener.start() ;
+        //this.broadcastListener.start() ;
+        this.multicastListener.start() ;
 
         /*
          * When we start the network interface,
@@ -139,7 +153,15 @@ final public class NetworkInterface extends Thread {
          * how is currently logged into the
          * application.
          */
-        this.envoyer.broadcast(BroadcastType.EVERYONE_INFO) ;
+        //this.envoyer.broadcast(BroadcastType.EVERYONE_INFO) ;
+
+        /*
+         * When we start the network interface,
+         * we should multicast a message to know
+         * how is currently logged into the
+         * application.
+         */
+        this.envoyer.multicast(BroadcastType.EVERYONE_INFO); ;
     }
 
 }

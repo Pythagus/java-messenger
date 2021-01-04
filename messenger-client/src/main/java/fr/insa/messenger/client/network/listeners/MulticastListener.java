@@ -1,9 +1,12 @@
 package fr.insa.messenger.client.network.listeners;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.MulticastSocket;
 import fr.insa.messenger.client.system.Env;
 import fr.insa.messenger.client.system.console.Console;
+import fr.insa.messenger.client.network.utils.AddressUtils;
 import fr.insa.messenger.client.network.models.BroadcastPacket;
 
 /**
@@ -18,6 +21,14 @@ public class MulticastListener extends BroadcastListener {
      */
     public MulticastListener(DatagramSocket socket) {
         super(socket) ;
+
+        try {
+            ((MulticastSocket) this.listenerSocket).joinGroup(
+                AddressUtils.getMulticastAddress()
+            ) ;
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 
     /**

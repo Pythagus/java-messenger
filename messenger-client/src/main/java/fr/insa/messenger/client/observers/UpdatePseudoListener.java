@@ -45,8 +45,8 @@ public class UpdatePseudoListener extends SentPseudoListener {
         // Set the pseudo.
         Env.getUser().setPseudo(pseudo) ;
 
-        // Send the broadcast notification.
-        NetworkInterface.instance().getEnvoyer().broadcast(BroadcastType.CHANGED_PSEUDO) ;
+        // Send the multicast notification.
+        NetworkInterface.instance().getEnvoyer().multicast(BroadcastType.CHANGED_PSEUDO) ;
     }
 
 }

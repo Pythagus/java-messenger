@@ -6,7 +6,7 @@ import fr.insa.messenger.client.system.Env;
 /**
  * @author Damien MOLINA
  */
-public class Console implements ConsoleInterface {
+final public class Console implements ConsoleInterface {
 
     /**
      * Stream to print in.

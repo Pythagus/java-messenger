@@ -4,11 +4,10 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;
-
-import fr.insa.messenger.client.network.models.basis.BroadcastType;
-import fr.insa.messenger.client.system.assets.ImageAsset;
 import fr.insa.messenger.client.system.Env;
+import fr.insa.messenger.client.system.assets.ImageAsset;
 import fr.insa.messenger.client.network.NetworkInterface;
+import fr.insa.messenger.client.network.models.basis.BroadcastType;
 
 /**
  * @author Damien MOLINA
@@ -76,7 +75,7 @@ abstract public class Frame extends JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) ;
 
             if(response == JOptionPane.YES_OPTION) {
-                NetworkInterface.instance().getEnvoyer().broadcast(BroadcastType.LOGOUT) ;
+                NetworkInterface.instance().getEnvoyer().multicast(BroadcastType.LOGOUT); ;
                 System.exit(0) ;
             }
         }

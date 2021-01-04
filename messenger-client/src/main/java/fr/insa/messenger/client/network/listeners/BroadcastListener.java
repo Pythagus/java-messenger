@@ -2,13 +2,12 @@ package fr.insa.messenger.client.network.listeners;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-
-import fr.insa.messenger.client.network.listeners.handlers.LogoutHandler;
-import fr.insa.messenger.client.network.models.basis.BroadcastType;
 import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.network.NetworkInterface;
 import fr.insa.messenger.client.controllers.UserController;
 import fr.insa.messenger.client.network.models.BroadcastPacket;
+import fr.insa.messenger.client.network.models.basis.BroadcastType;
+import fr.insa.messenger.client.network.listeners.handlers.LogoutHandler;
 
 /**
  * @author Maud PENNETIER
@@ -121,7 +120,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
     private void manageEveryoneInformationPDU(BroadcastPacket notification) {
         this.printReceivedNotification(notification) ;
 
-        NetworkInterface.instance().getEnvoyer().broadcastResponse(
+        NetworkInterface.instance().getEnvoyer().multicastResponse(
             new BroadcastPacket(BroadcastType.LOGIN), notification.getUser().getAddress()
         ) ;
     }
