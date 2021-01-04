@@ -143,14 +143,14 @@ public class Envoyer {
     /**
      * Send a file
      * @param socket
-     * @param filePath Path to the file
+     * @param toSendFile File to be send
      */
-    public void sendFile (Socket socket, String filePath, boolean closeSocket)
+    public void sendFile (Socket socket, File toSendFile, boolean closeSocket)
     {
         try
         {
             final int[] bytes = {0};
-            File file = new File(filePath);
+            File file = toSendFile;
             FileInputStream fileInputStream = new FileInputStream(file);
 
             this.executor.submit(() ->
