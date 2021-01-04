@@ -40,6 +40,10 @@ final public class BroadcastSplitter {
      * @return a joined string.
      */
     public static String join(String... str) {
+        if(str == null || str.length <= 0) {
+            return "" ;
+        }
+
         return BroadcastSplitter.DELIMITER +
             String.join(BroadcastSplitter.DELIMITER, str) +
             BroadcastSplitter.DELIMITER ;
