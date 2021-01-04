@@ -51,7 +51,10 @@ public class MeetingResponseListener extends NetworkBaseListener<Socket> {
     public void run() {
         try {
             InputSocketStream exchanger = new InputSocketStream(this.listenerSocket) ;
+
+            Console.comment("=> MeetingResponse is waiting for " + this.listenerSocket.getInetAddress().toString()) ;
             MeetingPacket packet = (MeetingPacket) exchanger.receive() ;
+            Console.comment("=> MeetingResponse received a response from " + this.listenerSocket.getInetAddress().toString()) ;
 
             this.managePacket(packet) ;
 
