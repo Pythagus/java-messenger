@@ -8,10 +8,10 @@ import fr.insa.messenger.client.models.User;
 import fr.insa.messenger.client.models.Message;
 import fr.insa.messenger.client.models.Conversation;
 import fr.insa.messenger.tools.database.DatabaseObject;
+import fr.insa.messenger.tools.network.BroadcastSplitter;
 import fr.insa.messenger.client.network.NetworkInterface;
 import fr.insa.messenger.client.network.models.MeetingPacket;
 import fr.insa.messenger.tools.database.DatabaseSelectResult;
-import fr.insa.messenger.client.network.utils.BroadcastSplitter;
 import fr.insa.messenger.client.network.listeners.handlers.QuitHandler;
 
 /**

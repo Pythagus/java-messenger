@@ -1,4 +1,4 @@
-package fr.insa.messenger.client.network.utils;
+package fr.insa.messenger.tools.network;
 
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -30,6 +30,19 @@ final public class BroadcastSplitter {
         ) ;
 
         return arr ;
+    }
+
+    /**
+     * Join the given string array into one single
+     * string.
+     *
+     * @param str : strings to join together.
+     * @return a joined string.
+     */
+    public static String join(String... str) {
+        return BroadcastSplitter.DELIMITER +
+            String.join(BroadcastSplitter.DELIMITER, str) +
+            BroadcastSplitter.DELIMITER ;
     }
 
 }

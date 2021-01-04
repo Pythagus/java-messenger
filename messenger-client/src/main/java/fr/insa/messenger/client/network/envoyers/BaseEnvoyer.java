@@ -1,9 +1,5 @@
 package fr.insa.messenger.client.network.envoyers;
 
-import java.io.IOException;
-import java.net.Socket;
-
-import fr.insa.messenger.client.network.models.basis.Packet;
 import fr.insa.messenger.client.models.User;
 import fr.insa.messenger.client.network.Envoyer;
 
@@ -56,25 +52,6 @@ abstract public class BaseEnvoyer extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Send the given packet.
-     *
-     * @param packet : packet
-     * @param port : destination port.
-     * @param closeSocket : determine whether the socket should be closed.
-     */
-    protected Socket sendPacket(Packet<?> packet, int port, boolean closeSocket) throws IOException {
-        Socket socket = new Socket(
-            packet.getDestinationAddress(), port
-        ) ;
-
-        this.envoyer.send(
-            socket, packet, closeSocket
-        ) ;
-
-        return socket ;
     }
 
 }

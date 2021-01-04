@@ -102,11 +102,13 @@ final public class UserController extends Controller {
      * @param status new user's status.
      */
     public void modifyUserStatus(User user, UserStatus status) {
-        this.users.get(
-            this.users.indexOf(user)
-        ).setStatus(status) ;
+        int index = this.users.indexOf(user) ;
 
-        this.notifyAllListeners(user, UpdateState.STATUS, status) ;
+        if(index >= 0) {
+            this.users.get(index).setStatus(status) ;
+
+            this.notifyAllListeners(user, UpdateState.STATUS, status) ;
+        }
     }
 
     /**

@@ -1,8 +1,6 @@
 package fr.insa.messenger.client.network;
 
 import java.io.IOException;
-import java.net.DatagramSocket;
-import fr.insa.messenger.client.network.listeners.FileReceiveListener;
 import java.net.MulticastSocket;
 import java.net.InetSocketAddress;
 import fr.insa.messenger.client.network.utils.AddressUtils;
@@ -10,6 +8,7 @@ import fr.insa.messenger.client.network.listeners.MeetingListener;
 import fr.insa.messenger.client.network.listeners.ReceiveListener;
 import fr.insa.messenger.client.network.models.basis.BroadcastType;
 import fr.insa.messenger.client.network.listeners.MulticastListener;
+import fr.insa.messenger.client.network.listeners.FileReceiveListener;
 
 /**
  * @author Damien MOLINA
@@ -20,12 +19,6 @@ final public class NetworkInterface extends Thread {
      * Singleton instance.
      */
     private static NetworkInterface INSTANCE ;
-
-    /**
-     * The Messenger multicast address.
-     * Non-routable multicast address.
-     */
-    public static final String MULTICAST_ADDR = "224.0.0.42" ;
 
     /**
      * Starting application port.
