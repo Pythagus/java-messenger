@@ -19,7 +19,7 @@ public class MulticastListener extends BroadcastListener {
      * @param socket : listening socket.
      */
     public MulticastListener(MulticastSocket socket) {
-        super(socket) ;
+        super(socket, "Multicast") ;
 
         try {
             ((MulticastSocket) this.listenerSocket).joinGroup(

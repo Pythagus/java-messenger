@@ -15,12 +15,29 @@ import fr.insa.messenger.client.network.listeners.handlers.LogoutHandler;
 public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
 
     /**
+     * Listener name.
+     */
+    private final String name ;
+
+    /**
      * Make a new listener instance.
      *
      * @param listenerSocket : listening socket.
      */
     public BroadcastListener(DatagramSocket listenerSocket) {
+        this(listenerSocket, "Broadcast") ;
+    }
+
+    /**
+     * Make a new listener instance.
+     *
+     * @param listenerSocket : listening socket.
+     * @param name : listener name.
+     */
+    public BroadcastListener(DatagramSocket listenerSocket, String name) {
         super(listenerSocket) ;
+
+        this.name = name ;
     }
 
     /**
@@ -84,7 +101,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
 
             // Unknown type.
             default:
-                Console.warning("Unknown received broadcast type : " + pdu.getType()) ;
+                Console.warning("Unknown received " + this.name + " type : " + pdu.getType()) ;
         }
     }
 
@@ -146,7 +163,7 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
      * @param notification : received notification.
      */
     private void printReceivedNotification(BroadcastPacket notification) {
-        Console.comment("=> Broadcast " + notification.getType() + " received from " + notification.getUser().getPseudo()) ;
+        Console.comment("=> " + this.name + " " + notification.getType() + " received from " + notification.getUser().getPseudo()) ;
     }
 
 }

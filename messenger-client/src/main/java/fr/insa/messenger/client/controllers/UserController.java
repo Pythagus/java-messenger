@@ -55,7 +55,17 @@ final public class UserController extends Controller {
      * @param user : User instance.
      */
     public void addUser(User user) {
-        if(! this.hasUser(user)) {
+        if(this.hasUser(user)) {
+            try {
+                User saved = this.getFromIdentifier(user.getIdentifier()) ;
+
+                if(saved.getPseudo() == null) {
+                    saved.setPseudo(user.getPseudo()) ;
+                }
+            } catch (AppException e) {
+                e.printStackTrace();
+            }
+        } else {
             this.users.add(user) ;
             this.notifyAllListeners(user, UpdateState.ADDED) ;
         }
