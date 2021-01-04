@@ -1,17 +1,13 @@
 package fr.insa.messenger.client.network.listeners;
 
+import java.util.Date;
 import java.net.Socket;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
-
-import fr.insa.messenger.client.network.models.basis.Packet;
-import fr.insa.messenger.client.system.Env;
-import fr.insa.messenger.client.system.console.Console;
-
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import fr.insa.messenger.client.system.console.Console;
 
 /**
  * @author Maud PENNETIER
@@ -42,7 +38,6 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
      */
     abstract protected void manageFilePacket(Socket socket, String packet);
 
-
     /**
      * Run the listener.
      */
@@ -54,7 +49,7 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
             try {
                 Console.comment("=> " + name + " is waiting for a file") ;
 
-                Socket socket        = this.filelistenerSocket.accept() ;
+                Socket socket        = this.listenerSocket.accept() ;
                 ObjectInputStream is = new ObjectInputStream(socket.getInputStream()) ;
 
                 Console.comment("=> " + name + " received a file from " + socket.getInetAddress()) ;

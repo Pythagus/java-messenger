@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import fr.insa.messenger.client.models.User;
 import fr.insa.messenger.client.models.Message;
+import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.network.models.basis.Packet;
 import fr.insa.messenger.client.network.models.MeetingPacket;
 import fr.insa.messenger.client.network.streams.SocketStream;
@@ -17,7 +18,6 @@ import fr.insa.messenger.client.network.envoyers.MessageEnvoyer;
 import fr.insa.messenger.client.network.envoyers.MulticastEnvoyer;
 import fr.insa.messenger.client.network.envoyers.BroadcastEnvoyer;
 import fr.insa.messenger.client.network.models.basis.BroadcastType;
-import fr.insa.messenger.client.system.console.Console;
 
 /**
  * @author Damien MOLINA, Maud PENNETIER
