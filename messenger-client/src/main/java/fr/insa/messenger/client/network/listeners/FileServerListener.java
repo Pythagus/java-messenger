@@ -56,8 +56,6 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
 
                 String packet = (String) is.readObject() ;
 
-                System.out.println(packet);
-
                 // TODO : do it in a thread
 
                 if(packet.equals("BOIimfCdPSTgspWu34MbJRWzgDRO3OmY4ULRjKdb")) {
@@ -72,7 +70,7 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
                     SimpleDateFormat formate = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
                     String fileName = formate.format(date);
                     String pathToTemp = System.getProperty("java.io.tmpdir"); // get the temporary directory
-                    FileOutputStream fileOutputStream = new FileOutputStream(pathToTemp + "Messenger" + fileName + extension);
+                    FileOutputStream fileOutputStream = new FileOutputStream(pathToTemp + "/Messenger" + fileName + extension);
 
                     // receive file size
                     long size = is.readLong();
@@ -85,7 +83,6 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
                     }
                     fileOutputStream.close();
                     this.manageFilePacket(socket, packet) ;
-
                 } else {
                     Console.warning("File packet not managed") ;
                 }
