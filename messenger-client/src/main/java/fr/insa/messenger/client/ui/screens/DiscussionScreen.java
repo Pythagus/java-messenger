@@ -173,9 +173,11 @@ public class DiscussionScreen extends ContentScreen {
          */
         if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile() ;
-
             // TODO : send file.
-            //sendFile(Socket socket, file); trouver le socket
+
+            Envoyer envoyer = new Envoyer();
+            envoyer.sendFile(this.conversation.getTarget(), file);
+
             System.out.println("Chosen file : " + file.getName()) ;
         }
     }
