@@ -1,5 +1,6 @@
 package fr.insa.messenger.client.network.envoyers;
 
+import java.io.IOException;
 import java.net.Socket;
 
 import fr.insa.messenger.client.network.models.basis.Packet;
@@ -62,19 +63,18 @@ abstract public class BaseEnvoyer extends Thread {
      *
      * @param packet : packet
      * @param port : destination port.
+     * @param closeSocket : determine whether the socket should be closed.
      */
-    protected void sendPacket(Packet<?> packet, int port) {
-        try {
-            Socket socket = new Socket(
-                packet.getDestinationAddress(), port
-            ) ;
+    protected Socket sendPacket(Packet<?> packet, int port, boolean closeSocket) throws IOException {
+        Socket socket = new Socket(
+            packet.getDestinationAddress(), port
+        ) ;
 
-            this.envoyer.send(
-                socket, packet, true
-            ) ;
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
+        this.envoyer.send(
+            socket, packet, closeSocket
+        ) ;
+
+        return socket ;
     }
 
 }

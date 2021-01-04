@@ -88,12 +88,21 @@ public class Envoyer {
     }
 
     /**
-     * Multicast the given notification
+     * Multicast the given notification.
      *
      * @param notification : notification to multicast.
      */
-    public void multicast(BroadcastPacket notification){
+    public void multicast(BroadcastPacket notification) {
         new MulticastEnvoyer(this, notification).start() ;
+    }
+
+    /**
+     * Multicast the given notification's type.
+     *
+     * @param type : broadcast notification type.
+     */
+    public void multicast(BroadcastType type) {
+        this.multicast(new BroadcastPacket(type)) ;
     }
 
     /**
@@ -130,6 +139,18 @@ public class Envoyer {
         }) ;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+    // TODO : do it in a FileEnvoyer
     private String getExtension(File file){
         String fileName = file.getName();
         if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)

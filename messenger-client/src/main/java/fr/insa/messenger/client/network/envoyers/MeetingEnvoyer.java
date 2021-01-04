@@ -46,13 +46,8 @@ public class MeetingEnvoyer extends BaseEnvoyer {
         DeniedHandler deniedCallback = new DeniedHandler() ;
 
         try {
-            // Make the socket.
-            Socket socket = new Socket(
-                this.packet.getDestinationAddress(), NetworkInterface.MEETING_PORT
-            ) ;
-
-            this.envoyer.send(
-                socket, this.packet, false
+            Socket socket = this.sendPacket(
+                this.packet, NetworkInterface.MEETING_PORT, false
             ) ;
 
             if(this.packet.isWaitingForResponse()) {
@@ -64,7 +59,6 @@ public class MeetingEnvoyer extends BaseEnvoyer {
                 listener.start() ;
             }
         }
-
         /*
          * This exception is thrown when the
          * user is not reachable in the network.

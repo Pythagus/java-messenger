@@ -14,14 +14,14 @@ import fr.insa.messenger.client.network.models.BroadcastPacket;
 public class BroadcastEnvoyer extends BaseEnvoyer {
 
     /**
-     * Notification to broadcast
+     * Notification to broadcast.
      */
-    private final BroadcastPacket notification ;
+    protected final BroadcastPacket notification ;
 
     /**
-     * targeted address.
+     * Targeted address.
      */
-    private final InetAddress target ;
+    protected final InetAddress target ;
 
     /**
      * Make a new Broadcast envoyer instance.

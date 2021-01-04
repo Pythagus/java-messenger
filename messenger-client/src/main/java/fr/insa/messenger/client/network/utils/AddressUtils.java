@@ -66,6 +66,22 @@ public class AddressUtils {
     }
 
     /**
+     * Get the multicast address.
+     *
+     * @return an InetAddress for the multicast.
+     */
+    public static InetAddress getMulticastAddress() {
+        try {
+            return InetAddress.getByName(
+                fr.insa.messenger.client.network.NetworkInterface.MULTICAST_ADDR
+            ) ;
+        } catch (Exception e) {
+            e.printStackTrace() ;
+            return null ;
+        }
+    }
+
+    /**
      * Get the user IP address.
      *
      * @apiNote see https://stackoverflow.com/a/20418809 for the original post.

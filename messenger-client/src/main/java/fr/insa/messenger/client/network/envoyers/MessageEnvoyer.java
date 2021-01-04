@@ -1,5 +1,6 @@
 package fr.insa.messenger.client.network.envoyers;
 
+import java.io.IOException;
 import fr.insa.messenger.client.system.Env;
 import fr.insa.messenger.client.models.Message;
 import fr.insa.messenger.client.network.Envoyer;
@@ -38,7 +39,11 @@ public class MessageEnvoyer extends BaseEnvoyer {
         ) ;
         packet.setData(this.message) ;
 
-        this.sendPacket(packet, NetworkInterface.RECEIVING_PORT) ;
+        try {
+            this.sendPacket(packet, NetworkInterface.RECEIVING_PORT, true) ;
+        } catch (IOException e) {
+            e.printStackTrace() ;
+        }
     }
 
 }

@@ -16,7 +16,12 @@ final public class NetworkInterface extends Thread {
     /**
      * Singleton instance.
      */
-    private static NetworkInterface INSTANCE;
+    private static NetworkInterface INSTANCE ;
+
+    /**
+     * The Messenger multicast address.
+     */
+    public static final String MULTICAST_ADDR = "232.42.42.42" ;
 
     /**
      * Starting application port.

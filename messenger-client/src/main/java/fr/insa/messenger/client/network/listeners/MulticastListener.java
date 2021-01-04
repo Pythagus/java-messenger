@@ -1,26 +1,24 @@
 package fr.insa.messenger.client.network.listeners;
 
-import fr.insa.messenger.client.network.models.BroadcastPacket;
-import fr.insa.messenger.client.system.Env;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import fr.insa.messenger.client.system.Env;
 import fr.insa.messenger.client.system.console.Console;
+import fr.insa.messenger.client.network.models.BroadcastPacket;
 
-public class MulticastListener extends BroadcastListener
-{
-
+/**
+ * @author Maud PENNETIER
+ */
+public class MulticastListener extends BroadcastListener {
 
     /**
      * Make a new listener instance.
      *
-     *
-     * @param listenerSocket : listening socket.
+     * @param socket : listening socket.
      */
-    public MulticastListener(DatagramSocket listenerSocket)
-    {
-        super(listenerSocket);
+    public MulticastListener(DatagramSocket socket) {
+        super(socket) ;
     }
-
 
     /**
      * Run the listener.
@@ -29,22 +27,23 @@ public class MulticastListener extends BroadcastListener
     public void run() {
         while(true) {
             try {
-                byte[] buffer = new byte[4096];
+                Console.comment("=> MulticastListener is waiting") ;
 
-                Console.comment("=> MulticastListener is waiting");
-
+                byte[] buffer = new byte[4096] ;
                 DatagramPacket datagram = new DatagramPacket(buffer, buffer.length);
 
                 this.listenerSocket.receive(datagram) ;
 
-                Console.comment("=> BroadcastListener received a datagram from " + datagram.getAddress()) ;
+                Console.comment("=> MulticastListener received a datagram from " + datagram.getAddress()) ;
 
                 BroadcastPacket notification = BroadcastPacket.unserialize(
                     new String(datagram.getData())
                 ) ;
 
                 if(! notification.getUser().equals(Env.getUser())) {
-                    this.manageReceivedPDU(notification);
+                    this.manageReceivedPDU(notification) ;
+                } else {
+                    Console.warning("Multicast packet not managed") ;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
