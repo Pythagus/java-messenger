@@ -6,7 +6,7 @@ import java.util.Enumeration;
 /**
  * @author Damien MOLINA
  */
-public class AddressUtils {
+final public class AddressUtils {
 
     /**
      * Get the user MAC address.

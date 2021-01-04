@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * @author Damien MOLINA
  */
-public class ColorUtils {
+final public class ColorUtils {
 
     /**
      * Transparent color.

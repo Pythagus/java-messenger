@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * @author Damien MOLINA
  */
-public class BroadcastSplitter {
+final public class BroadcastSplitter {
 
     /**
      * String delimiter.
