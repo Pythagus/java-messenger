@@ -1,7 +1,8 @@
 package fr.insa.messenger.client.network;
 
 import java.io.IOException;
-import java.net.DatagramSocket;
+import java.net.MulticastSocket;
+import java.net.InetSocketAddress;
 import fr.insa.messenger.client.network.utils.AddressUtils;
 import fr.insa.messenger.client.network.listeners.MeetingListener;
 import fr.insa.messenger.client.network.listeners.ReceiveListener;
@@ -103,9 +104,9 @@ final public class NetworkInterface extends Thread {
         ) ;*/
 
         // Prepare the multicast listener.
-        this.multicastListener = new MulticastListener(
-            new DatagramSocket(NetworkInterface.MULTICAST_PORT, AddressUtils.getMulticastAddress())
-        ) ;
+        this.multicastListener = new MulticastListener(new MulticastSocket(
+            new InetSocketAddress(AddressUtils.getMulticastAddress(), NetworkInterface.MULTICAST_PORT)
+        )) ;
 
         // Prepare the envoyer.
         this.envoyer = new Envoyer() ;

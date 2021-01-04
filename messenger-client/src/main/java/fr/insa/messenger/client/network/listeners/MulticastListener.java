@@ -2,7 +2,6 @@ package fr.insa.messenger.client.network.listeners;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.MulticastSocket;
 import fr.insa.messenger.client.system.Env;
 import fr.insa.messenger.client.system.console.Console;
@@ -19,7 +18,7 @@ public class MulticastListener extends BroadcastListener {
      *
      * @param socket : listening socket.
      */
-    public MulticastListener(DatagramSocket socket) {
+    public MulticastListener(MulticastSocket socket) {
         super(socket) ;
 
         try {
