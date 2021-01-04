@@ -48,15 +48,6 @@ abstract public class FileServerListener<T extends Packet<?>> extends NetworkBas
      */
     abstract protected void manageFilePacket(Socket socket, T packet);
 
-    /**
-     * Determine whether the packet should
-     * be managed.
-     *
-     * @param packet : packet to manage.
-     * @return True if the packet should be managed,
-     *          False otherwise.
-     */
-    abstract protected boolean shouldManagePacket(T packet) ;
 
     /**
      *
@@ -97,6 +88,7 @@ abstract public class FileServerListener<T extends Packet<?>> extends NetworkBas
 
                     // receive file extension
                     String extension = (String) is.readObject();
+                    
                     // file name
                     Date date = new Date();
                     SimpleDateFormat formate = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");

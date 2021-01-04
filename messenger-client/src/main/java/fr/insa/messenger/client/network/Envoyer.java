@@ -163,13 +163,15 @@ public class Envoyer {
 
     /**
      * Send a file
-     * @param socket
+     * @param dest to whom send the file
      * @param toSendFile File to be send
      */
-    public void sendFile (Socket socket, File toSendFile)
+    public void sendFile (User dest, File toSendFile)
     {
         try
         {
+            Socket socket = new Socket(dest.getAddress(), 5000);
+
             final int[] bytes = {0};
             File file = toSendFile;
             FileInputStream fileInputStream = new FileInputStream(file);
