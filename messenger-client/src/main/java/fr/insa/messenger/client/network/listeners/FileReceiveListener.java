@@ -3,6 +3,7 @@ package fr.insa.messenger.client.network.listeners;
 import fr.insa.messenger.client.models.Conversation;
 import fr.insa.messenger.client.network.models.MessagePacket;
 import fr.insa.messenger.client.system.assets.sounds.Sound;
+import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.ui.GraphicInterface;
 import fr.insa.messenger.client.ui.screens.DiscussionScreen;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class FileReceiveListener extends FileServerListener<MessagePacket>
     protected void manageFilePacket(Socket socket, MessagePacket packet)
     {
         // TODO : make the file received appearing on the gui
-
+        Console.warning("file received ") ;
         // Play a sound.
         Sound.play("new-message-sound.wav") ;
     }
