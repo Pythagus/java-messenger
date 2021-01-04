@@ -3,7 +3,7 @@ package fr.insa.messenger.client.utils;
 /**
  * @author Damien MOLINA
  */
-public class Cleaner {
+final public class Cleaner {
 
     /**
      * Clean the given text.

@@ -6,7 +6,7 @@ import javax.swing.text.JTextComponent;
 /**
  * @author Damien MOLINA
  */
-public class Placeholder {
+final public class Placeholder {
 
     /**
      * Graphic instance to draw the placeholder.
