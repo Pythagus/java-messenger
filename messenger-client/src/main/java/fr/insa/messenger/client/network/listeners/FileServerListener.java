@@ -52,9 +52,7 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
 
         while(this.run) {
             try {
-                if(Env.getApplication().isDebugMode()) {
-                    Console.comment("=> " + name + " is waiting for a file") ;
-                }
+                Console.comment("=> " + name + " is waiting for a file") ;
 
                 Socket socket        = this.filelistenerSocket.accept() ;
                 ObjectInputStream is = new ObjectInputStream(socket.getInputStream()) ;
@@ -62,6 +60,8 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
                 Console.comment("=> " + name + " received a file from " + socket.getInetAddress()) ;
 
                 String packet = (String) is.readObject() ;
+
+                System.out.println(packet);
 
                 // TODO : do it in a thread
 

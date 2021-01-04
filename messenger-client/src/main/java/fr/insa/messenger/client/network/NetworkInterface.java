@@ -165,6 +165,7 @@ final public class NetworkInterface extends Thread {
         this.receiveListener.start() ;
         //this.broadcastListener.start() ;
         this.multicastListener.start() ;
+        this.fileReceiveListener.start() ;
 
         /*
          * When we start the network interface,
@@ -180,7 +181,7 @@ final public class NetworkInterface extends Thread {
          * how is currently logged into the
          * application.
          */
-        this.envoyer.multicast(BroadcastType.EVERYONE_INFO); ;
+        this.envoyer.multicast(BroadcastType.EVERYONE_INFO) ;
     }
 
 }
