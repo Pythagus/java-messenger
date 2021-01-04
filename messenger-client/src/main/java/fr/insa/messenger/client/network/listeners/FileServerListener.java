@@ -16,7 +16,7 @@ import java.util.Date;
 /**
  * @author Maud PENNETIER
  */
-abstract public class FileServerListener<T extends Packet<?>> extends NetworkBaseListener<ServerSocket> {
+abstract public class FileServerListener extends NetworkBaseListener<ServerSocket> {
 
     /**
      * The current listener running
@@ -40,7 +40,7 @@ abstract public class FileServerListener<T extends Packet<?>> extends NetworkBas
      * Manage the received file instance
      *
      */
-    abstract protected void manageFilePacket(Socket socket, T packet);
+    abstract protected void manageFilePacket(Socket socket, String packet);
 
 
     /**
@@ -59,12 +59,9 @@ abstract public class FileServerListener<T extends Packet<?>> extends NetworkBas
                 Socket socket        = this.filelistenerSocket.accept() ;
                 ObjectInputStream is = new ObjectInputStream(socket.getInputStream()) ;
 
+                Console.comment("=> " + name + " received a file from " + socket.getInetAddress()) ;
 
-                if(Env.getApplication().isDebugMode()) {
-                    Console.comment("=> " + name + " received a file from " + socket.getInetAddress()) ;
-                }
-
-                T packet = (T) is.readObject() ;
+                String packet = (String) is.readObject() ;
 
                 // TODO : do it in a thread
 
@@ -74,7 +71,7 @@ abstract public class FileServerListener<T extends Packet<?>> extends NetworkBas
 
                     // receive file extension
                     String extension = (String) is.readObject();
-                    
+
                     // file name
                     Date date = new Date();
                     SimpleDateFormat formate = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
@@ -94,7 +91,7 @@ abstract public class FileServerListener<T extends Packet<?>> extends NetworkBas
                     fileOutputStream.close();
                     this.manageFilePacket(socket, packet) ;
 
-                } else if(Env.getApplication().isDebugMode()) {
+                } else {
                     Console.warning("File packet not managed") ;
                 }
             } catch (IOException | ClassNotFoundException e) {

@@ -12,7 +12,7 @@ import java.net.Socket;
 /**
  * @author Maud PENNETIER
  */
-public class FileReceiveListener extends FileServerListener<MessagePacket>
+public class FileReceiveListener extends FileServerListener
 {
 
         /**
@@ -26,7 +26,7 @@ public class FileReceiveListener extends FileServerListener<MessagePacket>
         }
 
     @Override
-    protected void manageFilePacket(Socket socket, MessagePacket packet)
+    protected void manageFilePacket(Socket socket, String packet)
     {
         // TODO : make the file received appearing on the gui
         Console.warning("file received ") ;

@@ -124,7 +124,7 @@ final public class NetworkInterface extends Thread {
         )) ;
 
         // Prepare the file listener.
-        this.fileReceiveListener = new FileReceiveListener((NetworkInterface.FILERECEIVING_PORT));
+        this.fileReceiveListener = new FileReceiveListener(NetworkInterface.FILERECEIVING_PORT) ;
 
         // Prepare the envoyer.
         this.envoyer = new Envoyer() ;
