@@ -154,7 +154,7 @@ public class DiscussionScreen extends ContentScreen {
     private void quitConversation() {
         if(this.conversation != null) {
             ConversationController.instance().stop(
-                this.conversation.getTarget()
+                this.conversation.getTarget(), true
             ) ;
         }
     }

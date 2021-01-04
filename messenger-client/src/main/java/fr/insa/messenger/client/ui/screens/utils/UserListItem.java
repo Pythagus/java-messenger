@@ -65,16 +65,18 @@ abstract public class UserListItem extends MyJListItem {
             BorderFactory.createEmptyBorder(15, 0,15, 0)
         ) ;
         this.setCursor(new Cursor(Cursor.HAND_CURSOR)) ;
-        this.setLayout(new BorderLayout()) ;
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)) ;
 
         // Prepare content label.
         this.content.setText(this.user.getPseudo()) ;
+        this.content.setHorizontalAlignment(SwingConstants.CENTER) ;
         this.content.setFont(FontFactory.normal("Arial", 20)) ;
 
         // Add the component.
         this.add(this.content) ;
 
         if(this.additionalLabel != null) {
+            this.additionalLabel.setHorizontalAlignment(SwingConstants.CENTER) ;
             this.add(this.additionalLabel) ;
         }
     }

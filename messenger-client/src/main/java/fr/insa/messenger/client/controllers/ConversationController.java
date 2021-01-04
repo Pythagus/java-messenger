@@ -19,7 +19,7 @@ import fr.insa.messenger.client.network.listeners.handlers.QuitHandler;
  *
  * @author Maud PENNETIER, Damien MOLINA
  */
-public class ConversationController extends Controller {
+final public class ConversationController extends Controller {
 
     /**
      * Singleton instance.
@@ -94,14 +94,16 @@ public class ConversationController extends Controller {
      *
      * @param user : user with whom the conversation is held.
      */
-    public void stop(User user) {
+    public void stop(User user, boolean sendPacket) {
         boolean has = ConversationController.conversations.stream().anyMatch(this.conversationPredicate(user)) ;
 
         if(has) {
             // Send the leave notification to the target.
-            NetworkInterface.instance().getEnvoyer().sendMeeting(
-                user, MeetingPacket.State.LEAVE
-            ) ;
+            if(sendPacket) {
+                NetworkInterface.instance().getEnvoyer().sendMeeting(
+                    user, MeetingPacket.State.LEAVE
+                ) ;
+            }
 
             ConversationController.conversations.removeIf(this.conversationPredicate(user)) ;
 

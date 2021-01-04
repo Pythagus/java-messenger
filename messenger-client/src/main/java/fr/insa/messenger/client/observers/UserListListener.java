@@ -57,7 +57,7 @@ public class UserListListener extends BaseListener {
                         cBar.addItem(user) ;
                         break ;
                     case REMOVED:
-                        ConversationController.instance().stop(user) ;
+                        ConversationController.instance().stop(user, true) ;
                         cBar.removeItem(user) ;
                         break ;
                     case UPDATED:

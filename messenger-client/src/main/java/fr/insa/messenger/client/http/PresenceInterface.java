@@ -65,7 +65,7 @@ public final class PresenceInterface {
                 request.execute().json()
             ) ;
         } catch (Exception e) {
-            e.printStackTrace() ;
+            //e.printStackTrace() ;
 
             return new PresenceResponse(null) ;
         }

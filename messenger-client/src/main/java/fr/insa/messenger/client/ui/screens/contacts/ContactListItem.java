@@ -1,7 +1,7 @@
 package fr.insa.messenger.client.ui.screens.contacts;
 
-import fr.insa.messenger.client.ui.screens.utils.UserListItem;
 import fr.insa.messenger.client.models.User;
+import fr.insa.messenger.client.ui.screens.utils.UserListItem;
 import fr.insa.messenger.client.controllers.ConversationController;
 
 /**

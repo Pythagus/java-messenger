@@ -1,12 +1,11 @@
 package fr.insa.messenger.client.network.listeners;
 
 import java.net.Socket;
-
-import fr.insa.messenger.client.network.listeners.handlers.AcceptedHandler;
-import fr.insa.messenger.client.network.listeners.handlers.DeniedHandler;
-import fr.insa.messenger.client.network.streams.InputSocketStream;
 import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.network.models.MeetingPacket;
+import fr.insa.messenger.client.network.streams.InputSocketStream;
+import fr.insa.messenger.client.network.listeners.handlers.DeniedHandler;
+import fr.insa.messenger.client.network.listeners.handlers.AcceptedHandler;
 
 /**
  * @author Damien MOLINA

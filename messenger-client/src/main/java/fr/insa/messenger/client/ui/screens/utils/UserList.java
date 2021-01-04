@@ -2,9 +2,8 @@ package fr.insa.messenger.client.ui.screens.utils;
 
 import java.awt.*;
 import javax.swing.*;
-
-import fr.insa.messenger.client.utils.ColorUtils;
 import fr.insa.messenger.client.models.User;
+import fr.insa.messenger.client.utils.ColorUtils;
 import fr.insa.messenger.client.ui.utils.MyJList;
 import fr.insa.messenger.client.ui.frames.MainFrame;
 import fr.insa.messenger.client.ui.utils.MyJListItem;
@@ -62,7 +61,11 @@ abstract public class UserList extends MyJList<UserListItem> {
         this.addItem(item) ;
 
         if(select) {
-            this.setSelectedValue(item, true) ;
+            try {
+                this.setSelectedValue(item, true) ;
+            } catch (Exception e) {
+                e.printStackTrace() ;
+            }
         }
     }
 
@@ -73,7 +76,11 @@ abstract public class UserList extends MyJList<UserListItem> {
      * @param user : user instance.
      */
     public void removeItem(User user) {
-        this.removeItemAt(this.indexOf(user)) ;
+        int index = this.indexOf(user) ;
+
+        if(index >= 0) {
+            this.removeItemAt(index) ;
+        }
     }
 
     /**

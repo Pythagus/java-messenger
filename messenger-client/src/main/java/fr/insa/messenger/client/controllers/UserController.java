@@ -12,7 +12,7 @@ import fr.insa.messenger.client.observers.UserListListener;
 /**
  * @author Damien MOLINA
  */
-public class UserController extends Controller {
+final public class UserController extends Controller {
 
     /**
      * Singleton instance.

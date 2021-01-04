@@ -26,7 +26,7 @@ public class LogoutHandler {
      * @param user : logout user.
      */
     public static void handleNetwork(User user) {
-        ConversationController.instance().stop(user) ;
+        ConversationController.instance().stop(user, false) ;
     }
 
 }

@@ -46,17 +46,22 @@ public class MeetingEnvoyer extends BaseEnvoyer {
         DeniedHandler deniedCallback = new DeniedHandler() ;
 
         try {
-            Socket socket = this.sendPacket(
-                this.packet, NetworkInterface.MEETING_PORT, false
+            // Make the socket.
+            Socket socket = new Socket(
+                this.packet.getDestinationAddress(), NetworkInterface.MEETING_PORT
+            ) ;
+
+            this.envoyer.send(
+                socket, this.packet, false
             ) ;
 
             if(this.packet.isWaitingForResponse()) {
                 // Start the listener at the given port.
-                MeetingResponseListener listener = new MeetingResponseListener(socket) ;
+                MeetingResponseListener listener = new MeetingResponseListener(socket);
                 listener.setCallbacks(
                     new AcceptedHandler(), deniedCallback
-                ) ;
-                listener.start() ;
+                );
+                listener.start();
             }
         }
         /*
