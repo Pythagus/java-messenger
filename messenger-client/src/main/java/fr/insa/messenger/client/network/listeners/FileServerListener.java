@@ -35,12 +35,6 @@ abstract public class FileServerListener<T extends Packet<?>> extends NetworkBas
         this.run = true ;
     }
 
-    /**
-     * Manage the received packet instance.
-     *
-     * @param packet : received packet.
-     */
-    abstract protected void manageReceivedPacket(Socket socket, T packet) ;
 
     /**
      * Manage the received file instance
@@ -48,14 +42,6 @@ abstract public class FileServerListener<T extends Packet<?>> extends NetworkBas
      */
     abstract protected void manageFilePacket(Socket socket, T packet);
 
-
-    /**
-     *
-     * @param packet : packet to manage.
-     * @return True if the packet is a file,
-     *          False otherwise.
-     */
-    abstract protected boolean shouldManageFile(T packet);
 
     /**
      * Run the listener.
@@ -106,7 +92,7 @@ abstract public class FileServerListener<T extends Packet<?>> extends NetworkBas
                         size -= bytes ;
                     }
                     fileOutputStream.close();
-                    this.manageReceivedPacket(socket, packet) ;
+                    this.manageFilePacket(socket, packet) ;
 
                 } else if(Env.getApplication().isDebugMode()) {
                     Console.warning("File packet not managed") ;

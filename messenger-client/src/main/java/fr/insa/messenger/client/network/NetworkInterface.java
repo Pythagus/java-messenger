@@ -1,6 +1,8 @@
 package fr.insa.messenger.client.network;
 
 import java.io.IOException;
+import java.net.DatagramSocket;
+import fr.insa.messenger.client.network.listeners.FileReceiveListener;
 import java.net.MulticastSocket;
 import java.net.InetSocketAddress;
 import fr.insa.messenger.client.network.utils.AddressUtils;
@@ -52,6 +54,12 @@ final public class NetworkInterface extends Thread {
     public static final int MULTICAST_PORT = STARTING_PORT + 3 ;
 
     /**
+     * File listening port
+     */
+    public static final int FILERECEIVING_PORT = STARTING_PORT + 4;
+
+
+    /**
      * Meeting listener.
      * This listener is used to negotiate the
      * future used port between the current user
@@ -81,6 +89,13 @@ final public class NetworkInterface extends Thread {
     private final MulticastListener multicastListener ;
 
     /**
+     * FileReceiveListener.
+     * This listener is dedicated to the file that are coming
+     * regardless the sender
+     */
+    private final FileReceiveListener fileReceiveListener;
+
+    /**
      * Envoyer instance.
      */
     private final Envoyer envoyer ;
@@ -107,6 +122,9 @@ final public class NetworkInterface extends Thread {
         this.multicastListener = new MulticastListener(new MulticastSocket(
             new InetSocketAddress(AddressUtils.getMulticastAddress(), NetworkInterface.MULTICAST_PORT)
         )) ;
+
+        // Prepare the file listener.
+        this.fileReceiveListener = new FileReceiveListener((NetworkInterface.FILERECEIVING_PORT));
 
         // Prepare the envoyer.
         this.envoyer = new Envoyer() ;

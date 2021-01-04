@@ -170,7 +170,7 @@ public class Envoyer {
     {
         try
         {
-            Socket socket = new Socket(dest.getAddress(), 5000);
+            Socket socket = new Socket(dest.getAddress(), NetworkInterface.FILERECEIVING_PORT);
 
             final int[] bytes = {0};
             File file = toSendFile;
