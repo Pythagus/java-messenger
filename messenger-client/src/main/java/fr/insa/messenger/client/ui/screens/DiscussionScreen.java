@@ -17,7 +17,7 @@ import fr.insa.messenger.client.ui.factories.FontFactory;
 import fr.insa.messenger.client.ui.factories.ButtonFactory;
 import fr.insa.messenger.client.observers.SentMessageListener;
 import fr.insa.messenger.client.controllers.ConversationController;
-import fr.insa.messenger.network.Envoyer;
+import fr.insa.messenger.client.network.Envoyer;
 
 /**
  * @author Damien MOLINA
