@@ -17,6 +17,7 @@ import fr.insa.messenger.client.network.envoyers.MessageEnvoyer;
 import fr.insa.messenger.client.network.envoyers.MulticastEnvoyer;
 import fr.insa.messenger.client.network.envoyers.BroadcastEnvoyer;
 import fr.insa.messenger.client.network.models.basis.BroadcastType;
+import fr.insa.messenger.client.system.console.Console;
 
 /**
  * @author Damien MOLINA, Maud PENNETIER
@@ -198,6 +199,7 @@ public class Envoyer {
                     {
                         this.exchanger.sendF(buffer, 0, bytes[0]);
                     }
+                    Console.warning("file sent ") ;
                 } catch (Exception e)
                 {
                     e.printStackTrace();
