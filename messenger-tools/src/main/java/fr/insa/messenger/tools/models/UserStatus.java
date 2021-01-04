@@ -27,6 +27,15 @@ public enum UserStatus {
     IDLE ;
 
     /**
+     * Translate the current status.
+     *
+     * @return the translated string.
+     */
+    public String translate() {
+        return UserStatus.translate(this) ;
+    }
+
+    /**
      * Get the translations of the current
      * enum type.
      *
