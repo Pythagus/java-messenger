@@ -145,7 +145,7 @@ public class Envoyer {
      * @param socket
      * @param toSendFile File to be send
      */
-    public void sendFile (Socket socket, File toSendFile, boolean closeSocket)
+    public void sendFile (Socket socket, File toSendFile)
     {
         try
         {
@@ -174,11 +174,6 @@ public class Envoyer {
                     while ((bytes[0] = fileInputStream.read(buffer)) != -1)
                     {
                         this.exchanger.sendF(buffer, 0, bytes[0]);
-                    }
-                    // Close the socket.
-                    if(closeSocket) {
-                        this.exchanger.close() ;
-                        socket.close() ;
                     }
                 } catch (Exception e)
                 {

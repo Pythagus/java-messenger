@@ -2,6 +2,7 @@ package fr.insa.messenger.ui.screens;
 
 import java.awt.*;
 import java.io.File;
+import java.net.Socket;
 import javax.swing.*;
 import fr.insa.messenger.utils.ColorUtils;
 import fr.insa.messenger.models.Conversation;
@@ -15,6 +16,7 @@ import fr.insa.messenger.ui.screens.utils.ContentScreen;
 import fr.insa.messenger.controllers.ConversationController;
 import fr.insa.messenger.ui.screens.discussions.MessageList;
 import fr.insa.messenger.ui.screens.discussions.DiscussionInput;
+import fr.insa.messenger.network.Envoyer;
 
 /**
  * @author Damien MOLINA
@@ -172,6 +174,7 @@ public class DiscussionScreen extends ContentScreen {
             File file = chooser.getSelectedFile() ;
 
             // TODO : send file.
+            //sendFile(Socket socket, file); trouver le socket
             System.out.println("Chosen file : " + file.getName()) ;
         }
     }
