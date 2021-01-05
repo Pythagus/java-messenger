@@ -2,13 +2,12 @@ package fr.insa.messenger.client.network.models;
 
 import java.util.ArrayList;
 import java.io.Serializable;
-
-import fr.insa.messenger.client.controllers.UserController;
 import fr.insa.messenger.client.system.Env;
 import fr.insa.messenger.client.models.User;
-import fr.insa.messenger.client.network.models.basis.DataPacket;
 import fr.insa.messenger.tools.models.UserStatus;
 import fr.insa.messenger.tools.network.BroadcastSplitter;
+import fr.insa.messenger.client.controllers.UserController;
+import fr.insa.messenger.client.network.models.basis.DataPacket;
 import fr.insa.messenger.client.network.models.basis.BroadcastType;
 
 /**

@@ -46,9 +46,13 @@ public class MulticastListener extends BroadcastListener {
 
                 Console.comment("=> MulticastListener received a datagram from " + datagram.getAddress()) ;
 
+                String str = new String(datagram.getData()) ;
+
                 BroadcastPacket notification = BroadcastPacket.unserialize(
-                    new String(datagram.getData())
+                    str
                 ) ;
+
+                System.out.println("String : " + str);
 
                 if(! notification.getUser().equals(Env.getUser())) {
                     this.manageReceivedPDU(notification) ;

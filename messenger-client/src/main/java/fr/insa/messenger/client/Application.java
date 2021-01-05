@@ -19,6 +19,7 @@ import fr.insa.messenger.tools.database.DatabaseConnection;
  * - 4242424242424242432L : MeetingPacket
  * - 4242424242424242433L : MessagePacket
  * - 4242424242424242434L : DataPacket
+ * - 4242424242424242435L : FilePacket
  *
  * @author Damien MOLINA
  */

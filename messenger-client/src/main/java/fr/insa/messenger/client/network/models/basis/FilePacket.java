@@ -1,17 +1,19 @@
 package fr.insa.messenger.client.network.models.basis;
 
-import fr.insa.messenger.client.models.MessageFile;
-import fr.insa.messenger.client.models.User;
-
-import java.sql.Timestamp;
+import java.io.Serializable;
 
 /**
  * @author Maud PENNETIER
  *
  * Packet containing information about a file
  */
-public class FilePacket
-{
+public class FilePacket implements Serializable {
+
+    /**
+     * Serialisation identifier.
+     */
+    private static final long serialVersionUID = 4242424242424242435L ;
+
     private String name;
     private String extension;
     private long size;
@@ -38,6 +40,6 @@ public class FilePacket
      * Get the size of the file
      * @return the size in long
      */
-    public long getSize(){return this.size; }
+    public long getSize(){ return this.size; }
 
 }

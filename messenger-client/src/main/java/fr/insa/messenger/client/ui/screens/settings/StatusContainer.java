@@ -76,6 +76,7 @@ public class StatusContainer extends JPanel implements ActionListener {
             if(response.isSuccessful()) {
                 Console.comment("[SUCCESS] Status changed : " + status.toString()) ;
             } else {
+                // Generate an error to read the catch block.
                 throw new Exception() ;
             }
         } catch (Exception e) {
