@@ -12,6 +12,8 @@ import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.network.models.basis.FilePacket;
 
 /**
+ * Server dedicated to the incoming files
+ *
  * @author Maud PENNETIER
  */
 abstract public class FileServerListener extends NetworkBaseListener<ServerSocket> {
@@ -33,7 +35,6 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
         this.run = true ;
     }
 
-
     /**
      * Manage the received file instance
      *
@@ -53,46 +54,35 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
             {
                 Console.comment("=> " + name + " is waiting for a file");
 
+                // listener socket
                 Socket socket = this.listenerSocket.accept();
                 ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
-
                 Console.comment("=> " + name + " received a file from " + socket.getInetAddress());
-
-                //String packet = (String) is.readObject();
 
                 // TODO : do it in a thread
 
-                Console.comment("=> a file has been detected");
-                int bytes = 0;
-
-                // receive file extension
-                //String extension = (String) is.readObject();
-                //System.out.println("Extension : " + extension) ;
-
-                // file name
-                //Date date = new Date();
-                String pathToTemp = System.getProperty("java.io.tmpdir"); // get the temporary directory
-                //FileOutputStream fileOutputStream = new FileOutputStream(pathToTemp + "/Messenger" + fileName + extension);
-
+                // receive a filePacket with information about the following file
                 FilePacket filePacket = (FilePacket) is.readObject();
                 System.out.println("file packet received " + filePacket.getName());
 
+                // create a new file in the temporary directory, the name is completed by the date
+                String pathToTemp = System.getProperty("java.io.tmpdir");
+
                 Date date = new Date();
                 SimpleDateFormat formate = new SimpleDateFormat("dd-MM-yyyy_HH_mm_ss");
-                String fileName = filePacket.getName() + "_" + formate.format(date);
+                String fileName = formate.format(date) + "_" + filePacket.getName() ;
+
                 FileOutputStream fileOutputStream = new FileOutputStream(
                     pathToTemp + "/Messenger" + fileName
                 ) ;
 
-                //System.out.println("Requesting file size...");
-                // receive file size
-                //Object readSize = is.readObject() ;
-                //System.out.println("Size : " + readSize) ;
 
+                // size of the file
                 long size = filePacket.getSize();
 
-                //receive data
-                byte[] buffer = new byte[4 * 1024]; // must be coherent with the envoyer
+                //receive all the packets containing the file
+                int bytes = 0;
+                byte[] buffer = new byte[4 * 1024];
                 while (size > 0 && (bytes = is.read(buffer, 0, (int) Math.min(buffer.length, size))) != -1)
                 {
                     fileOutputStream.write(buffer, 0, bytes);

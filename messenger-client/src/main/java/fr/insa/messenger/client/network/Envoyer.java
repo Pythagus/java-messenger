@@ -143,16 +143,13 @@ public class Envoyer {
 
 
 
-
-
-
-
-
-
-
-
-
     // TODO : do it in a FileEnvoyer
+
+    /**
+     * return the extension of a file
+     * @param file we need the extension
+     * @return the extension of the file
+     */
     private String getExtension(File file){
         String fileName = file.getName();
         if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
@@ -185,21 +182,14 @@ public class Envoyer {
                     this.exchanger.clear();
                     this.exchanger.bindOutput(socket.getOutputStream());
 
-                    // packet send to precise that a file will be sent
-                    //this.exchanger.send("BOIimfCdPSTgspWu34MbJRWzgDRO3OmY4ULRjKdb");
-                    // file extension
-                    //this.exchanger.send(extension);
-                    // file size
-                    //this.exchanger.send(file.length());
-
+                    // send the information about the file
                     FilePacket filePacket = new FilePacket(
                         file.getName(), getExtension(file), file.length()
                     );
                     Console.warning("packet sent ") ;
-                    
-                    // send the information about the file
                     this.exchanger.send(filePacket);
 
+                    // send the file in several packets
                     byte[] buffer = new byte[4 * 1024];
                     while ((bytes[0] = fileInputStream.read(buffer)) != -1)
                     {
