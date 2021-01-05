@@ -187,6 +187,7 @@ public class Envoyer {
                         file.getName(), getExtension(file), file.length()
                     );
                     Console.warning("packet sent ") ;
+
                     this.exchanger.send(filePacket);
 
                     // send the file in several packets

@@ -90,6 +90,7 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
                 }
                 fileOutputStream.close();
                 this.manageFilePacket(socket, filePacket);
+
             } catch (IOException | ClassNotFoundException e)
             {
                 e.printStackTrace();
