@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.network.models.basis.FilePacket;
 
@@ -40,7 +43,6 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
     /**
      * Run the listener.
      */
-    @SuppressWarnings("unchecked")
     public void run()
     {
         String name = this.getClass().getSimpleName();
@@ -69,15 +71,17 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
 
                 // file name
                 //Date date = new Date();
-                //SimpleDateFormat formate = new SimpleDateFormat("dd-MM-yyyy_HH_mm_ss");
-                //String fileName = formate.format(date);
                 String pathToTemp = System.getProperty("java.io.tmpdir"); // get the temporary directory
                 //FileOutputStream fileOutputStream = new FileOutputStream(pathToTemp + "/Messenger" + fileName + extension);
 
                 FilePacket filePacket = (FilePacket) is.readObject();
                 System.out.println("file packet received " + filePacket.getName());
+
+                Date date = new Date();
+                SimpleDateFormat formate = new SimpleDateFormat("dd-MM-yyyy_HH_mm_ss");
+                String fileName = filePacket.getName() + "_" + formate.format(date);
                 FileOutputStream fileOutputStream = new FileOutputStream(
-                    pathToTemp + "/Messenger" + filePacket.getName()
+                    pathToTemp + "/Messenger" + fileName
                 ) ;
 
                 //System.out.println("Requesting file size...");

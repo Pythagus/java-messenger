@@ -192,7 +192,9 @@ public class Envoyer {
                     // file size
                     //this.exchanger.send(file.length());
 
-                    FilePacket filePacket = new FilePacket("name", getExtension(file), file.length());
+                    FilePacket filePacket = new FilePacket(
+                        file.getName(), getExtension(file), file.length()
+                    );
                     Console.warning("packet sent ") ;
                     
                     // send the information about the file
