@@ -71,12 +71,14 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
                 //Date date = new Date();
                 //SimpleDateFormat formate = new SimpleDateFormat("dd-MM-yyyy_HH_mm_ss");
                 //String fileName = formate.format(date);
-                //String pathToTemp = System.getProperty("java.io.tmpdir"); // get the temporary directory
+                String pathToTemp = System.getProperty("java.io.tmpdir"); // get the temporary directory
                 //FileOutputStream fileOutputStream = new FileOutputStream(pathToTemp + "/Messenger" + fileName + extension);
 
                 FilePacket filePacket = (FilePacket) is.readObject();
                 System.out.println("file packet received " + filePacket.getName());
-                FileOutputStream fileOutputStream = new FileOutputStream(filePacket.getName());
+                FileOutputStream fileOutputStream = new FileOutputStream(
+                    pathToTemp + "/Messenger" + filePacket.getName()
+                ) ;
 
                 //System.out.println("Requesting file size...");
                 // receive file size
