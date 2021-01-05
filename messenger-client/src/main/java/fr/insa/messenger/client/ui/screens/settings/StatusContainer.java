@@ -47,7 +47,7 @@ public class StatusContainer extends JPanel implements ActionListener {
             BorderFactory.createEmptyBorder(10, 10, 10, 10)
         ) ;
 
-        this.select.setSelectedItem(UserStatus.CONNECTED.toString()) ;
+        this.select.getModel().setSelectedItem(UserStatus.CONNECTED.translate()) ;
         this.select.addActionListener(this) ;
 
         // Pseudo label.

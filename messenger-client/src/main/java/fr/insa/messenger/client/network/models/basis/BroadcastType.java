@@ -28,4 +28,9 @@ public enum BroadcastType {
      */
     CHANGED_PSEUDO,
 
+    /**
+     * The user changed his own status.
+     */
+    CHANGED_STATUS,
+
 }

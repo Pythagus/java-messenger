@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.insa.messenger.tomcat.utils.Validator;
 import fr.insa.messenger.tools.models.UserStatus;
 import fr.insa.messenger.tomcat.utils.ValidatedInput;
+import fr.insa.messenger.tomcat.network.MulticastEnvoyer;
 import fr.insa.messenger.tomcat.controllers.UserController;
 import fr.insa.messenger.tomcat.exceptions.InternalException;
 import fr.insa.messenger.tomcat.exceptions.UnknownUserException;
@@ -61,9 +62,7 @@ public class PublishServlet extends SubscribeServlet {
          * try-catch block.
          */
         try {
-            data.put(
-                "status", UserStatus.valueOf(strStatus)
-            ) ;
+            data.put("status", UserStatus.valueOf(strStatus)) ;
         } catch (Exception e) {
             throw new InternalException("Unknown status " + strStatus) ;
         }
@@ -79,6 +78,8 @@ public class PublishServlet extends SubscribeServlet {
      */
     private void manage(String identifier, UserStatus status) throws DatabaseException, UnknownUserException {
         UserController.setStatus(identifier, status) ;
+
+        new MulticastEnvoyer(identifier, status).start() ;
     }
 
 }

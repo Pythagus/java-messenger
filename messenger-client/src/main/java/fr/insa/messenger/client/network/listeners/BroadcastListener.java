@@ -19,14 +19,14 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
      */
     private final String name ;
 
-    /**
+    /*
      * Make a new listener instance.
      *
      * @param listenerSocket : listening socket.
      */
-    public BroadcastListener(DatagramSocket listenerSocket) {
+    /*public BroadcastListener(DatagramSocket listenerSocket) {
         this(listenerSocket, "Broadcast") ;
-    }
+    }*/
 
     /**
      * Make a new listener instance.
@@ -99,6 +99,12 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
              */
             case CHANGED_PSEUDO: this.manageChangedPseudoPDU(pdu) ; break ;
 
+            /*
+             * This packet was sent by a user who changed his own
+             * status, or by the Presence Server.
+             */
+            case CHANGED_STATUS: this.manageChangedStatusPDU(pdu) ; break ;
+
             // Unknown type.
             default:
                 Console.warning("Unknown received " + this.name + " type : " + pdu.getType()) ;
@@ -143,16 +149,30 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
     }
 
     /**
-     * Change the sender pseudo in the userConnected DTB
+     * Change the sender pseudo in the userConnected DTB.
      *
      * @param notification Need the content of the notification
      */
     private void manageChangedPseudoPDU(BroadcastPacket notification) {
         this.printReceivedNotification(notification) ;
 
-        // Update the user pseudo
+        // Update the user pseudo.
         UserController.instance().modifyUserName(
             notification.getUser(), notification.getUser().getPseudo()
+        ) ;
+    }
+
+    /**
+     * Change the sender status in the userConnected.
+     *
+     * @param notification Need the content of the notification
+     */
+    private void manageChangedStatusPDU(BroadcastPacket notification) {
+        this.printReceivedNotification(notification) ;
+
+        // Update the user status.
+        UserController.instance().modifyUserStatus(
+            notification.getUser(), notification.getUser().getStatus()
         ) ;
     }
 

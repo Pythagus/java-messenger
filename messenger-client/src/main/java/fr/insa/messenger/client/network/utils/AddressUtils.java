@@ -2,6 +2,7 @@ package fr.insa.messenger.client.network.utils;
 
 import java.net.*;
 import java.util.Enumeration;
+import fr.insa.messenger.tools.Config;
 
 /**
  * @author Damien MOLINA
@@ -72,9 +73,7 @@ final public class AddressUtils {
      */
     public static InetAddress getMulticastAddress() {
         try {
-            return InetAddress.getByName(
-                fr.insa.messenger.client.network.NetworkInterface.MULTICAST_ADDR
-            ) ;
+            return InetAddress.getByName(Config.get("APP_MULTICAST_ADDR")) ;
         } catch (Exception e) {
             e.printStackTrace() ;
             return null ;
