@@ -3,17 +3,15 @@ package fr.insa.messenger.client.ui.frames;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-
+import java.awt.event.ActionListener;
+import fr.insa.messenger.client.system.Env;
+import fr.insa.messenger.client.utils.ColorUtils;
+import fr.insa.messenger.client.ui.factories.FontFactory;
+import fr.insa.messenger.client.system.assets.ImageAsset;
 import fr.insa.messenger.client.observers.contracts.Listener;
+import fr.insa.messenger.client.observers.SentPseudoListener;
 import fr.insa.messenger.client.observers.contracts.Observable;
 import fr.insa.messenger.client.observers.contracts.ObserverProvider;
-import fr.insa.messenger.client.system.assets.ImageAsset;
-import fr.insa.messenger.client.ui.factories.FontFactory;
-import fr.insa.messenger.client.utils.ColorUtils;
-import fr.insa.messenger.client.system.Env;
-import java.awt.event.ActionListener;
-
-import fr.insa.messenger.client.observers.SentPseudoListener;
 
 /**
  * @author Damien MOLINA
