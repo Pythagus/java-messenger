@@ -1,15 +1,12 @@
 package fr.insa.messenger.client.network.listeners;
 
-import java.util.Date;
 import java.net.Socket;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
-import java.text.SimpleDateFormat;
-
-import fr.insa.messenger.client.network.models.basis.FilePacket;
 import fr.insa.messenger.client.system.console.Console;
+import fr.insa.messenger.client.network.models.basis.FilePacket;
 
 /**
  * @author Maud PENNETIER
@@ -38,7 +35,7 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
      * Manage the received file instance
      *
      */
-    abstract protected void manageFilePacket(Socket socket, String packet);
+    abstract protected void manageFilePacket(Socket socket, FilePacket packet);
 
     /**
      * Run the listener.
@@ -59,7 +56,7 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
 
                 Console.comment("=> " + name + " received a file from " + socket.getInetAddress());
 
-                String packet = (String) is.readObject();
+                //String packet = (String) is.readObject();
 
                 // TODO : do it in a thread
 
@@ -78,8 +75,8 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
                 //FileOutputStream fileOutputStream = new FileOutputStream(pathToTemp + "/Messenger" + fileName + extension);
 
                 FilePacket filePacket = (FilePacket) is.readObject();
+                System.out.println("file packet received " + filePacket.getName());
                 FileOutputStream fileOutputStream = new FileOutputStream(filePacket.getName());
-                System.out.println("file packet received" + filePacket.getName());
 
                 //System.out.println("Requesting file size...");
                 // receive file size
@@ -96,7 +93,7 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
                     size -= bytes;
                 }
                 fileOutputStream.close();
-                this.manageFilePacket(socket, packet);
+                this.manageFilePacket(socket, filePacket);
             } catch (IOException | ClassNotFoundException e)
             {
                 e.printStackTrace();

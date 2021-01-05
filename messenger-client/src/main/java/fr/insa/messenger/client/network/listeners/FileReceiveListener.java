@@ -1,11 +1,8 @@
 package fr.insa.messenger.client.network.listeners;
 
-import fr.insa.messenger.client.models.Conversation;
-import fr.insa.messenger.client.network.models.MessagePacket;
+import fr.insa.messenger.client.network.models.basis.FilePacket;
 import fr.insa.messenger.client.system.assets.sounds.Sound;
 import fr.insa.messenger.client.system.console.Console;
-import fr.insa.messenger.client.ui.GraphicInterface;
-import fr.insa.messenger.client.ui.screens.DiscussionScreen;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -26,7 +23,7 @@ public class FileReceiveListener extends FileServerListener
         }
 
     @Override
-    protected void manageFilePacket(Socket socket, String packet)
+    protected void manageFilePacket(Socket socket, FilePacket packet)
     {
         // TODO : make the file received appearing on the gui
         Console.warning("file received ") ;

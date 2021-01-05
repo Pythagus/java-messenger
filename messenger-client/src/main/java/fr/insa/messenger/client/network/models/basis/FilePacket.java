@@ -19,6 +19,7 @@ public class FilePacket implements Serializable {
     private long size;
 
     public FilePacket(String nName, String nExt, long nSize) {
+        System.out.println("File (" + nName+", "+nExt+", "+nSize+")");
         this.name = nName;
         this.extension = nExt;
         this.size = nSize;
@@ -28,7 +29,7 @@ public class FilePacket implements Serializable {
      * Get the name of the file
      * @return the name in String
      */
-    public String getName(){ return this.name; }
+    public String getName() { return this.name; }
 
     /**
      * Get the extension of the file
