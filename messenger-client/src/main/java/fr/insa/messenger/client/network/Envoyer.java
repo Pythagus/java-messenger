@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import fr.insa.messenger.client.models.User;
 import fr.insa.messenger.client.models.Message;
+import fr.insa.messenger.client.network.models.basis.FilePacket;
 import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.network.models.basis.Packet;
 import fr.insa.messenger.client.network.models.MeetingPacket;
@@ -185,14 +186,17 @@ public class Envoyer {
                     this.exchanger.bindOutput(socket.getOutputStream());
 
                     // packet send to precise that a file will be sent
-                    this.exchanger.send("BOIimfCdPSTgspWu34MbJRWzgDRO3OmY4ULRjKdb");
-
+                    //this.exchanger.send("BOIimfCdPSTgspWu34MbJRWzgDRO3OmY4ULRjKdb");
                     // file extension
-                    String extension = getExtension(file);
-                    this.exchanger.send(extension);
-
+                    //this.exchanger.send(extension);
                     // file size
-                    this.exchanger.send(file.length());
+                    //this.exchanger.send(file.length());
+
+                    FilePacket filePacket = new FilePacket("name", getExtension(file), file.length());
+                    Console.warning("packet sent ") ;
+                    
+                    // send the information about the file
+                    this.exchanger.send(filePacket);
 
                     byte[] buffer = new byte[4 * 1024];
                     while ((bytes[0] = fileInputStream.read(buffer)) != -1)
