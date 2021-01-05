@@ -50,7 +50,9 @@ public class DiscussionListItem extends UserListItem {
      * @param status : User status.
      */
     public void setStatus(UserStatus status) {
-        this.additionalLabel.setText(status.toString()) ;
+        this.additionalLabel.setText(
+            status.translate()
+        ) ;
     }
 
 }
