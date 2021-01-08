@@ -62,9 +62,8 @@ public class DiscussionInput extends JTextField implements Observable {
         if(ConversationController.instance().isValidText(text)) {
             this.setText(null) ;
 
-            // TODO : add file.
             this.observer.notifyAllListeners(this.screen.getConversation(),
-                new Message(this.screen.getConversation().getTarget(), text, null)
+                new Message(this.screen.getConversation().getTarget(), text)
             ) ;
         }
     }

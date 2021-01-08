@@ -1,4 +1,4 @@
-package fr.insa.messenger.client.system.assets.sounds;
+package fr.insa.messenger.client.system.assets;
 
 /**
  * @author Damien MOLINA

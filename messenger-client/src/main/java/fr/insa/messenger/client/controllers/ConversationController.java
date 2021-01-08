@@ -1,5 +1,6 @@
 package fr.insa.messenger.client.controllers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.util.function.Predicate;
@@ -120,7 +121,23 @@ final public class ConversationController extends Controller {
         NetworkInterface.instance().getEnvoyer().sendMessage(message) ;
 
         try {
-            Message.insert(message) ;
+            message.databaseInsert() ;
+        } catch(SQLException e) {
+            e.printStackTrace() ;
+        }
+    }
+
+    /**
+     * Send the given file to the given user.
+     *
+     * @param target : file receiver.
+     * @param file : file to send.
+     */
+    public void send(User target, File file) {
+        NetworkInterface.instance().getEnvoyer().sendFile(target, file) ;
+
+        try {
+            new Message(target, "").databaseInsert(file) ;
         } catch(SQLException e) {
             e.printStackTrace() ;
         }

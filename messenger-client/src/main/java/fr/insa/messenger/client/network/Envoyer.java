@@ -8,22 +8,19 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import fr.insa.messenger.client.models.User;
 import fr.insa.messenger.client.models.Message;
-import fr.insa.messenger.client.network.models.basis.FilePacket;
+import fr.insa.messenger.client.network.envoyers.*;
 import fr.insa.messenger.client.system.console.Console;
+import fr.insa.messenger.client.network.models.FilePacket;
 import fr.insa.messenger.client.network.models.basis.Packet;
 import fr.insa.messenger.client.network.models.MeetingPacket;
 import fr.insa.messenger.client.network.streams.SocketStream;
 import fr.insa.messenger.client.network.models.BroadcastPacket;
-import fr.insa.messenger.client.network.envoyers.MeetingEnvoyer;
-import fr.insa.messenger.client.network.envoyers.MessageEnvoyer;
-import fr.insa.messenger.client.network.envoyers.MulticastEnvoyer;
-import fr.insa.messenger.client.network.envoyers.BroadcastEnvoyer;
 import fr.insa.messenger.client.network.models.basis.BroadcastType;
 
 /**
  * @author Damien MOLINA, Maud PENNETIER
  */
-public class Envoyer {
+final public class Envoyer {
 
     /**
      * Executor instance.
@@ -63,10 +60,21 @@ public class Envoyer {
     }
 
     /**
+     * Send the given file.
+     *
+     * @param target : targeted user.
+     * @param file : file to send.
+     */
+    public void sendFile(User target, final File file) {
+        new FileEnvoyer(this, target, file).start() ;
+    }
+
+    /**
      * Broadcast the given notification.
      *
      * @param notification : notification to broadcast.
      */
+    @Deprecated
     public void broadcast(BroadcastPacket notification) {
         new BroadcastEnvoyer(this, notification).start() ;
     }
@@ -76,6 +84,7 @@ public class Envoyer {
      *
      * @param type : broadcast notification type.
      */
+    @Deprecated
     public void broadcast(BroadcastType type) {
         this.broadcast(new BroadcastPacket(type)) ;
     }
@@ -85,6 +94,7 @@ public class Envoyer {
      *
      * @param notification : notification to broadcast.
      */
+    @Deprecated
     public void broadcastResponse(BroadcastPacket notification, InetAddress address) {
         new BroadcastEnvoyer(this, notification, address).start() ;
     }
@@ -141,69 +151,74 @@ public class Envoyer {
         }) ;
     }
 
+    /**
+     * Send a file.
+     *
+     * @param socket : file socket.
+     * @param packet : packet containing the file information.
+     * @param stream : file stream.
+     */
+    public void sendFile(Socket socket, FilePacket packet, FileInputStream stream) {
+        this.executor.submit(() -> {
+            try {
+                final int[] bytes = {0} ;
+
+                this.exchanger.clear() ;
+                this.exchanger.bindOutput(socket.getOutputStream()) ;
+                this.exchanger.send(packet) ;
+                Console.comment("[FILE] FilePacket sent for file " + packet.getName()) ;
+
+                // send the file in several packets
+                byte[] buffer = new byte[4 * 1024] ;
+                while ((bytes[0] = stream.read(buffer)) != -1) {
+                    this.exchanger.sendF(buffer, 0, bytes[0]) ;
+                }
+
+                Console.comment("[FILE] file sent : " + packet.getName()) ;
+            } catch (Exception e) {
+                e.printStackTrace() ;
+            }
+        }) ;
+    }
+
 
 
     // TODO : do it in a FileEnvoyer
 
-    /**
-     * return the extension of a file
-     * @param file we need the extension
-     * @return the extension of the file
-     */
-    private String getExtension(File file){
-        String fileName = file.getName();
-        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
-        {
-            System.out.println(fileName.substring(fileName.lastIndexOf("."))) ;
-            return fileName.substring(fileName.lastIndexOf(".")) ;
-        } else return ".txt";
-    }
-
-
-    /**
+    /*
      * Send a file
      * @param dest to whom send the file
-     * @param toSendFile File to be send
+     * @param file File to be send
      */
-    public void sendFile (User dest, File toSendFile)
-    {
-        try
-        {
-            Socket socket = new Socket(dest.getAddress(), NetworkInterface.FILERECEIVING_PORT);
+    /*public void sendFile(User dest, final File file) {
+        try {
+            Socket socket = new Socket(dest.getAddress(), NetworkInterface.FILE_RECEIVING_PORT);
 
             final int[] bytes = {0};
-            File file = toSendFile;
-            FileInputStream fileInputStream = new FileInputStream(file);
+            FileInputStream stream = new FileInputStream(file);
 
-            this.executor.submit(() ->
-            {
-                try
-                {
+            this.executor.submit(() -> {
+                try {
                     this.exchanger.clear();
                     this.exchanger.bindOutput(socket.getOutputStream());
 
                     // send the information about the file
-                    FilePacket filePacket = new FilePacket(
-                        file.getName(), getExtension(file), file.length()
-                    );
+                    FilePacket filePacket = new FilePacket(dest, file.getName(), file.length()) ;
                     Console.warning("packet sent ") ;
 
                     this.exchanger.send(filePacket);
 
                     // send the file in several packets
                     byte[] buffer = new byte[4 * 1024];
-                    while ((bytes[0] = fileInputStream.read(buffer)) != -1)
-                    {
+                    while ((bytes[0] = stream.read(buffer)) != -1) {
                         this.exchanger.sendF(buffer, 0, bytes[0]);
                     }
                     Console.warning("file sent ") ;
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
-
-        }catch (Exception e){}
-    }
+        } catch (Exception ignored) {}
+    }*/
 
 }

@@ -2,22 +2,19 @@ package fr.insa.messenger.client.ui.screens;
 
 import java.awt.*;
 import java.io.File;
-import java.net.Socket;
 import javax.swing.*;
-
-import fr.insa.messenger.client.system.assets.ImageAsset;
-import fr.insa.messenger.client.ui.screens.discussions.DiscussionInput;
-import fr.insa.messenger.client.ui.screens.discussions.MessageList;
-import fr.insa.messenger.client.ui.screens.utils.ContentScreen;
-import fr.insa.messenger.client.ui.screens.utils.ContentType;
 import fr.insa.messenger.client.utils.ColorUtils;
 import fr.insa.messenger.client.models.Conversation;
 import fr.insa.messenger.client.ui.utils.GridBagUtil;
+import fr.insa.messenger.client.system.assets.ImageAsset;
 import fr.insa.messenger.client.ui.factories.FontFactory;
 import fr.insa.messenger.client.ui.factories.ButtonFactory;
+import fr.insa.messenger.client.ui.screens.utils.ContentType;
 import fr.insa.messenger.client.observers.SentMessageListener;
+import fr.insa.messenger.client.ui.screens.utils.ContentScreen;
+import fr.insa.messenger.client.ui.screens.discussions.MessageList;
 import fr.insa.messenger.client.controllers.ConversationController;
-import fr.insa.messenger.client.network.Envoyer;
+import fr.insa.messenger.client.ui.screens.discussions.DiscussionInput;
 
 /**
  * @author Damien MOLINA
@@ -173,12 +170,10 @@ public class DiscussionScreen extends ContentScreen {
          */
         if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile() ;
-            // TODO : send file.
 
-            Envoyer envoyer = new Envoyer();
-            envoyer.sendFile(this.conversation.getTarget(), file);
-
-            System.out.println("Chosen file : " + file.getName()) ;
+            ConversationController.instance().send(
+                this.conversation.getTarget(), file
+            ) ;
         }
     }
 

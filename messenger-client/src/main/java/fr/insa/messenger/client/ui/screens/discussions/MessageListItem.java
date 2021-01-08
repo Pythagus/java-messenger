@@ -7,6 +7,7 @@ import fr.insa.messenger.client.utils.ColorUtils;
 import fr.insa.messenger.client.ui.utils.GridBagUtil;
 import fr.insa.messenger.client.ui.utils.MyJListItem;
 import fr.insa.messenger.client.ui.factories.FontFactory;
+import fr.insa.messenger.client.network.models.FilePacket;
 
 /**
  * @author Damien MOLINA
@@ -16,16 +17,21 @@ public class MessageListItem extends MyJListItem {
     /**
      * Message list instance.
      */
-    protected final MessageList list ;
+    private final MessageList list ;
 
     /**
      * Sent message instance.
      */
-    protected final Message message ;
+    private Message message ;
+
+    /**
+     * File instance.
+     */
+    private FilePacket file ;
 
     /**
      * Determine whether the item should be
-     *      * rendered as a left or right item.
+     * rendered as a left or right item.
      */
     private final boolean active ;
 
@@ -36,11 +42,36 @@ public class MessageListItem extends MyJListItem {
      * @param message : sent message instance.
      */
     public MessageListItem(MessageList list, Message message) {
-        this.list    = list ;
+        this(list, message.getSender().isEnvUser()) ;
+
         this.message = message ;
-        this.active  = this.message.getSender().isEnvUser() ;
 
         this.initializeGraphics() ;
+    }
+
+    /**
+     * Make a new MessageListItem instance.
+     *
+     * @param list : parent list.
+     * @param file : sent file instance.
+     */
+    public MessageListItem(MessageList list, FilePacket file) {
+        this(list, file.getSourceUser().isEnvUser()) ;
+
+        this.file = file ;
+
+        this.initializeGraphics() ;
+    }
+
+    /**
+     * Make a new MessageListItem instance.
+     *
+     * @param list : parent list.
+     * @param active : active message.
+     */
+    private MessageListItem(MessageList list, boolean active) {
+        this.list    = list ;
+        this.active  = active ;
     }
 
     /**
@@ -63,7 +94,7 @@ public class MessageListItem extends MyJListItem {
 
         // Message content.
         // TODO : manage too long message problem.
-        JLabel content = new JLabel(this.message.getText()) ;
+        JLabel content = new JLabel(this.getContent()) ;
         content.setBorder(
             BorderFactory.createEmptyBorder(10, 10, 10, 10)
         );
@@ -98,6 +129,23 @@ public class MessageListItem extends MyJListItem {
         // Add the panels.
         GridBagUtil.addColumn(this, container, this.active ? 2 : 1, 60) ;
         GridBagUtil.addColumn(this, space, this.active ? 1 : 2, 40) ;
+    }
+
+    /**
+     * Get the content.
+     *
+     * @return string content.
+     */
+    private String getContent() {
+        if(this.message != null) {
+            return this.message.getText() ;
+        }
+
+        if(this.file != null) {
+            return this.file.getName() ;
+        }
+
+        return "" ;
     }
 
     /**

@@ -1,7 +1,6 @@
-package fr.insa.messenger.client.system.assets.sounds;
+package fr.insa.messenger.client.system.assets;
 
 import javax.sound.sampled.*;
-import fr.insa.messenger.client.system.assets.Asset;
 
 /**
  * @author Damien MOLINA

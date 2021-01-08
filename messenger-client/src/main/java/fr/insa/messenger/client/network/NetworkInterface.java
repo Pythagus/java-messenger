@@ -49,8 +49,7 @@ final public class NetworkInterface extends Thread {
     /**
      * File listening port
      */
-    public static final int FILERECEIVING_PORT = STARTING_PORT + 4;
-
+    public static final int FILE_RECEIVING_PORT = STARTING_PORT + 4;
 
     /**
      * Meeting listener.
@@ -117,7 +116,7 @@ final public class NetworkInterface extends Thread {
         )) ;
 
         // Prepare the file listener.
-        this.fileReceiveListener = new FileReceiveListener(NetworkInterface.FILERECEIVING_PORT) ;
+        this.fileReceiveListener = new FileReceiveListener(NetworkInterface.FILE_RECEIVING_PORT) ;
 
         // Prepare the envoyer.
         this.envoyer = new Envoyer() ;

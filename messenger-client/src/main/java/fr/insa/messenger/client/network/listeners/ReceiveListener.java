@@ -2,8 +2,7 @@ package fr.insa.messenger.client.network.listeners;
 
 import java.net.Socket;
 import java.io.IOException;
-
-import fr.insa.messenger.client.system.assets.sounds.Sound;
+import fr.insa.messenger.client.system.assets.Sound;
 import fr.insa.messenger.client.ui.GraphicInterface;
 import fr.insa.messenger.client.models.Conversation;
 import fr.insa.messenger.client.controllers.UserController;

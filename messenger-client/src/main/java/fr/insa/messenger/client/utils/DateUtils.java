@@ -41,6 +41,17 @@ final public class DateUtils {
     }
 
     /**
+     * Format the given date to the given
+     * format.
+     *
+     * @param format : format regex.
+     * @return the formatted string.
+     */
+    public static String format(String format) {
+        return new SimpleDateFormat(format).format(new Date()) ;
+    }
+
+    /**
      * Get the date of today.
      *
      * @param hours : today's hour.

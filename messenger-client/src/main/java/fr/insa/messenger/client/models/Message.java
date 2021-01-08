@@ -1,5 +1,6 @@
 package fr.insa.messenger.client.models;
 
+import java.io.File;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.io.Serializable;
@@ -38,11 +39,6 @@ public class Message implements Serializable {
     private final String text ;
 
     /**
-     * Sent file.
-     */
-    private final MessageFile file ;
-
-    /**
      * Send date.
      */
     protected final long timestamp ;
@@ -62,16 +58,15 @@ public class Message implements Serializable {
      *
      * @param target : targeted user.
      * @param text : message text.
-     * @param file : message file.
      */
-    public Message(User target, String text, MessageFile file) {
+    public Message(User target, String text) {
         /*
          * When the Message instance is created,
          * the date attribute is set to get the
          * exact sending time.
          */
         this(
-            target, text, file, new Timestamp(System.currentTimeMillis()).getTime()
+            target, text, new Timestamp(System.currentTimeMillis()).getTime()
         ) ;
     }
 
@@ -80,10 +75,9 @@ public class Message implements Serializable {
      *
      * @param target : targeted user.
      * @param text : message text.
-     * @param file : message file.
      */
-    public Message(User target, String text, MessageFile file, long timestamp) {
-        this(Env.getUser(), target, text, file, timestamp) ;
+    public Message(User target, String text, long timestamp) {
+        this(Env.getUser(), target, text, timestamp) ;
     }
 
     /**
@@ -91,12 +85,10 @@ public class Message implements Serializable {
      *
      * @param target : targeted user.
      * @param text : message text.
-     * @param file : message file.
      */
-    public Message(User sender, User target, String text, MessageFile file, long timestamp) {
+    public Message(User sender, User target, String text, long timestamp) {
         this.target    = target ;
         this.text      = text ;
-        this.file      = file ;
         this.sender    = sender ;
         this.timestamp = timestamp ;
     }
@@ -151,35 +143,6 @@ public class Message implements Serializable {
     }
 
     /**
-     * Get the message file.
-     *
-     * @return the MessageFile instance.
-     */
-    public MessageFile getFile() {
-        return this.file ;
-    }
-
-    /**
-     * Determine whether the current data has
-     * a sent file.
-     *
-     * @return True or False
-     */
-    public boolean hasFile() {
-        return this.file != null ;
-    }
-
-    /**
-     * Determine whether the current data has
-     * a text.
-     *
-     * @return True or False
-     */
-    public boolean hasText() {
-        return this.text != null ;
-    }
-
-    /**
      * Cats the given object as a
      * current class instance.
      *
@@ -188,9 +151,8 @@ public class Message implements Serializable {
      */
     public static Message castFromDatabase(DatabaseObject obj) {
         try {
-            Message.Type type = Message.Type.valueOf(obj.get("type")) ;
-            String text       = type.equals(Message.Type.MESSAGE) ? obj.get("content") : null ;
-            MessageFile file  = null ; // TODO : check if it is a file.
+            Type type   = Type.valueOf(obj.get("type")) ;
+            String text = type.equals(Type.MESSAGE) ? obj.get("content") : null ;
 
             return new Message(
                 // Message sender.
@@ -198,7 +160,7 @@ public class Message implements Serializable {
                 // Message receiver.
                 UserController.instance().getFromIdentifier(obj.get("user_receiver")),
                 // Message data.
-                text, file, DateUtils.timestamp(obj.get("sent_at"))
+                text, DateUtils.timestamp(obj.get("sent_at"))
             ) ;
         } catch (AppException e) {
             e.printStackTrace();
@@ -226,31 +188,33 @@ public class Message implements Serializable {
     /**
      * Insert the given message into the database.
      *
-     * @param message : message to insert.
      * @throws SQLException : sql error.
      */
-    public static void insert(Message message) throws SQLException {
-        if(message.hasFile()) {
-            Message.insert(message, Message.Type.FILE, message.getFile().getFullPath()) ;
-        }
-
-        if(message.hasText()) {
-            Message.insert(message, Message.Type.MESSAGE, message.getText()) ;
-        }
+    public void databaseInsert() throws SQLException {
+        this.databaseInsert(Type.MESSAGE, this.getText()) ;
     }
 
     /**
-     * Insert the given message into the database.
+     * Insert the given file into the database.
      *
-     * @param message : message to insert.
-     * @param type : data type.
-     * @param content : data content.
+     * @param file : file to insert.
      * @throws SQLException : sql error.
      */
-    private static void insert(Message message, Message.Type type, String content) throws SQLException {
+    public void databaseInsert(File file) throws SQLException {
+        this.databaseInsert(Type.FILE, file.getName()) ;
+    }
+
+    /**
+     * Insert a new message row.
+     *
+     * @param type : row type.
+     * @param content : row content.
+     * @throws SQLException : sql error.
+     */
+    private void databaseInsert(Type type, String content) throws SQLException {
         DatabaseInterface.insert("messages")
-            .value("user_sender", message.getSender().getIdentifier())
-            .value("user_receiver", message.getTarget().getIdentifier())
+            .value("user_sender", this.getSender().getIdentifier())
+            .value("user_receiver", this.getTarget().getIdentifier())
             .value("type", type.toString())
             .value("content", content)
             .execute() ;

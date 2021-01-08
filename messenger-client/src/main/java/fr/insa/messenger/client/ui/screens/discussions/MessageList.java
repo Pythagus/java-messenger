@@ -3,6 +3,7 @@ package fr.insa.messenger.client.ui.screens.discussions;
 import java.awt.*;
 import javax.swing.*;
 import fr.insa.messenger.client.models.Message;
+import fr.insa.messenger.client.network.models.FilePacket;
 import fr.insa.messenger.client.ui.utils.MyJList;
 import fr.insa.messenger.client.ui.screens.DiscussionScreen;
 
@@ -72,6 +73,15 @@ public class MessageList extends MyJList<MessageListItem> {
      */
     public void addItem(Message message) {
         this.addItem(new MessageListItem(this, message)) ;
+    }
+
+    /**
+     * Add the message in the screen.
+     *
+     * @param filePacket : file packet instance.
+     */
+    public void addItem(FilePacket filePacket) {
+        this.addItem(new MessageListItem(this, filePacket)) ;
     }
 
     /**
