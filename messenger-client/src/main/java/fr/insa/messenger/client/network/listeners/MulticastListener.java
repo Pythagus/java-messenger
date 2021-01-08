@@ -3,7 +3,7 @@ package fr.insa.messenger.client.network.listeners;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.MulticastSocket;
-import fr.insa.messenger.client.system.Env;
+import fr.insa.messenger.client.models.User;
 import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.network.utils.AddressUtils;
 import fr.insa.messenger.client.network.models.BroadcastPacket;
@@ -46,15 +46,12 @@ public class MulticastListener extends BroadcastListener {
 
                 Console.comment("=> MulticastListener received a datagram from " + datagram.getAddress()) ;
 
-                String str = new String(datagram.getData()) ;
-
                 BroadcastPacket notification = BroadcastPacket.unserialize(
-                    str
+                    new String(datagram.getData())
                 ) ;
 
-                System.out.println("String : " + str);
-
-                if(! notification.getUser().equals(Env.getUser())) {
+                User sender = notification.getUser() ;
+                if(sender.getPseudo() != null && ! sender.isEnvUser()) {
                     this.manageReceivedPDU(notification) ;
                 } else {
                     Console.warning("Multicast packet not managed") ;

@@ -3,6 +3,7 @@ package fr.insa.messenger.client.ui.screens.discussions;
 import java.awt.*;
 import javax.swing.*;
 import fr.insa.messenger.client.utils.ColorUtils;
+import fr.insa.messenger.client.models.MessageFile;
 import fr.insa.messenger.client.ui.utils.GridBagUtil;
 import fr.insa.messenger.client.ui.utils.MyJListItem;
 import fr.insa.messenger.client.models.AbstractMessage;
@@ -74,7 +75,7 @@ public class MessageListItem extends MyJListItem {
 
         // Message content.
         // TODO : manage too long message problem.
-        JLabel content = new JLabel(this.message.getContent()) ;
+        JLabel content = new JLabel(this.getContent()) ;
         content.setBorder(
             BorderFactory.createEmptyBorder(10, 10, 10, 10)
         );
@@ -109,6 +110,25 @@ public class MessageListItem extends MyJListItem {
         // Add the panels.
         GridBagUtil.addColumn(this, container, this.active ? 2 : 1, 60) ;
         GridBagUtil.addColumn(this, space, this.active ? 1 : 2, 40) ;
+    }
+
+    /**
+     * Get the message content.
+     *
+     * @return message content.
+     */
+    public String getContent() {
+        if(this.message instanceof MessageFile) {
+            String end = ""  ;
+
+            if(((MessageFile) this.message).getTemporaryName() == null) {
+                end = " (indisponible)" ;
+            }
+
+            return "Fichier envoyé : " + this.message.getContent() + end ;
+        }
+
+        return this.message.getContent() ;
     }
 
     /**
