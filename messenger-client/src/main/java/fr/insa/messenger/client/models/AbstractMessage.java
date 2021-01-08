@@ -1,12 +1,14 @@
 package fr.insa.messenger.client.models;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.GregorianCalendar;
 import fr.insa.messenger.client.system.Env;
 import fr.insa.messenger.client.utils.DateUtils;
+import fr.insa.messenger.tools.database.DatabaseObject;
+import fr.insa.messenger.client.factories.MessageFactory;
 import fr.insa.messenger.tools.database.DatabaseInterface;
 
 /**
@@ -73,6 +75,17 @@ abstract public class AbstractMessage<T> implements Serializable {
      */
     public AbstractMessage(User target, T content, long timestamp) {
         this(Env.getUser(), target, content, timestamp) ;
+    }
+
+    /**
+     * Make a new Message instance.
+     *
+     * @param sender : sender user.
+     * @param target : targeted user.
+     * @param content : message text.
+     */
+    public AbstractMessage(User sender, User target, T content) {
+        this(sender, target, content, new Timestamp(System.currentTimeMillis()).getTime()) ;
     }
 
     /**
@@ -153,6 +166,17 @@ abstract public class AbstractMessage<T> implements Serializable {
             .value("type", type.toString())
             .value("content", content)
             .execute() ;
+    }
+
+    /**
+     * Cats the given object as a
+     * current class instance.
+     *
+     * @param obj : database row.
+     * @return a new instance.
+     */
+    public static AbstractMessage<?> castFromDatabase(DatabaseObject obj) {
+        return MessageFactory.castFromDatabase(obj) ;
     }
 
 }

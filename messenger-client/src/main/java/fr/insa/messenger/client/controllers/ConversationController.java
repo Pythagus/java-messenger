@@ -4,12 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.util.function.Predicate;
-
-import fr.insa.messenger.client.models.MessageFile;
+import fr.insa.messenger.client.models.*;
 import fr.insa.messenger.client.system.Env;
-import fr.insa.messenger.client.models.User;
-import fr.insa.messenger.client.models.Message;
-import fr.insa.messenger.client.models.Conversation;
 import fr.insa.messenger.tools.database.DatabaseObject;
 import fr.insa.messenger.tools.network.BroadcastSplitter;
 import fr.insa.messenger.client.network.NetworkInterface;
@@ -161,8 +157,8 @@ final public class ConversationController extends Controller {
      *
      * @param user : user with whom the conversation is held.
      */
-    private ArrayList<Message> getHistoric(User user) {
-        ArrayList<Message> messages = new ArrayList<>() ;
+    private ArrayList<AbstractMessage<?>> getHistoric(User user) {
+        ArrayList<AbstractMessage<?>> messages = new ArrayList<>() ;
 
         try {
             // DB select query.
@@ -171,7 +167,9 @@ final public class ConversationController extends Controller {
             // Iterate on each elements.
             for(DatabaseObject dbMessage : result) {
                 // Convert the DB object into a Message instance.
-                messages.add(Message.castFromDatabase(dbMessage)) ;
+                messages.add(
+                    AbstractMessage.castFromDatabase(dbMessage)
+                ) ;
             }
         } catch (SQLException e) {
             e.printStackTrace() ;

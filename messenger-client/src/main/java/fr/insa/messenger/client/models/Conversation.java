@@ -17,7 +17,7 @@ public class Conversation {
     /**
      * Messages list.
      */
-    private final ArrayList<Message> messages ;
+    private final ArrayList<AbstractMessage<?>> messages ;
 
     /**
      * Make a new instance of conversation.
@@ -44,7 +44,7 @@ public class Conversation {
      *
      * @return the list of messages.
      */
-    public ArrayList<Message> getMessages() {
+    public ArrayList<AbstractMessage<?>> getMessages() {
         return this.messages ;
     }
 
@@ -53,7 +53,7 @@ public class Conversation {
      *
      * @param message : the message instance.
      */
-    public void addMessage(Message message) {
+    public void addMessage(AbstractMessage<?> message) {
         this.messages.add(message) ;
     }
 
@@ -62,8 +62,8 @@ public class Conversation {
      *
      * @param messages : messages list instance.
      */
-    public void addMessages(Iterable<Message> messages) {
-        for(Message message : messages) {
+    public void addMessages(Iterable<AbstractMessage<?>> messages) {
+        for(AbstractMessage<?> message : messages) {
             this.addMessage(message) ;
         }
     }

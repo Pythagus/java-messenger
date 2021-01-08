@@ -1,10 +1,9 @@
 package fr.insa.messenger.client.models;
 
-import fr.insa.messenger.client.utils.FileUtils;
-
 import java.io.File;
 import java.io.Serializable;
 import java.sql.SQLException;
+import fr.insa.messenger.client.utils.FileUtils;
 
 /**
  * Message sent between two users.
@@ -39,6 +38,16 @@ public class MessageFile extends AbstractMessage<String> implements Serializable
 
         this.tmpFileName = name ;
         this.size        = size ;
+    }
+
+    /**
+     * Make a new Message instance.
+     *
+     * @param target : targeted user.
+     * @param fileName : message text.
+     */
+    public MessageFile(User sender, User target, String fileName, long timestamp) {
+        super(sender, target, fileName, timestamp) ;
     }
 
     /**

@@ -2,9 +2,9 @@ package fr.insa.messenger.client.ui.screens.discussions;
 
 import java.awt.*;
 import javax.swing.*;
-import fr.insa.messenger.client.models.Message;
-import fr.insa.messenger.client.network.models.FilePacket;
 import fr.insa.messenger.client.ui.utils.MyJList;
+import fr.insa.messenger.client.models.AbstractMessage;
+import fr.insa.messenger.client.network.models.FilePacket;
 import fr.insa.messenger.client.ui.screens.DiscussionScreen;
 
 /**
@@ -71,7 +71,7 @@ public class MessageList extends MyJList<MessageListItem> {
      *
      * @param message : message instance.
      */
-    public void addItem(Message message) {
+    public void addItem(AbstractMessage<?> message) {
         this.addItem(new MessageListItem(this, message)) ;
     }
 
