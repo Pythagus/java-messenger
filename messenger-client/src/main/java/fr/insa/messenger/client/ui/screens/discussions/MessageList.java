@@ -72,7 +72,7 @@ public class MessageList extends MyJList<MessageListItem> {
      * @param message : message instance.
      */
     public void addItem(AbstractMessage<?> message) {
-        this.addItem(new MessageListItem(this, message)) ;
+        this.addItem(new MessageListItem(message)) ;
     }
 
     /**
@@ -81,7 +81,7 @@ public class MessageList extends MyJList<MessageListItem> {
      * @param filePacket : file packet instance.
      */
     public void addItem(FilePacket filePacket) {
-        this.addItem(new MessageListItem(this, filePacket.getData())) ;
+        this.addItem(new MessageListItem(filePacket.getData())) ;
     }
 
     /**

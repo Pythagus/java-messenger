@@ -101,6 +101,16 @@ public class MessageFile extends AbstractMessage<String> implements Serializable
     }
 
     /**
+     * Determine whether the file
+     * can be downloaded.
+     *
+     * @return True or False.
+     */
+    public boolean canBeDownloaded() {
+        return this.getTemporaryName() != null ;
+    }
+
+    /**
      * Insert the given file into the database.
      *
      * @throws SQLException : sql error.

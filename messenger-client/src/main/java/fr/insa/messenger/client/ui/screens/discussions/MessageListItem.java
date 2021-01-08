@@ -1,7 +1,12 @@
 package fr.insa.messenger.client.ui.screens.discussions;
 
 import java.awt.*;
+import java.io.File;
 import javax.swing.*;
+import java.nio.file.Path;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import fr.insa.messenger.client.utils.ColorUtils;
 import fr.insa.messenger.client.models.MessageFile;
 import fr.insa.messenger.client.ui.utils.GridBagUtil;
@@ -13,11 +18,6 @@ import fr.insa.messenger.client.ui.factories.FontFactory;
  * @author Damien MOLINA
  */
 public class MessageListItem extends MyJListItem {
-
-    /**
-     * Message list instance.
-     */
-    private final MessageList list ;
 
     /**
      * Sent message instance.
@@ -33,11 +33,10 @@ public class MessageListItem extends MyJListItem {
     /**
      * Make a new MessageListItem instance.
      *
-     * @param list : parent list.
      * @param message : sent message instance.
      */
-    public MessageListItem(MessageList list, AbstractMessage<?> message) {
-        this(list, message.getSender().isEnvUser()) ;
+    public MessageListItem(AbstractMessage<?> message) {
+        this(message.getSender().isEnvUser()) ;
 
         this.message = message ;
 
@@ -47,12 +46,10 @@ public class MessageListItem extends MyJListItem {
     /**
      * Make a new MessageListItem instance.
      *
-     * @param list : parent list.
      * @param active : active message.
      */
-    private MessageListItem(MessageList list, boolean active) {
-        this.list    = list ;
-        this.active  = active ;
+    private MessageListItem(boolean active) {
+        this.active = active ;
     }
 
     /**
@@ -119,9 +116,10 @@ public class MessageListItem extends MyJListItem {
      */
     public String getContent() {
         if(this.message instanceof MessageFile) {
+            MessageFile file = (MessageFile) this.message ;
             String end = ""  ;
 
-            if(((MessageFile) this.message).getTemporaryName() == null) {
+            if(! file.canBeDownloaded()) {
                 end = " (indisponible)" ;
             }
 
@@ -135,7 +133,32 @@ public class MessageListItem extends MyJListItem {
      * When the item is selected.
      */
     public void selected() {
-        // TODO: update or delete the message.
+        if(this.message instanceof MessageFile) {
+            MessageFile file = (MessageFile) this.message ;
+
+            // if the file can be downloaded.
+            if(file.canBeDownloaded()) {
+                JFileChooser chooser = new JFileChooser() ;
+                chooser.setDialogTitle("Specify a file to save") ;
+
+                /*
+                 * Set the suggested file name.
+                 * The file doesn't need to exist.
+                 */
+                chooser.setSelectedFile(new File(file.getOriginalName())) ;
+
+                if(chooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        File fileToSave = chooser.getSelectedFile() ;
+                        Files.copy(
+                            Path.of(file.getFullTemporaryPath()), Path.of(fileToSave.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING
+                        ) ;
+                    } catch (IOException exception) {
+                        exception.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 
 }

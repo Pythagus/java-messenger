@@ -46,7 +46,7 @@ public class SentMessageListener implements Listener {
         // If the conversation is the current active one.
         if(this.screen.getConversation().equals(conversation)) {
             this.screen.getList().addItem(
-                new MessageListItem(this.screen.getList(), message)
+                new MessageListItem(message)
             ) ;
         }
     }
