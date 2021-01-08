@@ -1,7 +1,7 @@
 package fr.insa.messenger.client.network.listeners.handlers;
 
-import fr.insa.messenger.client.ui.GraphicInterface;
 import fr.insa.messenger.client.models.User;
+import fr.insa.messenger.client.ui.GraphicInterface;
 import fr.insa.messenger.client.system.console.Console;
 import fr.insa.messenger.client.ui.screens.utils.BarType;
 import fr.insa.messenger.client.ui.screens.utils.ContentType;

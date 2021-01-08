@@ -5,38 +5,26 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import fr.insa.messenger.client.models.Conversation;
 import fr.insa.messenger.client.system.console.Console;
+import fr.insa.messenger.client.ui.GraphicInterface;
 import fr.insa.messenger.client.network.models.FilePacket;
+import fr.insa.messenger.client.system.assets.Sound;
+import fr.insa.messenger.client.ui.screens.DiscussionScreen;
 
 /**
- * Server dedicated to the incoming files
- *
  * @author Maud PENNETIER
  */
-abstract public class FileServerListener extends NetworkBaseListener<ServerSocket> {
-
-    /**
-     * The current listener running
-     * state.
-     */
-    protected boolean run ;
+public class FileListener extends NetworkBaseListener<ServerSocket> {
 
     /**
      * Make a new listener instance.
      *
      * @param port : listening port.
      */
-    public FileServerListener(int port) throws IOException {
+    public FileListener(int port) throws IOException {
         super(new ServerSocket(port)) ;
-
-        this.run = true ;
     }
-
-    /**
-     * Manage the received file instance
-     *
-     */
-    abstract protected void manageFilePacket(Socket socket, FilePacket packet) ;
 
     /**
      * Run the listener.
@@ -67,7 +55,7 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
                     stream.write(buffer, 0, bytes) ;
                     size -= bytes ;
                 }
-                
+
                 stream.close() ;
                 this.manageFilePacket(socket, filePacket) ;
             } catch (IOException | ClassNotFoundException e) {
@@ -77,11 +65,29 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
     }
 
     /**
-     * Stop the listener.
+     * Manage the received file packet.
+     *
+     * @param socket : incoming socket.
+     * @param packet : incoming packet.
      */
-    public void close(){
-        this.run = false ;
+    protected void manageFilePacket(Socket socket, FilePacket packet) {
+        // Discussion screen.
+        DiscussionScreen screen = GraphicInterface.instance().discussionScreen() ;
+
+        // Active conversation.
+        Conversation activeConversation = screen.getConversation() ;
+
+        /*
+         * If there is an active conversation and
+         * the conversation is the current displayed,
+         * then add the file to the screen.
+         */
+        if(activeConversation != null && activeConversation.getTarget().equals(packet.getSourceUser())) {
+            screen.getList().addItem(packet) ;
+        }
+
+        // Play a sound.
+        Sound.play("new-message-sound.wav") ;
     }
 
 }
-

@@ -10,7 +10,13 @@ abstract public class NetworkBaseListener<T extends Closeable> extends Thread {
     /**
      * Listener socket.
      */
-    protected final T listenerSocket;
+    protected final T listenerSocket ;
+
+    /**
+     * The current listener running
+     * state.
+     */
+    protected boolean run ;
 
     /**
      * Make a new listener instance.
@@ -18,12 +24,20 @@ abstract public class NetworkBaseListener<T extends Closeable> extends Thread {
      * @param listenerSocket : listening socket.
      */
     public NetworkBaseListener(T listenerSocket) {
-        this.listenerSocket = listenerSocket;
+        this.listenerSocket = listenerSocket ;
+        this.run            = true ;
     }
 
     /**
      * Run the listener.
      */
     abstract public void run() ;
+
+    /**
+     * Stop the listener.
+     */
+    public void close() {
+        this.run = false ;
+    }
 
 }

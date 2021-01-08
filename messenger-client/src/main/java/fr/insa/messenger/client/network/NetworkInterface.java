@@ -8,7 +8,7 @@ import fr.insa.messenger.client.network.listeners.MeetingListener;
 import fr.insa.messenger.client.network.listeners.ReceiveListener;
 import fr.insa.messenger.client.network.models.basis.BroadcastType;
 import fr.insa.messenger.client.network.listeners.MulticastListener;
-import fr.insa.messenger.client.network.listeners.FileReceiveListener;
+import fr.insa.messenger.client.network.listeners.FileListener;
 
 /**
  * @author Damien MOLINA
@@ -81,11 +81,11 @@ final public class NetworkInterface extends Thread {
     private final MulticastListener multicastListener ;
 
     /**
-     * FileReceiveListener.
+     * FileListener.
      * This listener is dedicated to the file that are coming
      * regardless the sender
      */
-    private final FileReceiveListener fileReceiveListener;
+    private final FileListener fileReceiveListener;
 
     /**
      * Envoyer instance.
@@ -116,7 +116,7 @@ final public class NetworkInterface extends Thread {
         )) ;
 
         // Prepare the file listener.
-        this.fileReceiveListener = new FileReceiveListener(NetworkInterface.FILE_RECEIVING_PORT) ;
+        this.fileReceiveListener = new FileListener(NetworkInterface.FILE_RECEIVING_PORT) ;
 
         // Prepare the envoyer.
         this.envoyer = new Envoyer() ;

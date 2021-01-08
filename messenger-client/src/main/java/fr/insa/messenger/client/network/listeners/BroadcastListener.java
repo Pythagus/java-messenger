@@ -19,15 +19,6 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
      */
     private final String name ;
 
-    /*
-     * Make a new listener instance.
-     *
-     * @param listenerSocket : listening socket.
-     */
-    /*public BroadcastListener(DatagramSocket listenerSocket) {
-        this(listenerSocket, "Broadcast") ;
-    }*/
-
     /**
      * Make a new listener instance.
      *
@@ -43,9 +34,8 @@ public class BroadcastListener extends NetworkBaseListener<DatagramSocket> {
     /**
      * Run the listener.
      */
-    @SuppressWarnings("InfiniteLoopStatement")
     public void run() {
-        while(true) {
+        while(this.run) {
             try {
                 byte[] buffer = new byte[4096];
 

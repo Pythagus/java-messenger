@@ -33,9 +33,8 @@ public class MulticastListener extends BroadcastListener {
     /**
      * Run the listener.
      */
-    @SuppressWarnings("InfiniteLoopStatement")
     public void run() {
-        while(true) {
+        while(this.run) {
             try {
                 Console.comment("=> MulticastListener is waiting") ;
 

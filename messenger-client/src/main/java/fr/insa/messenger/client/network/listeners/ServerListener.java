@@ -4,20 +4,13 @@ import java.net.Socket;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.io.ObjectInputStream;
-
-import fr.insa.messenger.client.network.models.basis.Packet;
 import fr.insa.messenger.client.system.console.Console;
+import fr.insa.messenger.client.network.models.basis.Packet;
 
 /**
  * @author Damien MOLINA
  */
 abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseListener<ServerSocket> {
-
-    /**
-     * The current listener running
-     * state.
-     */
-    protected boolean run ;
 
     /**
      * Make a new listener instance.
@@ -26,8 +19,6 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
      */
     public ServerListener(int port) throws IOException {
         super(new ServerSocket(port)) ;
-
-        this.run = true ;
     }
 
     /**
@@ -63,8 +54,6 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
 
                 T packet = (T) is.readObject() ;
 
-                // TODO : do it in a thread
-
                 if(this.shouldManagePacket(packet)) {
                     this.manageReceivedPacket(socket, packet) ;
                 } else {
@@ -74,13 +63,6 @@ abstract public class ServerListener<T extends Packet<?>> extends NetworkBaseLis
                 e.printStackTrace();
             }
         }
-    }
-
-    /**
-     * Stop the listener.
-     */
-    public void close() {
-        this.run = false ;
     }
 
 }
