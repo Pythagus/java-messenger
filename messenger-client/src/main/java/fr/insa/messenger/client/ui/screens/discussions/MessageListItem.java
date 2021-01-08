@@ -2,12 +2,11 @@ package fr.insa.messenger.client.ui.screens.discussions;
 
 import java.awt.*;
 import javax.swing.*;
-import fr.insa.messenger.client.models.Message;
 import fr.insa.messenger.client.utils.ColorUtils;
 import fr.insa.messenger.client.ui.utils.GridBagUtil;
 import fr.insa.messenger.client.ui.utils.MyJListItem;
+import fr.insa.messenger.client.models.AbstractMessage;
 import fr.insa.messenger.client.ui.factories.FontFactory;
-import fr.insa.messenger.client.network.models.FilePacket;
 
 /**
  * @author Damien MOLINA
@@ -22,12 +21,7 @@ public class MessageListItem extends MyJListItem {
     /**
      * Sent message instance.
      */
-    private Message message ;
-
-    /**
-     * File instance.
-     */
-    private FilePacket file ;
+    private AbstractMessage<?> message ;
 
     /**
      * Determine whether the item should be
@@ -41,24 +35,10 @@ public class MessageListItem extends MyJListItem {
      * @param list : parent list.
      * @param message : sent message instance.
      */
-    public MessageListItem(MessageList list, Message message) {
+    public MessageListItem(MessageList list, AbstractMessage<?> message) {
         this(list, message.getSender().isEnvUser()) ;
 
         this.message = message ;
-
-        this.initializeGraphics() ;
-    }
-
-    /**
-     * Make a new MessageListItem instance.
-     *
-     * @param list : parent list.
-     * @param file : sent file instance.
-     */
-    public MessageListItem(MessageList list, FilePacket file) {
-        this(list, file.getSourceUser().isEnvUser()) ;
-
-        this.file = file ;
 
         this.initializeGraphics() ;
     }
@@ -94,7 +74,7 @@ public class MessageListItem extends MyJListItem {
 
         // Message content.
         // TODO : manage too long message problem.
-        JLabel content = new JLabel(this.getContent()) ;
+        JLabel content = new JLabel(this.message.getContent()) ;
         content.setBorder(
             BorderFactory.createEmptyBorder(10, 10, 10, 10)
         );
@@ -129,23 +109,6 @@ public class MessageListItem extends MyJListItem {
         // Add the panels.
         GridBagUtil.addColumn(this, container, this.active ? 2 : 1, 60) ;
         GridBagUtil.addColumn(this, space, this.active ? 1 : 2, 40) ;
-    }
-
-    /**
-     * Get the content.
-     *
-     * @return string content.
-     */
-    private String getContent() {
-        if(this.message != null) {
-            return this.message.getText() ;
-        }
-
-        if(this.file != null) {
-            return this.file.getName() ;
-        }
-
-        return "" ;
     }
 
     /**

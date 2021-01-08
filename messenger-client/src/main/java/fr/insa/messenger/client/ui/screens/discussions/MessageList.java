@@ -81,7 +81,7 @@ public class MessageList extends MyJList<MessageListItem> {
      * @param filePacket : file packet instance.
      */
     public void addItem(FilePacket filePacket) {
-        this.addItem(new MessageListItem(this, filePacket)) ;
+        this.addItem(new MessageListItem(this, filePacket.getData())) ;
     }
 
     /**
@@ -105,6 +105,7 @@ public class MessageList extends MyJList<MessageListItem> {
         public Component getListCellRendererComponent(JList<? extends MessageListItem> list, MessageListItem o, int i, boolean selected, boolean b1) {
             return o ;
         }
+
     }
 
 }

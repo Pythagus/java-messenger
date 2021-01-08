@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.util.function.Predicate;
+
+import fr.insa.messenger.client.models.MessageFile;
 import fr.insa.messenger.client.system.Env;
 import fr.insa.messenger.client.models.User;
 import fr.insa.messenger.client.models.Message;
@@ -137,7 +139,7 @@ final public class ConversationController extends Controller {
         NetworkInterface.instance().getEnvoyer().sendFile(target, file) ;
 
         try {
-            new Message(target, "").databaseInsert(file) ;
+            new MessageFile(target, file).databaseInsert();
         } catch(SQLException e) {
             e.printStackTrace() ;
         }

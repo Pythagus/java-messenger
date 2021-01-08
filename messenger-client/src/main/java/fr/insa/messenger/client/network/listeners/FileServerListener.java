@@ -55,10 +55,10 @@ abstract public class FileServerListener extends NetworkBaseListener<ServerSocke
 
                 // receive a filePacket with information about the following file
                 FilePacket filePacket = (FilePacket) is.readObject() ;
-                FileOutputStream stream = new FileOutputStream(filePacket.getFullPath()) ;
+                FileOutputStream stream = new FileOutputStream(filePacket.getData().getFullTemporaryPath()) ;
 
                 // size of the file
-                long size = filePacket.getSize() ;
+                long size = filePacket.getData().getSize() ;
 
                 //receive all the packets containing the file
                 int bytes ;

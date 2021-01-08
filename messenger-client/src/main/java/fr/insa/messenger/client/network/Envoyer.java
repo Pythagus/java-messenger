@@ -166,7 +166,7 @@ final public class Envoyer {
                 this.exchanger.clear() ;
                 this.exchanger.bindOutput(socket.getOutputStream()) ;
                 this.exchanger.send(packet) ;
-                Console.comment("[FILE] FilePacket sent for file " + packet.getName()) ;
+                Console.comment("[FILE] FilePacket sent for file " + packet.getData().getOriginalName()) ;
 
                 // send the file in several packets
                 byte[] buffer = new byte[4 * 1024] ;
@@ -174,7 +174,7 @@ final public class Envoyer {
                     this.exchanger.sendF(buffer, 0, bytes[0]) ;
                 }
 
-                Console.comment("[FILE] file sent : " + packet.getName()) ;
+                Console.comment("[FILE] file sent : " + packet.getData().getOriginalName()) ;
             } catch (Exception e) {
                 e.printStackTrace() ;
             }

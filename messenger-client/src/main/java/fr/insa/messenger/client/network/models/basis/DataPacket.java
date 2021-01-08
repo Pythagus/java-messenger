@@ -21,7 +21,7 @@ abstract public class DataPacket<T> implements Serializable {
     /**
      * Packet data.
      */
-    private T data ;
+    protected T data ;
 
     /**
      * Get the packet data.

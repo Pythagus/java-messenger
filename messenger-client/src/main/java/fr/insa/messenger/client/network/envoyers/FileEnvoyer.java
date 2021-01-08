@@ -40,9 +40,7 @@ public class FileEnvoyer extends BaseEnvoyer {
                 this.user.getAddress(), NetworkInterface.FILE_RECEIVING_PORT
             ) ;
 
-            FilePacket packet = new FilePacket(
-                this.user, this.file.getName(), this.file.length()
-            ) ;
+            FilePacket packet = new FilePacket(this.user, this.file) ;
 
             this.envoyer.sendFile(
                 socket, packet, new FileInputStream(this.file)

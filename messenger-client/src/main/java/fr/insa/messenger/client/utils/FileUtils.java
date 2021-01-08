@@ -14,7 +14,7 @@ final public class FileUtils {
      * @return the generated file name.
      */
     public static String formatName(String name) {
-        return DateUtils.format("dd-MM-yyyy_HH_mm_ss") + "_" + name ;
+        return "Messenger_" + DateUtils.format("dd-MM-yyyy_HH_mm_ss") + "_" + name.trim().replace(" ", "-") ;
     }
 
     /**
@@ -27,7 +27,7 @@ final public class FileUtils {
         String fileName = file.getName() ;
 
         if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0) {
-            return fileName.substring(fileName.lastIndexOf(".") + 1) ;
+            return fileName.substring(fileName.lastIndexOf(".") + 1).trim() ;
         }
 
         return null ;
