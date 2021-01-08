@@ -1,6 +1,18 @@
 # Release Notes
 This file contains all the release notes regarding the Messenger version.
 
+## [v0.2.0 (2020-12-18)](https://github.com/Pythagus/java-messenger/compare/v0.2.0...v1.0.0)
+Major update.
+
+### Added
+- Tomcat presence server.
+- Tools package including Database tools.
+- File support.
+
+### Updated
+- Repository architecture. The repository is now including tools used by the tomcat and the application sides.
+- Database tool major upgrade. The queries are now abstract and have a clause manager.
+
 ## [v0.2.0 (2020-12-18)](https://github.com/Pythagus/java-messenger/compare/v0.1.2...v0.2.0)
 
 ### Added

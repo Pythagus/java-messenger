@@ -181,44 +181,4 @@ final public class Envoyer {
         }) ;
     }
 
-
-
-    // TODO : do it in a FileEnvoyer
-
-    /*
-     * Send a file
-     * @param dest to whom send the file
-     * @param file File to be send
-     */
-    /*public void sendFile(User dest, final File file) {
-        try {
-            Socket socket = new Socket(dest.getAddress(), NetworkInterface.FILE_RECEIVING_PORT);
-
-            final int[] bytes = {0};
-            FileInputStream stream = new FileInputStream(file);
-
-            this.executor.submit(() -> {
-                try {
-                    this.exchanger.clear();
-                    this.exchanger.bindOutput(socket.getOutputStream());
-
-                    // send the information about the file
-                    FilePacket filePacket = new FilePacket(dest, file.getName(), file.length()) ;
-                    Console.warning("packet sent ") ;
-
-                    this.exchanger.send(filePacket);
-
-                    // send the file in several packets
-                    byte[] buffer = new byte[4 * 1024];
-                    while ((bytes[0] = stream.read(buffer)) != -1) {
-                        this.exchanger.sendF(buffer, 0, bytes[0]);
-                    }
-                    Console.warning("file sent ") ;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-        } catch (Exception ignored) {}
-    }*/
-
 }
