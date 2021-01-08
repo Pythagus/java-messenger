@@ -1,7 +1,7 @@
 # Release Notes
 This file contains all the release notes regarding the Messenger version.
 
-## [v0.2.0 (2020-12-18)](https://github.com/Pythagus/java-messenger/compare/v0.2.0...v1.0.0)
+## [v1.0.0 (2021-01-08)](https://github.com/Pythagus/java-messenger/compare/v0.2.0...v1.0.0)
 Major update.
 
 ### Added
