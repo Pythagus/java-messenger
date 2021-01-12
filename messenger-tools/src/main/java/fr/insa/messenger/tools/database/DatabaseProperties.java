@@ -24,11 +24,11 @@ public class DatabaseProperties extends Properties {
         DatabaseProperties p = new DatabaseProperties() ;
 
         // Set the values.
-        p.setHost(Config.get("DB_HOST")) ;
-        p.setPort(Config.get("DB_PORT")) ;
-        p.setDatabase(Config.get("DB_DATABASE")) ;
-        p.setUser(Config.get("DB_USER")) ;
-        p.setPassword(Config.get("DB_PASSWORD")) ;
+        p.setHost(Config.getNotNull("DB_HOST")) ;
+        p.setPort(Config.getNotNull("DB_PORT")) ;
+        p.setDatabase(Config.getNotNull("DB_DATABASE")) ;
+        p.setUser(Config.getNotNull("DB_USER")) ;
+        p.setPassword(Config.getNotNull("DB_PASSWORD")) ;
 
         return p ;
     }

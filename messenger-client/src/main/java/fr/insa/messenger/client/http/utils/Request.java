@@ -134,6 +134,8 @@ abstract public class Request<T extends Request<?, ?>, R extends HttpRequestBase
             throw new RuntimeException("Null response") ;
         }
 
+        System.out.println(this.response);
+
         return new JSONObject(this.response) ;
     }
 

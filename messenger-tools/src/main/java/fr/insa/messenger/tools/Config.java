@@ -1,12 +1,13 @@
 package fr.insa.messenger.tools;
 
+import java.io.InputStream;
 import java.util.Properties;
 import java.io.FileInputStream;
 
 /**
  * @author Damien MOLINA
  */
-public class Config {
+final public class Config {
 
     /**
      * Properties file.
@@ -32,6 +33,23 @@ public class Config {
      */
     public static String get(String key) {
         return Config.get(key, null) ;
+    }
+
+    /**
+     * Get the configuration value of
+     * the given key.
+     *
+     * @param key : configuration key.
+     * @return the configuration value.
+     */
+    public static String getNotNull(String key) {
+        String value = Config.get(key, null) ;
+
+        if(value == null) {
+            throw new RuntimeException("Null property with key " + key) ;
+        }
+
+        return value ;
     }
 
     /**
@@ -75,10 +93,18 @@ public class Config {
      */
     public static void load() {
         try {
+            String filePath = Config.root + Config.FILE ;
+
+            InputStream stream = Config.class.getResourceAsStream(filePath) ;
+
+            if(stream == null) {
+                stream = new FileInputStream(filePath) ;
+            }
+
             Config.configs = new Properties() ;
-            Config.configs.load(new FileInputStream(Config.root + Config.FILE)) ;
+            Config.configs.load(stream) ;
         } catch (Exception e) {
-            e.printStackTrace() ;
+            throw new RuntimeException(e) ;
         }
     }
 

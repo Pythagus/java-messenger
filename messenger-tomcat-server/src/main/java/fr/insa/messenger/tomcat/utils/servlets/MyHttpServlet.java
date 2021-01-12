@@ -1,9 +1,6 @@
 package fr.insa.messenger.tomcat.utils.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-
 import fr.insa.messenger.tools.Config;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -96,28 +93,6 @@ abstract public class MyHttpServlet extends HttpServlet {
         }
 
         return ip ;
-    }
-
-
-
-    // TODO : TO REMOVE
-    private static HttpServletResponse r ;
-    public static ArrayList<String> messages = new ArrayList<>() ;
-    protected void print(HttpServletResponse response, String msg) {
-        MyHttpServlet.r = response ;
-        MyHttpServlet.print(msg) ;
-    }
-
-    public static void print(String msg) {
-        messages.add(msg) ;
-
-        for(String m : messages) {
-            try {
-                PrintWriter out = MyHttpServlet.r.getWriter() ;
-                out.println(m) ;
-                out.flush() ;
-            } catch (Exception ignored) {}
-        }
     }
 
 }
