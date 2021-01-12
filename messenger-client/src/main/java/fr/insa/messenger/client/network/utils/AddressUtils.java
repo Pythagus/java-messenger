@@ -3,6 +3,7 @@ package fr.insa.messenger.client.network.utils;
 import java.net.*;
 import java.util.Enumeration;
 import fr.insa.messenger.tools.Config;
+import fr.insa.messenger.client.exceptions.AppException;
 
 /**
  * @author Damien MOLINA
@@ -16,20 +17,25 @@ final public class AddressUtils {
      * @throws Exception : impossible to get the MAC address.
      */
     public static String getMacAddress() throws Exception {
-        NetworkInterface netInf = NetworkInterface.getNetworkInterfaces().nextElement() ;
+        Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces() ;
 
-        // Get the first MAC address available.
-        byte[] mac = netInf.getHardwareAddress() ;
+        while(interfaces.hasMoreElements()) {
+            byte[] mac = interfaces.nextElement().getHardwareAddress() ;
 
-        // Convert the MAC address to be readable.
-        StringBuilder sb = new StringBuilder() ;
-        for (int i = 0; i < mac.length; i++) {
-            sb.append(
-                String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : "")
-            ) ;
+            if(mac != null) {
+                // Convert the MAC address to be readable.
+                StringBuilder sb = new StringBuilder() ;
+                for (int i = 0; i < mac.length; i++) {
+                    sb.append(
+                        String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : "")
+                    ) ;
+                }
+
+                return sb.toString() ;
+            }
         }
 
-        return sb.toString() ;
+        throw new AppException("No hardware address found") ;
     }
 
     /**
