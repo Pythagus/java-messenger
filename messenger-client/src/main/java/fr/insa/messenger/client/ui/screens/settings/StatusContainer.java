@@ -28,6 +28,13 @@ public class StatusContainer extends JPanel implements ActionListener {
     private final SettingsScreen screen ;
 
     /**
+     * Current selected status used to
+     * get the previous value when the
+     * selected item changed.
+     */
+    private UserStatus currentStatus ;
+
+    /**
      * Make a new screen instance.
      */
     public StatusContainer(SettingsScreen screen) {
@@ -47,7 +54,8 @@ public class StatusContainer extends JPanel implements ActionListener {
             BorderFactory.createEmptyBorder(10, 10, 10, 10)
         ) ;
 
-        this.select.getModel().setSelectedItem(UserStatus.CONNECTED.translate()) ;
+        this.currentStatus = UserStatus.CONNECTED ;
+        this.setSelectedItem(UserStatus.CONNECTED) ;
         this.select.addActionListener(this) ;
 
         // Pseudo label.
@@ -63,6 +71,15 @@ public class StatusContainer extends JPanel implements ActionListener {
     }
 
     /**
+     * Set the selected item.
+     *
+     * @param status : selected status.
+     */
+    private void setSelectedItem(UserStatus status) {
+        this.select.getModel().setSelectedItem(status.translate()) ;
+    }
+
+    /**
      * When a select option is selected.
      *
      * @param event : select event.
@@ -74,6 +91,7 @@ public class StatusContainer extends JPanel implements ActionListener {
             PresenceResponse response = PresenceInterface.publish(status) ;
 
             if(response.isSuccessful()) {
+                this.currentStatus = status ;
                 Console.comment("[SUCCESS] Status changed : " + status.toString()) ;
             } else {
                 // Generate an error to read the catch block.
@@ -81,6 +99,7 @@ public class StatusContainer extends JPanel implements ActionListener {
             }
         } catch (Exception e) {
             Console.comment("[ERROR] Status change failed") ;
+            this.setSelectedItem(this.currentStatus) ;
             JOptionPane.showMessageDialog(
                 this.screen, "Une erreur est survenue", "Erreur", JOptionPane.ERROR_MESSAGE
             ) ;
